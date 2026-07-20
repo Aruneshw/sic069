@@ -1,208 +1,300 @@
+"use client";
+
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Star, Clock, MapPin, Users, Calendar as CalendarIcon, CheckCircle2, ChevronRight } from "lucide-react";
-import { prisma } from "@/lib/prisma";
+import { useEffect, useState, use } from "react";
+import { Star, Clock, MapPin, Users, Calendar as CalendarIcon, CheckCircle2, ChevronRight, Zap, Coffee, Compass } from "lucide-react";
+import anime from "animejs";
+import toast, { Toaster } from "react-hot-toast";
+import { TripMap } from "@/components/ui/TripMap";
 
-export default async function TripDetailPage({
+// Since this is a client component now due to animations, we need to fetch the trip data
+// In a real app we'd use SWR or React Query, but we'll fetch via a server action or API route.
+// For simplicity in this UI redesign, we'll fetch from our API.
+export default function TripDetailPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
-  
-  const trip = await prisma.trip.findUnique({
-    where: { slug },
-  });
+  const { slug } = use(params);
+  const [trip, setTrip] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!trip) {
-    notFound();
+  useEffect(() => {
+    // We fetch all trips and find the matching one, since we don't have a single-trip API route ready yet
+    fetch('/api/trips')
+      .then(res => res.json())
+      .then(data => {
+        const found = data.find((t: any) => t.slug === slug);
+        if (found) setTrip(found);
+        setLoading(false);
+      });
+  }, [slug]);
+
+  useEffect(() => {
+    if (trip && !loading) {
+      // Trigger liquid anime.js text stagger
+      anime({
+        targets: '.anime-stagger',
+        translateX: [-50, 0],
+        opacity: [0, 1],
+        easing: 'easeOutElastic(1, .8)',
+        duration: 1200,
+        delay: anime.stagger(150, {start: 300})
+      });
+      
+      // Animate the image grid
+      anime({
+        targets: '.anime-scale-up',
+        scale: [0.95, 1],
+        opacity: [0, 1],
+        easing: 'easeOutCubic',
+        duration: 800,
+        delay: anime.stagger(200, {start: 600})
+      });
+    }
+  }, [trip, loading]);
+
+  const handleBooking = () => {
+    toast.success("Awesome! Your expedition request has been sent.", {
+      icon: '🔥',
+      style: {
+        borderRadius: '12px',
+        background: '#0F172A',
+        color: '#fff',
+      },
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen liquid-bg p-8 pt-32">
+        <div className="container-main">
+          <div className="w-64 h-8 bg-white/10 rounded-md animate-pulse mb-4"></div>
+          <div className="w-96 h-16 bg-white/10 rounded-md animate-pulse mb-8"></div>
+          <div className="flex gap-4 h-[50vh]">
+            <div className="flex-[2] bg-white/10 rounded-2xl animate-pulse"></div>
+            <div className="flex-1 flex flex-col gap-4">
+              <div className="flex-1 bg-white/10 rounded-2xl animate-pulse"></div>
+              <div className="flex-1 bg-white/10 rounded-2xl animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
+
+  if (!trip) return <div className="p-24 text-center">Trip not found</div>;
 
   const highlights = JSON.parse(trip.highlights) as string[];
   const itinerary = JSON.parse(trip.itinerary) as { day: number; title: string; description: string }[];
   const included = JSON.parse(trip.included) as string[];
 
   return (
-    <div className="bg-slate-50 min-h-screen pb-24">
-      {/* ═══════════════════════════════════════
-          HERO SECTION (page-04.png)
-          ═══════════════════════════════════════ */}
-      <div className="relative h-[60vh] min-h-[400px] w-full bg-navy-900">
-        <div className="absolute inset-0 bg-slate-800 animate-pulse" />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img 
-          src={trip.imageUrl || `https://source.unsplash.com/random/1920x1080/?${trip.category.toLowerCase()}`} 
-          alt={trip.name} 
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-900/90 via-navy-900/40 to-transparent" />
-        
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
-          <div className="container-main">
-            {/* Breadcrumb */}
-            <div className="flex items-center gap-2 text-sm font-medium text-teal-100 mb-6">
-              <Link href="/" className="hover:text-white transition-colors">Home</Link>
-              <ChevronRight size={14} />
-              <Link href="/trips" className="hover:text-white transition-colors">Trips</Link>
-              <ChevronRight size={14} />
-              <span className="text-white">{trip.category}</span>
-            </div>
+    <div className="liquid-bg min-h-screen pt-24 pb-24 text-slate-100">
+      <Toaster position="bottom-center" reverseOrder={false} />
+      
+      <div className="container-main">
+        {/* Breadcrumb */}
+        <div className="flex items-center gap-2 text-sm font-medium text-teal-200 mb-6 anime-stagger opacity-0">
+          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <ChevronRight size={14} />
+          <Link href="/trips" className="hover:text-white transition-colors">Trips</Link>
+          <ChevronRight size={14} />
+          <span className="text-white font-bold">{trip.category}</span>
+        </div>
 
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div className="max-w-3xl">
-                {trip.badge && (
-                  <span className="inline-block px-3 py-1 bg-teal-500 text-white text-xs font-bold uppercase tracking-wider rounded-full mb-4">
-                    {trip.badge}
-                  </span>
-                )}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
-                  {trip.name}
-                </h1>
-                <p className="text-xl text-slate-200">{trip.tagline}</p>
-              </div>
-              
-              <div className="flex items-center gap-6 bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 shrink-0">
-                <div className="text-center px-4 border-r border-white/20">
-                  <div className="flex items-center justify-center gap-1 text-warning mb-1">
-                    <Star size={18} className="fill-warning" />
-                    <span className="font-bold text-lg">{trip.rating}</span>
-                  </div>
-                  <span className="text-xs font-medium text-slate-300 uppercase tracking-wider">Rating</span>
-                </div>
-                <div className="text-center px-4">
-                  <div className="text-white font-bold text-lg mb-1">{trip.duration}</div>
-                  <span className="text-xs font-medium text-slate-300 uppercase tracking-wider">Duration</span>
-                </div>
+        {/* Header */}
+        <div className="mb-8 max-w-4xl">
+          {trip.badge && (
+            <span className="anime-stagger opacity-0 inline-block px-4 py-1.5 bg-gradient-to-r from-teal-400 to-teal-600 text-white text-xs font-bold uppercase tracking-wider rounded-full mb-4 shadow-lg shadow-teal-500/30">
+              {trip.badge}
+            </span>
+          )}
+          <h1 className="anime-stagger opacity-0 text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg">
+            {trip.name}
+          </h1>
+          <p className="anime-stagger opacity-0 text-xl md:text-2xl text-teal-100/90 font-light drop-shadow-md">
+            {trip.tagline}
+          </p>
+        </div>
+
+        {/* Expedia-Style Image Mosaic (Bento Grid) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[400px] md:h-[500px] lg:h-[600px] mb-12 rounded-3xl overflow-hidden shadow-2xl">
+          <div className="md:col-span-2 relative anime-scale-up opacity-0 group">
+            <div className="absolute inset-0 bg-navy-900/50 animate-pulse -z-10" />
+            <img 
+              src={trip.imageUrl || `https://source.unsplash.com/random/1920x1080/?${trip.category.toLowerCase()}`} 
+              alt={trip.name} 
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
+          <div className="hidden md:flex flex-col gap-4 h-full">
+            <div className="flex-1 relative anime-scale-up opacity-0 group overflow-hidden rounded-2xl">
+              <div className="absolute inset-0 bg-navy-900/50 animate-pulse -z-10" />
+              <img src="/images/trips/detail_1.png" alt="Luxury View" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+            <div className="flex-1 relative anime-scale-up opacity-0 group overflow-hidden rounded-2xl">
+              <div className="absolute inset-0 bg-navy-900/50 animate-pulse -z-10" />
+              <img src="/images/trips/detail_2.png" alt="Experience" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="text-white font-bold tracking-widest uppercase">View Gallery</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* ═══════════════════════════════════════
-          CONTENT & SIDEBAR (page-04.png)
-          ═══════════════════════════════════════ */}
-      <div className="container-main mt-8">
-        <div className="flex flex-col lg:flex-row gap-10">
+        {/* Two-Column Layout */}
+        <div className="flex flex-col lg:flex-row gap-8">
           
-          {/* Main Content */}
-          <div className="flex-1 min-w-0">
-            {/* Tabs Navigation (Visual only for this iteration) */}
-            <div className="flex items-center gap-8 border-b border-slate-200 mb-8 overflow-x-auto hide-scrollbar sticky top-[var(--nav-height)] bg-slate-50/90 backdrop-blur-md z-20 pt-4">
-              <div className="border-b-2 border-navy-700 pb-4 text-sm font-bold text-navy-900 whitespace-nowrap">Overview</div>
-              <div className="pb-4 text-sm font-medium text-slate-500 hover:text-navy-900 transition-colors whitespace-nowrap">Itinerary</div>
-              <div className="pb-4 text-sm font-medium text-slate-500 hover:text-navy-900 transition-colors whitespace-nowrap">What's Included</div>
-              <div className="pb-4 text-sm font-medium text-slate-500 hover:text-navy-900 transition-colors whitespace-nowrap">Reviews</div>
+          {/* Main Content (Left) */}
+          <div className="flex-1 space-y-8 min-w-0">
+            
+            {/* Quick Overview Stats */}
+            <div className="glass-panel p-6 rounded-3xl flex flex-wrap justify-between items-center gap-6 anime-stagger opacity-0">
+              <div className="flex flex-col gap-1">
+                <span className="text-teal-200 text-sm font-semibold uppercase tracking-widest">Rating</span>
+                <div className="flex items-center gap-2">
+                  <Star className="fill-warning text-warning drop-shadow-md" size={24} />
+                  <span className="text-2xl font-bold text-white">{trip.rating}</span>
+                </div>
+              </div>
+              <div className="w-px h-12 bg-white/20 hidden md:block" />
+              <div className="flex flex-col gap-1">
+                <span className="text-teal-200 text-sm font-semibold uppercase tracking-widest">Duration</span>
+                <div className="flex items-center gap-2">
+                  <Clock className="text-white drop-shadow-md" size={24} />
+                  <span className="text-2xl font-bold text-white">{trip.duration}</span>
+                </div>
+              </div>
+              <div className="w-px h-12 bg-white/20 hidden md:block" />
+              <div className="flex flex-col gap-1">
+                <span className="text-teal-200 text-sm font-semibold uppercase tracking-widest">Type</span>
+                <div className="flex items-center gap-2">
+                  <Compass className="text-white drop-shadow-md" size={24} />
+                  <span className="text-2xl font-bold text-white">{trip.category}</span>
+                </div>
+              </div>
             </div>
 
-            {/* Description */}
-            <section className="mb-12">
-              <h2 className="text-2xl font-bold text-navy-900 mb-4">About this expedition</h2>
-              <p className="text-slate-600 text-lg leading-relaxed">{trip.description}</p>
-            </section>
+            {/* About */}
+            <div className="glass-panel p-8 md:p-10 rounded-3xl anime-stagger opacity-0">
+              <h2 className="text-3xl font-extrabold text-white mb-6 tracking-tight">The Experience</h2>
+              <p className="text-teal-50/90 text-lg leading-relaxed font-light">{trip.description}</p>
+            </div>
 
             {/* Highlights Grid */}
-            <section className="mb-12">
-              <h2 className="text-2xl font-bold text-navy-900 mb-6">Trip Highlights</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="glass-panel p-8 md:p-10 rounded-3xl anime-stagger opacity-0">
+              <h2 className="text-3xl font-extrabold text-white mb-8 tracking-tight">Expedition Highlights</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {highlights.map((highlight, idx) => (
-                  <div key={idx} className="flex items-start gap-3 bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
-                    <div className="p-1 bg-teal-50 rounded text-teal-600 mt-0.5">
-                      <Star size={16} />
+                  <div key={idx} className="flex items-start gap-4 p-5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-colors">
+                    <div className="p-2 bg-gradient-to-br from-teal-400 to-teal-600 rounded-xl shadow-lg shadow-teal-500/20 shrink-0">
+                      <Zap size={20} className="text-white fill-white" />
                     </div>
-                    <span className="text-slate-700 font-medium">{highlight}</span>
+                    <span className="text-white font-medium leading-tight pt-1">{highlight}</span>
                   </div>
                 ))}
               </div>
-            </section>
+            </div>
+
+            {/* Explore Area (Map) */}
+            <div className="glass-panel p-8 md:p-10 rounded-3xl anime-stagger opacity-0">
+              <h2 className="text-3xl font-extrabold text-white mb-2 tracking-tight">Explore the Area</h2>
+              <p className="text-teal-200/80 mb-8">Get a sense of your surroundings and key landmarks.</p>
+              <div className="rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
+                <TripMap location={trip.name} />
+              </div>
+            </div>
 
             {/* Itinerary */}
-            <section className="mb-12">
-              <h2 className="text-2xl font-bold text-navy-900 mb-6">Itinerary</h2>
-              <div className="space-y-6">
-                {itinerary.map((day) => (
-                  <div key={day.day} className="flex gap-4">
-                    <div className="flex flex-col items-center">
-                      <div className="w-10 h-10 rounded-full bg-navy-900 text-white flex items-center justify-center font-bold shadow-md shrink-0">
-                        {day.day}
-                      </div>
-                      {day.day !== itinerary.length && (
-                        <div className="w-0.5 h-full bg-slate-200 mt-2 mb-2" />
-                      )}
+            <div className="glass-panel p-8 md:p-10 rounded-3xl anime-stagger opacity-0">
+              <h2 className="text-3xl font-extrabold text-white mb-8 tracking-tight">Daily Itinerary</h2>
+              <div className="space-y-8 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-teal-400 before:via-white/20 before:to-transparent">
+                {itinerary.map((day, idx) => (
+                  <div key={day.day} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-teal-500 text-white font-bold shadow-xl shadow-teal-500/40 border-4 border-navy-900 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                      {day.day}
                     </div>
-                    <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex-1 mb-2">
-                      <h3 className="text-lg font-bold text-navy-900 mb-2">{day.title}</h3>
-                      <p className="text-slate-600">{day.description}</p>
+                    <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] glass-panel p-6 rounded-2xl border border-white/10 transition-transform duration-300 hover:-translate-y-1">
+                      <h3 className="text-xl font-bold text-white mb-2">{day.title}</h3>
+                      <p className="text-teal-50/80 font-light">{day.description}</p>
                     </div>
                   </div>
                 ))}
               </div>
-            </section>
+            </div>
+
           </div>
 
-          {/* Sticky Booking Sidebar */}
-          <div className="w-full lg:w-[400px] shrink-0">
-            <div className="sticky top-[calc(var(--nav-height)+2rem)] card-elevated p-6 md:p-8 bg-white border border-slate-200 shadow-xl rounded-2xl">
+          {/* Sticky Booking Sidebar (Right) */}
+          <div className="w-full lg:w-[420px] shrink-0">
+            <div className="sticky top-32 glass-panel p-8 border border-white/20 shadow-2xl rounded-[2rem] anime-stagger opacity-0">
               
-              <div className="flex items-end justify-between border-b border-slate-100 pb-6 mb-6">
+              <div className="flex items-end justify-between border-b border-white/10 pb-6 mb-8">
                 <div>
-                  <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider block mb-1">Price per person</span>
-                  <div className="flex items-end gap-1">
-                    <span className="text-4xl font-bold text-navy-900">${trip.price}</span>
-                    <span className="text-slate-500 font-medium mb-1">USD</span>
+                  <span className="text-xs font-bold text-teal-200 uppercase tracking-widest block mb-2 drop-shadow-md">Price per person</span>
+                  <div className="flex items-end gap-2">
+                    <span className="text-5xl font-extrabold text-white tracking-tighter drop-shadow-lg">${trip.price}</span>
+                    <span className="text-teal-100 font-medium mb-1 drop-shadow-md">USD</span>
                   </div>
                 </div>
-                {trip.badge === "Bestseller" && (
-                  <div className="bg-warning-light text-warning px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
-                    <Star size={14} className="fill-warning" /> Highly Rated
-                  </div>
-                )}
               </div>
 
               <div className="space-y-4 mb-8">
-                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <CalendarIcon size={20} className="text-teal-600" />
+                <div className="flex items-center justify-between p-5 bg-white/5 hover:bg-white/10 transition-colors rounded-2xl border border-white/10 cursor-pointer">
+                  <div className="flex items-center gap-4">
+                    <div className="p-2 bg-teal-500/20 rounded-xl text-teal-300">
+                      <CalendarIcon size={24} />
+                    </div>
                     <div>
-                      <div className="text-sm font-bold text-navy-900">Select Date</div>
-                      <div className="text-xs text-slate-500">View available departures</div>
+                      <div className="text-white font-bold text-lg">Select Date</div>
+                      <div className="text-sm text-teal-200/80">View available departures</div>
                     </div>
                   </div>
-                  <ChevronRight size={18} className="text-slate-400" />
+                  <ChevronRight size={20} className="text-teal-300/50" />
                 </div>
                 
-                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <Users size={20} className="text-teal-600" />
+                <div className="flex items-center justify-between p-5 bg-white/5 hover:bg-white/10 transition-colors rounded-2xl border border-white/10 cursor-pointer">
+                  <div className="flex items-center gap-4">
+                    <div className="p-2 bg-teal-500/20 rounded-xl text-teal-300">
+                      <Users size={24} />
+                    </div>
                     <div>
-                      <div className="text-sm font-bold text-navy-900">Travelers</div>
-                      <div className="text-xs text-slate-500">2 Adults</div>
+                      <div className="text-white font-bold text-lg">Travelers</div>
+                      <div className="text-sm text-teal-200/80">2 Adults</div>
                     </div>
                   </div>
-                  <ChevronRight size={18} className="text-slate-400" />
+                  <ChevronRight size={20} className="text-teal-300/50" />
                 </div>
               </div>
 
-              <button className="btn-cta w-full text-base py-4 mb-4 shadow-glow-cta">
-                Enquire Now
+              <button 
+                onClick={handleBooking}
+                className="w-full py-5 bg-gradient-to-r from-teal-400 to-teal-500 hover:from-teal-300 hover:to-teal-400 text-navy-900 text-lg font-black rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-glow-cta uppercase tracking-widest"
+              >
+                Book Now
               </button>
               
-              <p className="text-center text-xs text-slate-500 font-medium">
-                No payment required for enquiry. We will contact you within 24 hours to confirm availability.
+              <p className="text-center text-xs text-teal-200/60 font-medium mt-6 uppercase tracking-wider">
+                No payment required for enquiry.
               </p>
 
-              <div className="mt-8 pt-6 border-t border-slate-100">
-                <h4 className="text-sm font-bold text-navy-900 mb-4">What's Included</h4>
-                <ul className="space-y-3">
+              {/* What's Included Mini-List */}
+              <div className="mt-8 pt-6 border-t border-white/10">
+                <h4 className="text-sm font-bold text-white mb-5 uppercase tracking-widest">Included Amenities</h4>
+                <ul className="space-y-4">
                   {included.slice(0, 4).map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-slate-600">
-                      <CheckCircle2 size={16} className="text-success shrink-0 mt-0.5" />
+                    <li key={idx} className="flex items-start gap-3 text-sm text-teal-50/90 font-medium">
+                      <div className="p-1 bg-white/10 rounded-full mt-0.5 shrink-0">
+                        <CheckCircle2 size={14} className="text-teal-300" />
+                      </div>
                       <span>{item}</span>
                     </li>
                   ))}
                   {included.length > 4 && (
-                    <li className="text-sm text-teal-600 font-medium cursor-pointer pt-1">
-                      + {included.length - 4} more items
+                    <li className="text-xs text-teal-400 font-bold uppercase tracking-widest cursor-pointer pt-2 hover:text-teal-300 transition-colors">
+                      + View {included.length - 4} more amenities
                     </li>
                   )}
                 </ul>
