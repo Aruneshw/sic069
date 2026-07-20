@@ -12,7 +12,7 @@ const stories = [
     rating: 5,
     excerpt: "I've dreamed of seeing the aurora borealis since I was a child. The guides at Zero Gravity didn't just take us to a viewpoint; they taught us the science, the folklore, and how to capture it perfectly on camera. The glass igloo experience was surreal.",
     helpfulCount: 124,
-    imageUrl: "https://source.unsplash.com/random/800x1200/?aurora",
+    imageUrl: "/images/community/aurora.png",
     height: "tall",
   },
   {
@@ -24,7 +24,7 @@ const stories = [
     rating: 5,
     excerpt: "We booked the Vineyard Valley Retreat for our anniversary. The balance between active cycling and relaxed wine tasting was perfect. The highlight was definitely the private farm-to-table dinner.",
     helpfulCount: 89,
-    imageUrl: "https://source.unsplash.com/random/800x800/?vineyard,wine",
+    imageUrl: "/images/community/vineyard.png",
     height: "short",
   },
   {
@@ -36,7 +36,7 @@ const stories = [
     rating: 4,
     excerpt: "The trek was physically demanding, exactly as advertised. Our guide, Tenzing, was phenomenal—always ensuring everyone was acclimatizing well. The views from the ridge on day 3 were worth every drop of sweat.",
     helpfulCount: 210,
-    imageUrl: "https://source.unsplash.com/random/800x1000/?mountain,hiking",
+    imageUrl: "/images/community/alpine.png",
     height: "medium",
   },
   {
@@ -48,7 +48,7 @@ const stories = [
     rating: 5,
     excerpt: "Finding a trip that teenagers will actually enjoy is tough, but the Coastal Highway Escape delivered. Kayaking to the secret coves and the evening beach campfires were incredible bonding experiences.",
     helpfulCount: 156,
-    imageUrl: "https://source.unsplash.com/random/800x1000/?coast,campfire",
+    imageUrl: "/images/community/coast.png",
     height: "medium",
   },
   {
@@ -60,7 +60,7 @@ const stories = [
     rating: 5,
     excerpt: "A truly restorative week. The jungle villa was stunning, but the authentic interactions with the local healers made this trip stand out from other wellness retreats I've attended.",
     helpfulCount: 342,
-    imageUrl: "https://source.unsplash.com/random/800x1200/?bali,yoga",
+    imageUrl: "/images/community/bali.png",
     height: "tall",
   },
 ];
@@ -74,7 +74,7 @@ export default function CommunityPage() {
           HERO BANNER
           ═══════════════════════════════════════ */}
       <section className="relative pt-24 pb-32 md:pt-32 md:pb-40 overflow-hidden bg-navy-900">
-        <div className="absolute inset-0 bg-[url('https://source.unsplash.com/random/1920x1080/?travel,community')] bg-cover bg-center mix-blend-overlay opacity-30" />
+        <div className="absolute inset-0 bg-[url('/images/community/alpine.png')] bg-cover bg-center mix-blend-overlay opacity-30" />
         <div className="absolute inset-0 bg-gradient-to-t from-navy-900 via-transparent to-transparent" />
         
         <div className="container-main relative z-10">

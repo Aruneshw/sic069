@@ -56,7 +56,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-slate-200 animate-pulse" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
-                  src="https://source.unsplash.com/random/800x1000/?portrait,outdoors" 
+                  src="/images/about/founder.png" 
                   alt="Marcus Vance, Founder" 
                   className="absolute inset-0 w-full h-full object-cover"
                 />
