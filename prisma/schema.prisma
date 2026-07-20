@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Trip {
+  id            String      @id @default(cuid())
+  name          String
+  slug          String      @unique
+  tagline       String
+  description   String
+  category      String      // Coastal, Mountain, Urban, Valley
+  price         Int         // in whole dollars (max $650)
+  duration      String      // "3 Days", "7 Days", etc.
+  maxSeats      Int
+  filledSeats   Int         @default(0)
+  departureDate DateTime
+  imageUrl      String
+  badge         String?     // "Bestseller", "Premium", "New"
+  status        String      @default("Published") // Published, Draft, Archived
+  rating        Float       @default(4.5)
+  highlights    String      // JSON array stored as string
+  itinerary     String      // JSON array stored as string
+  included      String      // JSON array stored as string
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  enquiries     Enquiry[]
+  departures    Departure[]
+}
+
+model Departure {
+  id        String   @id @default(cuid())
+  tripId    String
+  trip      Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  date      DateTime
+  time      String
+  seatsLeft Int
+  status    String   @default("Open") // Open, Filling Fast, Almost Full
+}
+
+model Enquiry {
+  id          String   @id @default(cuid())
+  tripId      String
+  trip        Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  userName    String
+  userEmail   String
+  status      String   @default("Pending") // Pending, Confirmed, Waitlisted
+  requestedOn DateTime @default(now())
+  message     String?
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  type      String   // SEAT_ALERT, PRICE_DROP, NEW_TRIP, SYSTEM_UPDATE
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime @default(now())
+}
