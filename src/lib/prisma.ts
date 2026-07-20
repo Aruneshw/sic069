@@ -1,6 +1,5 @@
 import { PrismaClient } from "@/generated/prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
-import Database from "better-sqlite3";
 import path from "path";
 
 const globalForPrisma = globalThis as unknown as {
@@ -8,13 +7,10 @@ const globalForPrisma = globalThis as unknown as {
 };
 
 function createPrismaClient() {
-  const dbPath = path.join(process.cwd(), "prisma", "dev.db");
-  // Open read-only in production because Vercel serverless functions have a read-only filesystem
-  const db = new Database(dbPath, { 
-    readonly: process.env.NODE_ENV === "production" 
+  const adapter = new PrismaBetterSqlite3({
+    url: "file:./prisma/dev.db",
+    readonly: process.env.NODE_ENV === "production"
   });
-  
-  const adapter = new PrismaBetterSqlite3(db);
   return new PrismaClient({ adapter });
 }
 
