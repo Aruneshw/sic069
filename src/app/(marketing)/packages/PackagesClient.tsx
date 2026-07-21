@@ -380,36 +380,7 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
           )}
         </section>
 
-        {/* Trust/USP Section */}
-        <section className="container-main pb-24">
-          <div className="mb-10">
-            <div className="text-xs font-bold uppercase tracking-[0.28em] text-slate-400">Technical Features</div>
-            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 md:text-4xl">
-              Expedition design for the modern traveler
-            </h2>
-          </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            <TrustCard
-              icon={ShieldCheck}
-              title="Verified multi-trip scheduling"
-              body="Every itinerary is mathematically checked against the individual departures of all bundled stops, ensuring seamless connection and travel timings."
-              index={0}
-            />
-            <TrustCard
-              icon={Sparkles}
-              title="Editorial visual storytelling"
-              body="Dynamic high-fidelity 4K category preview loops automatically load context-appropriate moods so you can feel the destination before embarking."
-              index={1}
-            />
-            <TrustCard
-              icon={Users}
-              title="Single point-of-contact bookings"
-              body="No need to reserve 3 separate houseboats, toy trains, or temple guides. One package handles it all under a unified booking and guides system."
-              index={2}
-            />
-          </div>
-        </section>
       </div>
 
       {/* Fullscreen Glassmorphic Itinerary Modal */}

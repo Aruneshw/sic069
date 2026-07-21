@@ -61,8 +61,9 @@ export default function TripCard({ trip, index = 0 }: TripCardProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
+      <Link href={`/trips/${trip.slug}`} className="absolute inset-0 z-[100] rounded-[1.5rem]" aria-label={`View ${trip.name} details`} />
       <span></span>
-      <Link href={`/trips/${trip.slug}`} className="block no-underline h-full">
+      <div className="block no-underline h-full pointer-events-none">
         <motion.div
           style={{ transform }}
           className="kodplay-content card-3d-inner flex flex-col h-full overflow-hidden"
@@ -127,7 +128,7 @@ export default function TripCard({ trip, index = 0 }: TripCardProps) {
             </div>
           </div>
         </motion.div>
-      </Link>
+      </div>
     </motion.div>
   );
 }
