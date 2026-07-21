@@ -46,8 +46,8 @@ export default function Navbar() {
         <nav
           className={`pointer-events-auto transition-all duration-300 flex items-center justify-between rounded-full border shadow-xl ${
             isScrolled
-              ? "bg-white/95 backdrop-blur-lg border-white/40 shadow-slate-200/50 py-2 px-6 w-full max-w-5xl"
-              : "bg-white/70 backdrop-blur-md border-white/30 py-3 px-8 w-full max-w-6xl"
+              ? "bg-white border-white/40 shadow-slate-200/50 py-2 px-6 w-full max-w-5xl"
+              : "bg-white border-white/30 py-3 px-8 w-full max-w-6xl"
           }`}
         >
           {/* Logo */}
