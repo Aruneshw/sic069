@@ -38,7 +38,7 @@ export default async function HomePage() {
           muted 
           playsInline
           preload="metadata"
-          poster="/videos/mountain-poster.webp"
+          poster={getAssetUrl("/videos/mountain-poster.webp")}
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src={getAssetUrl("/videos/mountain.mp4")} type="video/mp4" />

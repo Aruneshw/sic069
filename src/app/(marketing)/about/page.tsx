@@ -16,7 +16,7 @@ export default function AboutPage() {
           muted 
           playsInline 
           preload="metadata"
-          poster="/videos/hovering_zoom_vid-poster.webp"
+          poster={getAssetUrl("/videos/hovering_zoom_vid-poster.webp")}
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 transition-transform duration-1000 group-hover:scale-105"
         >
           <source src={getAssetUrl("/videos/hovering_zoom_vid.mp4")} type="video/mp4" />
