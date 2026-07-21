@@ -7,39 +7,48 @@ export default function AboutPage() {
       {/* ═══════════════════════════════════════
           MISSION & STATS (page-05.png)
           ═══════════════════════════════════════ */}
-      <section className="pt-20 pb-16 md:pt-32 md:pb-24 px-6 relative">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-navy-50/50 rounded-bl-[100px] -z-10" />
+      <section className="pt-36 pb-20 md:pt-48 md:pb-24 px-6 relative overflow-hidden bg-navy-900 text-white group">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 transition-transform duration-1000 group-hover:scale-105"
+        >
+          <source src="/videos/hovering_zoom_vid.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-navy-900/40 z-0 pointer-events-none" />
         
-        <div className="container-main">
+        <div className="container-main relative z-10">
           <div className="max-w-3xl mb-16">
-            <span className="inline-block px-4 py-2 bg-teal-50 text-teal-700 font-bold uppercase tracking-wider rounded-full mb-6 text-sm border border-teal-100">
+            <span className="inline-block px-4 py-2 bg-teal-500/20 text-teal-200 font-bold uppercase tracking-wider rounded-full mb-6 text-sm border border-teal-500/30 backdrop-blur-md">
               Our Mission
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-navy-900 mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-md">
               Radical Transparency <br />
-              <span className="text-teal-600">for Budget</span> Travellers.
+              <span className="text-teal-300">for Budget</span> Travellers.
             </h1>
-            <p className="text-xl text-slate-600 leading-relaxed">
+            <p className="text-xl text-slate-200 leading-relaxed drop-shadow-sm opacity-90">
               We believe that budget travellers deserve better than broken links, hidden fees, and waiting on email replies to find out if a trip is running. Since our founding, we've been committed to providing clear inclusions, live group sizes, and instant schedules so you can plan with confidence.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 border-t border-b border-slate-100 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 border-t border-b border-white/10 py-12">
             <div className="text-center p-4">
-              <div className="text-4xl font-bold text-navy-900 mb-2">12+</div>
-              <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Years Active</div>
+              <div className="text-4xl font-bold text-teal-300 mb-2">12+</div>
+              <div className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Years Active</div>
             </div>
-            <div className="text-center p-4 border-l border-slate-100">
-              <div className="text-4xl font-bold text-navy-900 mb-2">45k</div>
-              <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Happy Travelers</div>
+            <div className="text-center p-4 border-l border-white/10">
+              <div className="text-4xl font-bold text-teal-300 mb-2">45k</div>
+              <div className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Happy Travelers</div>
             </div>
-            <div className="text-center p-4 md:border-l border-slate-100">
-              <div className="text-4xl font-bold text-navy-900 mb-2">18</div>
-              <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Industry Awards</div>
+            <div className="text-center p-4 md:border-l border-white/10">
+              <div className="text-4xl font-bold text-teal-300 mb-2">18</div>
+              <div className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Industry Awards</div>
             </div>
-            <div className="text-center p-4 border-l border-slate-100">
-              <div className="text-4xl font-bold text-navy-900 mb-2">120+</div>
-              <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Regional Tours</div>
+            <div className="text-center p-4 border-l border-white/10">
+              <div className="text-4xl font-bold text-teal-300 mb-2">120+</div>
+              <div className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Regional Tours</div>
             </div>
           </div>
         </div>
@@ -90,28 +99,28 @@ export default function AboutPage() {
       {/* ═══════════════════════════════════════
           GALLERY (page-05.png / page-09.png)
           ═══════════════════════════════════════ */}
-      <section className="py-24">
+      <section className="py-16">
         <div className="container-main mb-12 text-center">
           <h2 className="text-3xl font-bold text-navy-900 mb-4">Capturing the Unforgettable</h2>
           <p className="text-slate-600 max-w-2xl mx-auto">Moments of awe, challenge, and triumph from our recent expeditions.</p>
         </div>
         
         {/* Simple masonry grid representation */}
-        <div className="container-main grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="container-main grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden aspect-square relative group">
-            <img src="https://source.unsplash.com/random/800x800/?hiking" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/images/places/guna_cave.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
           <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src="https://source.unsplash.com/random/400x400/?ocean" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/images/places/alapuzha.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
           <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src="https://source.unsplash.com/random/400x400/?mountain,snow" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/images/places/ooty.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
           <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src="https://source.unsplash.com/random/400x400/?camping" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/images/places/monkey_falls.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
           <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src="https://source.unsplash.com/random/400x400/?forest" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src="/images/places/hogennakal.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
         </div>
       </section>
@@ -126,50 +135,55 @@ export default function AboutPage() {
             {/* Contact Form */}
             <div className="w-full lg:w-1/2">
               <h2 className="text-3xl font-bold mb-8">Get in Touch</h2>
-              <form className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
-                  <input 
-                    type="text" 
-                    id="name"
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
-                    placeholder="Jane Doe"
-                  />
+              <div className="kodplay-glow-card glow-indigo glow-dark w-full group">
+                <span></span>
+                <div className="kodplay-content p-8">
+                  <form className="space-y-6">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
+                      <input 
+                        type="text" 
+                        id="name"
+                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                        placeholder="Jane Doe"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
+                      <input 
+                        type="email" 
+                        id="email"
+                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                        placeholder="jane@example.com"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="subject" className="block text-sm font-medium text-slate-300 mb-2">Subject</label>
+                      <select 
+                        id="subject"
+                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all appearance-none"
+                      >
+                        <option value="" className="text-navy-900">Select a topic...</option>
+                        <option value="booking" className="text-navy-900">Booking Enquiry</option>
+                        <option value="custom" className="text-navy-900">Custom Group Tour</option>
+                        <option value="support" className="text-navy-900">General Support</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">Message</label>
+                      <textarea 
+                        id="message"
+                        rows={4}
+                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all resize-none"
+                        placeholder="How can we help you plan your next trip?"
+                      />
+                    </div>
+                    <button type="button" className="btn-cta w-full py-4 text-base mt-2 shadow-glow-cta">
+                      Send Message
+                    </button>
+                  </form>
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
-                  <input 
-                    type="email" 
-                    id="email"
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
-                    placeholder="jane@example.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-slate-300 mb-2">Subject</label>
-                  <select 
-                    id="subject"
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all appearance-none"
-                  >
-                    <option value="" className="text-navy-900">Select a topic...</option>
-                    <option value="booking" className="text-navy-900">Booking Enquiry</option>
-                    <option value="custom" className="text-navy-900">Custom Group Tour</option>
-                    <option value="support" className="text-navy-900">General Support</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">Message</label>
-                  <textarea 
-                    id="message"
-                    rows={4}
-                    className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all resize-none"
-                    placeholder="How can we help you plan your next trip?"
-                  />
-                </div>
-                <button type="button" className="btn-cta w-full py-4 text-base mt-2 shadow-glow-cta">
-                  Send Message
-                </button>
-              </form>
+              </div>
             </div>
 
             {/* Contact Info & FAQ */}
@@ -209,18 +223,27 @@ export default function AboutPage() {
 
               <div id="faq" className="mt-auto">
                 <h3 className="text-xl font-bold mb-6">Frequently Asked Questions</h3>
-                <div className="space-y-4">
-                  <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
-                    <h4 className="font-bold text-white mb-2">Are flights included?</h4>
-                    <p className="text-sm text-slate-400">Unless specifically stated in the itinerary, international and domestic flights are not included in the tour price.</p>
+                <div className="space-y-6">
+                  <div className="kodplay-glow-card glow-teal glow-dark w-full group">
+                    <span></span>
+                    <div className="kodplay-content p-4">
+                      <h4 className="font-bold text-white mb-2">Are flights included?</h4>
+                      <p className="text-sm text-slate-300">Unless specifically stated in the itinerary, international and domestic flights are not included in the tour price.</p>
+                    </div>
                   </div>
-                  <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
-                    <h4 className="font-bold text-white mb-2">What is the cancellation policy?</h4>
-                    <p className="text-sm text-slate-400">Full refund up to 60 days before departure. 50% refund between 30-60 days. No refund within 30 days.</p>
+                  <div className="kodplay-glow-card glow-blue glow-dark w-full group">
+                    <span></span>
+                    <div className="kodplay-content p-4">
+                      <h4 className="font-bold text-white mb-2">What is the cancellation policy?</h4>
+                      <p className="text-sm text-slate-300">Full refund up to 60 days before departure. 50% refund between 30-60 days. No refund within 30 days.</p>
+                    </div>
                   </div>
-                  <div className="p-4 bg-white/5 border border-white/10 rounded-xl">
-                    <h4 className="font-bold text-white mb-2">How fit do I need to be?</h4>
-                    <p className="text-sm text-slate-400">Each tour has a physical rating from 1 (Relaxed) to 5 (Challenging). Please check the specific requirements on the trip page.</p>
+                  <div className="kodplay-glow-card glow-purple glow-dark w-full group">
+                    <span></span>
+                    <div className="kodplay-content p-4">
+                      <h4 className="font-bold text-white mb-2">How fit do I need to be?</h4>
+                      <p className="text-sm text-slate-300">Each tour has a physical rating from 1 (Relaxed) to 5 (Challenging). Please check the specific requirements on the trip page.</p>
+                    </div>
                   </div>
                 </div>
               </div>

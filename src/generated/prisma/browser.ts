@@ -42,3 +42,8 @@ export type Notification = Prisma.NotificationModel
  * 
  */
 export type ContactMessage = Prisma.ContactMessageModel
+/**
+ * Model Package
+ * 
+ */
+export type Package = Prisma.PackageModel

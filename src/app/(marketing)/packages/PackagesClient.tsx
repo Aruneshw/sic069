@@ -1,544 +1,609 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import anime from "animejs";
+import { useDeferredValue, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import {
-  Star, Clock, Users, MapPin, Check, Sparkles,
-  Crown, Zap, Shield, ArrowRight, X,
+  ArrowRight,
+  Filter,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Star,
+  Users,
+  X,
+  Calendar,
+  CheckCircle2,
+  Compass,
 } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
+import { formatInr, getAvailability, getCategoryVideo, getTripTheme } from "@/lib/trips";
 
-/* ─── Types ─── */
-interface Trip {
-  id: string; name: string; slug: string; tagline: string;
-  description: string; category: string; price: number;
-  duration: string; maxSeats: number; filledSeats: number;
-  imageUrl: string; badge: string | null; rating: number;
-  highlights: string; included: string;
+export interface Package {
+  id: string;
+  name: string;
+  slug: string;
+  tagline: string;
+  description: string;
+  tierBadge: string;
+  category: string;
+  bundlePrice: number;
+  duration: string;
+  maxSeats: number;
+  filledSeats: number;
+  imageUrl: string;
+  itinerary: string;       // JSON string: { day: string; title: string; description: string }[]
+  inclusions: string;      // JSON string: string[]
+  includedTripIds: string; // JSON string: string[]
 }
 
-/* ─── Premium package images ─── */
-const PKG_IMAGES: Record<string, string> = {
-  "alappuzha-backwaters": "/images/packages/bali.png",
-  "ooty-hill-station": "/images/packages/swiss-alps.png",
-  "wayanad-nature-retreat": "/images/packages/norway.png",
-  "guna-caves-expedition": "/images/packages/japan.png",
-  "hogenakkal-falls": "/images/packages/maldives.png",
-  "isha-foundation": "/images/packages/santorini.png",
-  "guruvayur-temple": "/images/packages/japan.png",
-  "thiruchendur-pilgrimage": "/images/packages/maldives.png",
-};
-
-const INR = (usd: number) => `₹${(usd * 83).toLocaleString("en-IN")}`;
-
-/* ─── Tier config ─── */
-const TIERS = [
-  { label: "Explorer", icon: Zap, color: "from-emerald-400 to-teal-500", border: "border-emerald-400/30", glow: "shadow-emerald-500/20" },
-  { label: "Premium", icon: Crown, color: "from-blue-400 to-indigo-600", border: "border-blue-400/30", glow: "shadow-blue-500/20" },
-  { label: "Luxury", icon: Sparkles, color: "from-amber-400 to-orange-500", border: "border-amber-400/30", glow: "shadow-amber-500/20" },
-];
-
-/* ═══════════════ TOAST ═══════════════ */
-function Toast({ msg, onClose }: { msg: string; onClose: () => void }) {
-  useEffect(() => { const t = setTimeout(onClose, 4000); return () => clearTimeout(t); }, [onClose]);
-  return (
-    <div className="toast-enter fixed bottom-6 right-6 z-[100] flex items-center gap-3 px-5 py-3 rounded-2xl liquid-glass-toast text-slate-900 max-w-sm">
-      <Sparkles size={18} className="text-amber-500 shrink-0" />
-      <span className="text-sm font-medium">{msg}</span>
-      <button onClick={onClose} className="ml-auto hover:opacity-70"><X size={14} /></button>
-    </div>
-  );
-}
-
-/* ═══════════════ SKELETON ═══════════════ */
-function SkeletonCard() {
-  return (
-    <div className="pkg-skeleton rounded-3xl liquid-glass">
-      <div className="aspect-[4/3] bg-slate-200/50 animate-pulse" />
-      <div className="p-6 space-y-3 relative z-10">
-        <div className="h-5 w-2/3 rounded-full bg-slate-200/80 animate-pulse" />
-        <div className="h-4 w-full rounded-full bg-slate-200/50 animate-pulse" />
-        <div className="h-4 w-1/2 rounded-full bg-slate-200/50 animate-pulse" />
-        <div className="flex gap-3 pt-4">
-          <div className="h-10 flex-1 rounded-full bg-slate-200/80 animate-pulse" />
-          <div className="h-10 w-24 rounded-full bg-slate-200/80 animate-pulse" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════ PACKAGE CARD ═══════════════ */
-function PackageCard({ trip, tier, index, onBook }: {
-  trip: Trip; tier: typeof TIERS[0]; index: number;
-  onBook: (name: string) => void;
+function PackageRowCard({
+  pkg,
+  onViewItinerary,
+}: {
+  pkg: Package;
+  onViewItinerary: () => void;
 }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const imgSrc = PKG_IMAGES[trip.slug] || trip.imageUrl;
-  const highlights: string[] = JSON.parse(trip.highlights);
-  const spotsLeft = trip.maxSeats - trip.filledSeats;
-
-  useEffect(() => {
-    if (!ref.current) return;
-    anime({
-      targets: ref.current,
-      translateX: [80, 0],
-      opacity: [0, 1],
-      duration: 900,
-      delay: index * 120,
-      easing: "easeOutExpo",
-    });
-  }, [index]);
+  const theme = getTripTheme(pkg.category);
+  const availability = getAvailability(pkg.maxSeats, pkg.filledSeats);
+  const itinerary = JSON.parse(pkg.itinerary) as { day: string; title: string; description: string }[];
+  const inclusions = JSON.parse(pkg.inclusions) as string[];
 
   return (
-    <div
-      ref={ref}
-      className="group relative rounded-3xl liquid-glass opacity-0"
-      style={{ willChange: "transform" }}
+    <motion.article
+      layout
+      className="glass-surface group relative overflow-hidden rounded-[2.5rem] border border-white/20 bg-white/70 shadow-xl transition-all duration-300 hover:shadow-2xl"
+      style={{ borderColor: theme.ring }}
     >
-      {/* Gradient border glow on hover */}
-      <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${tier.color} opacity-0 group-hover:opacity-[0.06] transition-opacity duration-500 pointer-events-none z-0`} />
-
-      {/* Image */}
-      <div className="relative aspect-[4/3] overflow-hidden">
-        <img src={imgSrc} alt={trip.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-
-        {/* Badges */}
-        <div className="absolute top-4 left-4 flex gap-2">
-          <span className={`px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white bg-gradient-to-r ${tier.color} shadow-lg`}>
-            {tier.label}
-          </span>
-          {trip.badge && (
-            <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md text-white border border-white/20">
-              {trip.badge}
+      <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.3fr] min-h-[30rem] lg:min-h-[26rem]">
+        {/* Left Side: Dynamic Video/Image Block */}
+        <div className="relative overflow-hidden min-h-[16rem] lg:min-h-full">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
+          >
+            <source src={getCategoryVideo(pkg.category)} type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-transparent to-transparent lg:block hidden" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent lg:hidden block" />
+          
+          <div className="absolute left-6 top-6 flex flex-wrap gap-2 z-10">
+            <span className="rounded-full border border-white/20 bg-black/40 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-white backdrop-blur-xl">
+              {pkg.category}
             </span>
-          )}
-        </div>
-
-        {/* Price overlay */}
-        <div className="absolute bottom-4 right-4 text-right">
-          <div className="text-xs text-white/90 font-medium drop-shadow-md">Starting from</div>
-          <div className="text-2xl font-black text-white drop-shadow-md">{INR(trip.price)}</div>
-        </div>
-
-        {spotsLeft <= 5 && spotsLeft > 0 && (
-          <div className="absolute bottom-4 left-4 px-3 py-1 rounded-full bg-red-500/90 backdrop-blur-sm text-white text-xs font-bold animate-pulse">
-            🔥 Only {spotsLeft} spots left!
           </div>
-        )}
-      </div>
 
-      {/* Content */}
-      <div className="p-6 relative z-10">
-        <div className="flex items-center gap-2 mb-2">
-          <Star size={14} className="fill-amber-400 text-amber-400" />
-          <span className="text-sm font-semibold text-slate-800">{trip.rating}</span>
-          <span className="text-xs text-slate-400 ml-1">{trip.category}</span>
+          <div className="absolute bottom-6 left-6 right-6 z-10 text-white block lg:hidden">
+            <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] backdrop-blur-xl">
+              {pkg.tierBadge}
+            </span>
+            <h3 className="text-2xl font-bold mt-2">{pkg.name}</h3>
+          </div>
         </div>
 
-        <h3 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
-          {trip.name}
-        </h3>
-        <p className="text-sm text-slate-500 mb-4 line-clamp-2">{trip.tagline}</p>
-
-        {/* Meta */}
-        <div className="flex items-center gap-4 text-xs text-slate-500 mb-4">
-          <span className="flex items-center gap-1"><Clock size={13} /> {trip.duration}</span>
-          <span className="flex items-center gap-1"><Users size={13} /> {trip.maxSeats} max</span>
-          <span className="flex items-center gap-1"><MapPin size={13} /> {trip.category}</span>
-        </div>
-
-        {/* Highlights (show 3) */}
-        <div className="space-y-1.5 mb-5">
-          {highlights.slice(0, 3).map((h, i) => (
-            <div key={i} className="flex items-center gap-2 text-xs text-slate-600">
-              <Check size={12} className="text-emerald-500 shrink-0" />
-              <span>{h}</span>
+        {/* Right Side: Detailed Content */}
+        <div className="relative flex flex-col justify-between p-6 md:p-10 text-slate-800">
+          <div className="space-y-6">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="rounded-full border border-slate-200 bg-slate-100 px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-500 lg:inline-block hidden">
+                {pkg.tierBadge}
+              </span>
+              <span
+                className="rounded-full px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em]"
+                style={{ backgroundColor: `${availability.tone}22`, border: `1px solid ${availability.tone}55`, color: availability.tone }}
+              >
+                {availability.label}
+              </span>
+              <span className="rounded-full border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-[0.24em] text-slate-600">
+                {pkg.duration}
+              </span>
             </div>
-          ))}
-        </div>
 
-        {/* CTA */}
-        <div className="flex gap-3">
-          <button
-            onClick={() => onBook(trip.name)}
-            className={`flex-1 px-5 py-2.5 rounded-full text-sm font-bold text-white bg-gradient-to-r ${tier.color} hover:shadow-lg transition-all duration-300 hover:scale-[1.03] flex items-center justify-center gap-2`}
-          >
-            Book Now <ArrowRight size={14} />
-          </button>
-          <Link
-            href={`/trips/${trip.slug}`}
-            className="px-4 py-2.5 rounded-full text-sm font-medium text-slate-500 border border-slate-200 hover:bg-slate-100 hover:text-slate-900 transition-all"
-          >
-            Details
-          </Link>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ═══════════════ PRICING TIERS ═══════════════ */
-function PricingTiers() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!ref.current) return;
-    anime({
-      targets: ref.current.querySelectorAll(".tier-card"),
-      translateY: [60, 0],
-      opacity: [0, 1],
-      delay: anime.stagger(150),
-      duration: 800,
-      easing: "easeOutExpo",
-    });
-  }, []);
-
-  const plans = [
-    {
-      name: "Explorer", icon: Zap, price: "₹12,499", period: "/person",
-      color: "from-emerald-400 to-teal-500",
-      features: ["3-Day Adventure Tours", "Shared Accommodation", "Group Transport", "Guided Excursions", "Basic Travel Insurance"],
-    },
-    {
-      name: "Premium", icon: Crown, price: "₹29,999", period: "/person",
-      color: "from-blue-400 to-indigo-600", popular: true,
-      features: ["5-Day Immersive Journeys", "Premium Hotel Stays", "Private Transport", "Personal Guide", "Full Travel Insurance", "Drone Photography"],
-    },
-    {
-      name: "Luxury", icon: Sparkles, price: "₹74,999", period: "/person",
-      color: "from-amber-400 to-orange-500",
-      features: ["7-Day Elite Expeditions", "5-Star Resorts", "Private Helicopter Transfers", "Michelin-Star Dining", "Concierge Service", "Spa & Wellness", "Exclusive VIP Access"],
-    },
-  ];
-
-  return (
-    <div ref={ref} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-      {plans.map((p) => (
-        <div key={p.name} className={`tier-card relative rounded-3xl p-8 liquid-glass opacity-0 ${p.popular ? "ring-2 ring-blue-400/40" : ""}`}>
-          {p.popular && (
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full text-xs font-bold text-white bg-gradient-to-r from-blue-400 to-indigo-600 shadow-lg">
-              Most Popular
+            <div className="space-y-2">
+              <h3 className="text-3xl font-extrabold tracking-tight text-slate-950 lg:block hidden">
+                {pkg.name}
+              </h3>
+              <p className="text-base text-slate-600 leading-relaxed font-light">
+                {pkg.tagline}
+              </p>
             </div>
-          )}
-          <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${p.color} flex items-center justify-center mb-4 shadow-lg relative z-10`}>
-            <p.icon size={22} className="text-white" />
-          </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-1 relative z-10">{p.name}</h3>
-          <div className="flex items-baseline gap-1 mb-6 relative z-10">
-            <span className="text-3xl font-black gradient-price">{p.price}</span>
-            <span className="text-sm text-slate-400">{p.period}</span>
-          </div>
-          <div className="space-y-3 mb-8 relative z-10">
-            {p.features.map((f, i) => (
-              <div key={i} className="flex items-center gap-2 text-sm text-slate-600">
-                <Check size={14} className="text-emerald-500 shrink-0" />
-                <span>{f}</span>
+
+            {/* Mini Itinerary Strip */}
+            <div className="space-y-2">
+              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Itinerary Timeline</div>
+              <div className="flex flex-wrap items-center gap-2">
+                {itinerary.map((step, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2 bg-slate-100 border border-slate-200/60 px-3 py-1.5 rounded-full text-xs text-slate-700 font-medium"
+                  >
+                    <span className="font-bold text-teal-600 shrink-0">{step.day}</span>
+                    <span className="text-slate-300">•</span>
+                    <span className="truncate max-w-[120px] sm:max-w-none">{step.title}</span>
+                    {idx < itinerary.length - 1 && <span className="text-slate-300 ml-1">→</span>}
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Includes Row */}
+            <div className="space-y-2">
+              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Package Inclusions</div>
+              <div className="flex flex-wrap gap-2">
+                {inclusions.map((inc) => (
+                  <span
+                    key={inc}
+                    className="text-xs bg-teal-50/50 text-teal-800 px-3 py-1 rounded-md border border-teal-100 font-medium flex items-center gap-1.5"
+                  >
+                    <CheckCircle2 size={12} className="text-teal-600 shrink-0" />
+                    {inc}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
-          <button className={`w-full py-3 rounded-full text-sm font-bold text-white bg-gradient-to-r ${p.color} hover:shadow-xl transition-all duration-300 hover:scale-[1.02] relative z-10`}>
-            Choose {p.name}
-          </button>
+
+          <div className="mt-8 flex flex-wrap items-end justify-between gap-6 border-t border-slate-100 pt-6">
+            <div>
+              <div className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Package from</div>
+              <div className="mt-1 text-3xl font-extrabold tracking-tight text-slate-950">
+                {formatInr(pkg.bundlePrice)}
+              </div>
+            </div>
+            <button
+              onClick={onViewItinerary}
+              className="inline-flex items-center gap-2 rounded-full px-8 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0"
+              style={{ background: theme.buttonGradient }}
+            >
+              View Itinerary
+              <ArrowRight size={16} />
+            </button>
+          </div>
         </div>
-      ))}
+      </div>
+    </motion.article>
+  );
+}
+
+function TrustCard({
+  icon: Icon,
+  title,
+  body,
+  index = 0,
+}: {
+  icon: typeof ShieldCheck;
+  title: string;
+  body: string;
+  index?: number;
+}) {
+  const colors = ["glow-teal", "glow-blue", "glow-purple"];
+  const glowColor = colors[index % colors.length];
+
+  return (
+    <div className={`kodplay-glow-card ${glowColor} w-full h-full group`}>
+      <span></span>
+      <div className="kodplay-content p-8 flex flex-col h-full">
+        <div className="mb-4 inline-flex rounded-2xl bg-slate-950 px-3 py-3 text-white self-start">
+          <Icon size={20} />
+        </div>
+        <h3 className="text-xl font-semibold tracking-tight text-slate-950">{title}</h3>
+        <p className="mt-3 text-sm leading-7 text-slate-600 flex-grow">{body}</p>
+      </div>
     </div>
   );
 }
 
-/* ═══════════════ MAIN ═══════════════ */
-export default function PackagesClient({ trips }: { trips: Trip[] }) {
-  const [loading, setLoading] = useState(true);
-  const [toast, setToast] = useState<string | null>(null);
-  const [filter, setFilter] = useState("All");
-  const heroRef = useRef<HTMLDivElement>(null);
-  const titleRef = useRef<HTMLHeadingElement>(null);
+export default function PackagesClient({ packages }: { packages: Package[] }) {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeItineraryPackage, setActiveItineraryPackage] = useState<Package | null>(null);
+  const deferredSearch = useDeferredValue(searchTerm.trim().toLowerCase());
 
-  /* Skeleton reveal */
-  useEffect(() => {
-    const t = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(t);
-  }, []);
+  const categories = ["All", ...Array.from(new Set(packages.map((pkg) => pkg.category)))];
+  const filteredPackages = packages.filter((pkg) => {
+    if (activeCategory !== "All" && pkg.category !== activeCategory) {
+      return false;
+    }
 
-  /* Hero text anime.js left-to-right */
-  useEffect(() => {
-    if (!titleRef.current) return;
-    anime({
-      targets: titleRef.current.querySelectorAll(".anim-word"),
-      translateX: [-100, 0],
-      opacity: [0, 1],
-      delay: anime.stagger(80),
-      duration: 1000,
-      easing: "easeOutExpo",
+    if (!deferredSearch) {
+      return true;
+    }
+
+    const inclusions = JSON.parse(pkg.inclusions) as string[];
+    const haystack = [
+      pkg.name,
+      pkg.tagline,
+      pkg.category,
+      pkg.tierBadge,
+      ...inclusions,
+    ]
+      .join(" ")
+      .toLowerCase();
+
+    return haystack.includes(deferredSearch);
+  });
+
+  const averageRating = 4.8; // Set default luxury standard rating
+  const totalSeatsLeft = packages.reduce(
+    (sum, pkg) => sum + Math.max(pkg.maxSeats - pkg.filledSeats, 0),
+    0
+  );
+  
+  const strongestTheme = packages.length ? getTripTheme(packages[0].category) : getTripTheme("Coastal");
+
+  const handleBookPackage = (pkg: Package) => {
+    toast.success(`Enquiry submitted for ${pkg.name}!`, {
+      icon: "🎉",
+      style: {
+        borderRadius: "12px",
+        background: "#0F172A",
+        color: "#fff",
+      },
     });
-  }, []);
-
-  /* Floating orbs animation */
-  useEffect(() => {
-    anime({
-      targets: ".orb",
-      translateX: () => anime.random(-40, 40),
-      translateY: () => anime.random(-40, 40),
-      scale: [0.9, 1.1],
-      duration: () => anime.random(4000, 8000),
-      direction: "alternate",
-      loop: true,
-      easing: "easeInOutSine",
-    });
-  }, []);
-
-  const handleBook = (name: string) => {
-    setToast(`🎉 Enquiry sent for "${name}"! We'll reach out within 24 hours.`);
-  };
-
-  const categories = ["All", ...Array.from(new Set(trips.map((t) => t.category)))];
-  const filtered = filter === "All" ? trips : trips.filter((t) => t.category === filter);
-
-  /* Assign tiers */
-  const getTier = (price: number) => {
-    if (price <= 250) return TIERS[0];
-    if (price <= 450) return TIERS[1];
-    return TIERS[2];
   };
 
   return (
-    <div className="packages-page min-h-screen relative overflow-hidden bg-slate-50">
-      {/* ─── LIQUID GLASSMORPHISM BACKGROUND ─── */}
-      <div className="fixed inset-0 z-0">
-        {/* Base gradient */}
-        <div className="absolute inset-0" style={{
-          background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(59,130,246,0.1) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 80% 50%, rgba(99,102,241,0.05) 0%, transparent 50%), radial-gradient(ellipse 50% 40% at 20% 80%, rgba(14,165,233,0.08) 0%, transparent 50%)"
-        }} />
-        {/* Floating orbs */}
-        <div className="orb absolute w-[500px] h-[500px] rounded-full top-[-10%] left-[10%] opacity-40" style={{ background: "radial-gradient(circle, rgba(59,130,246,0.15) 0%, transparent 70%)", filter: "blur(60px)" }} />
-        <div className="orb absolute w-[400px] h-[400px] rounded-full top-[40%] right-[-5%] opacity-30" style={{ background: "radial-gradient(circle, rgba(99,102,241,0.1) 0%, transparent 70%)", filter: "blur(50px)" }} />
-        <div className="orb absolute w-[600px] h-[600px] rounded-full bottom-[-15%] left-[30%] opacity-30" style={{ background: "radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%)", filter: "blur(70px)" }} />
-        <div className="orb absolute w-[300px] h-[300px] rounded-full top-[20%] left-[60%] opacity-30" style={{ background: "radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%)", filter: "blur(45px)" }} />
-        {/* Noise texture */}
-        <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")" }} />
-      </div>
+    <div className="relative min-h-screen overflow-hidden bg-slate-50">
+      <Toaster position="bottom-center" reverseOrder={false} />
+      <div className="absolute inset-0" style={{ background: strongestTheme.ambientGradient }} />
+      <div
+        className="mesh-orb absolute -left-24 top-12 h-72 w-72 rounded-full blur-3xl"
+        style={{ backgroundColor: `${strongestTheme.accent}33` }}
+      />
+      <div className="mesh-orb-delayed absolute right-[-6rem] top-[22rem] h-[24rem] w-[24rem] rounded-full bg-amber-300/20 blur-3xl" />
+      <div className="mesh-orb absolute bottom-[-8rem] left-1/3 h-[26rem] w-[26rem] rounded-full bg-sky-300/20 blur-3xl" />
 
-      {/* ─── CONTENT ─── */}
       <div className="relative z-10">
-        {/* ─── HERO ─── */}
-        <section ref={heroRef} className="pt-36 pb-16 md:pt-44 md:pb-24 text-center">
-          <div className="container-main">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full liquid-glass-pill text-xs font-semibold text-blue-600 mb-6">
-              <Shield size={13} /> Premium Curated Experiences
-            </div>
-            <h1 ref={titleRef} className="text-4xl md:text-6xl lg:text-7xl font-black text-slate-900 mb-6 leading-[1.1]">
-              {"Discover Premium".split(" ").map((w, i) => (
-                <span key={i} className="anim-word inline-block mr-3 opacity-0">{w}</span>
-              ))}
-              <br className="hidden md:block" />
-              {"Travel Packages".split(" ").map((w, i) => (
-                <span key={i + 10} className="anim-word inline-block mr-3 opacity-0 gradient-price">{w}</span>
-              ))}
+        {/* Hero Section */}
+        <section className="container-main pt-48 pb-20 md:pt-56 lg:pt-64 md:pb-28">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
+          >
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/40 bg-white/50 px-3 py-1.5 md:px-4 md:py-2 text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.3em] text-slate-700 shadow-[0_10px_30px_rgba(15,23,42,0.08)] backdrop-blur-2xl">
+              <Sparkles size={14} />
+              Bundle-based Tour Design
+            </span>
+
+            <h1 className="mt-6 text-4xl sm:text-5xl font-extrabold leading-[1.05] md:leading-[0.96] tracking-tight md:tracking-[-0.04em] text-slate-950 md:text-7xl">
+              Curated regional multi-stop travel packages.
             </h1>
-            <p className="text-lg text-slate-500 max-w-2xl mx-auto mb-10">
-              Handcrafted itineraries with transparent pricing in ₹. From serene backwaters to majestic mountain peaks — your dream journey awaits.
+
+            <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
+              Curated multi-stop itineraries — browse individual destinations under{" "}
+              <Link href="/trips" className="text-teal-600 hover:underline font-bold transition-all">
+                Trips
+              </Link>.
             </p>
+
+            <div className="mt-10 grid gap-6 sm:grid-cols-3 max-w-3xl">
+              <div className="kodplay-glow-card glow-blue w-full group">
+                <span></span>
+                <div className="kodplay-content p-6">
+                  <div className="text-[10px] uppercase tracking-[0.26em] text-slate-400">Total Packages</div>
+                  <div className="mt-2 text-3xl font-extrabold tracking-tight text-slate-950">{packages.length}</div>
+                </div>
+              </div>
+              <div className="kodplay-glow-card glow-teal w-full group">
+                <span></span>
+                <div className="kodplay-content p-6">
+                  <div className="text-[10px] uppercase tracking-[0.26em] text-slate-400">Average rating</div>
+                  <div className="mt-2 text-3xl font-extrabold tracking-tight text-slate-950">{averageRating.toFixed(1)}</div>
+                </div>
+              </div>
+              <div className="kodplay-glow-card glow-purple w-full group">
+                <span></span>
+                <div className="kodplay-content p-6">
+                  <div className="text-[10px] uppercase tracking-[0.26em] text-slate-400">Seats available</div>
+                  <div className="mt-2 text-3xl font-extrabold tracking-tight text-slate-950">{totalSeatsLeft}</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Filter and Search Bar */}
+        <section className="container-main pb-16">
+          <div className="glass-surface rounded-[2rem] p-4 md:p-6 border border-white/30 bg-white/50 backdrop-blur-md">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div className="relative flex-1">
+                <Search
+                  size={18}
+                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                />
+                <input
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                  placeholder="Search packages by destination, inclusion, or timeline..."
+                  className="w-full rounded-full border border-white/50 bg-white/70 py-3.5 pl-12 pr-4 text-sm text-slate-700 outline-none transition focus:border-slate-300 focus:bg-white focus:ring-2 focus:ring-teal-500/20"
+                />
+              </div>
+
+              <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4 lg:mx-0 lg:px-0 lg:pb-0">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/50 bg-white/60 px-4 py-3 text-sm font-semibold text-slate-500 whitespace-nowrap">
+                  <Filter size={16} />
+                  Filters
+                </span>
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    type="button"
+                    onClick={() => setActiveCategory(category)}
+                    className={`rounded-full px-5 py-3 text-sm font-bold whitespace-nowrap transition-all duration-300 ${
+                      activeCategory === category
+                        ? "text-white shadow-lg shadow-teal-500/20"
+                        : "border border-white/50 bg-white/60 text-slate-600 hover:bg-white"
+                    }`}
+                    style={
+                      activeCategory === category ? { background: strongestTheme.buttonGradient } : undefined
+                    }
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* ─── PRICING TIERS ─── */}
-        <section className="container-main mb-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-3">Choose Your Experience Tier</h2>
-            <p className="text-slate-500">All prices in Indian Rupees (₹)</p>
-          </div>
-          <PricingTiers />
-        </section>
-
-        {/* ─── FILTER BAR ─── */}
-        <section className="container-main mb-12">
-          <div className="flex items-center justify-between flex-wrap gap-4 mb-8">
-            <h2 className="text-2xl font-bold text-slate-900">All Packages</h2>
-            <div className="flex gap-2 overflow-x-auto pb-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setFilter(cat)}
-                  className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap liquid-glass-pill ${
-                    filter === cat ? "active text-blue-600" : "text-slate-500 hover:text-slate-900"
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+        {/* Vertical Rows Stack */}
+        <section className="container-main pb-24">
+          <div className="mb-10">
+            <div className="text-xs font-bold uppercase tracking-[0.28em] text-slate-400">Curated Bundles</div>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 md:text-4xl">
+              Immersive, multi-stop expeditions.
+            </h2>
           </div>
 
-          {/* ─── PACKAGE GRID ─── */}
-          {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filtered.map((trip, i) => (
-                <PackageCard
-                  key={trip.id}
-                  trip={trip}
-                  tier={getTier(trip.price)}
-                  index={i}
-                  onBook={handleBook}
+          {filteredPackages.length > 0 ? (
+            <div className="space-y-12">
+              {filteredPackages.map((pkg) => (
+                <PackageRowCard
+                  key={pkg.id}
+                  pkg={pkg}
+                  onViewItinerary={() => setActiveItineraryPackage(pkg)}
                 />
               ))}
             </div>
+          ) : (
+            <div className="glass-surface rounded-[2rem] p-16 text-center">
+              <h3 className="text-2xl font-bold tracking-tight text-slate-950">No packages match that filter</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">
+                Try choosing another category or clearing your search.
+              </p>
+            </div>
           )}
         </section>
 
-        {/* ─── CTA BANNER ─── */}
-        <section className="container-main py-20">
-          <div className="relative rounded-3xl p-12 md:p-16 text-center liquid-glass">
-            <div className="absolute inset-0 opacity-[0.05] z-0" style={{ background: "radial-gradient(circle at 30% 50%, rgba(59,130,246,0.8) 0%, transparent 60%)" }} />
-            <h2 className="text-3xl md:text-4xl font-black text-slate-900 mb-4 relative z-10">
-              Ready for the Journey of a Lifetime?
+        {/* Trust/USP Section */}
+        <section className="container-main pb-24">
+          <div className="mb-10">
+            <div className="text-xs font-bold uppercase tracking-[0.28em] text-slate-400">Technical Features</div>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-950 md:text-4xl">
+              Expedition design for the modern traveler
             </h2>
-            <p className="text-slate-500 max-w-xl mx-auto mb-8 relative z-10">
-              Join 10,000+ happy travellers who chose Zero Gravity for their most memorable adventures.
-            </p>
-            <Link href="/about#contact" className="relative z-10 inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold text-white bg-gradient-to-r from-blue-500 to-indigo-600 hover:shadow-2xl hover:shadow-blue-500/30 hover:scale-105 transition-all duration-300">
-              Start Planning <ArrowRight size={18} />
-            </Link>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            <TrustCard
+              icon={ShieldCheck}
+              title="Verified multi-trip scheduling"
+              body="Every itinerary is mathematically checked against the individual departures of all bundled stops, ensuring seamless connection and travel timings."
+              index={0}
+            />
+            <TrustCard
+              icon={Sparkles}
+              title="Editorial visual storytelling"
+              body="Dynamic high-fidelity 4K category preview loops automatically load context-appropriate moods so you can feel the destination before embarking."
+              index={1}
+            />
+            <TrustCard
+              icon={Users}
+              title="Single point-of-contact bookings"
+              body="No need to reserve 3 separate houseboats, toy trains, or temple guides. One package handles it all under a unified booking and guides system."
+              index={2}
+            />
           </div>
         </section>
       </div>
 
-      {/* ─── TOAST ─── */}
-      {toast && <Toast msg={toast} onClose={() => setToast(null)} />}
+      {/* Fullscreen Glassmorphic Itinerary Modal */}
+      <AnimatePresence>
+        {activeItineraryPackage && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8">
+            {/* Dark blur backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveItineraryPackage(null)}
+              className="absolute inset-0 bg-slate-950/70 backdrop-blur-xl"
+            />
 
-      {/* ─── INLINE STYLES ─── */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        .gradient-price {
-          background: linear-gradient(135deg, #2563eb, #6366f1, #8b5cf6, #d946ef);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        .gradient-text-hover {
-          background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-        .toast-enter { animation: toastSlide 0.5s cubic-bezier(0.16,1,0.3,1); }
-        @keyframes toastSlide {
-          from { transform: translateX(120%); opacity: 0; }
-          to { transform: translateX(0); opacity: 1; }
-        }
-        .pkg-skeleton { animation: skeletonReveal 0.6s ease forwards; }
-        @keyframes skeletonReveal {
-          from { opacity: 0; transform: scale(0.95); }
-          to { opacity: 1; transform: scale(1); }
-        }
+            {/* Modal Body */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="relative w-full max-w-5xl h-[85vh] md:h-[80vh] flex flex-col rounded-[2.5rem] bg-slate-950/85 border border-white/20 text-white shadow-2xl overflow-hidden z-10"
+            >
+              {/* Top Banner Area */}
+              <div className="relative min-h-[14rem] md:min-h-[18rem] flex flex-col justify-end p-6 md:p-10 shrink-0">
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="absolute inset-0 w-full h-full object-cover -z-10"
+                >
+                  <source src={getCategoryVideo(activeItineraryPackage.category)} type="video/mp4" />
+                </video>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent -z-10" />
 
-        /* ═══ APPLE LIQUID GLASS (LIGHT THEME) ═══ */
-        .liquid-glass {
+                {/* Close Button */}
+                <button
+                  onClick={() => setActiveItineraryPackage(null)}
+                  className="absolute top-6 right-6 p-3 rounded-full bg-black/60 hover:bg-black/80 transition-all border border-white/10"
+                >
+                  <X size={18} />
+                </button>
+
+                <div className="space-y-3">
+                  <span className="rounded-full border border-white/30 bg-teal-500/20 px-3.5 py-1 text-xs font-bold uppercase tracking-[0.24em] text-teal-300 backdrop-blur-md self-start">
+                    {activeItineraryPackage.tierBadge}
+                  </span>
+                  <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+                    {activeItineraryPackage.name}
+                  </h2>
+                  <p className="text-sm md:text-base text-white/80 font-light max-w-2xl">
+                    {activeItineraryPackage.tagline}
+                  </p>
+                </div>
+              </div>
+
+              {/* Grid content space */}
+              <div className="flex-1 overflow-y-auto p-6 md:p-10 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-8">
+                {/* Left Side: Detailed Itinerary */}
+                <div className="space-y-6">
+                  <h3 className="text-xl font-bold flex items-center gap-2 text-teal-300">
+                    <Compass size={20} />
+                    Day-by-Day Timeline
+                  </h3>
+
+                  <div className="relative border-l border-white/10 pl-6 ml-3 space-y-8">
+                    {(
+                      JSON.parse(activeItineraryPackage.itinerary) as {
+                        day: string;
+                        title: string;
+                        description: string;
+                      }[]
+                    ).map((step, idx) => (
+                      <div key={idx} className="relative">
+                        {/* Dot indicator */}
+                        <div className="absolute -left-[31px] top-1.5 flex items-center justify-center w-4 h-4 rounded-full bg-teal-400 border-2 border-slate-950 shadow-md" />
+                        
+                        <div className="space-y-1">
+                          <span className="text-xs font-extrabold text-teal-400 tracking-wider">
+                            {step.day}
+                          </span>
+                          <h4 className="text-lg font-bold text-white">{step.title}</h4>
+                          <p className="text-sm text-white/70 leading-relaxed font-light">
+                            {step.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right Side: Price, Booking, Amenities */}
+                <div className="flex flex-col justify-between space-y-6 lg:border-l lg:border-white/10 lg:pl-8">
+                  <div className="space-y-6">
+                    <div>
+                      <div className="text-xs font-bold uppercase tracking-[0.24em] text-white/60 mb-2">
+                        Comprehensive price
+                      </div>
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-5xl font-black text-teal-300">
+                          {formatInr(activeItineraryPackage.bundlePrice)}
+                        </span>
+                        <span className="text-xs uppercase tracking-widest text-white/50">INR / Bundle</span>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
+                        <div className="flex items-center gap-3">
+                          <Calendar size={18} className="text-teal-400" />
+                          <div className="text-sm font-semibold">Total Duration</div>
+                        </div>
+                        <span className="text-sm font-bold text-teal-300">{activeItineraryPackage.duration}</span>
+                      </div>
+
+                      <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
+                        <div className="flex items-center gap-3">
+                          <Users size={18} className="text-teal-400" />
+                          <div className="text-sm font-semibold">Seats left</div>
+                        </div>
+                        <span className="text-sm font-bold text-orange-400">
+                          {activeItineraryPackage.maxSeats - activeItineraryPackage.filledSeats} / {activeItineraryPackage.maxSeats}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Inclusions list */}
+                    <div className="space-y-3">
+                      <h4 className="text-xs font-bold uppercase tracking-[0.24em] text-white/60">
+                        Included in Bundle
+                      </h4>
+                      <ul className="grid grid-cols-2 gap-3">
+                        {(JSON.parse(activeItineraryPackage.inclusions) as string[]).map((inc) => (
+                          <li key={inc} className="flex items-center gap-2 text-sm text-white/80">
+                            <CheckCircle2 size={14} className="text-teal-400 shrink-0" />
+                            <span>{inc}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4 pt-6 border-t border-white/10">
+                    <button
+                      onClick={() => handleBookPackage(activeItineraryPackage)}
+                      className="w-full py-4 rounded-2xl bg-gradient-to-r from-teal-400 to-teal-500 hover:from-teal-300 hover:to-teal-400 text-slate-950 text-sm font-black uppercase tracking-widest transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-teal-500/20"
+                    >
+                      Book Expedition
+                    </button>
+                    <p className="text-center text-[10px] text-white/50 uppercase tracking-widest">
+                      Zero up-front charge — pay only after itinerary confirmation.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <style jsx>{`
+        .glass-surface {
           position: relative;
-          background: linear-gradient(
-            135deg,
-            rgba(255,255,255,0.85) 0%,
-            rgba(255,255,255,0.65) 40%,
-            rgba(255,255,255,0.45) 100%
-          );
-          backdrop-filter: blur(40px) saturate(1.8);
-          -webkit-backdrop-filter: blur(40px) saturate(1.8);
-          border: 1px solid rgba(255,255,255,0.8);
-          box-shadow:
-            inset 0 1px 2px 0 rgba(255,255,255,0.9),
-            inset 0 -1px 1px 0 rgba(255,255,255,0.4),
-            0 8px 32px rgba(0,0,0,0.06),
-            0 2px 8px rgba(0,0,0,0.04);
-          overflow: hidden;
-        }
-        .liquid-glass::before {
-          content: '';
-          position: absolute;
-          inset: 0;
-          border-radius: inherit;
-          background: linear-gradient(
-            180deg,
-            rgba(255,255,255,0.4) 0%,
-            rgba(255,255,255,0.0) 50%,
-            rgba(255,255,255,0.1) 100%
-          );
-          pointer-events: none;
-          z-index: 1;
-        }
-        .liquid-glass::after {
-          content: '';
-          position: absolute;
-          top: -1px; left: -1px; right: -1px;
-          height: 50%;
-          border-radius: inherit;
-          background: linear-gradient(
-            180deg,
-            rgba(255,255,255,0.6) 0%,
-            transparent 100%
-          );
-          pointer-events: none;
-          z-index: 1;
-          mask-image: linear-gradient(black 0%, transparent 100%);
-          -webkit-mask-image: linear-gradient(black 0%, transparent 100%);
-        }
-        .liquid-glass:hover {
-          background: linear-gradient(
-            135deg,
-            rgba(255,255,255,0.95) 0%,
-            rgba(255,255,255,0.8) 40%,
-            rgba(255,255,255,0.6) 100%
-          );
-          border-color: rgba(255,255,255,1);
-          box-shadow:
-            inset 0 1px 2px 0 rgba(255,255,255,1),
-            inset 0 -1px 1px 0 rgba(255,255,255,0.5),
-            0 12px 40px rgba(0,0,0,0.08),
-            0 4px 12px rgba(59,130,246,0.1);
-          transform: translateY(-3px) scale(1.015);
-        }
-        .liquid-glass { transition: all 0.5s cubic-bezier(0.16,1,0.3,1); }
-
-        .liquid-glass-pill {
-          position: relative;
-          background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%);
-          backdrop-filter: blur(30px) saturate(1.6);
-          -webkit-backdrop-filter: blur(30px) saturate(1.6);
-          border: 1px solid rgba(255,255,255,0.8);
-          box-shadow:
-            inset 0 1px 1px 0 rgba(255,255,255,0.9),
-            0 4px 16px rgba(0,0,0,0.05);
-          transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
-        }
-        .liquid-glass-pill:hover {
-          background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 100%);
-          border-color: rgba(255,255,255,1);
-          box-shadow:
-            inset 0 1px 2px 0 rgba(255,255,255,1),
-            0 6px 24px rgba(0,0,0,0.08);
-          transform: translateY(-1px);
-        }
-        .liquid-glass-pill.active {
-          background: linear-gradient(135deg, rgba(239,246,255,0.9) 0%, rgba(224,231,255,0.8) 100%);
-          border-color: rgba(191,219,254,1);
-          box-shadow:
-            inset 0 1px 1px 0 rgba(255,255,255,1),
-            0 4px 20px rgba(59,130,246,0.15),
-            0 0 0 1px rgba(191,219,254,0.5);
+          background: linear-gradient(145deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.65) 100%);
+          backdrop-filter: blur(24px) saturate(1.3);
+          -webkit-backdrop-filter: blur(24px) saturate(1.3);
         }
 
-        .liquid-glass-toast {
-          background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
-          backdrop-filter: blur(40px) saturate(1.8);
-          -webkit-backdrop-filter: blur(40px) saturate(1.8);
-          border: 1px solid rgba(255,255,255,0.9);
-          box-shadow:
-            inset 0 1px 2px 0 rgba(255,255,255,1),
-            0 16px 48px rgba(0,0,0,0.12),
-            0 4px 12px rgba(0,0,0,0.06);
+        .mesh-orb {
+          animation: drift 18s ease-in-out infinite alternate;
         }
-      `}} />
+
+        .mesh-orb-delayed {
+          animation: drift 22s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes drift {
+          0% {
+            transform: translate3d(0, 0, 0) scale(1);
+          }
+          100% {
+            transform: translate3d(32px, -28px, 0) scale(1.08);
+          }
+        }
+
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 }

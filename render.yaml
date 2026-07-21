@@ -1,0 +1,20 @@
+# Render Blueprint — connect this GitHub repo in Render dashboard.
+# Docs: https://render.com/docs/blueprint-spec
+# Free web services sleep after inactivity; SQLite on free tier is ephemeral
+# unless you add a persistent disk (Starter+). Seed DB is baked into the image.
+
+services:
+  - type: web
+    name: zero-gravity-tours
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        value: file:./prisma/dev.db
+      - key: HOSTNAME
+        value: "0.0.0.0"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,11 +28,17 @@ export default function Navbar() {
   const { unreadCount, toggleNotificationPanel, isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useAppStore();
   const [isScrolled, setIsScrolled] = useState(false);
 
-  if (typeof window !== "undefined") {
-    window.addEventListener("scroll", () => {
+  useEffect(() => {
+    const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-    });
-  }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Check initial scroll state
+    handleScroll();
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -40,18 +46,18 @@ export default function Navbar() {
         <nav
           className={`pointer-events-auto transition-all duration-300 flex items-center justify-between rounded-full border shadow-xl ${
             isScrolled
-              ? "bg-white/95 backdrop-blur-lg border-white/40 shadow-slate-200/50 py-2.5 px-6 w-full max-w-4xl"
-              : "bg-white/70 backdrop-blur-md border-white/30 py-3.5 px-8 w-full max-w-6xl"
+              ? "bg-white/95 backdrop-blur-lg border-white/40 shadow-slate-200/50 py-2 px-6 w-full max-w-5xl"
+              : "bg-white/70 backdrop-blur-md border-white/30 py-3 px-8 w-full max-w-6xl"
           }`}
         >
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-2.5 no-underline"
+            className="flex items-center gap-2 no-underline shrink-0"
             onClick={closeMobileMenu}
           >
             <div
-              className="flex items-center justify-center rounded-xl shadow-lg"
+              className="flex items-center justify-center rounded-xl shadow-lg shrink-0"
               style={{
                 width: 38,
                 height: 38,
@@ -60,15 +66,15 @@ export default function Navbar() {
             >
               <Compass size={22} color="white" strokeWidth={2} />
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col shrink-0">
               <span
-                className="text-[15px] font-bold leading-tight tracking-tight"
+                className="text-[15px] font-bold leading-tight tracking-tight whitespace-nowrap"
                 style={{ color: "var(--navy-900)" }}
               >
                 Zero Gravity
               </span>
               <span
-                className="text-[10px] font-semibold uppercase tracking-[0.12em] leading-tight text-blue-600"
+                className="text-[10px] font-semibold uppercase tracking-[0.12em] leading-tight text-blue-600 whitespace-nowrap"
               >
                 Tours
               </span>
@@ -76,14 +82,14 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-4 py-2 text-[14px] font-medium rounded-full transition-colors duration-200 no-underline ${
+                  className={`relative px-3 py-2 text-[14px] font-medium rounded-full transition-colors duration-200 no-underline ${
                     isActive
                       ? "text-navy-700"
                       : "text-slate-600 hover:text-navy-700 hover:bg-slate-50"
@@ -104,47 +110,50 @@ export default function Navbar() {
           </div>
 
           {/* Right Actions */}
-          <div className="flex items-center gap-3">
-            {/* Notification Bell */}
-            <button
-              onClick={toggleNotificationPanel}
-              className="relative p-2 rounded-full hover:bg-slate-100/50 transition-colors"
-              aria-label="Notifications"
-            >
-              <Bell size={20} className="text-slate-700" />
-              {unreadCount > 0 && (
-                <span
-                  className="absolute -top-0.5 -right-0.5 flex items-center justify-center text-[10px] font-bold text-white rounded-full shadow-md"
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4">
+              {/* Notification Bell */}
+              <button
+                onClick={toggleNotificationPanel}
+                className="relative p-2 rounded-full hover:bg-slate-100/50 transition-colors"
+                aria-label="Notifications"
+              >
+                <Bell size={20} className="text-slate-700" />
+                {unreadCount > 0 && (
+                  <span
+                    className="absolute -top-0.5 -right-0.5 flex items-center justify-center text-[10px] font-bold text-white rounded-full shadow-md"
+                    style={{
+                      width: 18,
+                      height: 18,
+                      background: "var(--danger)",
+                    }}
+                  >
+                    {unreadCount}
+                  </span>
+                )}
+              </button>
+
+              {/* User Avatar */}
+              <button className="hidden md:flex items-center gap-2 p-1.5 rounded-full hover:bg-slate-100/50 transition-colors">
+                <div
+                  className="flex items-center justify-center rounded-full text-white text-[13px] font-semibold shadow-md"
                   style={{
-                    width: 18,
-                    height: 18,
-                    background: "var(--danger)",
+                    width: 34,
+                    height: 34,
+                    background: "linear-gradient(135deg, #2563eb, #3b82f6)",
                   }}
                 >
-                  {unreadCount}
-                </span>
-              )}
-            </button>
-
-            {/* User Avatar */}
-            <button className="hidden md:flex items-center gap-2 p-1.5 rounded-full hover:bg-slate-100/50 transition-colors">
-              <div
-                className="flex items-center justify-center rounded-full text-white text-[13px] font-semibold shadow-md"
-                style={{
-                  width: 34,
-                  height: 34,
-                  background: "linear-gradient(135deg, #2563eb, #3b82f6)",
-                }}
-              >
-                AT
-              </div>
-              <ChevronDown size={14} className="text-slate-500" />
-            </button>
+                  AT
+                </div>
+                <ChevronDown size={14} className="text-slate-500" />
+              </button>
+            </div>
 
             {/* Enquire Now CTA */}
+            <div className="hidden lg:block w-px h-6 bg-slate-200" />
             <Link
               href="/about#contact"
-              className="hidden lg:inline-flex bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full text-[13px] px-5 py-2.5 shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] transition-all"
+              className="hidden lg:inline-flex bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full text-[13px] px-6 py-2 shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] transition-all"
             >
               Enquire Now
             </Link>

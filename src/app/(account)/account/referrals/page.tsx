@@ -7,7 +7,7 @@ export default function ReferralsPage() {
       {/* ═══════════════════════════════════════
           HERO BANNER (page-11.png)
           ═══════════════════════════════════════ */}
-      <div className="relative overflow-hidden rounded-2xl bg-navy-900 text-white p-8 md:p-10 card-elevated">
+      <div className="relative overflow-hidden rounded-2xl bg-navy-900 text-white p-8 md:p-12 card-elevated">
         {/* Background Decorative */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 pointer-events-none" />
         <div className="absolute bottom-0 right-32 w-48 h-48 bg-navy-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 pointer-events-none" />
@@ -16,7 +16,7 @@ export default function ReferralsPage() {
           <div className="max-w-md">
             <h1 className="text-3xl md:text-4xl font-bold mb-3">Share Zero Gravity,<br/>Earn Rewards</h1>
             <p className="text-teal-50 text-lg mb-6 opacity-90">
-              Give your friends 10% off their first expedition, and earn $100 in travel credit when they travel.
+              Give your friends 10% off their first expedition, and earn ₹8,300 in travel credit when they travel.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3">
@@ -32,7 +32,7 @@ export default function ReferralsPage() {
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shrink-0 text-center">
             <div className="text-sm font-semibold text-teal-100 uppercase tracking-wider mb-2">Your Referral Code</div>
             <div className="text-3xl font-mono font-bold tracking-widest bg-white/10 px-4 py-2 rounded-lg mb-3">EXPLORE-ALEX</div>
-            <button className="flex items-center justify-center gap-1.5 text-sm font-medium text-white hover:text-teal-200 transition-colors mx-auto">
+            <button className="flex items-center justify-center gap-2 text-sm font-medium text-white hover:text-teal-200 transition-colors mx-auto">
               <Copy size={16} /> Copy Code
             </button>
           </div>
@@ -68,7 +68,7 @@ export default function ReferralsPage() {
             <Trophy size={24} />
           </div>
           <div>
-            <div className="text-2xl font-bold text-navy-900">$450</div>
+            <div className="text-2xl font-bold text-navy-900">₹37,350</div>
             <div className="text-sm font-semibold text-slate-500">Credits Earned</div>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function ReferralsPage() {
               <div className="text-xs text-slate-600">Reach Elite tier to unlock an exclusive helicopter pass.</div>
             </div>
           </div>
-          <button className="btn-primary py-2 px-5 text-sm whitespace-nowrap">View Rewards</button>
+          <button className="btn-primary py-2 px-6 text-sm whitespace-nowrap">View Rewards</button>
         </div>
       </div>
 
@@ -140,7 +140,7 @@ export default function ReferralsPage() {
               <CheckCircle2 size={16} />
             </div>
             <div className="pt-2">
-              <h4 className="text-sm font-bold text-navy-900">Credit Earned: $100</h4>
+              <h4 className="text-sm font-bold text-navy-900">Credit Earned: ₹8,300</h4>
               <p className="text-sm text-slate-500 mb-1">Sarah J. booked the Coastal Highway Escape.</p>
               <span className="text-xs font-medium text-slate-400">Oct 12, 2024</span>
             </div>
@@ -163,7 +163,7 @@ export default function ReferralsPage() {
               <Clock size={16} />
             </div>
             <div className="pt-2">
-              <h4 className="text-sm font-bold text-navy-900">Pending Credit: $100</h4>
+              <h4 className="text-sm font-bold text-navy-900">Pending Credit: ₹8,300</h4>
               <p className="text-sm text-slate-500 mb-1">Michael T. used your link. Credit will be applied after their trip.</p>
               <span className="text-xs font-medium text-slate-400">Sep 15, 2024</span>
             </div>

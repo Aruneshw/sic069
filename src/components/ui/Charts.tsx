@@ -57,12 +57,12 @@ export function RevenueChart() {
             axisLine={false} 
             tickLine={false} 
             tick={{ fill: '#64748B', fontSize: 12 }} 
-            tickFormatter={(value) => `$${value / 1000}k`}
+            tickFormatter={(value) => `₹${(value * 83 / 100000).toFixed(1)}L`}
             dx={-10}
           />
           <Tooltip 
             contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 16px rgba(0,0,0,0.1)' }}
-            formatter={(value: any) => [`$${value.toLocaleString()}`, '']}
+            formatter={(value: any) => [`₹${Math.round(value * 83).toLocaleString('en-IN')}`, '']}
           />
           <Line 
             type="monotone" 

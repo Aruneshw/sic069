@@ -2,6 +2,7 @@ import { Download, Calendar, TrendingUp, TrendingDown, Users, Star, ArrowUpRight
 import { RevenueChart, SourcePieChart, DestinationBarChart } from "@/components/ui/Charts";
 import { prisma } from "@/lib/prisma";
 import StatusBadge from "@/components/ui/StatusBadge";
+import { formatInr } from "@/lib/trips";
 
 export default async function InsightsPage() {
   const topTrips = await prisma.trip.findMany({
@@ -37,17 +38,17 @@ export default async function InsightsPage() {
           KPI CARDS
           ═══════════════════════════════════════ */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
           <div className="text-sm font-medium text-slate-500 mb-1">Total Revenue</div>
           <div className="flex items-end justify-between">
-            <div className="text-2xl font-bold text-navy-900">$124,500</div>
+            <div className="text-2xl font-bold text-navy-900">{formatInr(124500)}</div>
             <div className="flex items-center text-xs font-bold text-success bg-success-light px-2 py-1 rounded-md">
               <TrendingUp size={12} className="mr-1" /> +12%
             </div>
           </div>
         </div>
         
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
           <div className="text-sm font-medium text-slate-500 mb-1">Avg Occupancy</div>
           <div className="flex items-end justify-between">
             <div className="text-2xl font-bold text-navy-900">87.4%</div>
@@ -57,7 +58,7 @@ export default async function InsightsPage() {
           </div>
         </div>
         
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
           <div className="text-sm font-medium text-slate-500 mb-1">Repeat Rate</div>
           <div className="flex items-end justify-between">
             <div className="text-2xl font-bold text-navy-900">22.1%</div>
@@ -67,7 +68,7 @@ export default async function InsightsPage() {
           </div>
         </div>
         
-        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
           <div className="text-sm font-medium text-slate-500 mb-1">Referral Rate</div>
           <div className="flex items-end justify-between">
             <div className="text-2xl font-bold text-navy-900">14.8%</div>
@@ -136,8 +137,8 @@ export default async function InsightsPage() {
                     <div className="w-16 text-xs font-medium text-slate-600 shrink-0">{cat}</div>
                     <div className="grid grid-cols-12 gap-1 flex-1">
                       {[...Array(12)].map((_, j) => {
-                        // Generate mock intensity
-                        const intensity = Math.random();
+                        // Deterministic mock intensity (avoid Math.random — breaks SSR hydration)
+                        const intensity = ((i * 17 + j * 13) % 100) / 100;
                         let bgClass = "bg-teal-50";
                         if (intensity > 0.8) bgClass = "bg-teal-600 text-white";
                         else if (intensity > 0.5) bgClass = "bg-teal-400";
@@ -201,11 +202,14 @@ export default async function InsightsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {topTrips.map((trip) => (
+              {topTrips.map((trip, index) => {
+                const bookings = 20 + ((index * 37 + trip.name.length * 11) % 100);
+                const revenueUsd = (10 + ((index * 23 + trip.price) % 50)) * 1000;
+                return (
                 <tr key={trip.id} className="hover:bg-slate-50">
                   <td className="py-3 px-6 font-semibold text-navy-900">{trip.name}</td>
-                  <td className="py-3 px-6 text-slate-600">{Math.floor(Math.random() * 100) + 20}</td>
-                  <td className="py-3 px-6 text-slate-600 font-medium">${(Math.floor(Math.random() * 50) + 10).toLocaleString()},000</td>
+                  <td className="py-3 px-6 text-slate-600">{bookings}</td>
+                  <td className="py-3 px-6 text-slate-600 font-medium">{formatInr(revenueUsd)}</td>
                   <td className="py-3 px-6">
                     <div className="flex items-center gap-1 text-sm font-bold text-navy-900">
                       <Star size={14} className="fill-warning text-warning" /> {trip.rating}
@@ -213,7 +217,8 @@ export default async function InsightsPage() {
                   </td>
                   <td className="py-3 px-6"><StatusBadge status={trip.status} /></td>
                 </tr>
-              ))}
+                );
+              })}
             </tbody>
           </table>
         </div>

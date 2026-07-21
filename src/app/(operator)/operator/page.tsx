@@ -27,7 +27,7 @@ export default async function OperatorDashboard() {
           </div>
         </div>
         <div className="shrink-0 pb-1">
-          <button className="btn-primary py-2.5 px-5 shadow-sm w-full lg:w-auto flex items-center justify-center">
+          <button className="btn-primary py-2 px-6 shadow-sm w-full lg:w-auto flex items-center justify-center">
             <Plus size={18} className="mr-1" /> Add New Trip
           </button>
         </div>
@@ -109,7 +109,7 @@ export default async function OperatorDashboard() {
                         <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img 
-                            src={trip.imageUrl || `https://source.unsplash.com/random/100x100/?${trip.category.toLowerCase()}`}
+                            src={trip.imageUrl || "/images/places/ooty.png"}
                             alt={trip.name}
                             className="w-full h-full object-cover"
                           />
@@ -133,7 +133,7 @@ export default async function OperatorDashboard() {
                       </div>
                     </td>
                     <td className="py-4 px-6 w-48">
-                      <div className="flex flex-col gap-1.5">
+                      <div className="flex flex-col gap-2">
                         <div className="flex items-center justify-between text-xs font-medium text-slate-600">
                           <span>{fillPercentage}%</span>
                           <span>{trip.filledSeats}/{trip.maxSeats}</span>

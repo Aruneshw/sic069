@@ -70,3 +70,23 @@ model ContactMessage {
   message   String
   createdAt DateTime @default(now())
 }
+
+model Package {
+  id              String      @id @default(cuid())
+  name            String
+  slug            String      @unique
+  tagline         String
+  description     String
+  tierBadge       String      // e.g., "HIGH-ALTITUDE JOURNEYS"
+  bundlePrice     Int
+  duration        String
+  maxSeats        Int
+  filledSeats     Int         @default(0)
+  imageUrl        String
+  status          String      @default("Published")
+  itinerary       String      // JSON array: [{ day, title, description, location }]
+  inclusions      String      // JSON array: ["Premium Stay", "All Transport", "Local Guide"]
+  includedTripIds String      // JSON array of Trip IDs this package bundles
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}

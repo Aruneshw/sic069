@@ -5,7 +5,7 @@ interface StatusBadgeProps {
 export default function StatusBadge({ status }: StatusBadgeProps) {
   const normalizedStatus = status.toLowerCase();
   
-  let baseClass = "px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center";
+  let baseClass = "px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider inline-flex items-center justify-center";
   let colorClass = "";
 
   switch (normalizedStatus) {

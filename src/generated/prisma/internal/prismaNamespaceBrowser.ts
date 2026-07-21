@@ -55,7 +55,8 @@ export const ModelName = {
   Departure: 'Departure',
   Enquiry: 'Enquiry',
   Notification: 'Notification',
-  ContactMessage: 'ContactMessage'
+  ContactMessage: 'ContactMessage',
+  Package: 'Package'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -144,6 +145,29 @@ export const ContactMessageScalarFieldEnum = {
 } as const
 
 export type ContactMessageScalarFieldEnum = (typeof ContactMessageScalarFieldEnum)[keyof typeof ContactMessageScalarFieldEnum]
+
+
+export const PackageScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  slug: 'slug',
+  tagline: 'tagline',
+  description: 'description',
+  tierBadge: 'tierBadge',
+  bundlePrice: 'bundlePrice',
+  duration: 'duration',
+  maxSeats: 'maxSeats',
+  filledSeats: 'filledSeats',
+  imageUrl: 'imageUrl',
+  status: 'status',
+  itinerary: 'itinerary',
+  inclusions: 'inclusions',
+  includedTripIds: 'includedTripIds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PackageScalarFieldEnum = (typeof PackageScalarFieldEnum)[keyof typeof PackageScalarFieldEnum]
 
 
 export const SortOrder = {

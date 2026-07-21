@@ -2,7 +2,7 @@ import { PrismaClient } from "../src/generated/prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 
 const adapter = new PrismaBetterSqlite3({
-  url: "file:./prisma/dev.db",
+  url: process.env.DATABASE_URL ?? "file:./prisma/dev.db",
 });
 const prisma = new PrismaClient({ adapter });
 
@@ -17,6 +17,7 @@ async function main() {
   await prisma.enquiry.deleteMany();
   await prisma.departure.deleteMany();
   await prisma.contactMessage.deleteMany();
+  await prisma.package.deleteMany();
   await prisma.trip.deleteMany();
 
   // ═══════════════════════════════════
@@ -331,6 +332,72 @@ async function main() {
   ]);
 
   console.log(`✅ Created ${trips.length} trips`);
+
+  // ═══════════════════════════════════
+  // PACKAGES (Bundles of Trips)
+  // ═══════════════════════════════════
+  const packages = await Promise.all([
+    prisma.package.create({
+      data: {
+        name: "5-day Nilgiri Explorer",
+        slug: "5-day-nilgiri-explorer",
+        tagline: "The ultimate mountain retreat.",
+        description: "Experience the cool heights of the Nilgiri hills combined with deep cave explorations.",
+        tierBadge: "HIGH-ALTITUDE JOURNEYS",
+        bundlePrice: 599,
+        duration: "5 Days",
+        maxSeats: 12,
+        filledSeats: 10,
+        imageUrl: "/images/places/ooty.png",
+        itinerary: JSON.stringify([
+          { day: "Day 1-2", title: "Ooty Hill Station", description: "Arrive via toy train. Check into heritage hotel." },
+          { day: "Day 3", title: "Coonoor Tea Estate", description: "Afternoon tea factory tour." },
+          { day: "Day 4-5", title: "Guna Caves Expedition", description: "Explore the mystical rock formations." }
+        ]),
+        inclusions: JSON.stringify([
+          "Heritage Stay",
+          "Toy Train",
+          "Guided Cave Trek",
+          "All Meals"
+        ]),
+        includedTripIds: JSON.stringify([
+          trips.find(t => t.slug === "ooty-hill-station")?.id,
+          trips.find(t => t.slug === "guna-caves-expedition")?.id
+        ].filter(Boolean))
+      }
+    }),
+    prisma.package.create({
+      data: {
+        name: "Southern Coastal & Temple Route",
+        slug: "southern-coastal-temple-route",
+        tagline: "A blend of serenity and spirituality.",
+        description: "Start with a peaceful backwater cruise and end with a grand spiritual pilgrimage.",
+        tierBadge: "CULTURE-LED ESCAPES",
+        bundlePrice: 799,
+        duration: "7 Days",
+        maxSeats: 15,
+        filledSeats: 8,
+        imageUrl: "/images/places/alapuzha.png",
+        itinerary: JSON.stringify([
+          { day: "Day 1-3", title: "Alappuzha Backwaters", description: "Cruise through Vembanad Lake on a houseboat." },
+          { day: "Day 4-5", title: "Guruvayur Temple", description: "Cultural pilgrimage and elephant sanctuary visit." },
+          { day: "Day 6-7", title: "Thiruchendur", description: "Coastal divinity at the shore temple." }
+        ]),
+        inclusions: JSON.stringify([
+          "Houseboat Stay",
+          "Premium Hotels",
+          "VIP Temple Darshan",
+          "All Transfers"
+        ]),
+        includedTripIds: JSON.stringify([
+          trips.find(t => t.slug === "alappuzha-backwaters")?.id,
+          trips.find(t => t.slug === "guruvayur-temple")?.id,
+          trips.find(t => t.slug === "thiruchendur-pilgrimage")?.id
+        ].filter(Boolean))
+      }
+    })
+  ]);
+  console.log(`✅ Created ${packages.length} packages`);
 
   // ═══════════════════════════════════
   // DEPARTURES (for calendar view)

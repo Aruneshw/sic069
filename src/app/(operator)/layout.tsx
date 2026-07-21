@@ -8,11 +8,11 @@ export default function OperatorLayout({
 }) {
   const sidebarLinks = [
     { href: "/operator", label: "Dashboard", icon: LayoutDashboard },
-    { href: "#", label: "Manage Trips", icon: Map },
-    { href: "#", label: "Enquiries", icon: MessageSquare },
-    { href: "#", label: "Travellers", icon: Users },
+    { href: "/operator#trips", label: "Manage Trips", icon: Map },
+    { href: "/operator#enquiries", label: "Enquiries", icon: MessageSquare },
+    { href: "/operator#travellers", label: "Travellers", icon: Users },
     { href: "/operator/insights", label: "Insights", icon: Search },
-    { href: "#", label: "Settings", icon: Settings },
+    { href: "/operator#settings", label: "Settings", icon: Settings },
   ];
 
   return (
@@ -25,7 +25,7 @@ export default function OperatorLayout({
         
         {/* Logo Lockup */}
         <div className="h-[var(--nav-height)] flex items-center px-6 border-b border-navy-800 shrink-0">
-          <Link href="/" className="flex items-center gap-2.5 no-underline">
+          <Link href="/" className="flex items-center gap-2 no-underline">
             <div className="w-8 h-8 rounded-lg bg-teal-500 flex items-center justify-center">
               <Compass size={18} color="white" strokeWidth={2} />
             </div>
@@ -39,7 +39,7 @@ export default function OperatorLayout({
             <Link
               key={link.href}
               href={link.href}
-              className="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium hover:bg-navy-800 hover:text-white transition-colors"
+              className="flex items-center gap-3 px-4 py-2 rounded-lg text-sm font-medium hover:bg-navy-800 hover:text-white transition-colors"
             >
               <link.icon size={18} />
               {link.label}

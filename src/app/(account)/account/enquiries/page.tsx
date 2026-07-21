@@ -39,14 +39,14 @@ export default async function MyEnquiriesPage() {
                         <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img 
-                            src={enquiry.trip.imageUrl || `https://source.unsplash.com/random/100x100/?${enquiry.trip.category.toLowerCase()}`}
+                            src={enquiry.trip.imageUrl || "/images/places/ooty.png"}
                             alt={enquiry.trip.name}
                             className="w-full h-full object-cover"
                           />
                         </div>
                         <div>
                           <p className="font-bold text-navy-900 mb-0.5 group-hover:text-teal-600 transition-colors">{enquiry.trip.name}</p>
-                          <div className="flex items-center gap-1.5 text-xs text-slate-500">
+                          <div className="flex items-center gap-2 text-xs text-slate-500">
                             <Clock size={12} /> {enquiry.trip.duration}
                           </div>
                         </div>
@@ -94,7 +94,7 @@ export default async function MyEnquiriesPage() {
                   <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 shadow-sm">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img 
-                      src={enquiry.trip.imageUrl || `https://source.unsplash.com/random/100x100/?${enquiry.trip.category.toLowerCase()}`}
+                      src={enquiry.trip.imageUrl || "/images/places/ooty.png"}
                       alt={enquiry.trip.name}
                       className="w-full h-full object-cover"
                     />

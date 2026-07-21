@@ -16,7 +16,7 @@ interface Notification {
   createdAt: string; // ISO string for client
 }
 
-// Mock initial data based on Prisma seed
+// Stable mock timestamps (avoid Date.now() at module load — causes SSR/client drift)
 const mockNotifications: Notification[] = [
   {
     id: "1",
@@ -24,7 +24,7 @@ const mockNotifications: Notification[] = [
     title: "Seat Alert",
     message: "Only 2 seats left on Coastal Highway Escape. Secure your spot before it's gone!",
     isRead: false,
-    createdAt: new Date(Date.now() - 2 * 60 * 1000).toISOString(),
+    createdAt: "2026-07-20T18:20:00.000Z",
   },
   {
     id: "2",
@@ -32,7 +32,7 @@ const mockNotifications: Notification[] = [
     title: "Price Drop",
     message: "Flash sale! The Alpine Summit tour price just dropped by 15% for June bookings.",
     isRead: false,
-    createdAt: new Date(Date.now() - 60 * 60 * 1000).toISOString(),
+    createdAt: "2026-07-20T17:22:00.000Z",
   },
   {
     id: "3",
@@ -40,7 +40,7 @@ const mockNotifications: Notification[] = [
     title: "New Trip",
     message: "Just added: Midnight Sun Expedition. Explore the Arctic Circle in luxury.",
     isRead: false,
-    createdAt: new Date(Date.now() - 3 * 60 * 60 * 1000).toISOString(),
+    createdAt: "2026-07-20T15:22:00.000Z",
   },
   {
     id: "4",
@@ -48,7 +48,7 @@ const mockNotifications: Notification[] = [
     title: "System Update",
     message: "Your profile was successfully updated. Check out your new personalized recommendations.",
     isRead: true,
-    createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    createdAt: "2026-07-19T18:22:00.000Z",
   },
 ];
 
@@ -141,7 +141,7 @@ export default function NotificationPanel() {
               </span>
               <button 
                 onClick={markAllAsRead}
-                className="flex items-center gap-1.5 text-sm font-medium text-teal-600 hover:text-teal-700 transition-colors"
+                className="flex items-center gap-2 text-sm font-medium text-teal-600 hover:text-teal-700 transition-colors"
               >
                 <CheckCircle2 size={16} />
                 Mark all as read
