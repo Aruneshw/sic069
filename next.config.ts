@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
   basePath: process.env.NODE_ENV === 'production' ? "/sic069" : "",
-  assetPrefix: process.env.NODE_ENV === 'production' ? "/sic069" : "",
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },

@@ -277,12 +277,11 @@ export function getAvailability(maxSeats: number, filledSeats: number) {
   };
 }
 
-// Local assets only — remote Mixkit preview URLs return 403 and break video UI
 const CATEGORY_VIDEOS: Record<string, string> = {
-  Coastal: "/videos/hovering_zoom_vid.mp4",
+  Coastal: "/videos/coastal.mp4",
   Mountain: "/videos/mountain.mp4",
-  Valley: "/videos/hovering_zoom_vid.mp4",
-  Urban: "/videos/mountain.mp4",
+  Valley: "/videos/valley.mp4",
+  Urban: "/videos/urban.mp4",
 };
 
 const DEFAULT_VIDEO = "/videos/mountain.mp4";

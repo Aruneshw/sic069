@@ -180,7 +180,7 @@ export default async function HomePage() {
                 <p className="text-teal-100 text-lg italic mb-6">"{t.quote}"</p>
                 <div className="flex items-center gap-4">
                   <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-blue-500/30 group-hover:border-blue-400 transition-colors">
-                    <Image src={t.image} alt={t.author} fill sizes="56px" className="object-cover" />
+                    <Image src={getAssetUrl(t.image)} alt={t.author} fill sizes="56px" className="object-cover" />
                   </div>
                   <div>
                     <p className="font-bold text-white">{t.author}</p>
