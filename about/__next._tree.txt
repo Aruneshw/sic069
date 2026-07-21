@@ -1,0 +1,9 @@
+:HL["/sic069/_next/static/chunks/15lwdwddzgx--.css","style"]
+:HL["/sic069/_next/static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/images/about/founder.png","image"]
+:HL["/images/places/guna_cave.png","image"]
+:HL["/images/places/alapuzha.png","image"]
+:HL["/images/places/ooty.png","image"]
+:HL["/images/places/monkey_falls.png","image"]
+:HL["/images/places/hogennakal.png","image"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"(marketing)","param":null,"prefetchHints":0,"slots":{"children":{"name":"about","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"2U0KfEbui8fpsj_p5KXDZ"}
