@@ -246,7 +246,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-premium);
+  transition: transform var(--duration-normal) var(--ease-premium), background-color var(--duration-normal) var(--ease-premium), box-shadow var(--duration-normal) var(--ease-premium);
   text-decoration: none;
 }
 
@@ -269,7 +269,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-premium);
+  transition: transform var(--duration-normal) var(--ease-premium), background-color var(--duration-normal) var(--ease-premium), border-color var(--duration-normal) var(--ease-premium);
   text-decoration: none;
 }
 
@@ -291,7 +291,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--duration-normal) var(--ease-premium);
+  transition: transform var(--duration-normal) var(--ease-premium), background-color var(--duration-normal) var(--ease-premium), box-shadow var(--duration-normal) var(--ease-premium);
   text-decoration: none;
 }
 
@@ -428,13 +428,14 @@ body {
   content: '';
   position: absolute;
   top: 0;
-  left: 30px;
-  width: 50%;
+  left: 0;
+  width: 100%;
   height: 100%;
   text-decoration: none;
   border-radius: 1.5rem;
-  transform: skewX(15deg);
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), left 0.8s cubic-bezier(0.16, 1, 0.3, 1), width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center;
+  transform: translateX(30px) scaleX(0.5) skewX(15deg);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
 }
 
@@ -442,22 +443,21 @@ body {
   content: '';
   position: absolute;
   top: 0;
-  left: 30px;
-  width: 50%;
+  left: 0;
+  width: 100%;
   height: 100%;
   border-radius: 1.5rem;
-  transform: skewX(15deg);
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), left 0.8s cubic-bezier(0.16, 1, 0.3, 1), width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center;
+  transform: translateX(30px) scaleX(0.5) skewX(15deg);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   filter: blur(30px);
   z-index: 1;
 }
 
-/* Hover adjusts skew, width, and positioning */
+/* Hover adjusts transform properties directly */
 .kodplay-glow-card:hover::before,
 .kodplay-glow-card:hover::after {
-  transform: skewX(0deg);
-  left: 0px;
-  width: 100%;
+  transform: translateX(0px) scaleX(1) skewX(0deg);
 }
 
 /* Custom gradients for pseudo-elements */

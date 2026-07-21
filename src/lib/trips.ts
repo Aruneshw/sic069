@@ -284,6 +284,13 @@ const CATEGORY_VIDEOS: Record<string, string> = {
   Urban: "/videos/mountain.mp4",
 };
 
+const CATEGORY_PREVIEW_VIDEOS: Record<string, string> = {
+  Coastal: "/videos/coastal_preview.mp4",
+  Mountain: "/videos/mountain_preview.mp4",
+  Valley: "/videos/valley_preview.mp4",
+  Urban: "/videos/urban_preview.mp4",
+};
+
 const CATEGORY_POSTERS: Record<string, string> = {
   Coastal: "/videos/hovering_zoom_vid-poster.webp",
   Mountain: "/videos/mountain-poster.webp",
@@ -296,6 +303,10 @@ const DEFAULT_POSTER = "/videos/mountain-poster.webp";
 
 export function getCategoryVideo(category: string): string {
   return getAssetUrl(CATEGORY_VIDEOS[category] ?? DEFAULT_VIDEO);
+}
+
+export function getCategoryPreviewVideo(category: string): string {
+  return getAssetUrl(CATEGORY_PREVIEW_VIDEOS[category] ?? "/videos/mountain_preview.mp4");
 }
 
 export function getCategoryPoster(category: string): string {

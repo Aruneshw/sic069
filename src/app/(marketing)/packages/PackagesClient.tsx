@@ -52,7 +52,7 @@ function PackageRowCard({
   return (
     <motion.article
       layout
-      className="glass-surface group relative overflow-hidden rounded-[2.5rem] border border-white/20 bg-white/70 shadow-xl transition-all duration-300 hover:shadow-2xl"
+      className="glass-surface group relative overflow-hidden rounded-[2.5rem] border border-white/20 bg-white/70 shadow-xl transition-shadow duration-300 hover:shadow-2xl"
       style={{ borderColor: theme.ring }}
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.3fr] min-h-[30rem] lg:min-h-[26rem]">
