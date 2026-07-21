@@ -6,7 +6,6 @@ import { ArrowRight, CalendarClock, Users, ClipboardCheck, MessageCircle } from 
 import { prisma } from "@/lib/prisma";
 import TripCard from "@/components/ui/TripCard";
 
-import HeroSceneWrapper from "@/components/3d/HeroSceneWrapper";
 import LiveTrackingButton from "@/components/operator/LiveTrackingButton";
 import ImmersiveVideoGallery from "@/components/video/ImmersiveVideoGallery";
 
@@ -37,7 +36,8 @@ export default async function HomePage() {
           autoPlay 
           loop 
           muted 
-          playsInline 
+          playsInline
+          poster={getAssetUrl("/images/places/ooty.png")}
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src={getAssetUrl("/videos/mountain.mp4")} type="video/mp4" />

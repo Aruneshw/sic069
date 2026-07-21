@@ -15,6 +15,7 @@ export default function AboutPage() {
           loop 
           muted 
           playsInline 
+          poster={getAssetUrl("/images/places/alapuzha.png")}
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 transition-transform duration-1000 group-hover:scale-105"
         >
           <source src={getAssetUrl("/videos/hovering_zoom_vid.mp4")} type="video/mp4" />
@@ -65,9 +66,12 @@ export default function AboutPage() {
             <div className="w-full md:w-5/12 relative">
               <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl relative z-10">
                 <div className="absolute inset-0 bg-slate-200 animate-pulse" />
-                <img 
+                <Image 
                   src={getAssetUrl("/images/about/founder_new.png")} 
                   alt="Marcus Vance, Founder" 
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
                   className="absolute inset-0 w-full h-full object-cover"
                 />
               </div>
