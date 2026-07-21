@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { LayoutGrid, CalendarDays, ChevronLeft, ChevronRight, Info } from "lucide-react";
-import { formatInr } from "@/lib/trips";
+import { formatInr, getAssetUrl } from "@/lib/trips";
 
 export default function CalendarClient({ allDepartures }: { allDepartures: any[] }) {
   const searchParams = useSearchParams();
@@ -61,7 +61,10 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
     <div className="bg-slate-50 min-h-screen pb-24">
       {/* Header */}
       <div className="bg-navy-900 pt-36 md:pt-48 pb-24 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[url('/images/trips-hero.png')] bg-cover bg-center mix-blend-overlay" />
+        <div 
+          className="absolute inset-0 opacity-20 bg-cover bg-center mix-blend-overlay" 
+          style={{ backgroundImage: `url(${getAssetUrl('/images/trips-hero.png')})` }}
+        />
         <div className="container-main relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Availability Calendar</h1>
           <p className="text-teal-100 text-lg max-w-2xl mx-auto">
@@ -227,7 +230,7 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
                       <div className="flex items-stretch h-28">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img 
-                          src={dep.trip.imageUrl || "/images/places/ooty.png"} 
+                          src={getAssetUrl(dep.trip.imageUrl || "/images/places/ooty.png")} 
                           alt={dep.trip.name}
                           className="w-1/3 object-cover"
                         />

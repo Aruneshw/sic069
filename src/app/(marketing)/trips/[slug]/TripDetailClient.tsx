@@ -6,7 +6,7 @@ import { Star, Clock, MapPin, Users, Calendar as CalendarIcon, CheckCircle2, Che
 import anime from "animejs";
 import toast, { Toaster } from "react-hot-toast";
 import { TripMap } from "@/components/ui/TripMap";
-import { getCategoryVideo } from "@/lib/trips";
+import { formatInr, getTripTheme, getCategoryVideo, getAvailability, getAssetUrl } from "@/lib/trips";
 
 export default function TripDetailClient({ trip }: { trip: any }) {
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function TripDetailClient({ trip }: { trip: any }) {
           <div className="md:col-span-2 relative anime-scale-up opacity-0 group">
             <div className="absolute inset-0 bg-navy-900/50 animate-pulse -z-10" />
             <img 
-              src={trip.imageUrl || "/images/trips-hero.png"} 
+              src={getAssetUrl(trip.imageUrl || "/images/trips-hero.png")} 
               alt={trip.name} 
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
@@ -88,7 +88,7 @@ export default function TripDetailClient({ trip }: { trip: any }) {
           <div className="hidden md:flex flex-col gap-4 h-full">
             <div className="flex-1 relative anime-scale-up opacity-0 group overflow-hidden rounded-2xl">
               <div className="absolute inset-0 bg-navy-900/50 animate-pulse -z-10" />
-              <img src="/images/trips/detail_1.png" alt="Luxury View" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+              <img src={getAssetUrl("/images/trips/detail_1.png")} alt="Luxury View" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             </div>
             <div className="flex-1 relative anime-scale-up opacity-0 group overflow-hidden rounded-2xl">
               <video 

@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import StatCard from "@/components/ui/StatCard";
 import StatusBadge from "@/components/ui/StatusBadge";
 import { Map, Calendar, MessageSquare, Percent } from "lucide-react";
+import { getAssetUrl } from "@/lib/trips";
 
 import LiveTrackingButton from "@/components/operator/LiveTrackingButton";
 
@@ -109,7 +110,7 @@ export default async function OperatorDashboard() {
                         <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img 
-                            src={trip.imageUrl || "/images/places/ooty.png"}
+                            src={getAssetUrl(trip.imageUrl || "/images/places/ooty.png")}
                             alt={trip.name}
                             className="w-full h-full object-cover"
                           />

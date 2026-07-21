@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
+import { getAssetUrl } from "@/lib/trips";
 import { ArrowRight, CalendarClock, Users, ClipboardCheck, MessageCircle } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import TripCard from "@/components/ui/TripCard";
@@ -39,7 +40,7 @@ export default async function HomePage() {
           playsInline 
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
-          <source src="/videos/mountain.mp4" type="video/mp4" />
+          <source src={getAssetUrl("/videos/mountain.mp4")} type="video/mp4" />
         </video>
         {/* Overlay to ensure text readability */}
         <div className="absolute inset-0 bg-navy-900/40 z-0 mix-blend-multiply" />

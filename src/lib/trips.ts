@@ -288,5 +288,13 @@ const CATEGORY_VIDEOS: Record<string, string> = {
 const DEFAULT_VIDEO = "/videos/mountain.mp4";
 
 export function getCategoryVideo(category: string): string {
-  return CATEGORY_VIDEOS[category] ?? DEFAULT_VIDEO;
+  return getAssetUrl(CATEGORY_VIDEOS[category] ?? DEFAULT_VIDEO);
+}
+
+export function getAssetUrl(path: string): string {
+  // Use absolute paths in development, and prefix with /sic069 in production for GitHub Pages
+  if (process.env.NODE_ENV === "production" && path.startsWith("/")) {
+    return `/sic069${path}`;
+  }
+  return path;
 }

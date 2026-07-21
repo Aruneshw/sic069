@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { LayoutGrid, CalendarDays, Search, Filter } from "lucide-react";
 import TripCard from "@/components/ui/TripCard";
+import { getAssetUrl } from "@/lib/trips";
 
 export default function TripsClient({ trips }: { trips: any[] }) {
   const searchParams = useSearchParams();
@@ -30,7 +31,7 @@ export default function TripsClient({ trips }: { trips: any[] }) {
       {/* Hero */}
       <div className="relative overflow-hidden" style={{ minHeight: "420px" }}>
         <img
-          src="/images/trips-hero.png"
+          src={getAssetUrl("/images/trips-hero.png")}
           alt="Travel planning flat lay"
           className="absolute inset-0 w-full h-full object-cover"
         />

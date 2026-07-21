@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { getAssetUrl } from "@/lib/trips";
 import { Award, Globe, Users, Target, Shield, HeartHandshake, Phone, Mail, MapPin } from "lucide-react";
 
 export default function AboutPage() {
@@ -15,7 +17,7 @@ export default function AboutPage() {
           playsInline 
           className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 transition-transform duration-1000 group-hover:scale-105"
         >
-          <source src="/videos/hovering_zoom_vid.mp4" type="video/mp4" />
+          <source src={getAssetUrl("/videos/hovering_zoom_vid.mp4")} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-navy-900/40 z-0 pointer-events-none" />
         
@@ -65,7 +67,7 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-slate-200 animate-pulse" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
-                  src="/images/about/founder.png" 
+                  src={getAssetUrl("/images/about/founder.png")} 
                   alt="Marcus Vance, Founder" 
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -108,19 +110,19 @@ export default function AboutPage() {
         {/* Simple masonry grid representation */}
         <div className="container-main grid grid-cols-2 md:grid-cols-4 gap-6">
           <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden aspect-square relative group">
-            <img src="/images/places/guna_cave.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src={getAssetUrl("/images/places/guna_cave.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
           <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src="/images/places/alapuzha.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src={getAssetUrl("/images/places/alapuzha.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
           <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src="/images/places/ooty.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src={getAssetUrl("/images/places/ooty.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
           <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src="/images/places/monkey_falls.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src={getAssetUrl("/images/places/monkey_falls.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
           <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src="/images/places/hogennakal.png" alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src={getAssetUrl("/images/places/hogennakal.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
         </div>
       </section>

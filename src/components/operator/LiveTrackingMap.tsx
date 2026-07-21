@@ -6,6 +6,7 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { X, MapPin } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { getAssetUrl } from "@/lib/trips";
 
 // Colorful map style using Carto Voyager (light, colorful, no API key required)
 const mapStyle = {
@@ -36,16 +37,16 @@ const mapStyle = {
 
 // Mock tourist places using provided images
 const touristPlaces = [
-  { id: 1, name: "Alappuzha", lat: 9.4981, lng: 76.3388, avatar: "/images/places/alapuzha.png", description: "Venice of the East" },
-  { id: 2, name: "Black Thunder", lat: 11.3005, lng: 76.9458, avatar: "/images/places/black_thunder.png", description: "Theme Park" },
-  { id: 3, name: "Guna Caves", lat: 10.2227, lng: 77.4727, avatar: "/images/places/guna_cave.png", description: "Devil's Kitchen" },
-  { id: 4, name: "Guruvayur", lat: 10.5962, lng: 76.0381, avatar: "/images/places/guruvayur.png", description: "Temple Town" },
-  { id: 5, name: "Hogenakkal", lat: 12.1190, lng: 77.7770, avatar: "/images/places/hogennakal.png", description: "Niagara of India" },
-  { id: 6, name: "Isha Foundation", lat: 10.9723, lng: 76.7354, avatar: "/images/places/isha.png", description: "Adiyogi" },
-  { id: 7, name: "Monkey Falls", lat: 10.4357, lng: 76.9934, avatar: "/images/places/monkey_falls.png", description: "Pollachi" },
-  { id: 8, name: "Ooty", lat: 11.4100, lng: 76.6932, avatar: "/images/places/ooty.png", description: "Hill Station" },
-  { id: 9, name: "Thiruchendur", lat: 8.4975, lng: 78.1213, avatar: "/images/places/thiruchendur.png", description: "Coastal Temple" },
-  { id: 10, name: "Wayanad", lat: 11.6854, lng: 76.1320, avatar: "/images/places/wayanad.png", description: "Nature's Abode" },
+  { id: 1, name: "Alappuzha", lat: 9.4981, lng: 76.3388, avatar: getAssetUrl("/images/places/alapuzha.png"), description: "Venice of the East" },
+  { id: 2, name: "Black Thunder", lat: 11.3005, lng: 76.9458, avatar: getAssetUrl("/images/places/black_thunder.png"), description: "Theme Park" },
+  { id: 3, name: "Guna Caves", lat: 10.2227, lng: 77.4727, avatar: getAssetUrl("/images/places/guna_cave.png"), description: "Devil's Kitchen" },
+  { id: 4, name: "Guruvayur", lat: 10.5962, lng: 76.0381, avatar: getAssetUrl("/images/places/guruvayur.png"), description: "Temple Town" },
+  { id: 5, name: "Hogenakkal", lat: 12.1190, lng: 77.7770, avatar: getAssetUrl("/images/places/hogennakal.png"), description: "Niagara of India" },
+  { id: 6, name: "Isha Foundation", lat: 10.9723, lng: 76.7354, avatar: getAssetUrl("/images/places/isha.png"), description: "Adiyogi" },
+  { id: 7, name: "Monkey Falls", lat: 10.4357, lng: 76.9934, avatar: getAssetUrl("/images/places/monkey_falls.png"), description: "Pollachi" },
+  { id: 8, name: "Ooty", lat: 11.4100, lng: 76.6932, avatar: getAssetUrl("/images/places/ooty.png"), description: "Hill Station" },
+  { id: 9, name: "Thiruchendur", lat: 8.4975, lng: 78.1213, avatar: getAssetUrl("/images/places/thiruchendur.png"), description: "Coastal Temple" },
+  { id: 10, name: "Wayanad", lat: 11.6854, lng: 76.1320, avatar: getAssetUrl("/images/places/wayanad.png"), description: "Nature's Abode" },
 ];
 
 interface LiveTrackingMapProps {

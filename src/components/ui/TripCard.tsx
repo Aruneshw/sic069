@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { Star, Clock, Users } from "lucide-react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
-import { formatInr } from "@/lib/trips";
+import { formatInr, getAssetUrl, getTripTheme } from "@/lib/trips";
 
 interface TripCardProps {
   trip: {
@@ -72,7 +72,7 @@ export default function TripCard({ trip, index = 0 }: TripCardProps) {
             <div className="absolute inset-0 bg-slate-200 animate-pulse" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={trip.imageUrl || "/images/trips-hero.png"}
+              src={getAssetUrl(trip.imageUrl || "/images/trips-hero.png")}
               alt={trip.name}
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
               loading="lazy"

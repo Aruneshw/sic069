@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ChevronRight, Calendar, MessageCircle, Clock } from "lucide-react";
 import { prisma } from "@/lib/prisma";
+import { getAssetUrl } from "@/lib/trips";
 import StatusBadge from "@/components/ui/StatusBadge";
 
 export default async function MyEnquiriesPage() {
@@ -39,7 +40,7 @@ export default async function MyEnquiriesPage() {
                         <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img 
-                            src={enquiry.trip.imageUrl || "/images/places/ooty.png"}
+                            src={getAssetUrl(enquiry.trip.imageUrl || "/images/places/ooty.png")}
                             alt={enquiry.trip.name}
                             className="w-full h-full object-cover"
                           />
@@ -94,7 +95,7 @@ export default async function MyEnquiriesPage() {
                   <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 shadow-sm">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img 
-                      src={enquiry.trip.imageUrl || "/images/places/ooty.png"}
+                      src={getAssetUrl(enquiry.trip.imageUrl || "/images/places/ooty.png")}
                       alt={enquiry.trip.name}
                       className="w-full h-full object-cover"
                     />

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Pause, X, Volume2, VolumeX, Maximize2, Compass, Eye } from "lucide-react";
+import { getAssetUrl } from "@/lib/trips";
 
 interface VideoTour {
   id: string;
@@ -22,9 +23,9 @@ const tours: VideoTour[] = [
     category: "Coastal",
     description: "Cruise through pristine palm-fringed backwaters on a luxury houseboat.",
     duration: "3 Days",
-    videoUrl: "/videos/hovering_zoom_vid.mp4",
-    previewUrl: "/videos/hovering_zoom_vid.mp4",
-    posterUrl: "/images/places/alapuzha.png",
+    videoUrl: getAssetUrl("/videos/hovering_zoom_vid.mp4"),
+    previewUrl: getAssetUrl("/videos/hovering_zoom_vid.mp4"),
+    posterUrl: getAssetUrl("/images/places/alapuzha.png"),
   },
   {
     id: "mountain",
@@ -32,9 +33,9 @@ const tours: VideoTour[] = [
     category: "Mountain",
     description: "Ascend into mist-covered tea estates and high-altitude mountain trails.",
     duration: "5 Days",
-    videoUrl: "/videos/mountain.mp4",
-    previewUrl: "/videos/mountain.mp4",
-    posterUrl: "/images/places/ooty.png",
+    videoUrl: getAssetUrl("/videos/mountain.mp4"),
+    previewUrl: getAssetUrl("/videos/mountain.mp4"),
+    posterUrl: getAssetUrl("/images/places/ooty.png"),
   },
   {
     id: "valley",
@@ -42,9 +43,9 @@ const tours: VideoTour[] = [
     category: "Valley",
     description: "Trek through dense spice forests to hidden cascading waterfalls.",
     duration: "4 Days",
-    videoUrl: "/videos/hovering_zoom_vid.mp4",
-    previewUrl: "/videos/hovering_zoom_vid.mp4",
-    posterUrl: "/images/places/wayanad.png",
+    videoUrl: getAssetUrl("/videos/hovering_zoom_vid.mp4"),
+    previewUrl: getAssetUrl("/videos/hovering_zoom_vid.mp4"),
+    posterUrl: getAssetUrl("/images/places/wayanad.png"),
   },
   {
     id: "urban",
@@ -52,9 +53,9 @@ const tours: VideoTour[] = [
     category: "Urban",
     description: "Immerse yourself in sacred rituals, spiritual geometry, and ancient architecture.",
     duration: "4 Days",
-    videoUrl: "/videos/mountain.mp4",
-    previewUrl: "/videos/mountain.mp4",
-    posterUrl: "/images/places/guruvayur.png",
+    videoUrl: getAssetUrl("/videos/mountain.mp4"),
+    previewUrl: getAssetUrl("/videos/mountain.mp4"),
+    posterUrl: getAssetUrl("/images/places/guruvayur.png"),
   },
 ];
 
