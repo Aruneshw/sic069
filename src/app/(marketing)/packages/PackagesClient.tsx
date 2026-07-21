@@ -260,7 +260,7 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
 
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="container-main pt-48 pb-20 md:pt-56 lg:pt-64 md:pb-28">
+        <section className="container-main pt-64 pb-20 md:pt-72 lg:pt-80 md:pb-28">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
