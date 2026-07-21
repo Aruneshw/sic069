@@ -279,12 +279,12 @@ export function getAvailability(maxSeats: number, filledSeats: number) {
 
 const CATEGORY_VIDEOS: Record<string, string> = {
   Coastal: "/videos/coastal.mp4",
-  Mountain: "/videos/mountain.mp4",
+  Mountain: "/videos/mountain_preview.mp4",
   Valley: "/videos/valley.mp4",
   Urban: "/videos/urban.mp4",
 };
 
-const DEFAULT_VIDEO = "/videos/mountain.mp4";
+const DEFAULT_VIDEO = "/videos/mountain_preview.mp4";
 
 export function getCategoryVideo(category: string): string {
   return getAssetUrl(CATEGORY_VIDEOS[category] ?? DEFAULT_VIDEO);
