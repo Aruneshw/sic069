@@ -278,16 +278,28 @@ export function getAvailability(maxSeats: number, filledSeats: number) {
 }
 
 const CATEGORY_VIDEOS: Record<string, string> = {
-  Coastal: "/videos/coastal.mp4",
-  Mountain: "/videos/mountain_preview.mp4",
-  Valley: "/videos/valley.mp4",
-  Urban: "/videos/urban.mp4",
+  Coastal: "/videos/hovering_zoom_vid.mp4",
+  Mountain: "/videos/mountain.mp4",
+  Valley: "/videos/hovering_zoom_vid.mp4",
+  Urban: "/videos/mountain.mp4",
 };
 
-const DEFAULT_VIDEO = "/videos/mountain_preview.mp4";
+const CATEGORY_POSTERS: Record<string, string> = {
+  Coastal: "/videos/hovering_zoom_vid-poster.webp",
+  Mountain: "/videos/mountain-poster.webp",
+  Valley: "/videos/hovering_zoom_vid-poster.webp",
+  Urban: "/videos/mountain-poster.webp",
+};
+
+const DEFAULT_VIDEO = "/videos/mountain.mp4";
+const DEFAULT_POSTER = "/videos/mountain-poster.webp";
 
 export function getCategoryVideo(category: string): string {
   return getAssetUrl(CATEGORY_VIDEOS[category] ?? DEFAULT_VIDEO);
+}
+
+export function getCategoryPoster(category: string): string {
+  return getAssetUrl(CATEGORY_POSTERS[category] ?? DEFAULT_POSTER);
 }
 
 export function getAssetUrl(path: string): string {

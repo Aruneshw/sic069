@@ -17,7 +17,7 @@ import {
   Compass,
 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
-import { formatInr, getAvailability, getCategoryVideo, getTripTheme } from "@/lib/trips";
+import { formatInr, getAvailability, getCategoryVideo, getCategoryPoster, getTripTheme } from "@/lib/trips";
 
 export interface Package {
   id: string;
@@ -63,6 +63,8 @@ function PackageRowCard({
             loop
             muted
             playsInline
+            preload="metadata"
+            poster={getCategoryPoster(pkg.category)}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
           >
             <source src={getCategoryVideo(pkg.category)} type="video/mp4" />
@@ -411,6 +413,8 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
                   loop
                   muted
                   playsInline
+                  preload="metadata"
+                  poster={getCategoryPoster(activeItineraryPackage.category)}
                   className="absolute inset-0 w-full h-full object-cover -z-10"
                 >
                   <source src={getCategoryVideo(activeItineraryPackage.category)} type="video/mp4" />
