@@ -12,7 +12,7 @@ export default function MarketingLayout({
     <div className="flex flex-col min-h-screen">
       <Navbar />
       <NotificationPanel />
-      <main className="flex-1 pt-[var(--nav-height)] pb-16 md:pb-0">
+      <main className="flex-1 pb-16 md:pb-0">
         {children}
       </main>
       <Footer />
