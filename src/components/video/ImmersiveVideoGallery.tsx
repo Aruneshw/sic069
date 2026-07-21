@@ -163,7 +163,6 @@ export default function ImmersiveVideoGallery() {
                     }}
                     src={tour.previewUrl}
                     poster={tour.posterUrl}
-                    preload="none"
                     loop
                     muted
                     playsInline
