@@ -1,6 +1,6 @@
-:HL["/sic069/_next/static/chunks/1vw5426578j8-.css","style"]
+:HL["/sic069/_next/static/chunks/3cy8rgk-e_vt6.css","style"]
 :HL["/sic069/_next/static/media/83afe278b6a6bb3c-s.p.2bn3s6zvc0dyp.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/sic069/images/places/guna_cave.png","image"]
 :HL["/sic069/images/places/ooty.png","image"]
 :HL["/sic069/images/places/hogennakal.png","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"(account)","param":null,"prefetchHints":0,"slots":{"children":{"name":"account","param":null,"prefetchHints":0,"slots":{"children":{"name":"enquiries","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"uDvMhU2UQ1DaAGUOsp1Op"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"(account)","param":null,"prefetchHints":0,"slots":{"children":{"name":"account","param":null,"prefetchHints":0,"slots":{"children":{"name":"enquiries","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}}}},"staleTime":300,"buildId":"RTNnRkxRS7xgR2-Gu_b1U"}
