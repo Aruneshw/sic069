@@ -7,7 +7,7 @@ import { prisma } from "@/lib/prisma";
 import TripCard from "@/components/ui/TripCard";
 
 import LiveTrackingButton from "@/components/operator/LiveTrackingButton";
-import ImmersiveVideoGallery from "@/components/video/ImmersiveVideoGallery";
+import DeferredGallery from "@/components/video/DeferredGallery";
 
 // Mock testimonials for the horizontal scroll
 const testimonials = [
@@ -37,7 +37,8 @@ export default async function HomePage() {
           loop 
           muted 
           playsInline
-          poster={getAssetUrl("/images/places/ooty.png")}
+          preload="metadata"
+          poster="/videos/mountain-poster.webp"
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
           <source src={getAssetUrl("/videos/mountain.mp4")} type="video/mp4" />
@@ -162,7 +163,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <ImmersiveVideoGallery />
+      <DeferredGallery />
 
       {/* ═══════════════════════════════════════
           TESTIMONIAL STRIP (page-05.png style)

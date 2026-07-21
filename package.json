@@ -17,8 +17,6 @@
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.8.0",
     "@prisma/client": "^7.8.0",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.6.1",
     "animejs": "3.2.2",
     "better-sqlite3": "^12.11.1",
     "framer-motion": "^12.42.2",
@@ -30,17 +28,16 @@
     "react-hot-toast": "^2.6.0",
     "react-map-gl": "^8.1.1",
     "recharts": "^3.9.2",
-    "three": "^0.185.1",
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^16.2.10",
     "@tailwindcss/postcss": "^4",
     "@types/animejs": "^3.1.13",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/three": "^0.185.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "gh-pages": "^6.3.0",
