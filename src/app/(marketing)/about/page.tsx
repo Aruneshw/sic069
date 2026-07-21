@@ -65,9 +65,8 @@ export default function AboutPage() {
             <div className="w-full md:w-5/12 relative">
               <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl relative z-10">
                 <div className="absolute inset-0 bg-slate-200 animate-pulse" />
-                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
-                  src={getAssetUrl("/images/about/founder.png")} 
+                  src={getAssetUrl("/images/about/founder_new.png")} 
                   alt="Marcus Vance, Founder" 
                   className="absolute inset-0 w-full h-full object-cover"
                 />
