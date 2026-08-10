@@ -21,6 +21,7 @@ import { formatInr, getAvailability, getCategoryVideo, getCategoryPoster, getTri
 import RunningLetters from "@/components/ui/RunningLetters";
 import { supabase } from "@/utils/supabase";
 import ToastCard from "@/components/ui/ToastCard";
+import { loadRazorpayScript } from "@/utils/razorpay";
 
 export interface Package {
   id: string;
@@ -248,33 +249,73 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
         return;
       }
 
-      const response = await fetch('/api/enquiry', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          packageId: pkg.id,
-          userName: session.user.user_metadata?.full_name || session.user.email,
-          userEmail: session.user.email,
-          message: `I would like to book the ${pkg.name} package.`,
-        }),
+      const res = await loadRazorpayScript();
+      if (!res) {
+        toast.error("Razorpay SDK failed to load. Are you online?");
+        return;
+      }
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "rzp_test_TO9wFGcPnJD1l7",
+        amount: pkg.bundlePrice * 100, // Amount in paise
+        currency: "INR",
+        name: "Zero Gravity Tours",
+        description: `Booking for ${pkg.name}`,
+        handler: async function (response: any) {
+          try {
+            const apiRes = await fetch('/api/enquiry', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                packageId: pkg.id,
+                userName: session.user.user_metadata?.full_name || session.user.email,
+                userEmail: session.user.email,
+                message: `Payment successful (Payment ID: ${response.razorpay_payment_id}). Booked the ${pkg.name} package.`,
+              }),
+            });
+
+            if (!apiRes.ok) throw new Error('Failed to submit enquiry');
+
+            toast.custom((t) => (
+              <ToastCard 
+                t={t} 
+                title="Booking Confirmed!" 
+                message={`Your payment for ${pkg.name} was successful. Our team will contact you shortly to finalize details.`} 
+                type="success" 
+              />
+            ));
+          } catch (error) {
+            toast.custom((t) => (
+              <ToastCard 
+                t={t} 
+                title="Payment Saved, Sync Failed" 
+                message="Your payment was successful but we couldn't log the request. Please contact support." 
+                type="error" 
+              />
+            ));
+          }
+        },
+        prefill: {
+          name: session.user.user_metadata?.full_name || "",
+          email: session.user.email || "",
+        },
+        theme: {
+          color: "#0F172A",
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on("payment.failed", function (response: any) {
+        toast.error("Payment failed. Please try again.");
       });
+      rzp.open();
 
-      if (!response.ok) throw new Error('Failed to submit enquiry');
-
-      toast.custom((t) => (
-        <ToastCard 
-          t={t} 
-          title="Booking Request Received!" 
-          message={`We have received your enquiry for ${pkg.name}. Our team will contact you shortly to finalize details.`} 
-          type="success" 
-        />
-      ));
     } catch (error) {
       toast.custom((t) => (
         <ToastCard 
           t={t} 
-          title="Request Failed" 
-          message="There was an issue submitting your booking request. Please try again or contact support." 
+          title="Checkout Failed" 
+          message="There was an issue opening the checkout. Please try again." 
           type="error" 
         />
       ));
