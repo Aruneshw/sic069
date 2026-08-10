@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getAssetUrl } from "@/lib/trips";
 import { Star, MessageCircle, Heart, ChevronDown } from "lucide-react";
+import RunningLetters from "@/components/ui/RunningLetters";
 
 // Mock stories based on page-12.png reference
 const stories = [
@@ -86,9 +87,11 @@ export default function CommunityPage() {
             <span className="inline-flex items-center gap-2 px-3 py-1 bg-teal-500 text-white text-xs font-bold uppercase tracking-wider rounded-full mb-6">
               <Star size={14} className="fill-white" /> Story of the Month
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              "The silence of the desert changed how I see the world."
-            </h1>
+            <RunningLetters
+              as="h1"
+              text='"The silence of the desert changed how I see the world."'
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight"
+            />
             <p className="text-xl text-teal-100 mb-8 font-medium">
               — David & Emma on the Desert Stargazer Odyssey
             </p>

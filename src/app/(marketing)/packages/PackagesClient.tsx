@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import { formatInr, getAvailability, getCategoryVideo, getCategoryPoster, getTripTheme } from "@/lib/trips";
+import RunningLetters from "@/components/ui/RunningLetters";
 
 export interface Package {
   id: string;
@@ -272,9 +273,11 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
               Bundle-based Tour Design
             </span>
 
-            <h1 className="mt-6 text-4xl sm:text-5xl font-extrabold leading-[1.05] md:leading-[0.96] tracking-tight md:tracking-[-0.04em] text-slate-950 md:text-7xl">
-              Curated regional multi-stop travel packages.
-            </h1>
+            <RunningLetters
+              as="h1"
+              text="Curated regional multi-stop travel packages."
+              className="mt-6 text-4xl sm:text-5xl font-extrabold leading-[1.05] md:leading-[0.96] tracking-tight md:tracking-[-0.04em] text-slate-950 md:text-7xl"
+            />
 
             <p className="mt-6 max-w-2xl text-base leading-8 text-slate-600 md:text-lg">
               Curated multi-stop itineraries — browse individual destinations under{" "}

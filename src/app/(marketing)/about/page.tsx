@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getAssetUrl } from "@/lib/trips";
 import { Award, Globe, Users, Target, Shield, HeartHandshake, Phone, Mail, MapPin } from "lucide-react";
 import WaveDivider from "@/components/ui/WaveDivider";
+import RunningLetters from "@/components/ui/RunningLetters";
 
 export default function AboutPage() {
   return (
@@ -29,10 +30,11 @@ export default function AboutPage() {
             <span className="inline-block px-4 py-2 bg-teal-500/20 text-teal-200 font-bold uppercase tracking-wider rounded-full mb-6 text-sm border border-teal-500/30 backdrop-blur-md">
               Our Mission
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-md">
-              Radical Transparency <br />
-              <span className="text-teal-300">for Budget</span> Travellers.
-            </h1>
+            <RunningLetters
+              as="h1"
+              text="Radical Transparency for Budget Travellers."
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-md"
+            />
             <p className="text-xl text-slate-200 leading-relaxed drop-shadow-sm opacity-90">
               We believe that budget travellers deserve better than broken links, hidden fees, and waiting on email replies to find out if a trip is running. Since our founding, we've been committed to providing clear inclusions, live group sizes, and instant schedules so you can plan with confidence.
             </p>

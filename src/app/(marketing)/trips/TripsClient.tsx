@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { LayoutGrid, CalendarDays, Search, Filter } from "lucide-react";
 import TripCard from "@/components/ui/TripCard";
 import { getAssetUrl } from "@/lib/trips";
+import RunningLetters from "@/components/ui/RunningLetters";
 
 export default function TripsClient({ trips }: { trips: any[] }) {
   const searchParams = useSearchParams();
@@ -40,10 +41,11 @@ export default function TripsClient({ trips }: { trips: any[] }) {
           <span className="inline-block px-4 py-2 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs font-semibold text-teal-200 uppercase tracking-widest mb-6">
             ✦ Curated Regional Tours
           </span>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 drop-shadow-lg leading-[1.1]">
-            Find Your <br className="hidden md:block" />
-            <span className="bg-gradient-to-r from-teal-300 via-blue-300 to-indigo-400 bg-clip-text text-transparent">Next Destination</span>
-          </h1>
+          <RunningLetters
+            as="h1"
+            text="Find Your Next Destination"
+            className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 drop-shadow-lg leading-[1.1]"
+          />
           <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto drop-shadow-sm font-medium mt-6">
             Browse our complete collection of regional tours, from relaxing coastal retreats to challenging alpine summits.
           </p>
