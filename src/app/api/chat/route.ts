@@ -2,6 +2,10 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.OPENROUTER_API_KEY) {
+      return NextResponse.json({ choices: [{ message: { content: "I am offline right now. My OpenRouter API Key is missing from Vercel's Environment Variables!" } }] });
+    }
+
     const { messages } = await req.json();
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -11,7 +15,7 @@ export async function POST(req: Request) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash", // Fast and good for chat
+        model: "google/gemini-flash-1.5", // Valid OpenRouter model ID
         messages: [
           { role: "system", content: "You are a helpful and enthusiastic travel agent assistant for Zero Gravity Tours. You provide short, exciting responses to help users book trips and packages under ₹10,000." },
           ...messages
