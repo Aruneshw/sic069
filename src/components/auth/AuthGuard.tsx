@@ -15,10 +15,8 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
       
       if (!session) {
         // If not logged in and trying to access a protected route
-        // (Assuming we wrap this around the entire app or specific protected areas)
-        // If wrapped around the whole app, we only block certain routes:
-        const protectedRoutes = ['/account', '/operator'];
-        const isProtected = protectedRoutes.some(route => pathname?.startsWith(route));
+        // Protect the ENTIRE site, so the login page opens before anything else
+        const isProtected = true; // Every route is protected
         
         // Don't block the login page or callback page
         if (isProtected && !pathname?.startsWith('/login') && !pathname?.startsWith('/auth/callback')) {
@@ -36,8 +34,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT') {
         setIsAuthenticated(false);
-        const protectedRoutes = ['/account', '/operator'];
-        if (protectedRoutes.some(route => pathname?.startsWith(route)) && !pathname?.startsWith('/login')) {
+        if (!pathname?.startsWith('/login') && !pathname?.startsWith('/auth/callback')) {
           router.replace('/login');
         }
       } else if (event === 'SIGNED_IN' || session) {
@@ -51,7 +48,7 @@ export default function AuthGuard({ children }: { children: React.ReactNode }) {
   }, [pathname, router]);
 
   // Optionally show a loading spinner while checking auth for protected routes
-  const isProtected = ['/account', '/operator'].some(route => pathname?.startsWith(route));
+  const isProtected = true; // Everything is protected
   if (isProtected && !pathname?.startsWith('/login') && !pathname?.startsWith('/auth/callback') && isAuthenticated === null) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-navy-950">
