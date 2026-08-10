@@ -27,6 +27,7 @@ export type AggregateEnquiry = {
 export type EnquiryMinAggregateOutputType = {
   id: string | null
   tripId: string | null
+  packageId: string | null
   userName: string | null
   userEmail: string | null
   status: string | null
@@ -37,6 +38,7 @@ export type EnquiryMinAggregateOutputType = {
 export type EnquiryMaxAggregateOutputType = {
   id: string | null
   tripId: string | null
+  packageId: string | null
   userName: string | null
   userEmail: string | null
   status: string | null
@@ -47,6 +49,7 @@ export type EnquiryMaxAggregateOutputType = {
 export type EnquiryCountAggregateOutputType = {
   id: number
   tripId: number
+  packageId: number
   userName: number
   userEmail: number
   status: number
@@ -59,6 +62,7 @@ export type EnquiryCountAggregateOutputType = {
 export type EnquiryMinAggregateInputType = {
   id?: true
   tripId?: true
+  packageId?: true
   userName?: true
   userEmail?: true
   status?: true
@@ -69,6 +73,7 @@ export type EnquiryMinAggregateInputType = {
 export type EnquiryMaxAggregateInputType = {
   id?: true
   tripId?: true
+  packageId?: true
   userName?: true
   userEmail?: true
   status?: true
@@ -79,6 +84,7 @@ export type EnquiryMaxAggregateInputType = {
 export type EnquiryCountAggregateInputType = {
   id?: true
   tripId?: true
+  packageId?: true
   userName?: true
   userEmail?: true
   status?: true
@@ -161,7 +167,8 @@ export type EnquiryGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type EnquiryGroupByOutputType = {
   id: string
-  tripId: string
+  tripId: string | null
+  packageId: string | null
   userName: string
   userEmail: string
   status: string
@@ -192,24 +199,28 @@ export type EnquiryWhereInput = {
   OR?: Prisma.EnquiryWhereInput[]
   NOT?: Prisma.EnquiryWhereInput | Prisma.EnquiryWhereInput[]
   id?: Prisma.StringFilter<"Enquiry"> | string
-  tripId?: Prisma.StringFilter<"Enquiry"> | string
+  tripId?: Prisma.StringNullableFilter<"Enquiry"> | string | null
+  packageId?: Prisma.StringNullableFilter<"Enquiry"> | string | null
   userName?: Prisma.StringFilter<"Enquiry"> | string
   userEmail?: Prisma.StringFilter<"Enquiry"> | string
   status?: Prisma.StringFilter<"Enquiry"> | string
   requestedOn?: Prisma.DateTimeFilter<"Enquiry"> | Date | string
   message?: Prisma.StringNullableFilter<"Enquiry"> | string | null
-  trip?: Prisma.XOR<Prisma.TripScalarRelationFilter, Prisma.TripWhereInput>
+  trip?: Prisma.XOR<Prisma.TripNullableScalarRelationFilter, Prisma.TripWhereInput> | null
+  package?: Prisma.XOR<Prisma.PackageNullableScalarRelationFilter, Prisma.PackageWhereInput> | null
 }
 
 export type EnquiryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  tripId?: Prisma.SortOrder
+  tripId?: Prisma.SortOrderInput | Prisma.SortOrder
+  packageId?: Prisma.SortOrderInput | Prisma.SortOrder
   userName?: Prisma.SortOrder
   userEmail?: Prisma.SortOrder
   status?: Prisma.SortOrder
   requestedOn?: Prisma.SortOrder
   message?: Prisma.SortOrderInput | Prisma.SortOrder
   trip?: Prisma.TripOrderByWithRelationInput
+  package?: Prisma.PackageOrderByWithRelationInput
 }
 
 export type EnquiryWhereUniqueInput = Prisma.AtLeast<{
@@ -217,18 +228,21 @@ export type EnquiryWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.EnquiryWhereInput | Prisma.EnquiryWhereInput[]
   OR?: Prisma.EnquiryWhereInput[]
   NOT?: Prisma.EnquiryWhereInput | Prisma.EnquiryWhereInput[]
-  tripId?: Prisma.StringFilter<"Enquiry"> | string
+  tripId?: Prisma.StringNullableFilter<"Enquiry"> | string | null
+  packageId?: Prisma.StringNullableFilter<"Enquiry"> | string | null
   userName?: Prisma.StringFilter<"Enquiry"> | string
   userEmail?: Prisma.StringFilter<"Enquiry"> | string
   status?: Prisma.StringFilter<"Enquiry"> | string
   requestedOn?: Prisma.DateTimeFilter<"Enquiry"> | Date | string
   message?: Prisma.StringNullableFilter<"Enquiry"> | string | null
-  trip?: Prisma.XOR<Prisma.TripScalarRelationFilter, Prisma.TripWhereInput>
+  trip?: Prisma.XOR<Prisma.TripNullableScalarRelationFilter, Prisma.TripWhereInput> | null
+  package?: Prisma.XOR<Prisma.PackageNullableScalarRelationFilter, Prisma.PackageWhereInput> | null
 }, "id">
 
 export type EnquiryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  tripId?: Prisma.SortOrder
+  tripId?: Prisma.SortOrderInput | Prisma.SortOrder
+  packageId?: Prisma.SortOrderInput | Prisma.SortOrder
   userName?: Prisma.SortOrder
   userEmail?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -244,7 +258,8 @@ export type EnquiryScalarWhereWithAggregatesInput = {
   OR?: Prisma.EnquiryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.EnquiryScalarWhereWithAggregatesInput | Prisma.EnquiryScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Enquiry"> | string
-  tripId?: Prisma.StringWithAggregatesFilter<"Enquiry"> | string
+  tripId?: Prisma.StringNullableWithAggregatesFilter<"Enquiry"> | string | null
+  packageId?: Prisma.StringNullableWithAggregatesFilter<"Enquiry"> | string | null
   userName?: Prisma.StringWithAggregatesFilter<"Enquiry"> | string
   userEmail?: Prisma.StringWithAggregatesFilter<"Enquiry"> | string
   status?: Prisma.StringWithAggregatesFilter<"Enquiry"> | string
@@ -259,12 +274,14 @@ export type EnquiryCreateInput = {
   status?: string
   requestedOn?: Date | string
   message?: string | null
-  trip: Prisma.TripCreateNestedOneWithoutEnquiriesInput
+  trip?: Prisma.TripCreateNestedOneWithoutEnquiriesInput
+  package?: Prisma.PackageCreateNestedOneWithoutEnquiriesInput
 }
 
 export type EnquiryUncheckedCreateInput = {
   id?: string
-  tripId: string
+  tripId?: string | null
+  packageId?: string | null
   userName: string
   userEmail: string
   status?: string
@@ -279,12 +296,14 @@ export type EnquiryUpdateInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   requestedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  trip?: Prisma.TripUpdateOneRequiredWithoutEnquiriesNestedInput
+  trip?: Prisma.TripUpdateOneWithoutEnquiriesNestedInput
+  package?: Prisma.PackageUpdateOneWithoutEnquiriesNestedInput
 }
 
 export type EnquiryUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  tripId?: Prisma.StringFieldUpdateOperationsInput | string
+  tripId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.StringFieldUpdateOperationsInput | string
   userEmail?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -294,7 +313,8 @@ export type EnquiryUncheckedUpdateInput = {
 
 export type EnquiryCreateManyInput = {
   id?: string
-  tripId: string
+  tripId?: string | null
+  packageId?: string | null
   userName: string
   userEmail: string
   status?: string
@@ -313,7 +333,8 @@ export type EnquiryUpdateManyMutationInput = {
 
 export type EnquiryUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  tripId?: Prisma.StringFieldUpdateOperationsInput | string
+  tripId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.StringFieldUpdateOperationsInput | string
   userEmail?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -334,6 +355,7 @@ export type EnquiryOrderByRelationAggregateInput = {
 export type EnquiryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tripId?: Prisma.SortOrder
+  packageId?: Prisma.SortOrder
   userName?: Prisma.SortOrder
   userEmail?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -344,6 +366,7 @@ export type EnquiryCountOrderByAggregateInput = {
 export type EnquiryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tripId?: Prisma.SortOrder
+  packageId?: Prisma.SortOrder
   userName?: Prisma.SortOrder
   userEmail?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -354,6 +377,7 @@ export type EnquiryMaxOrderByAggregateInput = {
 export type EnquiryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tripId?: Prisma.SortOrder
+  packageId?: Prisma.SortOrder
   userName?: Prisma.SortOrder
   userEmail?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -403,6 +427,48 @@ export type EnquiryUncheckedUpdateManyWithoutTripNestedInput = {
   deleteMany?: Prisma.EnquiryScalarWhereInput | Prisma.EnquiryScalarWhereInput[]
 }
 
+export type EnquiryCreateNestedManyWithoutPackageInput = {
+  create?: Prisma.XOR<Prisma.EnquiryCreateWithoutPackageInput, Prisma.EnquiryUncheckedCreateWithoutPackageInput> | Prisma.EnquiryCreateWithoutPackageInput[] | Prisma.EnquiryUncheckedCreateWithoutPackageInput[]
+  connectOrCreate?: Prisma.EnquiryCreateOrConnectWithoutPackageInput | Prisma.EnquiryCreateOrConnectWithoutPackageInput[]
+  createMany?: Prisma.EnquiryCreateManyPackageInputEnvelope
+  connect?: Prisma.EnquiryWhereUniqueInput | Prisma.EnquiryWhereUniqueInput[]
+}
+
+export type EnquiryUncheckedCreateNestedManyWithoutPackageInput = {
+  create?: Prisma.XOR<Prisma.EnquiryCreateWithoutPackageInput, Prisma.EnquiryUncheckedCreateWithoutPackageInput> | Prisma.EnquiryCreateWithoutPackageInput[] | Prisma.EnquiryUncheckedCreateWithoutPackageInput[]
+  connectOrCreate?: Prisma.EnquiryCreateOrConnectWithoutPackageInput | Prisma.EnquiryCreateOrConnectWithoutPackageInput[]
+  createMany?: Prisma.EnquiryCreateManyPackageInputEnvelope
+  connect?: Prisma.EnquiryWhereUniqueInput | Prisma.EnquiryWhereUniqueInput[]
+}
+
+export type EnquiryUpdateManyWithoutPackageNestedInput = {
+  create?: Prisma.XOR<Prisma.EnquiryCreateWithoutPackageInput, Prisma.EnquiryUncheckedCreateWithoutPackageInput> | Prisma.EnquiryCreateWithoutPackageInput[] | Prisma.EnquiryUncheckedCreateWithoutPackageInput[]
+  connectOrCreate?: Prisma.EnquiryCreateOrConnectWithoutPackageInput | Prisma.EnquiryCreateOrConnectWithoutPackageInput[]
+  upsert?: Prisma.EnquiryUpsertWithWhereUniqueWithoutPackageInput | Prisma.EnquiryUpsertWithWhereUniqueWithoutPackageInput[]
+  createMany?: Prisma.EnquiryCreateManyPackageInputEnvelope
+  set?: Prisma.EnquiryWhereUniqueInput | Prisma.EnquiryWhereUniqueInput[]
+  disconnect?: Prisma.EnquiryWhereUniqueInput | Prisma.EnquiryWhereUniqueInput[]
+  delete?: Prisma.EnquiryWhereUniqueInput | Prisma.EnquiryWhereUniqueInput[]
+  connect?: Prisma.EnquiryWhereUniqueInput | Prisma.EnquiryWhereUniqueInput[]
+  update?: Prisma.EnquiryUpdateWithWhereUniqueWithoutPackageInput | Prisma.EnquiryUpdateWithWhereUniqueWithoutPackageInput[]
+  updateMany?: Prisma.EnquiryUpdateManyWithWhereWithoutPackageInput | Prisma.EnquiryUpdateManyWithWhereWithoutPackageInput[]
+  deleteMany?: Prisma.EnquiryScalarWhereInput | Prisma.EnquiryScalarWhereInput[]
+}
+
+export type EnquiryUncheckedUpdateManyWithoutPackageNestedInput = {
+  create?: Prisma.XOR<Prisma.EnquiryCreateWithoutPackageInput, Prisma.EnquiryUncheckedCreateWithoutPackageInput> | Prisma.EnquiryCreateWithoutPackageInput[] | Prisma.EnquiryUncheckedCreateWithoutPackageInput[]
+  connectOrCreate?: Prisma.EnquiryCreateOrConnectWithoutPackageInput | Prisma.EnquiryCreateOrConnectWithoutPackageInput[]
+  upsert?: Prisma.EnquiryUpsertWithWhereUniqueWithoutPackageInput | Prisma.EnquiryUpsertWithWhereUniqueWithoutPackageInput[]
+  createMany?: Prisma.EnquiryCreateManyPackageInputEnvelope
+  set?: Prisma.EnquiryWhereUniqueInput | Prisma.EnquiryWhereUniqueInput[]
+  disconnect?: Prisma.EnquiryWhereUniqueInput | Prisma.EnquiryWhereUniqueInput[]
+  delete?: Prisma.EnquiryWhereUniqueInput | Prisma.EnquiryWhereUniqueInput[]
+  connect?: Prisma.EnquiryWhereUniqueInput | Prisma.EnquiryWhereUniqueInput[]
+  update?: Prisma.EnquiryUpdateWithWhereUniqueWithoutPackageInput | Prisma.EnquiryUpdateWithWhereUniqueWithoutPackageInput[]
+  updateMany?: Prisma.EnquiryUpdateManyWithWhereWithoutPackageInput | Prisma.EnquiryUpdateManyWithWhereWithoutPackageInput[]
+  deleteMany?: Prisma.EnquiryScalarWhereInput | Prisma.EnquiryScalarWhereInput[]
+}
+
 export type EnquiryCreateWithoutTripInput = {
   id?: string
   userName: string
@@ -410,10 +476,12 @@ export type EnquiryCreateWithoutTripInput = {
   status?: string
   requestedOn?: Date | string
   message?: string | null
+  package?: Prisma.PackageCreateNestedOneWithoutEnquiriesInput
 }
 
 export type EnquiryUncheckedCreateWithoutTripInput = {
   id?: string
+  packageId?: string | null
   userName: string
   userEmail: string
   status?: string
@@ -452,7 +520,8 @@ export type EnquiryScalarWhereInput = {
   OR?: Prisma.EnquiryScalarWhereInput[]
   NOT?: Prisma.EnquiryScalarWhereInput | Prisma.EnquiryScalarWhereInput[]
   id?: Prisma.StringFilter<"Enquiry"> | string
-  tripId?: Prisma.StringFilter<"Enquiry"> | string
+  tripId?: Prisma.StringNullableFilter<"Enquiry"> | string | null
+  packageId?: Prisma.StringNullableFilter<"Enquiry"> | string | null
   userName?: Prisma.StringFilter<"Enquiry"> | string
   userEmail?: Prisma.StringFilter<"Enquiry"> | string
   status?: Prisma.StringFilter<"Enquiry"> | string
@@ -460,8 +529,55 @@ export type EnquiryScalarWhereInput = {
   message?: Prisma.StringNullableFilter<"Enquiry"> | string | null
 }
 
+export type EnquiryCreateWithoutPackageInput = {
+  id?: string
+  userName: string
+  userEmail: string
+  status?: string
+  requestedOn?: Date | string
+  message?: string | null
+  trip?: Prisma.TripCreateNestedOneWithoutEnquiriesInput
+}
+
+export type EnquiryUncheckedCreateWithoutPackageInput = {
+  id?: string
+  tripId?: string | null
+  userName: string
+  userEmail: string
+  status?: string
+  requestedOn?: Date | string
+  message?: string | null
+}
+
+export type EnquiryCreateOrConnectWithoutPackageInput = {
+  where: Prisma.EnquiryWhereUniqueInput
+  create: Prisma.XOR<Prisma.EnquiryCreateWithoutPackageInput, Prisma.EnquiryUncheckedCreateWithoutPackageInput>
+}
+
+export type EnquiryCreateManyPackageInputEnvelope = {
+  data: Prisma.EnquiryCreateManyPackageInput | Prisma.EnquiryCreateManyPackageInput[]
+  skipDuplicates?: boolean
+}
+
+export type EnquiryUpsertWithWhereUniqueWithoutPackageInput = {
+  where: Prisma.EnquiryWhereUniqueInput
+  update: Prisma.XOR<Prisma.EnquiryUpdateWithoutPackageInput, Prisma.EnquiryUncheckedUpdateWithoutPackageInput>
+  create: Prisma.XOR<Prisma.EnquiryCreateWithoutPackageInput, Prisma.EnquiryUncheckedCreateWithoutPackageInput>
+}
+
+export type EnquiryUpdateWithWhereUniqueWithoutPackageInput = {
+  where: Prisma.EnquiryWhereUniqueInput
+  data: Prisma.XOR<Prisma.EnquiryUpdateWithoutPackageInput, Prisma.EnquiryUncheckedUpdateWithoutPackageInput>
+}
+
+export type EnquiryUpdateManyWithWhereWithoutPackageInput = {
+  where: Prisma.EnquiryScalarWhereInput
+  data: Prisma.XOR<Prisma.EnquiryUpdateManyMutationInput, Prisma.EnquiryUncheckedUpdateManyWithoutPackageInput>
+}
+
 export type EnquiryCreateManyTripInput = {
   id?: string
+  packageId?: string | null
   userName: string
   userEmail: string
   status?: string
@@ -476,10 +592,12 @@ export type EnquiryUpdateWithoutTripInput = {
   status?: Prisma.StringFieldUpdateOperationsInput | string
   requestedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  package?: Prisma.PackageUpdateOneWithoutEnquiriesNestedInput
 }
 
 export type EnquiryUncheckedUpdateWithoutTripInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.StringFieldUpdateOperationsInput | string
   userEmail?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -489,6 +607,47 @@ export type EnquiryUncheckedUpdateWithoutTripInput = {
 
 export type EnquiryUncheckedUpdateManyWithoutTripInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  packageId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type EnquiryCreateManyPackageInput = {
+  id?: string
+  tripId?: string | null
+  userName: string
+  userEmail: string
+  status?: string
+  requestedOn?: Date | string
+  message?: string | null
+}
+
+export type EnquiryUpdateWithoutPackageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trip?: Prisma.TripUpdateOneWithoutEnquiriesNestedInput
+}
+
+export type EnquiryUncheckedUpdateWithoutPackageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tripId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userName?: Prisma.StringFieldUpdateOperationsInput | string
+  userEmail?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  requestedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type EnquiryUncheckedUpdateManyWithoutPackageInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tripId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userName?: Prisma.StringFieldUpdateOperationsInput | string
   userEmail?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.StringFieldUpdateOperationsInput | string
@@ -501,39 +660,46 @@ export type EnquiryUncheckedUpdateManyWithoutTripInput = {
 export type EnquirySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tripId?: boolean
+  packageId?: boolean
   userName?: boolean
   userEmail?: boolean
   status?: boolean
   requestedOn?: boolean
   message?: boolean
-  trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
+  trip?: boolean | Prisma.Enquiry$tripArgs<ExtArgs>
+  package?: boolean | Prisma.Enquiry$packageArgs<ExtArgs>
 }, ExtArgs["result"]["enquiry"]>
 
 export type EnquirySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tripId?: boolean
+  packageId?: boolean
   userName?: boolean
   userEmail?: boolean
   status?: boolean
   requestedOn?: boolean
   message?: boolean
-  trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
+  trip?: boolean | Prisma.Enquiry$tripArgs<ExtArgs>
+  package?: boolean | Prisma.Enquiry$packageArgs<ExtArgs>
 }, ExtArgs["result"]["enquiry"]>
 
 export type EnquirySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tripId?: boolean
+  packageId?: boolean
   userName?: boolean
   userEmail?: boolean
   status?: boolean
   requestedOn?: boolean
   message?: boolean
-  trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
+  trip?: boolean | Prisma.Enquiry$tripArgs<ExtArgs>
+  package?: boolean | Prisma.Enquiry$packageArgs<ExtArgs>
 }, ExtArgs["result"]["enquiry"]>
 
 export type EnquirySelectScalar = {
   id?: boolean
   tripId?: boolean
+  packageId?: boolean
   userName?: boolean
   userEmail?: boolean
   status?: boolean
@@ -541,25 +707,30 @@ export type EnquirySelectScalar = {
   message?: boolean
 }
 
-export type EnquiryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tripId" | "userName" | "userEmail" | "status" | "requestedOn" | "message", ExtArgs["result"]["enquiry"]>
+export type EnquiryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tripId" | "packageId" | "userName" | "userEmail" | "status" | "requestedOn" | "message", ExtArgs["result"]["enquiry"]>
 export type EnquiryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
+  trip?: boolean | Prisma.Enquiry$tripArgs<ExtArgs>
+  package?: boolean | Prisma.Enquiry$packageArgs<ExtArgs>
 }
 export type EnquiryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
+  trip?: boolean | Prisma.Enquiry$tripArgs<ExtArgs>
+  package?: boolean | Prisma.Enquiry$packageArgs<ExtArgs>
 }
 export type EnquiryIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  trip?: boolean | Prisma.TripDefaultArgs<ExtArgs>
+  trip?: boolean | Prisma.Enquiry$tripArgs<ExtArgs>
+  package?: boolean | Prisma.Enquiry$packageArgs<ExtArgs>
 }
 
 export type $EnquiryPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Enquiry"
   objects: {
-    trip: Prisma.$TripPayload<ExtArgs>
+    trip: Prisma.$TripPayload<ExtArgs> | null
+    package: Prisma.$PackagePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    tripId: string
+    tripId: string | null
+    packageId: string | null
     userName: string
     userEmail: string
     status: string
@@ -959,7 +1130,8 @@ readonly fields: EnquiryFieldRefs;
  */
 export interface Prisma__EnquiryClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  trip<T extends Prisma.TripDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TripDefaultArgs<ExtArgs>>): Prisma.Prisma__TripClient<runtime.Types.Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  trip<T extends Prisma.Enquiry$tripArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Enquiry$tripArgs<ExtArgs>>): Prisma.Prisma__TripClient<runtime.Types.Result.GetResult<Prisma.$TripPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  package<T extends Prisma.Enquiry$packageArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Enquiry$packageArgs<ExtArgs>>): Prisma.Prisma__PackageClient<runtime.Types.Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -991,6 +1163,7 @@ export interface Prisma__EnquiryClient<T, Null = never, ExtArgs extends runtime.
 export interface EnquiryFieldRefs {
   readonly id: Prisma.FieldRef<"Enquiry", 'String'>
   readonly tripId: Prisma.FieldRef<"Enquiry", 'String'>
+  readonly packageId: Prisma.FieldRef<"Enquiry", 'String'>
   readonly userName: Prisma.FieldRef<"Enquiry", 'String'>
   readonly userEmail: Prisma.FieldRef<"Enquiry", 'String'>
   readonly status: Prisma.FieldRef<"Enquiry", 'String'>
@@ -1394,6 +1567,44 @@ export type EnquiryDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Limit how many Enquiries to delete.
    */
   limit?: number
+}
+
+/**
+ * Enquiry.trip
+ */
+export type Enquiry$tripArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Trip
+   */
+  select?: Prisma.TripSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Trip
+   */
+  omit?: Prisma.TripOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TripInclude<ExtArgs> | null
+  where?: Prisma.TripWhereInput
+}
+
+/**
+ * Enquiry.package
+ */
+export type Enquiry$packageArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Package
+   */
+  select?: Prisma.PackageSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Package
+   */
+  omit?: Prisma.PackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  where?: Prisma.PackageWhereInput
 }
 
 /**

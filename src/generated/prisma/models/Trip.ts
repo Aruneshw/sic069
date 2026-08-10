@@ -716,6 +716,11 @@ export type TripScalarRelationFilter = {
   isNot?: Prisma.TripWhereInput
 }
 
+export type TripNullableScalarRelationFilter = {
+  is?: Prisma.TripWhereInput | null
+  isNot?: Prisma.TripWhereInput | null
+}
+
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
@@ -752,10 +757,12 @@ export type TripCreateNestedOneWithoutEnquiriesInput = {
   connect?: Prisma.TripWhereUniqueInput
 }
 
-export type TripUpdateOneRequiredWithoutEnquiriesNestedInput = {
+export type TripUpdateOneWithoutEnquiriesNestedInput = {
   create?: Prisma.XOR<Prisma.TripCreateWithoutEnquiriesInput, Prisma.TripUncheckedCreateWithoutEnquiriesInput>
   connectOrCreate?: Prisma.TripCreateOrConnectWithoutEnquiriesInput
   upsert?: Prisma.TripUpsertWithoutEnquiriesInput
+  disconnect?: Prisma.TripWhereInput | boolean
+  delete?: Prisma.TripWhereInput | boolean
   connect?: Prisma.TripWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TripUpdateToOneWithWhereWithoutEnquiriesInput, Prisma.TripUpdateWithoutEnquiriesInput>, Prisma.TripUncheckedUpdateWithoutEnquiriesInput>
 }

@@ -320,6 +320,7 @@ export type PackageWhereInput = {
   includedTripIds?: Prisma.StringFilter<"Package"> | string
   createdAt?: Prisma.DateTimeFilter<"Package"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Package"> | Date | string
+  enquiries?: Prisma.EnquiryListRelationFilter
 }
 
 export type PackageOrderByWithRelationInput = {
@@ -340,6 +341,7 @@ export type PackageOrderByWithRelationInput = {
   includedTripIds?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  enquiries?: Prisma.EnquiryOrderByRelationAggregateInput
 }
 
 export type PackageWhereUniqueInput = Prisma.AtLeast<{
@@ -363,6 +365,7 @@ export type PackageWhereUniqueInput = Prisma.AtLeast<{
   includedTripIds?: Prisma.StringFilter<"Package"> | string
   createdAt?: Prisma.DateTimeFilter<"Package"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Package"> | Date | string
+  enquiries?: Prisma.EnquiryListRelationFilter
 }, "id" | "slug">
 
 export type PackageOrderByWithAggregationInput = {
@@ -431,6 +434,7 @@ export type PackageCreateInput = {
   includedTripIds: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  enquiries?: Prisma.EnquiryCreateNestedManyWithoutPackageInput
 }
 
 export type PackageUncheckedCreateInput = {
@@ -451,6 +455,7 @@ export type PackageUncheckedCreateInput = {
   includedTripIds: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  enquiries?: Prisma.EnquiryUncheckedCreateNestedManyWithoutPackageInput
 }
 
 export type PackageUpdateInput = {
@@ -471,6 +476,7 @@ export type PackageUpdateInput = {
   includedTripIds?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  enquiries?: Prisma.EnquiryUpdateManyWithoutPackageNestedInput
 }
 
 export type PackageUncheckedUpdateInput = {
@@ -491,6 +497,7 @@ export type PackageUncheckedUpdateInput = {
   includedTripIds?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  enquiries?: Prisma.EnquiryUncheckedUpdateManyWithoutPackageNestedInput
 }
 
 export type PackageCreateManyInput = {
@@ -551,6 +558,11 @@ export type PackageUncheckedUpdateManyInput = {
   includedTripIds?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PackageNullableScalarRelationFilter = {
+  is?: Prisma.PackageWhereInput | null
+  isNot?: Prisma.PackageWhereInput | null
 }
 
 export type PackageCountOrderByAggregateInput = {
@@ -625,6 +637,147 @@ export type PackageSumOrderByAggregateInput = {
   filledSeats?: Prisma.SortOrder
 }
 
+export type PackageCreateNestedOneWithoutEnquiriesInput = {
+  create?: Prisma.XOR<Prisma.PackageCreateWithoutEnquiriesInput, Prisma.PackageUncheckedCreateWithoutEnquiriesInput>
+  connectOrCreate?: Prisma.PackageCreateOrConnectWithoutEnquiriesInput
+  connect?: Prisma.PackageWhereUniqueInput
+}
+
+export type PackageUpdateOneWithoutEnquiriesNestedInput = {
+  create?: Prisma.XOR<Prisma.PackageCreateWithoutEnquiriesInput, Prisma.PackageUncheckedCreateWithoutEnquiriesInput>
+  connectOrCreate?: Prisma.PackageCreateOrConnectWithoutEnquiriesInput
+  upsert?: Prisma.PackageUpsertWithoutEnquiriesInput
+  disconnect?: Prisma.PackageWhereInput | boolean
+  delete?: Prisma.PackageWhereInput | boolean
+  connect?: Prisma.PackageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PackageUpdateToOneWithWhereWithoutEnquiriesInput, Prisma.PackageUpdateWithoutEnquiriesInput>, Prisma.PackageUncheckedUpdateWithoutEnquiriesInput>
+}
+
+export type PackageCreateWithoutEnquiriesInput = {
+  id?: string
+  name: string
+  slug: string
+  tagline: string
+  description: string
+  tierBadge: string
+  bundlePrice: number
+  duration: string
+  maxSeats: number
+  filledSeats?: number
+  imageUrl: string
+  status?: string
+  itinerary: string
+  inclusions: string
+  includedTripIds: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PackageUncheckedCreateWithoutEnquiriesInput = {
+  id?: string
+  name: string
+  slug: string
+  tagline: string
+  description: string
+  tierBadge: string
+  bundlePrice: number
+  duration: string
+  maxSeats: number
+  filledSeats?: number
+  imageUrl: string
+  status?: string
+  itinerary: string
+  inclusions: string
+  includedTripIds: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type PackageCreateOrConnectWithoutEnquiriesInput = {
+  where: Prisma.PackageWhereUniqueInput
+  create: Prisma.XOR<Prisma.PackageCreateWithoutEnquiriesInput, Prisma.PackageUncheckedCreateWithoutEnquiriesInput>
+}
+
+export type PackageUpsertWithoutEnquiriesInput = {
+  update: Prisma.XOR<Prisma.PackageUpdateWithoutEnquiriesInput, Prisma.PackageUncheckedUpdateWithoutEnquiriesInput>
+  create: Prisma.XOR<Prisma.PackageCreateWithoutEnquiriesInput, Prisma.PackageUncheckedCreateWithoutEnquiriesInput>
+  where?: Prisma.PackageWhereInput
+}
+
+export type PackageUpdateToOneWithWhereWithoutEnquiriesInput = {
+  where?: Prisma.PackageWhereInput
+  data: Prisma.XOR<Prisma.PackageUpdateWithoutEnquiriesInput, Prisma.PackageUncheckedUpdateWithoutEnquiriesInput>
+}
+
+export type PackageUpdateWithoutEnquiriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  tierBadge?: Prisma.StringFieldUpdateOperationsInput | string
+  bundlePrice?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.StringFieldUpdateOperationsInput | string
+  maxSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  filledSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  inclusions?: Prisma.StringFieldUpdateOperationsInput | string
+  includedTripIds?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PackageUncheckedUpdateWithoutEnquiriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  tagline?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
+  tierBadge?: Prisma.StringFieldUpdateOperationsInput | string
+  bundlePrice?: Prisma.IntFieldUpdateOperationsInput | number
+  duration?: Prisma.StringFieldUpdateOperationsInput | string
+  maxSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  filledSeats?: Prisma.IntFieldUpdateOperationsInput | number
+  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  itinerary?: Prisma.StringFieldUpdateOperationsInput | string
+  inclusions?: Prisma.StringFieldUpdateOperationsInput | string
+  includedTripIds?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+
+/**
+ * Count Type PackageCountOutputType
+ */
+
+export type PackageCountOutputType = {
+  enquiries: number
+}
+
+export type PackageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  enquiries?: boolean | PackageCountOutputTypeCountEnquiriesArgs
+}
+
+/**
+ * PackageCountOutputType without action
+ */
+export type PackageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PackageCountOutputType
+   */
+  select?: Prisma.PackageCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * PackageCountOutputType without action
+ */
+export type PackageCountOutputTypeCountEnquiriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EnquiryWhereInput
+}
 
 
 export type PackageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -645,6 +798,8 @@ export type PackageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   includedTripIds?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  enquiries?: boolean | Prisma.Package$enquiriesArgs<ExtArgs>
+  _count?: boolean | Prisma.PackageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["package"]>
 
 export type PackageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -708,10 +863,18 @@ export type PackageSelectScalar = {
 }
 
 export type PackageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "tagline" | "description" | "tierBadge" | "bundlePrice" | "duration" | "maxSeats" | "filledSeats" | "imageUrl" | "status" | "itinerary" | "inclusions" | "includedTripIds" | "createdAt" | "updatedAt", ExtArgs["result"]["package"]>
+export type PackageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  enquiries?: boolean | Prisma.Package$enquiriesArgs<ExtArgs>
+  _count?: boolean | Prisma.PackageCountOutputTypeDefaultArgs<ExtArgs>
+}
+export type PackageIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type PackageIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 
 export type $PackagePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Package"
-  objects: {}
+  objects: {
+    enquiries: Prisma.$EnquiryPayload<ExtArgs>[]
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
@@ -1124,6 +1287,7 @@ readonly fields: PackageFieldRefs;
  */
 export interface Prisma__PackageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  enquiries<T extends Prisma.Package$enquiriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Package$enquiriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EnquiryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1187,6 +1351,10 @@ export type PackageFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * Filter, which Package to fetch.
    */
   where: Prisma.PackageWhereUniqueInput
@@ -1205,6 +1373,10 @@ export type PackageFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * Filter, which Package to fetch.
    */
   where: Prisma.PackageWhereUniqueInput
@@ -1222,6 +1394,10 @@ export type PackageFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Omit specific fields from the Package
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
   /**
    * Filter, which Package to fetch.
    */
@@ -1271,6 +1447,10 @@ export type PackageFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extensions
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * Filter, which Package to fetch.
    */
   where?: Prisma.PackageWhereInput
@@ -1318,6 +1498,10 @@ export type PackageFindManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Package
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
   /**
    * Filter, which Packages to fetch.
    */
@@ -1367,6 +1551,10 @@ export type PackageCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * The data needed to create a Package.
    */
   data: Prisma.XOR<Prisma.PackageCreateInput, Prisma.PackageUncheckedCreateInput>
@@ -1414,6 +1602,10 @@ export type PackageUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    * Omit specific fields from the Package
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
   /**
    * The data needed to update a Package.
    */
@@ -1481,6 +1673,10 @@ export type PackageUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * The filter to search for the Package to update in case it exists.
    */
   where: Prisma.PackageWhereUniqueInput
@@ -1507,6 +1703,10 @@ export type PackageDeleteArgs<ExtArgs extends runtime.Types.Extensions.InternalA
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
+  /**
    * Filter which Package to delete.
    */
   where: Prisma.PackageWhereUniqueInput
@@ -1527,6 +1727,30 @@ export type PackageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * Package.enquiries
+ */
+export type Package$enquiriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Enquiry
+   */
+  select?: Prisma.EnquirySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Enquiry
+   */
+  omit?: Prisma.EnquiryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EnquiryInclude<ExtArgs> | null
+  where?: Prisma.EnquiryWhereInput
+  orderBy?: Prisma.EnquiryOrderByWithRelationInput | Prisma.EnquiryOrderByWithRelationInput[]
+  cursor?: Prisma.EnquiryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EnquiryScalarFieldEnum | Prisma.EnquiryScalarFieldEnum[]
+}
+
+/**
  * Package without action
  */
 export type PackageDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1538,4 +1762,8 @@ export type PackageDefaultArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Package
    */
   omit?: Prisma.PackageOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PackageInclude<ExtArgs> | null
 }

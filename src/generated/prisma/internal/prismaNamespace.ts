@@ -1107,6 +1107,7 @@ export type DepartureScalarFieldEnum = (typeof DepartureScalarFieldEnum)[keyof t
 export const EnquiryScalarFieldEnum = {
   id: 'id',
   tripId: 'tripId',
+  packageId: 'packageId',
   userName: 'userName',
   userEmail: 'userEmail',
   status: 'status',

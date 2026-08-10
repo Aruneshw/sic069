@@ -111,4 +111,5 @@ model Package {
   includedTripIds String      // JSON array of Trip IDs this package bundles
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
+  enquiries       Enquiry[]
 }
