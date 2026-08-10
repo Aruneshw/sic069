@@ -64,8 +64,10 @@ model Departure {
 
 model Enquiry {
   id          String   @id @default(cuid())
-  tripId      String
-  trip        Trip     @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  tripId      String?
+  trip        Trip?    @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  packageId   String?
+  package     Package? @relation(fields: [packageId], references: [id], onDelete: Cascade)
   userName    String
   userEmail   String
   status      String   @default("Pending") // Pending, Confirmed, Waitlisted

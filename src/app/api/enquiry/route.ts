@@ -14,7 +14,8 @@ export async function POST(request: Request) {
     // Insert into Enquiry table
     const enquiry = await prisma.enquiry.create({
       data: {
-        tripId: tripId || packageId || 'general-enquiry',
+        tripId: tripId || null,
+        packageId: packageId || null,
         userName,
         userEmail,
         message: message || '',

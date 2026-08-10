@@ -64,7 +64,8 @@ CREATE TABLE "Departure" (
 -- 5. Create Enquiry Table
 CREATE TABLE "Enquiry" (
   "id" TEXT NOT NULL,
-  "tripId" TEXT NOT NULL,
+  "tripId" TEXT,
+  "packageId" TEXT,
   "userName" TEXT NOT NULL,
   "userEmail" TEXT NOT NULL,
   "status" TEXT NOT NULL DEFAULT 'Pending',
@@ -122,3 +123,4 @@ CREATE UNIQUE INDEX "Package_slug_key" ON "Package"("slug");
 ALTER TABLE "LoginHistory" ADD CONSTRAINT "LoginHistory_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE "Departure" ADD CONSTRAINT "Departure_tripId_fkey" FOREIGN KEY ("tripId") REFERENCES "Trip"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE "Enquiry" ADD CONSTRAINT "Enquiry_tripId_fkey" FOREIGN KEY ("tripId") REFERENCES "Trip"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Enquiry" ADD CONSTRAINT "Enquiry_packageId_fkey" FOREIGN KEY ("packageId") REFERENCES "Package"("id") ON DELETE CASCADE ON UPDATE CASCADE;
