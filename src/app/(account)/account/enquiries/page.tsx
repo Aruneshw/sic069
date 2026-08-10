@@ -5,10 +5,9 @@ import { getAssetUrl } from "@/lib/trips";
 import StatusBadge from "@/components/ui/StatusBadge";
 
 export default async function MyEnquiriesPage() {
-  // Fetch enquiries for the mock user "Alex Thompson"
   const enquiries = await prisma.enquiry.findMany({
     where: { userEmail: "alex.t@gmail.com" },
-    include: { trip: true },
+    include: { trip: true, package: true },
     orderBy: { requestedOn: "desc" },
   });
 
