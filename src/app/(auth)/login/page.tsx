@@ -34,10 +34,9 @@ export default function LoginPage() {
           loop 
           muted 
           playsInline 
-          poster={getAssetUrl("/images/places/alapuzha.png")}
-          className="absolute inset-0 w-full h-full object-cover opacity-40 scale-105"
+          className="absolute inset-0 w-full h-full object-cover opacity-60 scale-105"
         >
-          <source src={getAssetUrl("/videos/mountain_preview.mp4")} type="video/mp4" />
+          <source src={getAssetUrl("/videos/login_background.mp4")} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-br from-navy-950/80 via-navy-900/50 to-teal-900/80 backdrop-blur-[2px]" />
       </div>
