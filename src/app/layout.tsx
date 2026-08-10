@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import AuthGuard from "@/components/auth/AuthGuard";
+import AIChatbot from "@/components/ui/AIChatbot";
 import "./globals.css";
 
 const inter = Inter({
@@ -45,6 +46,7 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased">
         <AuthGuard>{children}</AuthGuard>
+        <AIChatbot />
       </body>
     </html>
   );
