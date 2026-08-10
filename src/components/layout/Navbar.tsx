@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -29,6 +29,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const { unreadCount, toggleNotificationPanel, isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useAppStore();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = useRef(0);
 
   const [user, setUser] = useState<any>(null);
 
@@ -41,10 +43,21 @@ export default function Navbar() {
     });
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 50);
+
+      // Hide if scrolling down and past 200px, show if scrolling up
+      if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
+        setIsHidden(true);
+      } else {
+        setIsHidden(false);
+      }
+      lastScrollY.current = currentScrollY;
     };
+    
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
+    
     return () => {
       window.removeEventListener("scroll", handleScroll);
       authListener.subscription.unsubscribe();
@@ -53,9 +66,9 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-[5000ms] ease-in-out">
+      <div className={`fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-500 ease-in-out ${isHidden ? '-translate-y-32 opacity-0' : 'translate-y-0 opacity-100'}`}>
         <nav
-          className={`pointer-events-auto transition-all duration-[5000ms] ease-in-out flex items-center justify-between rounded-full border shadow-xl ${
+          className={`pointer-events-auto transition-all duration-500 ease-in-out flex items-center justify-between rounded-full border shadow-xl ${
             isScrolled
               ? "bg-white/95 backdrop-blur-md border-white/40 shadow-slate-200/50 py-2 px-6 w-full max-w-5xl"
               : "bg-white border-white/30 py-4 px-8 w-full max-w-6xl"
