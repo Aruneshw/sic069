@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { PrismaClient } from "../generated/prisma/client";
+import crypto from "crypto";
 
 // Initialize the Supabase Client
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
@@ -65,7 +66,9 @@ export const prisma = {
       return parseDates(data || []);
     },
     create: async (args: any) => {
-      const { data, error } = await supabase.from('Enquiry').insert(args.data).select().single();
+      const dataToInsert = { ...args.data };
+      if (!dataToInsert.id) dataToInsert.id = crypto.randomUUID();
+      const { data, error } = await supabase.from('Enquiry').insert(dataToInsert).select().single();
       if (error) console.error("Enquiry.create Error:", error);
       return parseDates(data);
     }
@@ -93,6 +96,41 @@ export const prisma = {
       const { data, error } = await query;
       if (error) console.error("Departure.findMany Error:", error);
       return parseDates(data || []);
+    }
+  },
+  contactMessage: {
+    create: async (args: any) => {
+      const dataToInsert = { ...args.data };
+      if (!dataToInsert.id) dataToInsert.id = crypto.randomUUID();
+      const { data, error } = await supabase.from('ContactMessage').insert(dataToInsert).select().single();
+      if (error) {
+        console.error("ContactMessage.create Error:", error);
+        throw error;
+      }
+      return parseDates(data);
+    }
+  },
+  loginHistory: {
+    create: async (args: any) => {
+      const dataToInsert = { ...args.data };
+      if (!dataToInsert.id) dataToInsert.id = crypto.randomUUID();
+      const { data, error } = await supabase.from('LoginHistory').insert(dataToInsert).select().single();
+      if (error) {
+        console.error("LoginHistory.create Error:", error);
+        throw error;
+      }
+      return parseDates(data);
+    }
+  },
+  user: {
+    upsert: async (args: any) => {
+      // Supabase upsert requires id to match
+      const { data, error } = await supabase.from('User').upsert(args.create, { onConflict: 'id' }).select().single();
+      if (error) {
+        console.error("User.upsert Error:", error);
+        throw error;
+      }
+      return parseDates(data);
     }
   }
 } as unknown as PrismaClient;
