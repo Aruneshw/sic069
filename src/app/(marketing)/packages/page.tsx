@@ -7,6 +7,9 @@ export const metadata = {
     "Explore our curated premium travel packages with transparent pricing in ₹. From coastal escapes to mountain expeditions.",
 };
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function PackagesPage() {
   const packages = await prisma.package.findMany({
     where: { status: "Published" },

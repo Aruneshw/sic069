@@ -1,0 +1,65 @@
+-- Run this in your Supabase SQL Editor to populate the Packages table
+
+INSERT INTO "Package" (
+  "id", "name", "slug", "tagline", "description", "tierBadge", 
+  "bundlePrice", "duration", "maxSeats", "filledSeats", 
+  "imageUrl", "status", "itinerary", "inclusions", "includedTripIds", 
+  "createdAt", "updatedAt"
+) VALUES 
+(
+  gen_random_uuid(), 
+  'The Himalayan Circuit', 
+  'himalayan-circuit', 
+  'Conquer the peaks in one continuous adventure.', 
+  'A massive 14-day expedition covering three of our most popular high-altitude mountain passes. Experience raw wilderness, extreme climates, and the ultimate test of endurance.', 
+  'HIGH-ALTITUDE JOURNEYS', 
+  85000, 
+  '14 Days', 
+  12, 
+  4, 
+  '/images/places/kashmir.png', 
+  'Published', 
+  '[{"day": 1, "title": "Basecamp Acclimatization", "description": "Arrival and briefing.", "location": "Manali"}, {"day": 7, "title": "The High Pass", "description": "Crossing the 17,000ft peak.", "location": "Spiti Valley"}]', 
+  '["Premium Basecamp Stays", "All Alpine Meals", "Oxygen Cylinders", "Expert Mountaineer Guide"]', 
+  '["trip-id-1", "trip-id-2"]', 
+  now(), 
+  now()
+),
+(
+  gen_random_uuid(), 
+  'Southern Coastal Escape', 
+  'southern-coastal-escape', 
+  'Three serene destinations in one tropical bundle.', 
+  'Escape to the pristine beaches and backwaters. This 8-day package bundles surfing, scuba diving, and a luxurious houseboat stay into a single continuous tropical retreat.', 
+  'TROPICAL BUNDLE', 
+  45000, 
+  '8 Days', 
+  20, 
+  12, 
+  '/images/places/kerala.png', 
+  'Published', 
+  '[{"day": 1, "title": "Coastal Arrival", "description": "Check-in at the beach resort.", "location": "Gokarna"}, {"day": 5, "title": "Houseboat Serenity", "description": "Overnight on the backwaters.", "location": "Alleppey"}]', 
+  '["Luxury Houseboat", "Scuba Gear Rental", "Seafood Dinners", "Airport Transfers"]', 
+  '["trip-id-3"]', 
+  now(), 
+  now()
+),
+(
+  gen_random_uuid(), 
+  'Royal Rajasthan Expedition', 
+  'royal-rajasthan', 
+  'Palaces, deserts, and history combined.', 
+  'Experience the grandeur of India’s most historic state. A 10-day luxury road trip combining the Pink City, the Blue City, and the vast Thar Desert.', 
+  'HERITAGE COLLECTION', 
+  62000, 
+  '10 Days', 
+  15, 
+  2, 
+  '/images/places/meghalaya.png', 
+  'Published', 
+  '[{"day": 1, "title": "The Pink City", "description": "Palace tours and heritage walks.", "location": "Jaipur"}, {"day": 6, "title": "Desert Safari", "description": "Sunset dunes and camping.", "location": "Jaisalmer"}]', 
+  '["5-Star Heritage Hotels", "Desert Safari", "Private AC SUV", "Fort Entry Passes"]', 
+  '["trip-id-4", "trip-id-5"]', 
+  now(), 
+  now()
+);

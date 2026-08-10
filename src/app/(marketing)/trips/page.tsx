@@ -1,6 +1,9 @@
 import { prisma } from "@/lib/prisma";
 import TripsClient from "./TripsClient";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function TripsPage() {
   const trips = await prisma.trip.findMany({
     where: { status: "Published" },
