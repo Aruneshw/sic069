@@ -8,19 +8,9 @@ export function useDeviceCapabilities() {
     if (typeof window !== "undefined" && typeof navigator !== "undefined") {
       let lowEnd = false;
 
-      // 1. Device Memory (RAM) <= 4GB
-      if ("deviceMemory" in navigator) {
-        if ((navigator as any).deviceMemory <= 4) {
-          lowEnd = true;
-        }
-      }
 
-      // 2. Hardware Concurrency (CPU Cores) <= 4
-      if ("hardwareConcurrency" in navigator) {
-        if (navigator.hardwareConcurrency <= 4) {
-          lowEnd = true;
-        }
-      }
+
+
 
       // 3. Network Information API (Data Saver or Slow Connection)
       if ("connection" in navigator) {

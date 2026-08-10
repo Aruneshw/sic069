@@ -35,6 +35,7 @@ export default async function HomePage() {
       <section className="relative pt-40 pb-32 md:pt-48 md:pb-48 overflow-hidden gradient-hero">
         {/* Background Video */}
         <video 
+          src={getAssetUrl("/videos/mountain.mp4")}
           autoPlay 
           loop 
           muted 
@@ -42,9 +43,7 @@ export default async function HomePage() {
           preload="auto"
           poster={getAssetUrl("/videos/mountain-poster.webp")}
           className="absolute inset-0 w-full h-full object-cover z-0"
-        >
-          <source src={getAssetUrl("/videos/mountain.mp4")} type="video/mp4" />
-        </video>
+        />
         {/* Overlay to ensure text readability */}
         <div className="absolute inset-0 bg-navy-900/40 z-0 mix-blend-multiply" />
         
