@@ -13,6 +13,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
+import GlowingButton from "@/components/ui/GlowingButton";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -150,12 +151,11 @@ export default function Navbar() {
 
             {/* Enquire Now CTA */}
             <div className="hidden lg:block w-px h-6 bg-slate-200" />
-            <Link
-              href="/about#contact"
-              className="hidden lg:inline-flex bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-full text-[13px] px-6 py-2 shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] transition-all"
-            >
-              Enquire Now
-            </Link>
+            <div className="hidden lg:block">
+              <GlowingButton href="/about#contact" className="px-6 py-2 text-[13px]">
+                Enquire Now
+              </GlowingButton>
+            </div>
 
             {/* Mobile Hamburger */}
             <button
@@ -207,15 +207,11 @@ export default function Navbar() {
                     </Link>
                   );
                 })}
-                <div className="mt-3 pt-3 border-t border-slate-100">
-                  <Link
-                    href="/about#contact"
-                    onClick={closeMobileMenu}
-                    className="btn-primary w-full text-center"
-                  >
-                    Enquire Now
-                  </Link>
-                </div>
+                  <div className="mt-3 pt-3 border-t border-slate-100 flex justify-center">
+                    <GlowingButton href="/about#contact" onClick={closeMobileMenu}>
+                      Enquire Now
+                    </GlowingButton>
+                  </div>
               </div>
             </div>
           </motion.div>

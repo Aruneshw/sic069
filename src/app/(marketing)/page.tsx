@@ -6,6 +6,7 @@ import { ArrowRight, CalendarClock, Users, ClipboardCheck, MessageCircle } from 
 import { prisma } from "@/lib/prisma";
 import TripCard from "@/components/ui/TripCard";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import GlowingButton from "@/components/ui/GlowingButton";
 
 import LiveTrackingButton from "@/components/operator/LiveTrackingButton";
 import DeferredGallery from "@/components/video/DeferredGallery";
@@ -58,13 +59,15 @@ export default async function HomePage() {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
-              <Link href="/trips" className="btn-primary bg-blue-600 hover:bg-blue-700 w-full sm:w-auto px-8 py-4 text-base shadow-lg shadow-blue-500/30 rounded-full">
-                Explore Tours
-                <ArrowRight size={18} />
-              </Link>
-              <Link href="/about" className="inline-flex items-center justify-center gap-2 font-semibold w-full sm:w-auto px-8 py-4 text-base bg-white/60 backdrop-blur-md border border-white hover:bg-white/90 text-navy-900 transition-all rounded-full shadow-sm">
+              <GlowingButton href="/trips">
+                <span className="flex items-center gap-2">
+                  Explore Tours
+                  <ArrowRight size={18} />
+                </span>
+              </GlowingButton>
+              <GlowingButton href="/about">
                 Our Story
-              </Link>
+              </GlowingButton>
               <div className="w-full sm:w-auto mt-2 sm:mt-0">
                 <LiveTrackingButton variant="compact" />
               </div>
