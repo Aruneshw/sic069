@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Star, Clock, Users } from "lucide-react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
 import { formatInr, getAssetUrl, getTripTheme } from "@/lib/trips";
@@ -71,12 +72,12 @@ export default function TripCard({ trip, index = 0 }: TripCardProps) {
           {/* Image Container */}
           <div className="relative aspect-[4/3] w-full overflow-hidden">
             <div className="absolute inset-0 bg-slate-200 animate-pulse" />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={getAssetUrl(trip.imageUrl || "/images/trips-hero.png")}
               alt={trip.name}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-              loading="lazy"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
             

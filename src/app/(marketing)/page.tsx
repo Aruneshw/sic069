@@ -5,6 +5,7 @@ import { getAssetUrl } from "@/lib/trips";
 import { ArrowRight, CalendarClock, Users, ClipboardCheck, MessageCircle } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import TripCard from "@/components/ui/TripCard";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 import LiveTrackingButton from "@/components/operator/LiveTrackingButton";
 import DeferredGallery from "@/components/video/DeferredGallery";
@@ -37,7 +38,7 @@ export default async function HomePage() {
           loop 
           muted 
           playsInline
-          preload="metadata"
+          preload="auto"
           poster={getAssetUrl("/videos/mountain-poster.webp")}
           className="absolute inset-0 w-full h-full object-cover z-0"
         >
@@ -83,7 +84,7 @@ export default async function HomePage() {
           VALUE CARDS (Glassmorphism)
           ═══════════════════════════════════════ */}
       <section className="py-16 bg-white">
-        <div className="container-main">
+        <ScrollReveal className="container-main">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl font-bold text-navy-900 mb-4">Why Zero Gravity?</h2>
             <p className="text-slate-600">We built this because budget travellers deserve better than word-of-mouth. Every trip we run is fully visible — schedules, group sizes, and inclusions, all in one place.</p>
@@ -134,14 +135,14 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* ═══════════════════════════════════════
           FEATURED TRIPS (page-02.png)
           ═══════════════════════════════════════ */}
       <section className="py-16 bg-slate-50 border-y border-slate-200">
-        <div className="container-main">
+        <ScrollReveal className="container-main">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div className="max-w-2xl">
               <span className="text-teal-600 font-bold uppercase tracking-wider text-sm mb-2 block">Curated Journeys</span>
@@ -160,7 +161,7 @@ export default async function HomePage() {
               </div>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       <DeferredGallery />
@@ -169,9 +170,9 @@ export default async function HomePage() {
           TESTIMONIAL STRIP (page-05.png style)
           ═══════════════════════════════════════ */}
       <section className="py-20 bg-navy-900 text-white overflow-hidden">
-        <div className="container-main mb-12 text-center">
+        <ScrollReveal className="container-main mb-12 text-center">
           <h2 className="text-3xl font-bold">Don't just take our word for it.</h2>
-        </div>
+        </ScrollReveal>
         
         {/* Horizontal scroll container for testimonials */}
         <div className="relative w-full">

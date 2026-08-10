@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const ImmersiveVideoGallery = dynamic(
   () => import("./ImmersiveVideoGallery"),
-  { ssr: false, loading: () => <div className="h-[500px] w-full bg-slate-950 animate-pulse flex items-center justify-center text-slate-500">Loading gallery...</div> }
+  { loading: () => <div className="h-[500px] w-full bg-slate-950 flex items-center justify-center text-slate-500">Loading gallery...</div> }
 );
 
 export default function DeferredGallery() {
