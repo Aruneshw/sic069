@@ -133,8 +133,8 @@ export default function Navbar() {
                 )}
               </button>
 
-              {/* User Avatar */}
-              <button className="hidden md:flex items-center gap-2 p-1.5 rounded-full hover:bg-slate-100/50 transition-colors">
+              {/* User Avatar - Linked to Login */}
+              <Link href="/login" className="hidden md:flex items-center gap-2 p-1.5 rounded-full hover:bg-slate-100/50 transition-colors no-underline">
                 <div
                   className="flex items-center justify-center rounded-full text-white text-[13px] font-semibold shadow-md"
                   style={{
@@ -143,10 +143,9 @@ export default function Navbar() {
                     background: "linear-gradient(135deg, #2563eb, #3b82f6)",
                   }}
                 >
-                  AT
+                  <User size={16} />
                 </div>
-                <ChevronDown size={14} className="text-slate-500" />
-              </button>
+              </Link>
             </div>
 
             {/* Enquire Now CTA */}
