@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import ToastCard from '@/components/ui/ToastCard';
 
 export default function ContactForm() {
   const [loading, setLoading] = useState(false);
@@ -38,18 +39,25 @@ export default function ContactForm() {
       
       if (!res.ok) throw new Error('Failed to send message');
       
-      toast.success('Message sent successfully! We will get back to you soon.', {
-        icon: '📨',
-        style: {
-          borderRadius: '12px',
-          background: '#0F172A',
-          color: '#fff',
-        },
-      });
+      toast.custom((t) => (
+        <ToastCard 
+          t={t} 
+          title="Message Sent!" 
+          message="We have successfully received your message and will get back to you shortly." 
+          type="success" 
+        />
+      ));
       
       setFormData({ name: '', email: '', subject: '', message: '' });
     } catch (error) {
-      toast.error('Failed to send message. Please try again.');
+      toast.custom((t) => (
+        <ToastCard 
+          t={t} 
+          title="Delivery Failed" 
+          message="There was an issue sending your message. Please try again." 
+          type="error" 
+        />
+      ));
     } finally {
       setLoading(false);
     }

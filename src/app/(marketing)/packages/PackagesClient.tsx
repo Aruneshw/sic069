@@ -20,6 +20,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { formatInr, getAvailability, getCategoryVideo, getCategoryPoster, getTripTheme } from "@/lib/trips";
 import RunningLetters from "@/components/ui/RunningLetters";
 import { supabase } from "@/utils/supabase";
+import ToastCard from "@/components/ui/ToastCard";
 
 export interface Package {
   id: string;
@@ -260,16 +261,23 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
 
       if (!response.ok) throw new Error('Failed to submit enquiry');
 
-      toast.success(`Enquiry submitted for ${pkg.name}!`, {
-        icon: "🎉",
-        style: {
-          borderRadius: "12px",
-          background: "#0F172A",
-          color: "#fff",
-        },
-      });
+      toast.custom((t) => (
+        <ToastCard 
+          t={t} 
+          title="Booking Request Received!" 
+          message={`We have received your enquiry for ${pkg.name}. Our team will contact you shortly to finalize details.`} 
+          type="success" 
+        />
+      ));
     } catch (error) {
-      toast.error("An error occurred. Please try again.");
+      toast.custom((t) => (
+        <ToastCard 
+          t={t} 
+          title="Request Failed" 
+          message="There was an issue submitting your booking request. Please try again or contact support." 
+          type="error" 
+        />
+      ));
     }
   };
 

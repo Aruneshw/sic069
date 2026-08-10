@@ -7,6 +7,8 @@ import anime from "animejs";
 import toast, { Toaster } from "react-hot-toast";
 import { TripMap } from "@/components/ui/TripMap";
 import { formatInr, getTripTheme, getCategoryVideo, getAvailability, getAssetUrl } from "@/lib/trips";
+import { supabase } from "@/utils/supabase";
+import ToastCard from "@/components/ui/ToastCard";
 
 export default function TripDetailClient({ trip }: { trip: any }) {
   useEffect(() => {
@@ -31,15 +33,46 @@ export default function TripDetailClient({ trip }: { trip: any }) {
     }
   }, [trip]);
 
-  const handleBooking = () => {
-    toast.success("Awesome! Your expedition request has been sent.", {
-      icon: '🔥',
-      style: {
-        borderRadius: '12px',
-        background: '#0F172A',
-        color: '#fff',
-      },
-    });
+  const handleBooking = async () => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        toast.error("Please log in to book this trip.");
+        return;
+      }
+
+      const response = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tripId: trip.id,
+          userName: session.user.user_metadata?.full_name || session.user.email,
+          userEmail: session.user.email,
+          message: `I would like to book the ${trip.name} trip.`,
+        }),
+      });
+
+      if (!response.ok) throw new Error('Failed to submit enquiry');
+
+      toast.custom((t) => (
+        <ToastCard 
+          t={t} 
+          title="Expedition Request Sent!" 
+          message={`Awesome! Your request for ${trip.name} has been sent. Our team will contact you shortly.`} 
+          type="success" 
+        />
+      ));
+    } catch (error) {
+      toast.custom((t) => (
+        <ToastCard 
+          t={t} 
+          title="Request Failed" 
+          message="There was an issue submitting your request. Please try again." 
+          type="error" 
+        />
+      ));
+    }
   };
 
   const highlights = JSON.parse(trip.highlights) as string[];
