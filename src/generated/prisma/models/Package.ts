@@ -1380,6 +1380,7 @@ export type PackageCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * The data used to create many Packages.
    */
   data: Prisma.PackageCreateManyInput | Prisma.PackageCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1398,6 +1399,7 @@ export type PackageCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many Packages.
    */
   data: Prisma.PackageCreateManyInput | Prisma.PackageCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

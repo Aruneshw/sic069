@@ -448,6 +448,7 @@ export type DepartureCreateOrConnectWithoutTripInput = {
 
 export type DepartureCreateManyTripInputEnvelope = {
   data: Prisma.DepartureCreateManyTripInput | Prisma.DepartureCreateManyTripInput[]
+  skipDuplicates?: boolean
 }
 
 export type DepartureUpsertWithWhereUniqueWithoutTripInput = {
@@ -1238,6 +1239,7 @@ export type DepartureCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Int
    * The data used to create many Departures.
    */
   data: Prisma.DepartureCreateManyInput | Prisma.DepartureCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1256,6 +1258,7 @@ export type DepartureCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exten
    * The data used to create many Departures.
    */
   data: Prisma.DepartureCreateManyInput | Prisma.DepartureCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

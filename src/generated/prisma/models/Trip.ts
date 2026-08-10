@@ -1846,6 +1846,7 @@ export type TripCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * The data used to create many Trips.
    */
   data: Prisma.TripCreateManyInput | Prisma.TripCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1864,6 +1865,7 @@ export type TripCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * The data used to create many Trips.
    */
   data: Prisma.TripCreateManyInput | Prisma.TripCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
