@@ -131,59 +131,63 @@ export default function CommunityPage() {
         </div>
 
         {/* Masonry-style Grid (CSS Columns) */}
-        <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
           {stories.map((story) => (
-            <div key={story.id} className="break-inside-avoid bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 card-elevated group cursor-pointer">
+            <div 
+              key={story.id} 
+              className="break-inside-avoid relative overflow-hidden rounded-[2.5rem] border-[6px] border-white bg-slate-900 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 group cursor-pointer"
+              style={{ 
+                aspectRatio: story.height === 'tall' ? '3/4.5' : story.height === 'short' ? '1/1.1' : '3/4'
+              }}
+            >
               
-              {/* Image */}
-              <div className="relative w-full overflow-hidden" style={{ aspectRatio: story.height === 'tall' ? '3/4' : story.height === 'short' ? '4/3' : '1/1' }}>
-                <div className="absolute inset-0 bg-slate-200 animate-pulse" />
+              {/* Full Background Image */}
+              <div className="absolute inset-0 w-full h-full">
+                <div className="absolute inset-0 bg-slate-800 animate-pulse" />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
                   src={story.imageUrl} 
                   alt={story.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-white/90 backdrop-blur-sm text-navy-900 text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
-                    {story.category}
-                  </span>
-                </div>
               </div>
 
-              {/* Content */}
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={14} className={i < story.rating ? "fill-warning text-warning" : "text-slate-300"} />
-                    ))}
-                  </div>
-                  <span className="text-xs font-medium text-slate-400">{story.date}</span>
-                </div>
+              {/* Top Right Heart */}
+              <div className="absolute top-5 right-5 w-11 h-11 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white hover:bg-white/40 transition-colors z-20 shadow-lg">
+                <Heart size={20} />
+              </div>
 
-                <h3 className="text-xl font-bold text-navy-900 mb-3 group-hover:text-teal-600 transition-colors">
+              {/* Top Left Badge (Optional, replaces top-right if needed, but let's keep it clean) */}
+              <div className="absolute top-5 left-5 z-20">
+                <span className="px-4 py-1.5 bg-black/40 backdrop-blur-md border border-white/20 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
+                  {story.category}
+                </span>
+              </div>
+
+              {/* Bottom Gradient Overlay & Content */}
+              <div className="absolute inset-x-0 bottom-0 pt-48 pb-6 px-6 bg-gradient-to-t from-black/95 via-black/60 to-transparent z-10 flex flex-col justify-end h-3/5">
+                
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-1.5 leading-tight group-hover:text-teal-300 transition-colors drop-shadow-md">
                   {story.title}
                 </h3>
                 
-                <p className="text-sm text-slate-600 leading-relaxed mb-6 italic">
-                  "{story.excerpt}"
+                <p className="text-slate-300 text-sm mb-5 font-medium">
+                  {story.author} • {story.date}
                 </p>
 
-                <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold text-navy-900 shrink-0">
-                      {story.author.charAt(0)}
-                    </div>
-                    <span className="text-sm font-semibold text-slate-700">{story.author}</span>
+                <div className="flex items-center gap-5 text-white text-sm font-semibold mb-6">
+                  <div className="flex items-center gap-1.5">
+                     <Star size={16} className="fill-white" /> {story.rating} Stars
                   </div>
-                  
-                  <div className="flex items-center gap-1 text-slate-400 text-xs font-medium">
-                    <Heart size={14} className="hover:text-danger hover:fill-danger cursor-pointer transition-colors" />
-                    <span>{story.helpfulCount}</span>
+                  <div className="flex items-center gap-1.5">
+                     <Heart size={16} className="fill-transparent" /> {story.helpfulCount} Helpful
                   </div>
                 </div>
+
+                <button className="w-full bg-white text-navy-900 font-bold rounded-full py-4 hover:bg-teal-50 transition-colors shadow-lg active:scale-95 duration-200">
+                  Read Full Story
+                </button>
               </div>
             </div>
           ))}
