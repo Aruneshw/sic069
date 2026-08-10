@@ -4,6 +4,7 @@ import { getAssetUrl } from "@/lib/trips";
 import { Award, Globe, Users, Target, Shield, HeartHandshake, Phone, Mail, MapPin } from "lucide-react";
 import WaveDivider from "@/components/ui/WaveDivider";
 import RunningLetters from "@/components/ui/RunningLetters";
+import ContactForm from "@/components/forms/ContactForm";
 
 export default function AboutPage() {
   return (
@@ -150,50 +151,7 @@ export default function AboutPage() {
               <div className="kodplay-glow-card glow-indigo glow-dark w-full group">
                 <span></span>
                 <div className="kodplay-content p-8">
-                  <form className="space-y-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
-                      <input 
-                        type="text" 
-                        id="name"
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
-                        placeholder="Jane Doe"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
-                      <input 
-                        type="email" 
-                        id="email"
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
-                        placeholder="jane@example.com"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="subject" className="block text-sm font-medium text-slate-300 mb-2">Subject</label>
-                      <select 
-                        id="subject"
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all appearance-none"
-                      >
-                        <option value="" className="text-navy-900">Select a topic...</option>
-                        <option value="booking" className="text-navy-900">Booking Enquiry</option>
-                        <option value="custom" className="text-navy-900">Custom Group Tour</option>
-                        <option value="support" className="text-navy-900">General Support</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-slate-300 mb-2">Message</label>
-                      <textarea 
-                        id="message"
-                        rows={4}
-                        className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all resize-none"
-                        placeholder="How can we help you plan your next trip?"
-                      />
-                    </div>
-                    <button type="button" className="btn-cta w-full py-4 text-base mt-2 shadow-glow-cta">
-                      Send Message
-                    </button>
-                  </form>
+                  <ContactForm />
                 </div>
               </div>
             </div>
