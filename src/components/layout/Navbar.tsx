@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import GlowingButton from "@/components/ui/GlowingButton";
+import { supabase } from "@/utils/supabase";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -29,15 +30,24 @@ export default function Navbar() {
   const { unreadCount, toggleNotificationPanel, isMobileMenuOpen, toggleMobileMenu, closeMobileMenu } = useAppStore();
   const [isScrolled, setIsScrolled] = useState(false);
 
+  const [user, setUser] = useState<any>(null);
+
   useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user || null);
+    });
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null);
+    });
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
-    // Check initial scroll state
     handleScroll();
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      authListener.subscription.unsubscribe();
     };
   }, []);
 
@@ -134,19 +144,44 @@ export default function Navbar() {
                 )}
               </button>
 
-              {/* User Avatar - Linked to Login */}
-              <Link href="/login" className="hidden md:flex items-center gap-2 p-1.5 rounded-full hover:bg-slate-100/50 transition-colors no-underline">
-                <div
-                  className="flex items-center justify-center rounded-full text-white text-[13px] font-semibold shadow-md"
-                  style={{
-                    width: 34,
-                    height: 34,
-                    background: "linear-gradient(135deg, #2563eb, #3b82f6)",
-                  }}
-                >
-                  <User size={16} />
+              {/* User Avatar / Login */}
+              {user ? (
+                <div className="relative group hidden md:flex items-center gap-2 p-1.5 rounded-full hover:bg-slate-100/50 transition-colors cursor-pointer">
+                  <img
+                    src={user.user_metadata?.avatar_url || `https://ui-avatars.com/api/?name=${user.user_metadata?.full_name || "User"}&background=2563eb&color=fff`}
+                    alt="Profile"
+                    className="w-[34px] h-[34px] rounded-full object-cover shadow-md border border-white"
+                  />
+                  {/* Dropdown Menu on hover */}
+                  <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                    <div className="px-4 py-3 border-b border-slate-100">
+                      <p className="text-sm font-bold text-navy-900 truncate">{user.user_metadata?.full_name || 'Explorer'}</p>
+                      <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                    </div>
+                    <button
+                      onClick={async () => {
+                        await supabase.auth.signOut();
+                      }}
+                      className="w-full text-left px-4 py-3 text-sm font-bold text-danger hover:bg-danger-50 transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
                 </div>
-              </Link>
+              ) : (
+                <Link href="/login" className="hidden md:flex items-center gap-2 p-1.5 rounded-full hover:bg-slate-100/50 transition-colors no-underline">
+                  <div
+                    className="flex items-center justify-center rounded-full text-white text-[13px] font-semibold shadow-md"
+                    style={{
+                      width: 34,
+                      height: 34,
+                      background: "linear-gradient(135deg, #2563eb, #3b82f6)",
+                    }}
+                  >
+                    <User size={16} />
+                  </div>
+                </Link>
+              )}
             </div>
 
             {/* Enquire Now CTA */}

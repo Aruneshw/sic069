@@ -11,6 +11,7 @@ import WaveDivider from "@/components/ui/WaveDivider";
 
 import LiveTrackingButton from "@/components/operator/LiveTrackingButton";
 import DeferredGallery from "@/components/video/DeferredGallery";
+import AnimeHeroTitle from "@/components/ui/AnimeHeroTitle";
 
 // Mock testimonials for the horizontal scroll
 const testimonials = [
@@ -50,10 +51,15 @@ export default async function HomePage() {
         
         <div className="container-main relative z-10 flex flex-col md:flex-row items-center gap-12">
           <div className="flex-1 text-center md:text-left mt-8 md:mt-0">
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-md leading-[1.1] animate-slide-fade-in">
-              Life is not meant to be <br className="hidden md:block" />
-              <span className="text-teal-300">in one place.</span>
-            </h1>
+            <AnimeHeroTitle>
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-md leading-[1.1]">
+                <span className="anime-word inline-block">Life</span> <span className="anime-word inline-block">is</span> <span className="anime-word inline-block">not</span> <span className="anime-word inline-block">meant</span> <span className="anime-word inline-block">to</span> <span className="anime-word inline-block">be</span> <br className="hidden md:block" />
+                <span className="anime-word inline-block text-teal-300 relative">
+                  in one place.
+                  <span className="anime-underline absolute -bottom-2 left-0 h-1.5 bg-teal-400"></span>
+                </span>
+              </h1>
+            </AnimeHeroTitle>
             <p className="text-lg md:text-xl text-teal-50 mb-10 max-w-2xl mx-auto md:mx-0 drop-shadow-sm font-medium opacity-90 animate-slide-fade-in animation-delay-200">
               Wander far, explore the unseen, and journey beyond your horizon.
             </p>
