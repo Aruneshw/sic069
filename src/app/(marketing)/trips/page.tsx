@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import { prisma } from "@/lib/prisma";
 import TripsClient from "./TripsClient";
 
@@ -16,8 +15,6 @@ export default async function TripsPage() {
   }));
 
   return (
-    <Suspense fallback={<div>Loading trips...</div>}>
-      <TripsClient trips={serializedTrips} />
-    </Suspense>
+    <TripsClient trips={serializedTrips} />
   );
 }

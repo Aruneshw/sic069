@@ -314,9 +314,5 @@ export function getCategoryPoster(category: string): string {
 }
 
 export function getAssetUrl(path: string): string {
-  // Use absolute paths in development, and prefix with /sic069 in production for GitHub Pages
-  if (process.env.NODE_ENV === "production" && path.startsWith("/")) {
-    return `/sic069${path}`;
-  }
   return path;
 }
