@@ -1,0 +1,45 @@
+.wave-divider-container {
+  position: absolute;
+  inset: auto 0 -1px;
+  height: clamp(64px, 9vw, 132px);
+  line-height: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.wave-divider-container svg {
+  width: 200%;
+  height: 100%;
+  display: block;
+  fill: currentColor;
+  transform: translateX(0);
+}
+
+.wave-divider-back {
+  opacity: 0.42;
+  height: clamp(78px, 11vw, 158px);
+}
+
+.wave-divider-back svg {
+  animation: wave-drift 21s linear infinite;
+}
+
+.wave-divider-front {
+  /* height inherits from container */
+}
+
+.wave-divider-front svg {
+  animation: wave-drift 13s linear infinite;
+}
+
+@keyframes wave-drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wave-divider-container svg {
+    animation: none !important;
+  }
+}

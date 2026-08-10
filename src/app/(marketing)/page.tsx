@@ -7,6 +7,7 @@ import { prisma } from "@/lib/prisma";
 import TripCard from "@/components/ui/TripCard";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import GlowingButton from "@/components/ui/GlowingButton";
+import WaveDivider from "@/components/ui/WaveDivider";
 
 import LiveTrackingButton from "@/components/operator/LiveTrackingButton";
 import DeferredGallery from "@/components/video/DeferredGallery";
@@ -79,14 +80,14 @@ export default async function HomePage() {
         </div>
         
         {/* Bottom curve separator */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-white" style={{ clipPath: "polygon(0 100%, 100% 100%, 100% 0, 0 100%)" }} />
+        <WaveDivider className="text-white" />
       </section>
 
       {/* ═══════════════════════════════════════
           VALUE CARDS (Glassmorphism)
           ═══════════════════════════════════════ */}
-      <section className="py-16 bg-white">
-        <ScrollReveal className="container-main">
+      <section className="relative pt-16 pb-32 bg-white">
+        <ScrollReveal className="container-main relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl font-bold text-navy-900 mb-4">Why Zero Gravity?</h2>
             <p className="text-slate-600">We built this because budget travellers deserve better than word-of-mouth. Every trip we run is fully visible — schedules, group sizes, and inclusions, all in one place.</p>
@@ -138,13 +139,14 @@ export default async function HomePage() {
             </div>
           </div>
         </ScrollReveal>
+        <WaveDivider className="text-slate-50" />
       </section>
 
       {/* ═══════════════════════════════════════
           FEATURED TRIPS (page-02.png)
           ═══════════════════════════════════════ */}
-      <section className="py-16 bg-slate-50 border-y border-slate-200">
-        <ScrollReveal className="container-main">
+      <section className="relative pt-16 pb-32 bg-slate-50 border-b border-slate-200">
+        <ScrollReveal className="container-main relative z-10">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div className="max-w-2xl">
               <span className="text-teal-600 font-bold uppercase tracking-wider text-sm mb-2 block">Curated Journeys</span>
@@ -164,6 +166,7 @@ export default async function HomePage() {
             ))}
           </div>
         </ScrollReveal>
+        <WaveDivider className="text-slate-950" />
       </section>
 
       <DeferredGallery />

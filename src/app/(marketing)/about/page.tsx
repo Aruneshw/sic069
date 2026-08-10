@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getAssetUrl } from "@/lib/trips";
 import { Award, Globe, Users, Target, Shield, HeartHandshake, Phone, Mail, MapPin } from "lucide-react";
+import WaveDivider from "@/components/ui/WaveDivider";
 
 export default function AboutPage() {
   return (
@@ -56,12 +57,13 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+        <WaveDivider className="text-slate-50" />
       </section>
 
       {/* ═══════════════════════════════════════
           FOUNDER SECTION (page-09.png)
           ═══════════════════════════════════════ */}
-      <section className="py-20 bg-slate-50 overflow-hidden">
+      <section className="relative pt-20 pb-20 bg-slate-50 overflow-hidden">
         <div className="container-main">
           <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
             <div className="w-full md:w-5/12 relative">
@@ -100,12 +102,13 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
+        <WaveDivider className="text-white" />
       </section>
 
       {/* ═══════════════════════════════════════
           GALLERY (page-05.png / page-09.png)
           ═══════════════════════════════════════ */}
-      <section className="py-16">
+      <section className="relative pt-16 pb-32">
         <div className="container-main mb-12 text-center">
           <h2 className="text-3xl font-bold text-navy-900 mb-4">Capturing the Unforgettable</h2>
           <p className="text-slate-600 max-w-2xl mx-auto">Moments of awe, challenge, and triumph from our recent expeditions.</p>
@@ -129,6 +132,7 @@ export default function AboutPage() {
             <img src={getAssetUrl("/images/places/hogennakal.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
         </div>
+        <WaveDivider className="text-navy-900" />
       </section>
 
       {/* ═══════════════════════════════════════
