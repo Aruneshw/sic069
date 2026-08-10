@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type User = Prisma.UserModel
 /**
+ * Model LoginHistory
+ * 
+ */
+export type LoginHistory = Prisma.LoginHistoryModel
+/**
  * Model Trip
  * 
  */

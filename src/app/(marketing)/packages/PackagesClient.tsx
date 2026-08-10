@@ -19,6 +19,7 @@ import {
 import toast, { Toaster } from "react-hot-toast";
 import { formatInr, getAvailability, getCategoryVideo, getCategoryPoster, getTripTheme } from "@/lib/trips";
 import RunningLetters from "@/components/ui/RunningLetters";
+import { supabase } from "@/utils/supabase";
 
 export interface Package {
   id: string;
@@ -237,15 +238,39 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
   
   const strongestTheme = packages.length ? getTripTheme(packages[0].category) : getTripTheme("Coastal");
 
-  const handleBookPackage = (pkg: Package) => {
-    toast.success(`Enquiry submitted for ${pkg.name}!`, {
-      icon: "🎉",
-      style: {
-        borderRadius: "12px",
-        background: "#0F172A",
-        color: "#fff",
-      },
-    });
+  const handleBookPackage = async (pkg: Package) => {
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      
+      if (!session) {
+        toast.error("Please log in to book a package.");
+        return;
+      }
+
+      const response = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          packageId: pkg.id,
+          userName: session.user.user_metadata?.full_name || session.user.email,
+          userEmail: session.user.email,
+          message: `I would like to book the ${pkg.name} package.`,
+        }),
+      });
+
+      if (!response.ok) throw new Error('Failed to submit enquiry');
+
+      toast.success(`Enquiry submitted for ${pkg.name}!`, {
+        icon: "🎉",
+        style: {
+          borderRadius: "12px",
+          background: "#0F172A",
+          color: "#fff",
+        },
+      });
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+    }
   };
 
   return (

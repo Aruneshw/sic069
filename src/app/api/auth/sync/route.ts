@@ -29,6 +29,15 @@ export async function POST(request: Request) {
       },
     });
 
+    // Record this login in LoginHistory
+    await prisma.loginHistory.create({
+      data: {
+        userId: user.id,
+        ipAddress: request.headers.get('x-forwarded-for') || 'unknown',
+        userAgent: request.headers.get('user-agent') || 'unknown',
+      }
+    });
+
     return NextResponse.json({ success: true, user: dbUser });
   } catch (error: any) {
     console.error('Error syncing user to database:', error);
