@@ -41,7 +41,7 @@ export default function Navbar() {
     });
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
@@ -53,12 +53,12 @@ export default function Navbar() {
 
   return (
     <>
-      <div className="fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-300">
+      <div className="fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
         <nav
-          className={`pointer-events-auto transition-all duration-300 flex items-center justify-between rounded-full border shadow-xl ${
+          className={`pointer-events-auto transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-between rounded-full border shadow-xl ${
             isScrolled
-              ? "bg-white border-white/40 shadow-slate-200/50 py-2 px-6 w-full max-w-5xl"
-              : "bg-white border-white/30 py-3 px-8 w-full max-w-6xl"
+              ? "bg-white/95 backdrop-blur-md border-white/40 shadow-slate-200/50 py-2 px-6 w-full max-w-5xl"
+              : "bg-white border-white/30 py-4 px-8 w-full max-w-6xl"
           }`}
         >
           {/* Logo */}
