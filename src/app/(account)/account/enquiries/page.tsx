@@ -33,23 +33,31 @@ export default async function MyEnquiriesPage() {
             </thead>
             <tbody className="divide-y divide-slate-100">
               {enquiries.length > 0 ? (
-                enquiries.map((enquiry) => (
+                enquiries.map((enquiry) => {
+                  const item = enquiry.trip || enquiry.package;
+                  return (
                   <tr key={enquiry.id} className="hover:bg-slate-50 transition-colors group">
                     <td className="py-4 px-6">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0">
+                        <div className="w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-slate-200">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
-                          <img 
-                            src={getAssetUrl(enquiry.trip.imageUrl || "/images/places/ooty.png")}
-                            alt={enquiry.trip.name}
-                            className="w-full h-full object-cover"
-                          />
+                          {item && (
+                            <img 
+                              src={getAssetUrl(item.imageUrl || "/images/places/ooty.png")}
+                              alt={item.name}
+                              className="w-full h-full object-cover"
+                            />
+                          )}
                         </div>
                         <div>
-                          <p className="font-bold text-navy-900 mb-0.5 group-hover:text-teal-600 transition-colors">{enquiry.trip.name}</p>
-                          <div className="flex items-center gap-2 text-xs text-slate-500">
-                            <Clock size={12} /> {enquiry.trip.duration}
-                          </div>
+                          <p className="font-bold text-navy-900 mb-0.5 group-hover:text-teal-600 transition-colors">
+                            {item ? item.name : "General Enquiry"}
+                          </p>
+                          {item && (
+                            <div className="flex items-center gap-2 text-xs text-slate-500">
+                              <Clock size={12} /> {item.duration}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </td>
@@ -67,7 +75,7 @@ export default async function MyEnquiriesPage() {
                       </button>
                     </td>
                   </tr>
-                ))
+                )})
               ) : (
                 <tr>
                   <td colSpan={4} className="py-12 text-center text-slate-500">
@@ -82,7 +90,9 @@ export default async function MyEnquiriesPage() {
         {/* Mobile List View */}
         <div className="md:hidden divide-y divide-slate-100">
           {enquiries.length > 0 ? (
-            enquiries.map((enquiry) => (
+            enquiries.map((enquiry) => {
+              const item = enquiry.trip || enquiry.package;
+              return (
               <div key={enquiry.id} className="p-4 hover:bg-slate-50 transition-colors">
                 <div className="flex justify-between items-start mb-3">
                   <StatusBadge status={enquiry.status} />
@@ -92,17 +102,21 @@ export default async function MyEnquiriesPage() {
                 </div>
                 
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 shadow-sm">
+                  <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 shadow-sm bg-slate-200">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img 
-                      src={getAssetUrl(enquiry.trip.imageUrl || "/images/places/ooty.png")}
-                      alt={enquiry.trip.name}
-                      className="w-full h-full object-cover"
-                    />
+                    {item && (
+                      <img 
+                        src={getAssetUrl(item.imageUrl || "/images/places/ooty.png")}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
                   </div>
                   <div>
-                    <h3 className="font-bold text-navy-900 text-sm mb-1">{enquiry.trip.name}</h3>
-                    <p className="text-xs text-slate-500 flex items-center gap-1"><Clock size={12}/> {enquiry.trip.duration}</p>
+                    <h3 className="font-bold text-navy-900 text-sm mb-1">{item ? item.name : "General Enquiry"}</h3>
+                    {item && (
+                      <p className="text-xs text-slate-500 flex items-center gap-1"><Clock size={12}/> {item.duration}</p>
+                    )}
                   </div>
                 </div>
                 
@@ -110,7 +124,7 @@ export default async function MyEnquiriesPage() {
                   View Details <ChevronRight size={16} />
                 </button>
               </div>
-            ))
+            )})
           ) : (
             <div className="p-8 text-center text-slate-500">
               You have no active enquiries.

@@ -52,8 +52,8 @@ export const prisma = {
   },
   enquiry: {
     findMany: async (args: any = {}) => {
-      // simulate prisma include: { trip: true }
-      let query = supabase.from('Enquiry').select('*, trip:Trip(*)');
+      // simulate prisma include: { trip: true, package: true }
+      let query = supabase.from('Enquiry').select('*, trip:Trip(*), package:Package(*)');
       if (args.where?.userEmail) query = query.eq('userEmail', args.where.userEmail);
       if (args.orderBy) {
         const key = Object.keys(args.orderBy)[0];
