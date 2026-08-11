@@ -14,17 +14,15 @@ DECLARE
         'High Altitude Pass Trek', 'Monastery Peace Retreat', 'Spice Plantation Walk', 'Cave Exploration',
         'Tribal Culture Tour', 'Bicycle Countryside Ride', 'River Island Camping', 'Rainforest Canopy Walk'
     ];
-    images TEXT[] := ARRAY[
-        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=800&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?q=80&w=800&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1499856871958-5b9627545d1a?q=80&w=800&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=800&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?q=80&w=800&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?q=80&w=800&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1444464666168-49b626f86641?q=80&w=800&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1433086966358-54859d0ed716?q=80&w=800&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1465146344425-f00d5f3c8f07?q=80&w=800&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=800&auto=format&fit=crop'
+    imageUrls TEXT[] := ARRAY[
+        '/images/packages/package_1.jpeg', '/images/packages/package_2.jpeg', '/images/packages/package_3.jpeg', '/images/packages/package_4.jpeg',
+        '/images/packages/package_5.jpeg', '/images/packages/package_6.jpeg', '/images/packages/package_7.jpeg', '/images/packages/package_8.jpeg',
+        '/images/packages/package_9.jpeg', '/images/packages/package_10.jpeg', '/images/packages/package_11.jpeg', '/images/packages/package_12.jpeg',
+        '/images/packages/package_13.jpeg', '/images/packages/package_14.jpeg', '/images/packages/package_15.jpeg', '/images/packages/package_16.jpeg',
+        '/images/packages/package_17.jpeg', '/images/packages/package_18.jpeg', '/images/packages/package_19.jpeg', '/images/packages/package_20.jpeg',
+        '/images/packages/package_21.jpeg', '/images/packages/package_22.jpeg', '/images/packages/package_23.jpeg', '/images/packages/package_24.jpg',
+        '/images/packages/package_25.jpg', '/images/packages/package_26.jpg', '/images/packages/package_27.jpg', '/images/packages/package_28.jpg',
+        '/images/packages/package_29.jpg', '/images/packages/package_30.jpg', '/images/packages/package_31.jpg', '/images/packages/package_32.jpg'
     ];
     badges TEXT[] := ARRAY['NATURE ESCAPE', 'ADVENTURE QUEST', 'BUDGET GETAWAY', 'CULTURAL JOURNEY', 'TROPICAL VIBES'];
 BEGIN
@@ -45,7 +43,7 @@ BEGIN
             (FLOOR(RANDOM() * 3) + 2)::INT || ' Days', -- Random duration 2-4 days
             (FLOOR(RANDOM() * 15) + 10)::INT, -- Max seats 10-25
             (FLOOR(RANDOM() * 10))::INT, -- Filled seats 0-9
-            'https://image.pollinations.ai/prompt/' || REPLACE(names[i], ' ', '%20') || '%20beautiful%20travel%20photography', -- AI generated image based on name
+            imageUrls[i], -- Local package images
             'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', -- same video for all
             'Published',
             '[{"day": 1, "title": "Arrival & Setup", "description": "Meet the team and get settled.", "location": "Basecamp"}, {"day": 2, "title": "The Main Event", "description": "Experience the vibrant adventure.", "location": "Exploration Zone"}]',
