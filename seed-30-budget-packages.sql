@@ -1,5 +1,5 @@
--- Run this in your Supabase SQL Editor to populate 30+ budget packages under 10k!
--- Uses vibrant stock images from Unsplash via random nature keywords.
+-- Run this in your Supabase SQL Editor to populate 32 budget packages under 10k!
+-- Uses locally hosted package images for guaranteed fast loading.
 
 DO $$
 DECLARE
@@ -14,15 +14,39 @@ DECLARE
         'High Altitude Pass Trek', 'Monastery Peace Retreat', 'Spice Plantation Walk', 'Cave Exploration',
         'Tribal Culture Tour', 'Bicycle Countryside Ride', 'River Island Camping', 'Rainforest Canopy Walk'
     ];
-    imageUrls TEXT[] := ARRAY[
-        '/images/packages/package_1.jpeg', '/images/packages/package_2.jpeg', '/images/packages/package_3.jpeg', '/images/packages/package_4.jpeg',
-        '/images/packages/package_5.jpeg', '/images/packages/package_6.jpeg', '/images/packages/package_7.jpeg', '/images/packages/package_8.jpeg',
-        '/images/packages/package_9.jpeg', '/images/packages/package_10.jpeg', '/images/packages/package_11.jpeg', '/images/packages/package_12.jpeg',
-        '/images/packages/package_13.jpeg', '/images/packages/package_14.jpeg', '/images/packages/package_15.jpeg', '/images/packages/package_16.jpeg',
-        '/images/packages/package_17.jpeg', '/images/packages/package_18.jpeg', '/images/packages/package_19.jpeg', '/images/packages/package_20.jpeg',
-        '/images/packages/package_21.jpeg', '/images/packages/package_22.jpeg', '/images/packages/package_23.jpeg', '/images/packages/package_24.jpg',
-        '/images/packages/package_25.jpg', '/images/packages/package_26.jpg', '/images/packages/package_27.jpg', '/images/packages/package_28.jpg',
-        '/images/packages/package_29.jpg', '/images/packages/package_30.jpg', '/images/packages/package_31.jpg', '/images/packages/package_32.jpg'
+    pkg_images TEXT[] := ARRAY[
+        '/images/packages/hidden-valley-trek.jpeg',
+        '/images/packages/coastal-sunset-retreat.jpeg',
+        '/images/packages/forest-canopy-walk.jpeg',
+        '/images/packages/river-rafting-adventure.jpeg',
+        '/images/packages/desert-oasis-camp.jpeg',
+        '/images/packages/mountain-peak-climb.jpeg',
+        '/images/packages/historical-fort-tour.jpeg',
+        '/images/packages/tea-garden-retreat.jpeg',
+        '/images/packages/backwater-kayaking.jpeg',
+        '/images/packages/jungle-safari-express.jpeg',
+        '/images/packages/sunrise-hiking-trail.jpeg',
+        '/images/packages/starry-night-camping.jpeg',
+        '/images/packages/tropical-island-escape.jpeg',
+        '/images/packages/waterfall-rappelling.jpeg',
+        '/images/packages/snowy-pine-cabin.jpeg',
+        '/images/packages/village-heritage-walk.jpeg',
+        '/images/packages/canyon-exploration.jpeg',
+        '/images/packages/lake-view-glamping.jpeg',
+        '/images/packages/wildlife-spotting-tour.jpeg',
+        '/images/packages/volcanic-crater-hike.jpeg',
+        '/images/packages/ocean-scuba-dive.jpeg',
+        '/images/packages/glacier-ice-climbing.jpeg',
+        '/images/packages/desert-dune-bashing.jpeg',
+        '/images/packages/coastal-surfing-camp.jpeg',
+        '/images/packages/high-altitude-pass-trek.jpeg',
+        '/images/packages/monastery-peace-retreat.jpeg',
+        '/images/packages/spice-plantation-walk.jpeg',
+        '/images/packages/cave-exploration.jpeg',
+        '/images/packages/tribal-culture-tour.jpeg',
+        '/images/packages/bicycle-countryside-ride.jpeg',
+        '/images/packages/river-island-camping.jpeg',
+        '/images/packages/rainforest-canopy-walk.jpeg'
     ];
     badges TEXT[] := ARRAY['NATURE ESCAPE', 'ADVENTURE QUEST', 'BUDGET GETAWAY', 'CULTURAL JOURNEY', 'TROPICAL VIBES'];
 BEGIN
@@ -43,7 +67,7 @@ BEGIN
             (FLOOR(RANDOM() * 3) + 2)::INT || ' Days', -- Random duration 2-4 days
             (FLOOR(RANDOM() * 15) + 10)::INT, -- Max seats 10-25
             (FLOOR(RANDOM() * 10))::INT, -- Filled seats 0-9
-            imageUrls[i], -- Local package images
+            pkg_images[i], -- matched local image per package
             'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', -- same video for all
             'Published',
             '[{"day": 1, "title": "Arrival & Setup", "description": "Meet the team and get settled.", "location": "Basecamp"}, {"day": 2, "title": "The Main Event", "description": "Experience the vibrant adventure.", "location": "Exploration Zone"}]',
@@ -54,6 +78,7 @@ BEGIN
         )
         ON CONFLICT ("slug") DO UPDATE SET 
             "imageUrl" = EXCLUDED."imageUrl",
-            "videoUrl" = EXCLUDED."videoUrl";
+            "videoUrl" = EXCLUDED."videoUrl",
+            "bundlePrice" = EXCLUDED."bundlePrice";
     END LOOP;
 END $$;
