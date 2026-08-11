@@ -45,7 +45,7 @@ BEGIN
             (FLOOR(RANDOM() * 3) + 2)::INT || ' Days', -- Random duration 2-4 days
             (FLOOR(RANDOM() * 15) + 10)::INT, -- Max seats 10-25
             (FLOOR(RANDOM() * 10))::INT, -- Filled seats 0-9
-            'https://loremflickr.com/800/600/nature,' || REPLACE(names[i], ' ', ''), -- dynamic image based on name
+            'https://image.pollinations.ai/prompt/' || REPLACE(names[i], ' ', '%20') || '%20beautiful%20travel%20photography', -- AI generated image based on name
             'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', -- same video for all
             'Published',
             '[{"day": 1, "title": "Arrival & Setup", "description": "Meet the team and get settled.", "location": "Basecamp"}, {"day": 2, "title": "The Main Event", "description": "Experience the vibrant adventure.", "location": "Exploration Zone"}]',
