@@ -193,7 +193,7 @@ export default async function HomePage() {
         </ScrollReveal>
         
         {/* Infinite Marquee Container */}
-        <div className="relative w-full overflow-hidden flex group">
+        <div className="relative w-full overflow-hidden group">
           {/* Left and Right Fade Overlays */}
           <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-navy-900 to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-navy-900 to-transparent z-10 pointer-events-none" />
