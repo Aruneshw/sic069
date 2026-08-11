@@ -13,6 +13,7 @@ export default function AccountLayout({
   const accountLinks = [
     { href: "/account/enquiries", label: "My Enquiries", icon: MessageSquare },
     { href: "/account/dna", label: "My Travel DNA", icon: Sparkles },
+    { href: "/account/knowledge", label: "My Travel Knowledge", icon: MessageSquare },
     { href: "/account/bookings", label: "Bookings", icon: CalendarCheck },
     { href: "/account/referrals", label: "Refer & Earn", icon: Gift },
     { href: "/account/saved", label: "Saved Trips", icon: Heart },

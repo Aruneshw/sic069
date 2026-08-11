@@ -151,3 +151,74 @@ model RecommendationFeedback {
   reason    String
   createdAt DateTime @default(now())
 }
+
+// ═══════════════════════════════════════════════════════════
+// WORD-OF-MOUTH INTELLIGENCE ENGINE MODELS
+// ═══════════════════════════════════════════════════════════
+
+model TravelerExperience {
+  id                String   @id @default(cuid())
+  userId            String?
+  destinationName   String
+  tripId            String?
+  contributorType   String   @default("COMMUNITY") // LOCAL, EXPERIENCED_TRAVELER, VERIFIED_GUIDE, TOUR_OPERATOR, COMMUNITY
+  contributorName   String   @default("Anonymous Traveler")
+  isVerified        Boolean  @default(false)
+  worthIt           Boolean?
+  bestTime          String?
+  crowdLevel        String?  // LOW, MEDIUM, HIGH, EXTREME
+  costReality       String?
+  walkingIntensity  String?  // LOW, MEDIUM, HIGH
+  unexpectedProblem String?
+  bestPart          String?
+  whatToAvoid        String?
+  localTip          String?
+  recommendation    String?
+  createdAt         DateTime @default(now())
+}
+
+model LocalContributor {
+  id               String   @id @default(cuid())
+  userId           String?
+  name             String
+  type             String   // LOCAL, EXPERIENCED_TRAVELER, VERIFIED_GUIDE, TOUR_OPERATOR
+  isVerified       Boolean  @default(false)
+  accuracyScore    Int      @default(80) // 0-100
+  helpfulReports   Int      @default(0)
+  totalReports     Int      @default(0)
+  joinedAt         DateTime @default(now())
+}
+
+model DestinationPulse {
+  id              String   @id @default(cuid())
+  destinationName String
+  weather         String?
+  crowdLevel      String?
+  alerts          String?  // JSON array
+  localActivity   String?
+  updatedAt       DateTime @updatedAt
+  createdAt       DateTime @default(now())
+}
+
+model InsightConfirmation {
+  id        String   @id @default(cuid())
+  insightId String
+  userId    String?
+  confirmed Boolean  // true = confirms, false = contradicts
+  comment   String?
+  createdAt DateTime @default(now())
+}
+
+model TravelAlert {
+  id              String   @id @default(cuid())
+  destinationName String
+  alertType       String   // ROAD_BLOCKED, CLOSURE, CROWD, PRICE, WEATHER, SAFETY
+  title           String
+  content         String
+  severity        String   @default("MEDIUM") // LOW, MEDIUM, HIGH, CRITICAL
+  reportCount     Int      @default(1)
+  isActive        Boolean  @default(true)
+  expiresAt       DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

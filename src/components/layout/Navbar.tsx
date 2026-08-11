@@ -18,6 +18,7 @@ import { supabase } from "@/utils/supabase";
 
 const navLinks = [
   { href: "/", label: "Home" },
+  { href: "/ask-local", label: "Ask a Local" },
   { href: "/escape", label: "Escape Engine" },
   { href: "/trips", label: "Trips" },
   { href: "/packages", label: "Packages" },

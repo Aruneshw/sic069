@@ -101,3 +101,28 @@ export type LocalInsight = Prisma.LocalInsightModel
  * 
  */
 export type RecommendationFeedback = Prisma.RecommendationFeedbackModel
+/**
+ * Model TravelerExperience
+ * 
+ */
+export type TravelerExperience = Prisma.TravelerExperienceModel
+/**
+ * Model LocalContributor
+ * 
+ */
+export type LocalContributor = Prisma.LocalContributorModel
+/**
+ * Model DestinationPulse
+ * 
+ */
+export type DestinationPulse = Prisma.DestinationPulseModel
+/**
+ * Model InsightConfirmation
+ * 
+ */
+export type InsightConfirmation = Prisma.InsightConfirmationModel
+/**
+ * Model TravelAlert
+ * 
+ */
+export type TravelAlert = Prisma.TravelAlertModel

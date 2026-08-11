@@ -29,6 +29,7 @@ const testimonials = [
 const marqueeTestimonials = [...testimonials, ...testimonials];
 
 import EscapeEngineSection from "@/components/ui/EscapeEngineSection";
+import WomHeroSection from "@/components/wom/WomHeroSection";
 
 export default async function HomePage() {
   // Fetch featured trips from DB
@@ -194,6 +195,11 @@ export default async function HomePage() {
           INTELLIGENT ESCAPE ENGINE (NOVELTY LAYER)
           ═══════════════════════════════════════ */}
       <EscapeEngineSection initialPackages={packages} />
+
+      {/* ═══════════════════════════════════════
+          WORD-OF-MOUTH INTELLIGENCE ENGINE
+          ═══════════════════════════════════════ */}
+      <WomHeroSection />
 
       <DeferredGallery />
 

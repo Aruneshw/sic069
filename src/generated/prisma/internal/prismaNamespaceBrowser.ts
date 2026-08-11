@@ -62,7 +62,12 @@ export const ModelName = {
   TravelDNA: 'TravelDNA',
   TravelState: 'TravelState',
   LocalInsight: 'LocalInsight',
-  RecommendationFeedback: 'RecommendationFeedback'
+  RecommendationFeedback: 'RecommendationFeedback',
+  TravelerExperience: 'TravelerExperience',
+  LocalContributor: 'LocalContributor',
+  DestinationPulse: 'DestinationPulse',
+  InsightConfirmation: 'InsightConfirmation',
+  TravelAlert: 'TravelAlert'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -252,6 +257,88 @@ export const RecommendationFeedbackScalarFieldEnum = {
 } as const
 
 export type RecommendationFeedbackScalarFieldEnum = (typeof RecommendationFeedbackScalarFieldEnum)[keyof typeof RecommendationFeedbackScalarFieldEnum]
+
+
+export const TravelerExperienceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  destinationName: 'destinationName',
+  tripId: 'tripId',
+  contributorType: 'contributorType',
+  contributorName: 'contributorName',
+  isVerified: 'isVerified',
+  worthIt: 'worthIt',
+  bestTime: 'bestTime',
+  crowdLevel: 'crowdLevel',
+  costReality: 'costReality',
+  walkingIntensity: 'walkingIntensity',
+  unexpectedProblem: 'unexpectedProblem',
+  bestPart: 'bestPart',
+  whatToAvoid: 'whatToAvoid',
+  localTip: 'localTip',
+  recommendation: 'recommendation',
+  createdAt: 'createdAt'
+} as const
+
+export type TravelerExperienceScalarFieldEnum = (typeof TravelerExperienceScalarFieldEnum)[keyof typeof TravelerExperienceScalarFieldEnum]
+
+
+export const LocalContributorScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  type: 'type',
+  isVerified: 'isVerified',
+  accuracyScore: 'accuracyScore',
+  helpfulReports: 'helpfulReports',
+  totalReports: 'totalReports',
+  joinedAt: 'joinedAt'
+} as const
+
+export type LocalContributorScalarFieldEnum = (typeof LocalContributorScalarFieldEnum)[keyof typeof LocalContributorScalarFieldEnum]
+
+
+export const DestinationPulseScalarFieldEnum = {
+  id: 'id',
+  destinationName: 'destinationName',
+  weather: 'weather',
+  crowdLevel: 'crowdLevel',
+  alerts: 'alerts',
+  localActivity: 'localActivity',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DestinationPulseScalarFieldEnum = (typeof DestinationPulseScalarFieldEnum)[keyof typeof DestinationPulseScalarFieldEnum]
+
+
+export const InsightConfirmationScalarFieldEnum = {
+  id: 'id',
+  insightId: 'insightId',
+  userId: 'userId',
+  confirmed: 'confirmed',
+  comment: 'comment',
+  createdAt: 'createdAt'
+} as const
+
+export type InsightConfirmationScalarFieldEnum = (typeof InsightConfirmationScalarFieldEnum)[keyof typeof InsightConfirmationScalarFieldEnum]
+
+
+export const TravelAlertScalarFieldEnum = {
+  id: 'id',
+  destinationName: 'destinationName',
+  alertType: 'alertType',
+  title: 'title',
+  content: 'content',
+  severity: 'severity',
+  reportCount: 'reportCount',
+  isActive: 'isActive',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TravelAlertScalarFieldEnum = (typeof TravelAlertScalarFieldEnum)[keyof typeof TravelAlertScalarFieldEnum]
 
 
 export const SortOrder = {

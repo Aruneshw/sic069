@@ -13,10 +13,28 @@ import { loadRazorpayScript } from "@/utils/razorpay";
 import CompatibilityBadge from "@/components/ui/CompatibilityBadge";
 import LocalGuideModal from "@/components/ui/LocalGuideModal";
 import RejectionLearningModal from "@/components/ui/RejectionLearningModal";
+import WhatLocalsKnow from "@/components/wom/WhatLocalsKnow";
+import { WomScoreCard, RealityCheckCard, WorthItCard, LocalPulseCard } from "@/components/wom/WomCards";
+import AskALocal from "@/components/wom/AskALocal";
+import TellNextTraveler from "@/components/wom/TellNextTraveler";
+import { getWomInsightsForDestination, getWomScore, getRealityCheck, getLocalPulse, calculateWorthIt } from "@/lib/wordOfMouth";
+import { useAppStore } from "@/store/useAppStore";
+import { MessageCircle } from "lucide-react";
 
 export default function TripDetailClient({ trip }: { trip: any }) {
   const [isGuideOpen, setIsGuideOpen] = useState(false);
   const [isRejectOpen, setIsRejectOpen] = useState(false);
+  const [isTellNextOpen, setIsTellNextOpen] = useState(false);
+
+  const travelDna = useAppStore((state) => state.travelDna);
+  const travelState = useAppStore((state) => state.travelState);
+
+  const destinationName = trip?.name || "South India";
+  const womInsights = getWomInsightsForDestination(destinationName);
+  const womScore = getWomScore(destinationName);
+  const realityCheck = getRealityCheck(destinationName);
+  const localPulse = getLocalPulse(destinationName);
+  const worthItResult = calculateWorthIt(destinationName, travelDna, travelState);
   useEffect(() => {
     if (trip) {
       anime({
@@ -261,6 +279,37 @@ export default function TripDetailClient({ trip }: { trip: any }) {
               </div>
             </div>
 
+            {/* ═══════════════════════════════════════════════════════════ */}
+            {/* WORD-OF-MOUTH INTELLIGENCE LAYER */}
+            {/* ═══════════════════════════════════════════════════════════ */}
+            <div className="space-y-8 anime-stagger opacity-0">
+              {/* Worth It Analysis */}
+              <WorthItCard result={worthItResult} destination={destinationName} />
+
+              {/* What Locals Know */}
+              <div className="glass-panel p-8 md:p-10 rounded-3xl">
+                <WhatLocalsKnow destination={destinationName} insights={womInsights} />
+              </div>
+
+              {/* Ask A Local Chatbot Component */}
+              <AskALocal destination={destinationName} tripId={trip.id} />
+
+              {/* Tell Next Traveler CTA */}
+              <div className="p-6 rounded-3xl border border-teal-500/30 bg-gradient-to-r from-teal-500/15 via-navy-900 to-indigo-500/15 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <div className="text-xs font-extrabold uppercase tracking-widest text-teal-300">You&apos;ve been here before?</div>
+                  <h4 className="text-lg font-bold text-white">Help the Next Traveler</h4>
+                  <p className="text-xs text-slate-400">Share your experience — what to avoid, actual costs, and local tips.</p>
+                </div>
+                <button
+                  onClick={() => setIsTellNextOpen(true)}
+                  className="px-6 py-3 bg-teal-500 text-navy-950 rounded-xl font-bold text-sm shrink-0 flex items-center gap-2 hover:bg-teal-400 transition-colors shadow-lg shadow-teal-500/20"
+                >
+                  <MessageCircle size={16} /> Share Experience
+                </button>
+              </div>
+            </div>
+
             {/* Itinerary */}
             <div className="glass-panel p-8 md:p-12 rounded-3xl anime-stagger opacity-0">
               <h2 className="text-3xl font-extrabold text-white mb-8 tracking-tight">Daily Itinerary</h2>
@@ -354,6 +403,11 @@ export default function TripDetailClient({ trip }: { trip: any }) {
                 </ul>
               </div>
 
+              {/* Sidebar Word-of-Mouth Intelligence Card */}
+              <div className="mt-8 pt-6 border-t border-white/10">
+                <WomScoreCard score={womScore} />
+              </div>
+
             </div>
           </div>
           
@@ -362,6 +416,7 @@ export default function TripDetailClient({ trip }: { trip: any }) {
 
       <LocalGuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} tripName={trip.name} />
       <RejectionLearningModal isOpen={isRejectOpen} onClose={() => setIsRejectOpen(false)} itemId={trip.id} itemTitle={trip.name} />
+      <TellNextTraveler isOpen={isTellNextOpen} onClose={() => setIsTellNextOpen(false)} destinationName={destinationName} tripId={trip.id} />
     </div>
   );
 }

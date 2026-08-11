@@ -8,12 +8,27 @@ export async function POST(req: Request) {
 
     const { messages, context } = await req.json();
 
-    let systemPrompt = "You are an enthusiastic Local Guide & AI Travel Intelligence assistant for Zero Gravity Tours, helping users find budget trips under ₹10,000 INR.";
+    let systemPrompt = `You are a context-aware Local Friend & Word-of-Mouth Intelligence Guide for Zero Gravity Tours.
+You solve the problem: "What do locals actually know that generic websites miss?"
+
+RULES:
+1. Speak like a trusted friend who has actually been there.
+2. Structure advice cleanly when asked "what should I know" or "what to expect":
+   - 🕐 Timing (What experienced travelers recommend)
+   - 🌦 Conditions (Current/recent context)
+   - 💰 Money (Realistic spending expectations beyond package)
+   - 🚗 Getting Around (Transport friction & road reality)
+   - 🍴 Food (Local authentic spots vs tourist traps)
+   - ⚠️ Avoid (Known tourist mistakes)
+   - ⭐ Don't Miss (High-confidence recommendations)
+3. NO HALLUCINATIONS: Never invent prices, operating hours, safety issues, or fake restaurants. If data is unverified, explicitly state "Based on recent traveler reports..." or "I don't have verified data for that exact detail."
+4. Prioritize USER VALUE over popularity.`;
+
     if (context?.travelState) {
-      systemPrompt += ` The user's active travel state is: ${context.travelState.state || "Escape"}.`;
+      systemPrompt += `\nUser Travel State: ${context.travelState.state || "Escape"}.`;
     }
     if (context?.travelDna) {
-      systemPrompt += ` User Travel DNA: Nature (${context.travelDna.nature}%), Adventure (${context.travelDna.adventure}%), Peace (${context.travelDna.peace}%), Crowd Tolerance (${context.travelDna.crowdTolerance}%). Adapt your advice to match their Travel DNA.`;
+      systemPrompt += `\nUser Travel DNA: Nature (${context.travelDna.nature}%), Adventure (${context.travelDna.adventure}%), Peace (${context.travelDna.peace}%), Crowd Tolerance (${context.travelDna.crowdTolerance}%). Tailor recommendations specifically to their preferences.`;
     }
 
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {

@@ -395,7 +395,12 @@ export const ModelName = {
   TravelDNA: 'TravelDNA',
   TravelState: 'TravelState',
   LocalInsight: 'LocalInsight',
-  RecommendationFeedback: 'RecommendationFeedback'
+  RecommendationFeedback: 'RecommendationFeedback',
+  TravelerExperience: 'TravelerExperience',
+  LocalContributor: 'LocalContributor',
+  DestinationPulse: 'DestinationPulse',
+  InsightConfirmation: 'InsightConfirmation',
+  TravelAlert: 'TravelAlert'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -411,7 +416,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "loginHistory" | "trip" | "departure" | "enquiry" | "notification" | "contactMessage" | "package" | "travelDNA" | "travelState" | "localInsight" | "recommendationFeedback"
+    modelProps: "user" | "loginHistory" | "trip" | "departure" | "enquiry" | "notification" | "contactMessage" | "package" | "travelDNA" | "travelState" | "localInsight" | "recommendationFeedback" | "travelerExperience" | "localContributor" | "destinationPulse" | "insightConfirmation" | "travelAlert"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1303,6 +1308,376 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TravelerExperience: {
+      payload: Prisma.$TravelerExperiencePayload<ExtArgs>
+      fields: Prisma.TravelerExperienceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TravelerExperienceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TravelerExperienceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload>
+        }
+        findFirst: {
+          args: Prisma.TravelerExperienceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TravelerExperienceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload>
+        }
+        findMany: {
+          args: Prisma.TravelerExperienceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload>[]
+        }
+        create: {
+          args: Prisma.TravelerExperienceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload>
+        }
+        createMany: {
+          args: Prisma.TravelerExperienceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TravelerExperienceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload>[]
+        }
+        delete: {
+          args: Prisma.TravelerExperienceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload>
+        }
+        update: {
+          args: Prisma.TravelerExperienceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload>
+        }
+        deleteMany: {
+          args: Prisma.TravelerExperienceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TravelerExperienceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TravelerExperienceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload>[]
+        }
+        upsert: {
+          args: Prisma.TravelerExperienceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelerExperiencePayload>
+        }
+        aggregate: {
+          args: Prisma.TravelerExperienceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTravelerExperience>
+        }
+        groupBy: {
+          args: Prisma.TravelerExperienceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TravelerExperienceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TravelerExperienceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TravelerExperienceCountAggregateOutputType> | number
+        }
+      }
+    }
+    LocalContributor: {
+      payload: Prisma.$LocalContributorPayload<ExtArgs>
+      fields: Prisma.LocalContributorFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LocalContributorFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LocalContributorFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload>
+        }
+        findFirst: {
+          args: Prisma.LocalContributorFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LocalContributorFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload>
+        }
+        findMany: {
+          args: Prisma.LocalContributorFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload>[]
+        }
+        create: {
+          args: Prisma.LocalContributorCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload>
+        }
+        createMany: {
+          args: Prisma.LocalContributorCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LocalContributorCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload>[]
+        }
+        delete: {
+          args: Prisma.LocalContributorDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload>
+        }
+        update: {
+          args: Prisma.LocalContributorUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload>
+        }
+        deleteMany: {
+          args: Prisma.LocalContributorDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LocalContributorUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LocalContributorUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload>[]
+        }
+        upsert: {
+          args: Prisma.LocalContributorUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalContributorPayload>
+        }
+        aggregate: {
+          args: Prisma.LocalContributorAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLocalContributor>
+        }
+        groupBy: {
+          args: Prisma.LocalContributorGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LocalContributorGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LocalContributorCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LocalContributorCountAggregateOutputType> | number
+        }
+      }
+    }
+    DestinationPulse: {
+      payload: Prisma.$DestinationPulsePayload<ExtArgs>
+      fields: Prisma.DestinationPulseFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DestinationPulseFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DestinationPulseFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload>
+        }
+        findFirst: {
+          args: Prisma.DestinationPulseFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DestinationPulseFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload>
+        }
+        findMany: {
+          args: Prisma.DestinationPulseFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload>[]
+        }
+        create: {
+          args: Prisma.DestinationPulseCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload>
+        }
+        createMany: {
+          args: Prisma.DestinationPulseCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DestinationPulseCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload>[]
+        }
+        delete: {
+          args: Prisma.DestinationPulseDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload>
+        }
+        update: {
+          args: Prisma.DestinationPulseUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload>
+        }
+        deleteMany: {
+          args: Prisma.DestinationPulseDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DestinationPulseUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DestinationPulseUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload>[]
+        }
+        upsert: {
+          args: Prisma.DestinationPulseUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DestinationPulsePayload>
+        }
+        aggregate: {
+          args: Prisma.DestinationPulseAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDestinationPulse>
+        }
+        groupBy: {
+          args: Prisma.DestinationPulseGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DestinationPulseGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DestinationPulseCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DestinationPulseCountAggregateOutputType> | number
+        }
+      }
+    }
+    InsightConfirmation: {
+      payload: Prisma.$InsightConfirmationPayload<ExtArgs>
+      fields: Prisma.InsightConfirmationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.InsightConfirmationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.InsightConfirmationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload>
+        }
+        findFirst: {
+          args: Prisma.InsightConfirmationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.InsightConfirmationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload>
+        }
+        findMany: {
+          args: Prisma.InsightConfirmationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload>[]
+        }
+        create: {
+          args: Prisma.InsightConfirmationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload>
+        }
+        createMany: {
+          args: Prisma.InsightConfirmationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.InsightConfirmationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload>[]
+        }
+        delete: {
+          args: Prisma.InsightConfirmationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload>
+        }
+        update: {
+          args: Prisma.InsightConfirmationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload>
+        }
+        deleteMany: {
+          args: Prisma.InsightConfirmationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.InsightConfirmationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.InsightConfirmationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload>[]
+        }
+        upsert: {
+          args: Prisma.InsightConfirmationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$InsightConfirmationPayload>
+        }
+        aggregate: {
+          args: Prisma.InsightConfirmationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateInsightConfirmation>
+        }
+        groupBy: {
+          args: Prisma.InsightConfirmationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InsightConfirmationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.InsightConfirmationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.InsightConfirmationCountAggregateOutputType> | number
+        }
+      }
+    }
+    TravelAlert: {
+      payload: Prisma.$TravelAlertPayload<ExtArgs>
+      fields: Prisma.TravelAlertFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TravelAlertFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TravelAlertFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload>
+        }
+        findFirst: {
+          args: Prisma.TravelAlertFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TravelAlertFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload>
+        }
+        findMany: {
+          args: Prisma.TravelAlertFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload>[]
+        }
+        create: {
+          args: Prisma.TravelAlertCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload>
+        }
+        createMany: {
+          args: Prisma.TravelAlertCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TravelAlertCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload>[]
+        }
+        delete: {
+          args: Prisma.TravelAlertDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload>
+        }
+        update: {
+          args: Prisma.TravelAlertUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload>
+        }
+        deleteMany: {
+          args: Prisma.TravelAlertDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TravelAlertUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TravelAlertUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload>[]
+        }
+        upsert: {
+          args: Prisma.TravelAlertUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelAlertPayload>
+        }
+        aggregate: {
+          args: Prisma.TravelAlertAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTravelAlert>
+        }
+        groupBy: {
+          args: Prisma.TravelAlertGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TravelAlertGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TravelAlertCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TravelAlertCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1513,6 +1888,88 @@ export const RecommendationFeedbackScalarFieldEnum = {
 } as const
 
 export type RecommendationFeedbackScalarFieldEnum = (typeof RecommendationFeedbackScalarFieldEnum)[keyof typeof RecommendationFeedbackScalarFieldEnum]
+
+
+export const TravelerExperienceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  destinationName: 'destinationName',
+  tripId: 'tripId',
+  contributorType: 'contributorType',
+  contributorName: 'contributorName',
+  isVerified: 'isVerified',
+  worthIt: 'worthIt',
+  bestTime: 'bestTime',
+  crowdLevel: 'crowdLevel',
+  costReality: 'costReality',
+  walkingIntensity: 'walkingIntensity',
+  unexpectedProblem: 'unexpectedProblem',
+  bestPart: 'bestPart',
+  whatToAvoid: 'whatToAvoid',
+  localTip: 'localTip',
+  recommendation: 'recommendation',
+  createdAt: 'createdAt'
+} as const
+
+export type TravelerExperienceScalarFieldEnum = (typeof TravelerExperienceScalarFieldEnum)[keyof typeof TravelerExperienceScalarFieldEnum]
+
+
+export const LocalContributorScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  type: 'type',
+  isVerified: 'isVerified',
+  accuracyScore: 'accuracyScore',
+  helpfulReports: 'helpfulReports',
+  totalReports: 'totalReports',
+  joinedAt: 'joinedAt'
+} as const
+
+export type LocalContributorScalarFieldEnum = (typeof LocalContributorScalarFieldEnum)[keyof typeof LocalContributorScalarFieldEnum]
+
+
+export const DestinationPulseScalarFieldEnum = {
+  id: 'id',
+  destinationName: 'destinationName',
+  weather: 'weather',
+  crowdLevel: 'crowdLevel',
+  alerts: 'alerts',
+  localActivity: 'localActivity',
+  updatedAt: 'updatedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type DestinationPulseScalarFieldEnum = (typeof DestinationPulseScalarFieldEnum)[keyof typeof DestinationPulseScalarFieldEnum]
+
+
+export const InsightConfirmationScalarFieldEnum = {
+  id: 'id',
+  insightId: 'insightId',
+  userId: 'userId',
+  confirmed: 'confirmed',
+  comment: 'comment',
+  createdAt: 'createdAt'
+} as const
+
+export type InsightConfirmationScalarFieldEnum = (typeof InsightConfirmationScalarFieldEnum)[keyof typeof InsightConfirmationScalarFieldEnum]
+
+
+export const TravelAlertScalarFieldEnum = {
+  id: 'id',
+  destinationName: 'destinationName',
+  alertType: 'alertType',
+  title: 'title',
+  content: 'content',
+  severity: 'severity',
+  reportCount: 'reportCount',
+  isActive: 'isActive',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TravelAlertScalarFieldEnum = (typeof TravelAlertScalarFieldEnum)[keyof typeof TravelAlertScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1729,6 +2186,11 @@ export type GlobalOmitConfig = {
   travelState?: Prisma.TravelStateOmit
   localInsight?: Prisma.LocalInsightOmit
   recommendationFeedback?: Prisma.RecommendationFeedbackOmit
+  travelerExperience?: Prisma.TravelerExperienceOmit
+  localContributor?: Prisma.LocalContributorOmit
+  destinationPulse?: Prisma.DestinationPulseOmit
+  insightConfirmation?: Prisma.InsightConfirmationOmit
+  travelAlert?: Prisma.TravelAlertOmit
 }
 
 /* Types for Logging */
