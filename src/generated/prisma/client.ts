@@ -81,3 +81,23 @@ export type ContactMessage = Prisma.ContactMessageModel
  * 
  */
 export type Package = Prisma.PackageModel
+/**
+ * Model TravelDNA
+ * 
+ */
+export type TravelDNA = Prisma.TravelDNAModel
+/**
+ * Model TravelState
+ * 
+ */
+export type TravelState = Prisma.TravelStateModel
+/**
+ * Model LocalInsight
+ * 
+ */
+export type LocalInsight = Prisma.LocalInsightModel
+/**
+ * Model RecommendationFeedback
+ * 
+ */
+export type RecommendationFeedback = Prisma.RecommendationFeedbackModel

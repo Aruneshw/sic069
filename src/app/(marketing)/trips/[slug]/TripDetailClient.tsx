@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
-import { Star, Clock, MapPin, Users, Calendar as CalendarIcon, CheckCircle2, ChevronRight, Zap, Coffee, Compass } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Star, Clock, MapPin, Users, Calendar as CalendarIcon, CheckCircle2, ChevronRight, Zap, Coffee, Compass, Sparkles } from "lucide-react";
 import anime from "animejs";
 import toast, { Toaster } from "react-hot-toast";
 import { TripMap } from "@/components/ui/TripMap";
@@ -10,8 +10,13 @@ import { formatInr, getTripTheme, getCategoryVideo, getAvailability, getAssetUrl
 import { supabase } from "@/utils/supabase";
 import ToastCard from "@/components/ui/ToastCard";
 import { loadRazorpayScript } from "@/utils/razorpay";
+import CompatibilityBadge from "@/components/ui/CompatibilityBadge";
+import LocalGuideModal from "@/components/ui/LocalGuideModal";
+import RejectionLearningModal from "@/components/ui/RejectionLearningModal";
 
 export default function TripDetailClient({ trip }: { trip: any }) {
+  const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const [isRejectOpen, setIsRejectOpen] = useState(false);
   useEffect(() => {
     if (trip) {
       anime({
@@ -136,11 +141,21 @@ export default function TripDetailClient({ trip }: { trip: any }) {
 
         {/* Header */}
         <div className="mb-8 max-w-4xl">
-          {trip.badge && (
-            <span className="anime-stagger opacity-0 inline-block px-4 py-1.5 bg-gradient-to-r from-teal-400 to-teal-600 text-white text-xs font-bold uppercase tracking-wider rounded-full mb-4 shadow-lg shadow-teal-500/30">
-              {trip.badge}
-            </span>
-          )}
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            {trip.badge && (
+              <span className="anime-stagger opacity-0 inline-block px-4 py-1.5 bg-gradient-to-r from-teal-400 to-teal-600 text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-lg shadow-teal-500/30">
+                {trip.badge}
+              </span>
+            )}
+            <CompatibilityBadge item={trip} onRejectClick={() => setIsRejectOpen(true)} size="lg" />
+            <button
+              onClick={() => setIsGuideOpen(true)}
+              className="px-4 py-1.5 bg-white/10 hover:bg-teal-500 hover:text-navy-950 text-teal-300 text-xs font-extrabold uppercase tracking-wider rounded-full border border-teal-500/30 transition-all flex items-center gap-1.5"
+            >
+              <Compass size={14} /> Ask Local Guide
+            </button>
+          </div>
+
           <h1 className="anime-stagger opacity-0 text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-4 leading-tight drop-shadow-lg">
             {trip.name}
           </h1>
@@ -344,6 +359,9 @@ export default function TripDetailClient({ trip }: { trip: any }) {
           
         </div>
       </div>
+
+      <LocalGuideModal isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} tripName={trip.name} />
+      <RejectionLearningModal isOpen={isRejectOpen} onClose={() => setIsRejectOpen(false)} itemId={trip.id} itemTitle={trip.name} />
     </div>
   );
 }

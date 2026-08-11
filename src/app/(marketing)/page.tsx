@@ -28,12 +28,20 @@ const testimonials = [
 // Duplicate for seamless infinite scrolling marquee
 const marqueeTestimonials = [...testimonials, ...testimonials];
 
+import EscapeEngineSection from "@/components/ui/EscapeEngineSection";
+
 export default async function HomePage() {
   // Fetch featured trips from DB
   const featuredTrips = await prisma.trip.findMany({
     where: { status: "Published" },
     take: 3,
     orderBy: { rating: "desc" },
+  });
+
+  const packages = await prisma.package.findMany({
+    where: { status: "Published" },
+    take: 6,
+    orderBy: { createdAt: "desc" },
   });
 
   return (
@@ -181,6 +189,11 @@ export default async function HomePage() {
         </ScrollReveal>
         <WaveDivider className="text-slate-950" />
       </section>
+
+      {/* ═══════════════════════════════════════
+          INTELLIGENT ESCAPE ENGINE (NOVELTY LAYER)
+          ═══════════════════════════════════════ */}
+      <EscapeEngineSection initialPackages={packages} />
 
       <DeferredGallery />
 

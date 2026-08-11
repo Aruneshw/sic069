@@ -58,7 +58,11 @@ export const ModelName = {
   Enquiry: 'Enquiry',
   Notification: 'Notification',
   ContactMessage: 'ContactMessage',
-  Package: 'Package'
+  Package: 'Package',
+  TravelDNA: 'TravelDNA',
+  TravelState: 'TravelState',
+  LocalInsight: 'LocalInsight',
+  RecommendationFeedback: 'RecommendationFeedback'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -189,6 +193,7 @@ export const PackageScalarFieldEnum = {
   maxSeats: 'maxSeats',
   filledSeats: 'filledSeats',
   imageUrl: 'imageUrl',
+  videoUrl: 'videoUrl',
   status: 'status',
   itinerary: 'itinerary',
   inclusions: 'inclusions',
@@ -198,6 +203,55 @@ export const PackageScalarFieldEnum = {
 } as const
 
 export type PackageScalarFieldEnum = (typeof PackageScalarFieldEnum)[keyof typeof PackageScalarFieldEnum]
+
+
+export const TravelDNAScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  scores: 'scores',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TravelDNAScalarFieldEnum = (typeof TravelDNAScalarFieldEnum)[keyof typeof TravelDNAScalarFieldEnum]
+
+
+export const TravelStateScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  currentState: 'currentState',
+  startLocation: 'startLocation',
+  maxBudgetInr: 'maxBudgetInr',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TravelStateScalarFieldEnum = (typeof TravelStateScalarFieldEnum)[keyof typeof TravelStateScalarFieldEnum]
+
+
+export const LocalInsightScalarFieldEnum = {
+  id: 'id',
+  tripId: 'tripId',
+  locationName: 'locationName',
+  type: 'type',
+  title: 'title',
+  content: 'content',
+  confidenceScore: 'confidenceScore',
+  source: 'source',
+  createdAt: 'createdAt'
+} as const
+
+export type LocalInsightScalarFieldEnum = (typeof LocalInsightScalarFieldEnum)[keyof typeof LocalInsightScalarFieldEnum]
+
+
+export const RecommendationFeedbackScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tripId: 'tripId',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type RecommendationFeedbackScalarFieldEnum = (typeof RecommendationFeedbackScalarFieldEnum)[keyof typeof RecommendationFeedbackScalarFieldEnum]
 
 
 export const SortOrder = {

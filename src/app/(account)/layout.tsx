@@ -3,7 +3,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import MobileTabBar from "@/components/layout/MobileTabBar";
 import NotificationPanel from "@/components/ui/NotificationPanel";
-import { MessageSquare, CalendarCheck, Heart, Settings, Gift, ChevronRight } from "lucide-react";
+import { MessageSquare, CalendarCheck, Heart, Settings, Gift, ChevronRight, Sparkles } from "lucide-react";
 
 export default function AccountLayout({
   children,
@@ -12,6 +12,7 @@ export default function AccountLayout({
 }) {
   const accountLinks = [
     { href: "/account/enquiries", label: "My Enquiries", icon: MessageSquare },
+    { href: "/account/dna", label: "My Travel DNA", icon: Sparkles },
     { href: "/account/bookings", label: "Bookings", icon: CalendarCheck },
     { href: "/account/referrals", label: "Refer & Earn", icon: Gift },
     { href: "/account/saved", label: "Saved Trips", icon: Heart },

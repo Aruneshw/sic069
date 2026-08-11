@@ -9,10 +9,13 @@ type Message = {
   content: string;
 };
 
+import { useAppStore } from "@/store/useAppStore";
+
 export default function AIChatbot() {
+  const { travelDna, travelState } = useAppStore();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: "assistant", content: "Hi! I can help you find amazing budget trips under ₹10,000. Where would you like to go?" }
+    { role: "assistant", content: "Hi! I'm your Local Guide & Travel DNA assistant. Where would you like to escape?" }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -34,7 +37,10 @@ export default function AIChatbot() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [...messages, userMessage] })
+        body: JSON.stringify({
+          messages: [...messages, userMessage],
+          context: { travelDna, travelState }
+        })
       });
 
       const data = await res.json();

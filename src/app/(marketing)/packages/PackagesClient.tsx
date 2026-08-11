@@ -22,6 +22,7 @@ import RunningLetters from "@/components/ui/RunningLetters";
 import { supabase } from "@/utils/supabase";
 import ToastCard from "@/components/ui/ToastCard";
 import { loadRazorpayScript } from "@/utils/razorpay";
+import CompatibilityBadge from "@/components/ui/CompatibilityBadge";
 
 export interface Package {
   id: string;
@@ -85,10 +86,11 @@ function PackageRowCard({
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-transparent to-transparent lg:block hidden" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent lg:hidden block" />
           
-          <div className="absolute left-6 top-6 flex flex-wrap gap-2 z-10">
+          <div className="absolute left-6 top-6 flex flex-wrap items-center gap-2 z-10">
             <span className="rounded-full border border-white/20 bg-black/40 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.24em] text-white backdrop-blur-xl">
               {pkg.category}
             </span>
+            <CompatibilityBadge item={pkg} size="sm" />
           </div>
 
           <div className="absolute bottom-6 left-6 right-6 z-10 text-white block lg:hidden">

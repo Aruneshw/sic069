@@ -391,7 +391,11 @@ export const ModelName = {
   Enquiry: 'Enquiry',
   Notification: 'Notification',
   ContactMessage: 'ContactMessage',
-  Package: 'Package'
+  Package: 'Package',
+  TravelDNA: 'TravelDNA',
+  TravelState: 'TravelState',
+  LocalInsight: 'LocalInsight',
+  RecommendationFeedback: 'RecommendationFeedback'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "loginHistory" | "trip" | "departure" | "enquiry" | "notification" | "contactMessage" | "package"
+    modelProps: "user" | "loginHistory" | "trip" | "departure" | "enquiry" | "notification" | "contactMessage" | "package" | "travelDNA" | "travelState" | "localInsight" | "recommendationFeedback"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1003,6 +1007,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    TravelDNA: {
+      payload: Prisma.$TravelDNAPayload<ExtArgs>
+      fields: Prisma.TravelDNAFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TravelDNAFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TravelDNAFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload>
+        }
+        findFirst: {
+          args: Prisma.TravelDNAFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TravelDNAFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload>
+        }
+        findMany: {
+          args: Prisma.TravelDNAFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload>[]
+        }
+        create: {
+          args: Prisma.TravelDNACreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload>
+        }
+        createMany: {
+          args: Prisma.TravelDNACreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TravelDNACreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload>[]
+        }
+        delete: {
+          args: Prisma.TravelDNADeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload>
+        }
+        update: {
+          args: Prisma.TravelDNAUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload>
+        }
+        deleteMany: {
+          args: Prisma.TravelDNADeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TravelDNAUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TravelDNAUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload>[]
+        }
+        upsert: {
+          args: Prisma.TravelDNAUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelDNAPayload>
+        }
+        aggregate: {
+          args: Prisma.TravelDNAAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTravelDNA>
+        }
+        groupBy: {
+          args: Prisma.TravelDNAGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TravelDNAGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TravelDNACountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TravelDNACountAggregateOutputType> | number
+        }
+      }
+    }
+    TravelState: {
+      payload: Prisma.$TravelStatePayload<ExtArgs>
+      fields: Prisma.TravelStateFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TravelStateFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TravelStateFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload>
+        }
+        findFirst: {
+          args: Prisma.TravelStateFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TravelStateFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload>
+        }
+        findMany: {
+          args: Prisma.TravelStateFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload>[]
+        }
+        create: {
+          args: Prisma.TravelStateCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload>
+        }
+        createMany: {
+          args: Prisma.TravelStateCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TravelStateCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload>[]
+        }
+        delete: {
+          args: Prisma.TravelStateDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload>
+        }
+        update: {
+          args: Prisma.TravelStateUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload>
+        }
+        deleteMany: {
+          args: Prisma.TravelStateDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TravelStateUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TravelStateUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload>[]
+        }
+        upsert: {
+          args: Prisma.TravelStateUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TravelStatePayload>
+        }
+        aggregate: {
+          args: Prisma.TravelStateAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTravelState>
+        }
+        groupBy: {
+          args: Prisma.TravelStateGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TravelStateGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TravelStateCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TravelStateCountAggregateOutputType> | number
+        }
+      }
+    }
+    LocalInsight: {
+      payload: Prisma.$LocalInsightPayload<ExtArgs>
+      fields: Prisma.LocalInsightFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.LocalInsightFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.LocalInsightFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload>
+        }
+        findFirst: {
+          args: Prisma.LocalInsightFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.LocalInsightFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload>
+        }
+        findMany: {
+          args: Prisma.LocalInsightFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload>[]
+        }
+        create: {
+          args: Prisma.LocalInsightCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload>
+        }
+        createMany: {
+          args: Prisma.LocalInsightCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.LocalInsightCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload>[]
+        }
+        delete: {
+          args: Prisma.LocalInsightDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload>
+        }
+        update: {
+          args: Prisma.LocalInsightUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload>
+        }
+        deleteMany: {
+          args: Prisma.LocalInsightDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.LocalInsightUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.LocalInsightUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload>[]
+        }
+        upsert: {
+          args: Prisma.LocalInsightUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$LocalInsightPayload>
+        }
+        aggregate: {
+          args: Prisma.LocalInsightAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateLocalInsight>
+        }
+        groupBy: {
+          args: Prisma.LocalInsightGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LocalInsightGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.LocalInsightCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.LocalInsightCountAggregateOutputType> | number
+        }
+      }
+    }
+    RecommendationFeedback: {
+      payload: Prisma.$RecommendationFeedbackPayload<ExtArgs>
+      fields: Prisma.RecommendationFeedbackFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecommendationFeedbackFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecommendationFeedbackFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload>
+        }
+        findFirst: {
+          args: Prisma.RecommendationFeedbackFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecommendationFeedbackFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload>
+        }
+        findMany: {
+          args: Prisma.RecommendationFeedbackFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload>[]
+        }
+        create: {
+          args: Prisma.RecommendationFeedbackCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload>
+        }
+        createMany: {
+          args: Prisma.RecommendationFeedbackCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecommendationFeedbackCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload>[]
+        }
+        delete: {
+          args: Prisma.RecommendationFeedbackDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload>
+        }
+        update: {
+          args: Prisma.RecommendationFeedbackUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecommendationFeedbackDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecommendationFeedbackUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecommendationFeedbackUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecommendationFeedbackUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecommendationFeedbackPayload>
+        }
+        aggregate: {
+          args: Prisma.RecommendationFeedbackAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecommendationFeedback>
+        }
+        groupBy: {
+          args: Prisma.RecommendationFeedbackGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecommendationFeedbackGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecommendationFeedbackCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecommendationFeedbackCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1154,6 +1454,7 @@ export const PackageScalarFieldEnum = {
   maxSeats: 'maxSeats',
   filledSeats: 'filledSeats',
   imageUrl: 'imageUrl',
+  videoUrl: 'videoUrl',
   status: 'status',
   itinerary: 'itinerary',
   inclusions: 'inclusions',
@@ -1163,6 +1464,55 @@ export const PackageScalarFieldEnum = {
 } as const
 
 export type PackageScalarFieldEnum = (typeof PackageScalarFieldEnum)[keyof typeof PackageScalarFieldEnum]
+
+
+export const TravelDNAScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  scores: 'scores',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TravelDNAScalarFieldEnum = (typeof TravelDNAScalarFieldEnum)[keyof typeof TravelDNAScalarFieldEnum]
+
+
+export const TravelStateScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  currentState: 'currentState',
+  startLocation: 'startLocation',
+  maxBudgetInr: 'maxBudgetInr',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TravelStateScalarFieldEnum = (typeof TravelStateScalarFieldEnum)[keyof typeof TravelStateScalarFieldEnum]
+
+
+export const LocalInsightScalarFieldEnum = {
+  id: 'id',
+  tripId: 'tripId',
+  locationName: 'locationName',
+  type: 'type',
+  title: 'title',
+  content: 'content',
+  confidenceScore: 'confidenceScore',
+  source: 'source',
+  createdAt: 'createdAt'
+} as const
+
+export type LocalInsightScalarFieldEnum = (typeof LocalInsightScalarFieldEnum)[keyof typeof LocalInsightScalarFieldEnum]
+
+
+export const RecommendationFeedbackScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  tripId: 'tripId',
+  reason: 'reason',
+  createdAt: 'createdAt'
+} as const
+
+export type RecommendationFeedbackScalarFieldEnum = (typeof RecommendationFeedbackScalarFieldEnum)[keyof typeof RecommendationFeedbackScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1375,6 +1725,10 @@ export type GlobalOmitConfig = {
   notification?: Prisma.NotificationOmit
   contactMessage?: Prisma.ContactMessageOmit
   package?: Prisma.PackageOmit
+  travelDNA?: Prisma.TravelDNAOmit
+  travelState?: Prisma.TravelStateOmit
+  localInsight?: Prisma.LocalInsightOmit
+  recommendationFeedback?: Prisma.RecommendationFeedbackOmit
 }
 
 /* Types for Logging */

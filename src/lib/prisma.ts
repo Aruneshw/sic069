@@ -132,5 +132,37 @@ export const prisma = {
       }
       return parseDates(data);
     }
+  },
+  travelDNA: {
+    findFirst: async (args: any = {}) => {
+      const { data } = await supabase.from('TravelDNA').select('*').limit(1).single();
+      return parseDates(data || null);
+    },
+    upsert: async (args: any) => {
+      const dataToInsert = { ...args.create };
+      if (!dataToInsert.id) dataToInsert.id = crypto.randomUUID();
+      const { data } = await supabase.from('TravelDNA').upsert(dataToInsert, { onConflict: 'id' }).select().single();
+      return parseDates(data || dataToInsert);
+    }
+  },
+  travelState: {
+    findFirst: async (args: any = {}) => {
+      const { data } = await supabase.from('TravelState').select('*').limit(1).single();
+      return parseDates(data || null);
+    },
+    upsert: async (args: any) => {
+      const dataToInsert = { ...args.create };
+      if (!dataToInsert.id) dataToInsert.id = crypto.randomUUID();
+      const { data } = await supabase.from('TravelState').upsert(dataToInsert, { onConflict: 'id' }).select().single();
+      return parseDates(data || dataToInsert);
+    }
+  },
+  recommendationFeedback: {
+    create: async (args: any) => {
+      const dataToInsert = { ...args.data };
+      if (!dataToInsert.id) dataToInsert.id = crypto.randomUUID();
+      const { data } = await supabase.from('RecommendationFeedback').insert(dataToInsert).select().single();
+      return parseDates(data || dataToInsert);
+    }
   }
 } as unknown as PrismaClient;

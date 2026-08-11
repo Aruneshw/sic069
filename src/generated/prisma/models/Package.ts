@@ -50,6 +50,7 @@ export type PackageMinAggregateOutputType = {
   maxSeats: number | null
   filledSeats: number | null
   imageUrl: string | null
+  videoUrl: string | null
   status: string | null
   itinerary: string | null
   inclusions: string | null
@@ -70,6 +71,7 @@ export type PackageMaxAggregateOutputType = {
   maxSeats: number | null
   filledSeats: number | null
   imageUrl: string | null
+  videoUrl: string | null
   status: string | null
   itinerary: string | null
   inclusions: string | null
@@ -90,6 +92,7 @@ export type PackageCountAggregateOutputType = {
   maxSeats: number
   filledSeats: number
   imageUrl: number
+  videoUrl: number
   status: number
   itinerary: number
   inclusions: number
@@ -124,6 +127,7 @@ export type PackageMinAggregateInputType = {
   maxSeats?: true
   filledSeats?: true
   imageUrl?: true
+  videoUrl?: true
   status?: true
   itinerary?: true
   inclusions?: true
@@ -144,6 +148,7 @@ export type PackageMaxAggregateInputType = {
   maxSeats?: true
   filledSeats?: true
   imageUrl?: true
+  videoUrl?: true
   status?: true
   itinerary?: true
   inclusions?: true
@@ -164,6 +169,7 @@ export type PackageCountAggregateInputType = {
   maxSeats?: true
   filledSeats?: true
   imageUrl?: true
+  videoUrl?: true
   status?: true
   itinerary?: true
   inclusions?: true
@@ -271,6 +277,7 @@ export type PackageGroupByOutputType = {
   maxSeats: number
   filledSeats: number
   imageUrl: string
+  videoUrl: string | null
   status: string
   itinerary: string
   inclusions: string
@@ -314,6 +321,7 @@ export type PackageWhereInput = {
   maxSeats?: Prisma.IntFilter<"Package"> | number
   filledSeats?: Prisma.IntFilter<"Package"> | number
   imageUrl?: Prisma.StringFilter<"Package"> | string
+  videoUrl?: Prisma.StringNullableFilter<"Package"> | string | null
   status?: Prisma.StringFilter<"Package"> | string
   itinerary?: Prisma.StringFilter<"Package"> | string
   inclusions?: Prisma.StringFilter<"Package"> | string
@@ -335,6 +343,7 @@ export type PackageOrderByWithRelationInput = {
   maxSeats?: Prisma.SortOrder
   filledSeats?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   itinerary?: Prisma.SortOrder
   inclusions?: Prisma.SortOrder
@@ -359,6 +368,7 @@ export type PackageWhereUniqueInput = Prisma.AtLeast<{
   maxSeats?: Prisma.IntFilter<"Package"> | number
   filledSeats?: Prisma.IntFilter<"Package"> | number
   imageUrl?: Prisma.StringFilter<"Package"> | string
+  videoUrl?: Prisma.StringNullableFilter<"Package"> | string | null
   status?: Prisma.StringFilter<"Package"> | string
   itinerary?: Prisma.StringFilter<"Package"> | string
   inclusions?: Prisma.StringFilter<"Package"> | string
@@ -380,6 +390,7 @@ export type PackageOrderByWithAggregationInput = {
   maxSeats?: Prisma.SortOrder
   filledSeats?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   itinerary?: Prisma.SortOrder
   inclusions?: Prisma.SortOrder
@@ -408,6 +419,7 @@ export type PackageScalarWhereWithAggregatesInput = {
   maxSeats?: Prisma.IntWithAggregatesFilter<"Package"> | number
   filledSeats?: Prisma.IntWithAggregatesFilter<"Package"> | number
   imageUrl?: Prisma.StringWithAggregatesFilter<"Package"> | string
+  videoUrl?: Prisma.StringNullableWithAggregatesFilter<"Package"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"Package"> | string
   itinerary?: Prisma.StringWithAggregatesFilter<"Package"> | string
   inclusions?: Prisma.StringWithAggregatesFilter<"Package"> | string
@@ -428,6 +440,7 @@ export type PackageCreateInput = {
   maxSeats: number
   filledSeats?: number
   imageUrl: string
+  videoUrl?: string | null
   status?: string
   itinerary: string
   inclusions: string
@@ -449,6 +462,7 @@ export type PackageUncheckedCreateInput = {
   maxSeats: number
   filledSeats?: number
   imageUrl: string
+  videoUrl?: string | null
   status?: string
   itinerary: string
   inclusions: string
@@ -470,6 +484,7 @@ export type PackageUpdateInput = {
   maxSeats?: Prisma.IntFieldUpdateOperationsInput | number
   filledSeats?: Prisma.IntFieldUpdateOperationsInput | number
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   itinerary?: Prisma.StringFieldUpdateOperationsInput | string
   inclusions?: Prisma.StringFieldUpdateOperationsInput | string
@@ -491,6 +506,7 @@ export type PackageUncheckedUpdateInput = {
   maxSeats?: Prisma.IntFieldUpdateOperationsInput | number
   filledSeats?: Prisma.IntFieldUpdateOperationsInput | number
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   itinerary?: Prisma.StringFieldUpdateOperationsInput | string
   inclusions?: Prisma.StringFieldUpdateOperationsInput | string
@@ -512,6 +528,7 @@ export type PackageCreateManyInput = {
   maxSeats: number
   filledSeats?: number
   imageUrl: string
+  videoUrl?: string | null
   status?: string
   itinerary: string
   inclusions: string
@@ -532,6 +549,7 @@ export type PackageUpdateManyMutationInput = {
   maxSeats?: Prisma.IntFieldUpdateOperationsInput | number
   filledSeats?: Prisma.IntFieldUpdateOperationsInput | number
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   itinerary?: Prisma.StringFieldUpdateOperationsInput | string
   inclusions?: Prisma.StringFieldUpdateOperationsInput | string
@@ -552,6 +570,7 @@ export type PackageUncheckedUpdateManyInput = {
   maxSeats?: Prisma.IntFieldUpdateOperationsInput | number
   filledSeats?: Prisma.IntFieldUpdateOperationsInput | number
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   itinerary?: Prisma.StringFieldUpdateOperationsInput | string
   inclusions?: Prisma.StringFieldUpdateOperationsInput | string
@@ -577,6 +596,7 @@ export type PackageCountOrderByAggregateInput = {
   maxSeats?: Prisma.SortOrder
   filledSeats?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   itinerary?: Prisma.SortOrder
   inclusions?: Prisma.SortOrder
@@ -603,6 +623,7 @@ export type PackageMaxOrderByAggregateInput = {
   maxSeats?: Prisma.SortOrder
   filledSeats?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   itinerary?: Prisma.SortOrder
   inclusions?: Prisma.SortOrder
@@ -623,6 +644,7 @@ export type PackageMinOrderByAggregateInput = {
   maxSeats?: Prisma.SortOrder
   filledSeats?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
+  videoUrl?: Prisma.SortOrder
   status?: Prisma.SortOrder
   itinerary?: Prisma.SortOrder
   inclusions?: Prisma.SortOrder
@@ -665,6 +687,7 @@ export type PackageCreateWithoutEnquiriesInput = {
   maxSeats: number
   filledSeats?: number
   imageUrl: string
+  videoUrl?: string | null
   status?: string
   itinerary: string
   inclusions: string
@@ -685,6 +708,7 @@ export type PackageUncheckedCreateWithoutEnquiriesInput = {
   maxSeats: number
   filledSeats?: number
   imageUrl: string
+  videoUrl?: string | null
   status?: string
   itinerary: string
   inclusions: string
@@ -721,6 +745,7 @@ export type PackageUpdateWithoutEnquiriesInput = {
   maxSeats?: Prisma.IntFieldUpdateOperationsInput | number
   filledSeats?: Prisma.IntFieldUpdateOperationsInput | number
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   itinerary?: Prisma.StringFieldUpdateOperationsInput | string
   inclusions?: Prisma.StringFieldUpdateOperationsInput | string
@@ -741,6 +766,7 @@ export type PackageUncheckedUpdateWithoutEnquiriesInput = {
   maxSeats?: Prisma.IntFieldUpdateOperationsInput | number
   filledSeats?: Prisma.IntFieldUpdateOperationsInput | number
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  videoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   itinerary?: Prisma.StringFieldUpdateOperationsInput | string
   inclusions?: Prisma.StringFieldUpdateOperationsInput | string
@@ -792,6 +818,7 @@ export type PackageSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   maxSeats?: boolean
   filledSeats?: boolean
   imageUrl?: boolean
+  videoUrl?: boolean
   status?: boolean
   itinerary?: boolean
   inclusions?: boolean
@@ -814,6 +841,7 @@ export type PackageSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   maxSeats?: boolean
   filledSeats?: boolean
   imageUrl?: boolean
+  videoUrl?: boolean
   status?: boolean
   itinerary?: boolean
   inclusions?: boolean
@@ -834,6 +862,7 @@ export type PackageSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   maxSeats?: boolean
   filledSeats?: boolean
   imageUrl?: boolean
+  videoUrl?: boolean
   status?: boolean
   itinerary?: boolean
   inclusions?: boolean
@@ -854,6 +883,7 @@ export type PackageSelectScalar = {
   maxSeats?: boolean
   filledSeats?: boolean
   imageUrl?: boolean
+  videoUrl?: boolean
   status?: boolean
   itinerary?: boolean
   inclusions?: boolean
@@ -862,7 +892,7 @@ export type PackageSelectScalar = {
   updatedAt?: boolean
 }
 
-export type PackageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "tagline" | "description" | "tierBadge" | "bundlePrice" | "duration" | "maxSeats" | "filledSeats" | "imageUrl" | "status" | "itinerary" | "inclusions" | "includedTripIds" | "createdAt" | "updatedAt", ExtArgs["result"]["package"]>
+export type PackageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "tagline" | "description" | "tierBadge" | "bundlePrice" | "duration" | "maxSeats" | "filledSeats" | "imageUrl" | "videoUrl" | "status" | "itinerary" | "inclusions" | "includedTripIds" | "createdAt" | "updatedAt", ExtArgs["result"]["package"]>
 export type PackageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   enquiries?: boolean | Prisma.Package$enquiriesArgs<ExtArgs>
   _count?: boolean | Prisma.PackageCountOutputTypeDefaultArgs<ExtArgs>
@@ -887,6 +917,7 @@ export type $PackagePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     maxSeats: number
     filledSeats: number
     imageUrl: string
+    videoUrl: string | null
     status: string
     itinerary: string
     inclusions: string
@@ -1328,6 +1359,7 @@ export interface PackageFieldRefs {
   readonly maxSeats: Prisma.FieldRef<"Package", 'Int'>
   readonly filledSeats: Prisma.FieldRef<"Package", 'Int'>
   readonly imageUrl: Prisma.FieldRef<"Package", 'String'>
+  readonly videoUrl: Prisma.FieldRef<"Package", 'String'>
   readonly status: Prisma.FieldRef<"Package", 'String'>
   readonly itinerary: Prisma.FieldRef<"Package", 'String'>
   readonly inclusions: Prisma.FieldRef<"Package", 'String'>
