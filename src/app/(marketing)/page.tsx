@@ -13,13 +13,20 @@ import LiveTrackingButton from "@/components/operator/LiveTrackingButton";
 import DeferredGallery from "@/components/video/DeferredGallery";
 import AnimeHeroTitle from "@/components/ui/AnimeHeroTitle";
 
-// Mock testimonials for the horizontal scroll
+// Expanded mock testimonials for a lively horizontal scroll
 const testimonials = [
-  { quote: "The most authentic way to see the coastline. Zero Gravity takes care of everything.", author: "Sarah Jenkins", role: "Solo Explorer", image: "/images/avatars/avatar_sarah_1784558639389.png" },
-  { quote: "Our family's alpine expedition was flawless from start to finish. Unforgettable.", author: "The Miller Family", role: "Group Travelers", image: "/images/avatars/avatar_miller_1784558652356.png" },
-  { quote: "The guides aren't just knowledgeable, they're truly passionate about the region.", author: "David Chen", role: "Photography Enthusiast", image: "/images/avatars/avatar_david_1784558666293.png" },
-  { quote: "Sustainable, ethical, and absolutely stunning. A premium experience.", author: "Emma Watson", role: "Eco-Traveler", image: "/images/avatars/avatar_emma_1784558679373.png" },
+  { quote: "The most authentic way to see the coastline. Zero Gravity takes care of everything.", author: "Sarah Jenkins", role: "Solo Explorer", image: "/images/avatars/avatar_sarah_1784558639389.png", color: "glow-teal" },
+  { quote: "Our family's alpine expedition was flawless from start to finish. Unforgettable.", author: "The Miller Family", role: "Group Travelers", image: "/images/avatars/avatar_miller_1784558652356.png", color: "glow-blue" },
+  { quote: "The guides aren't just knowledgeable, they're truly passionate about the region.", author: "David Chen", role: "Photography Enthusiast", image: "/images/avatars/avatar_david_1784558666293.png", color: "glow-indigo" },
+  { quote: "Sustainable, ethical, and absolutely stunning. A premium experience.", author: "Emma Watson", role: "Eco-Traveler", image: "/images/avatars/avatar_emma_1784558679373.png", color: "glow-purple" },
+  { quote: "I've never felt so immersed in local culture. Every detail was planned beautifully.", author: "James Carter", role: "Culture Seeker", image: "https://i.pravatar.cc/150?u=james", color: "glow-pink" },
+  { quote: "The transparent pricing changed how I travel. Zero hidden fees, just pure adventure.", author: "Aisha Patel", role: "Budget Traveler", image: "https://i.pravatar.cc/150?u=aisha", color: "glow-teal" },
+  { quote: "The valley retreat was exactly the mental reset I needed. Simply breathtaking views.", author: "Liam O'Connor", role: "Wellness Advocate", image: "https://i.pravatar.cc/150?u=liam", color: "glow-blue" },
+  { quote: "Smooth logistics and incredible stays. We are already booking our next trip with them!", author: "The Hendersons", role: "Couples Getaway", image: "https://i.pravatar.cc/150?u=hendersons", color: "glow-indigo" },
 ];
+
+// Duplicate for seamless infinite scrolling marquee
+const marqueeTestimonials = [...testimonials, ...testimonials];
 
 export default async function HomePage() {
   // Fetch featured trips from DB
@@ -178,32 +185,57 @@ export default async function HomePage() {
       <DeferredGallery />
 
       {/* ═══════════════════════════════════════
-          TESTIMONIAL STRIP (page-05.png style)
+          LIVELY TESTIMONIAL MARQUEE
           ═══════════════════════════════════════ */}
-      <section className="py-20 bg-navy-900 text-white overflow-hidden">
-        <ScrollReveal className="container-main mb-12 text-center">
-          <h2 className="text-3xl font-bold">Don't just take our word for it.</h2>
+      <section className="py-24 bg-navy-950 text-white overflow-hidden relative">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-navy-950 to-navy-950 z-0"></div>
+        
+        <ScrollReveal className="container-main mb-16 text-center relative z-10">
+          <span className="text-teal-400 font-bold uppercase tracking-widest text-xs mb-3 block">Traveler Stories</span>
+          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">Don't just take our word for it.</h2>
         </ScrollReveal>
         
-        {/* Horizontal scroll container for testimonials */}
-        <div className="relative w-full">
-          <div className="flex gap-8 md:gap-12 px-6 md:px-12 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-8">
-            {testimonials.map((t, i) => (
-              <div key={i} className="snap-center inline-block w-[85vw] sm:w-80 md:w-96 whitespace-normal p-8 rounded-2xl bg-navy-800 border border-navy-700 shrink-0 relative overflow-hidden group hover:border-blue-500/50 transition-colors">
-                <p className="text-teal-100 text-lg italic mb-6">"{t.quote}"</p>
-                <div className="flex items-center gap-4">
-                  <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-blue-500/30 group-hover:border-blue-400 transition-colors">
-                    <Image src={getAssetUrl(t.image)} alt={t.author} fill sizes="56px" className="object-cover" />
+        {/* Infinite Marquee Container */}
+        <div className="relative w-full overflow-hidden flex z-10 group">
+          
+          {/* Left and Right Fade Overlays */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-48 bg-gradient-to-r from-navy-950 to-transparent z-20 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-48 bg-gradient-to-l from-navy-950 to-transparent z-20 pointer-events-none" />
+          
+          {/* Scrolling Track */}
+          <div className="flex gap-6 md:gap-8 px-4 animate-marquee hover:animation-paused">
+            {marqueeTestimonials.map((t, i) => (
+              <div 
+                key={i} 
+                className={`kodplay-glow-card ${t.color || 'glow-teal'} w-[85vw] sm:w-80 md:w-96 shrink-0 relative overflow-hidden group/card hover:-translate-y-2 transition-all duration-300`}
+              >
+                <span></span>
+                <div className="kodplay-content p-8 h-full flex flex-col justify-between bg-navy-900/90 backdrop-blur-md">
+                  <div className="mb-6 relative">
+                    <svg className="absolute -top-4 -left-4 w-10 h-10 text-white/5 transform -rotate-6" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                      <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+                    </svg>
+                    <p className="text-white/90 text-lg leading-relaxed relative z-10 font-medium">"{t.quote}"</p>
                   </div>
-                  <div>
-                    <p className="font-bold text-white">{t.author}</p>
-                    <p className="text-sm font-semibold bg-gradient-to-r from-blue-400 to-cyan-300 bg-clip-text text-transparent animate-gradient-x">{t.role}</p>
+                  <div className="flex items-center gap-4 mt-auto">
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white/20 group-hover/card:border-white/60 transition-colors shadow-lg">
+                      {t.image.startsWith('http') ? (
+                        <img src={t.image} alt={t.author} className="object-cover w-full h-full" />
+                      ) : (
+                        <Image src={getAssetUrl(t.image)} alt={t.author} fill sizes="48px" className="object-cover" />
+                      )}
+                    </div>
+                    <div>
+                      <p className="font-bold text-white text-base">{t.author}</p>
+                      <p className="text-xs font-semibold bg-gradient-to-r from-blue-300 to-teal-300 bg-clip-text text-transparent animate-gradient-x">{t.role}</p>
+                    </div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
         <style dangerouslySetInnerHTML={{__html: `
           @keyframes gradient-x {
             0%, 100% {
@@ -218,12 +250,18 @@ export default async function HomePage() {
           .animate-gradient-x {
             animation: gradient-x 3s ease infinite;
           }
-          .scrollbar-hide::-webkit-scrollbar {
-            display: none;
+          
+          /* Infinite Marquee Animation */
+          @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); } /* Scrolls exactly half the duplicated content width */
           }
-          .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+          .animate-marquee {
+            animation: marquee 35s linear infinite;
+            width: fit-content;
+          }
+          .hover\\:animation-paused:hover {
+            animation-play-state: paused;
           }
         `}} />
       </section>
