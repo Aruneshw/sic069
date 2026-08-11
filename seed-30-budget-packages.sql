@@ -41,7 +41,7 @@ BEGIN
             'An unforgettable budget adventure under 10k.',
             'Experience ' || names[i] || ' like never before. Designed specifically for budget travelers who do not want to compromise on colorful experiences and thrilling adventures. Join us for a highly curated trip!',
             badges[1 + (i % 5)],
-            (FLOOR(RANDOM() * (9900 - 3500 + 1)) + 3500)::INT, -- Random price between 3500 and 9900
+            (FLOOR(RANDOM() * (115 - 45 + 1)) + 45)::INT, -- Random USD price 45-115 (approx 3700-9500 INR)
             (FLOOR(RANDOM() * 3) + 2)::INT || ' Days', -- Random duration 2-4 days
             (FLOOR(RANDOM() * 15) + 10)::INT, -- Max seats 10-25
             (FLOOR(RANDOM() * 10))::INT, -- Filled seats 0-9
