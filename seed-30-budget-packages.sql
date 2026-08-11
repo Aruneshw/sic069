@@ -32,7 +32,7 @@ BEGIN
         INSERT INTO "Package" (
             "id", "name", "slug", "tagline", "description", "tierBadge", 
             "bundlePrice", "duration", "maxSeats", "filledSeats", 
-            "imageUrl", "status", "itinerary", "inclusions", "includedTripIds", 
+            "imageUrl", "videoUrl", "status", "itinerary", "inclusions", "includedTripIds", 
             "createdAt", "updatedAt"
         ) VALUES (
             gen_random_uuid(),
@@ -45,13 +45,17 @@ BEGIN
             (FLOOR(RANDOM() * 3) + 2)::INT || ' Days', -- Random duration 2-4 days
             (FLOOR(RANDOM() * 15) + 10)::INT, -- Max seats 10-25
             (FLOOR(RANDOM() * 10))::INT, -- Filled seats 0-9
-            images[1 + (i % 10)], -- Loop through beautiful unsplash images
+            'https://loremflickr.com/800/600/nature,' || REPLACE(names[i], ' ', ''), -- dynamic image based on name
+            'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', -- same video for all
             'Published',
             '[{"day": 1, "title": "Arrival & Setup", "description": "Meet the team and get settled.", "location": "Basecamp"}, {"day": 2, "title": "The Main Event", "description": "Experience the vibrant adventure.", "location": "Exploration Zone"}]',
             '["Accommodation", "Local Guide", "Meals included", "Activities"]',
             '["trip-id-mock"]',
             now(),
             now()
-        );
+        )
+        ON CONFLICT ("slug") DO UPDATE SET 
+            "imageUrl" = EXCLUDED."imageUrl",
+            "videoUrl" = EXCLUDED."videoUrl";
     END LOOP;
 END $$;

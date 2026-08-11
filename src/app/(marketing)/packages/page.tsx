@@ -44,6 +44,7 @@ export default async function PackagesPage() {
       maxSeats: pkg.maxSeats,
       filledSeats: pkg.filledSeats,
       imageUrl: pkg.imageUrl,
+      videoUrl: pkg.videoUrl,
       itinerary: pkg.itinerary,
       inclusions: pkg.inclusions,
       includedTripIds: pkg.includedTripIds,

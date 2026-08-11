@@ -105,6 +105,7 @@ model Package {
   maxSeats        Int
   filledSeats     Int         @default(0)
   imageUrl        String
+  videoUrl        String?
   status          String      @default("Published")
   itinerary       String      // JSON array: [{ day, title, description, location }]
   inclusions      String      // JSON array: ["Premium Stay", "All Transport", "Local Guide"]

@@ -109,6 +109,7 @@ CREATE TABLE "Package" (
   "maxSeats" INTEGER NOT NULL,
   "filledSeats" INTEGER NOT NULL DEFAULT 0,
   "imageUrl" TEXT NOT NULL,
+  "videoUrl" TEXT,
   "status" TEXT NOT NULL DEFAULT 'Published',
   "itinerary" TEXT NOT NULL,
   "inclusions" TEXT NOT NULL,

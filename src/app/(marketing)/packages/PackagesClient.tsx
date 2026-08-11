@@ -36,6 +36,7 @@ export interface Package {
   maxSeats: number;
   filledSeats: number;
   imageUrl: string;
+  videoUrl?: string | null;
   itinerary: string;       // JSON string: { day: string; title: string; description: string }[]
   inclusions: string;      // JSON string: string[]
   includedTripIds: string; // JSON string: string[]
@@ -68,10 +69,10 @@ function PackageRowCard({
             muted
             playsInline
             preload="metadata"
-            poster={getCategoryPoster(pkg.category)}
+            poster={pkg.imageUrl || getCategoryPoster(pkg.category)}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
           >
-            <source src={getCategoryVideo(pkg.category)} type="video/mp4" />
+            <source src={pkg.videoUrl || getCategoryVideo(pkg.category)} type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-transparent to-transparent lg:block hidden" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent lg:hidden block" />
@@ -491,10 +492,10 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
                   muted
                   playsInline
                   preload="metadata"
-                  poster={getCategoryPoster(activeItineraryPackage.category)}
+                  poster={activeItineraryPackage.imageUrl || getCategoryPoster(activeItineraryPackage.category)}
                   className="absolute inset-0 w-full h-full object-cover -z-10"
                 >
-                  <source src={getCategoryVideo(activeItineraryPackage.category)} type="video/mp4" />
+                  <source src={activeItineraryPackage.videoUrl || getCategoryVideo(activeItineraryPackage.category)} type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent -z-10" />
 

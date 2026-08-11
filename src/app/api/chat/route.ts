@@ -16,6 +16,7 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
+        max_tokens: 1000,
         messages: [
           { role: "system", content: "You are a helpful and enthusiastic travel agent assistant for Zero Gravity Tours. You provide short, exciting responses to help users book trips and packages under ₹10,000." },
           ...messages
