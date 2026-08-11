@@ -21,13 +21,13 @@ export default async function PackagesPage() {
     // Derive category from tierBadge
     let category = "Coastal";
     const badge = pkg.tierBadge.toUpperCase();
-    if (badge.includes("ALTITUDE") || badge.includes("MOUNTAIN")) {
+    if (badge.includes("ALTITUDE") || badge.includes("MOUNTAIN") || badge.includes("ADVENTURE")) {
       category = "Mountain";
-    } else if (badge.includes("CULTURE") || badge.includes("TEMPLE") || badge.includes("URBAN")) {
+    } else if (badge.includes("CULTURE") || badge.includes("CULTURAL") || badge.includes("TEMPLE") || badge.includes("URBAN")) {
       category = "Urban";
-    } else if (badge.includes("COASTAL") || badge.includes("OCEAN") || badge.includes("BEACH")) {
+    } else if (badge.includes("COASTAL") || badge.includes("OCEAN") || badge.includes("BEACH") || badge.includes("TROPICAL") || badge.includes("BUDGET")) {
       category = "Coastal";
-    } else if (badge.includes("VALLEY") || badge.includes("NATURE") || badge.includes("GREEN")) {
+    } else if (badge.includes("VALLEY") || badge.includes("NATURE") || badge.includes("GREEN") || badge.includes("ESCAPE")) {
       category = "Valley";
     }
 

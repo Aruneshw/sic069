@@ -1,84 +1,108 @@
--- Run this in your Supabase SQL Editor to populate 32 budget packages under 10k!
--- Uses locally hosted package images for guaranteed fast loading.
+-- CLEAN SEED: Deletes ALL existing packages, then inserts 32 fresh ones with local images.
+-- Run this in your Supabase SQL Editor.
 
-DO $$
-DECLARE
-    i INT;
-    names TEXT[] := ARRAY[
-        'Hidden Valley Trek', 'Coastal Sunset Retreat', 'Forest Canopy Walk', 'River Rafting Adventure', 
-        'Desert Oasis Camp', 'Mountain Peak Climb', 'Historical Fort Tour', 'Tea Garden Retreat',
-        'Backwater Kayaking', 'Jungle Safari Express', 'Sunrise Hiking Trail', 'Starry Night Camping',
-        'Tropical Island Escape', 'Waterfall Rappelling', 'Snowy Pine Cabin', 'Village Heritage Walk',
-        'Canyon Exploration', 'Lake View Glamping', 'Wildlife Spotting Tour', 'Volcanic Crater Hike',
-        'Ocean Scuba Dive', 'Glacier Ice Climbing', 'Desert Dune Bashing', 'Coastal Surfing Camp',
-        'High Altitude Pass Trek', 'Monastery Peace Retreat', 'Spice Plantation Walk', 'Cave Exploration',
-        'Tribal Culture Tour', 'Bicycle Countryside Ride', 'River Island Camping', 'Rainforest Canopy Walk'
-    ];
-    pkg_images TEXT[] := ARRAY[
-        '/images/packages/hidden-valley-trek.jpeg',
-        '/images/packages/coastal-sunset-retreat.jpeg',
-        '/images/packages/forest-canopy-walk.jpeg',
-        '/images/packages/river-rafting-adventure.jpeg',
-        '/images/packages/desert-oasis-camp.jpeg',
-        '/images/packages/mountain-peak-climb.jpeg',
-        '/images/packages/historical-fort-tour.jpeg',
-        '/images/packages/tea-garden-retreat.jpeg',
-        '/images/packages/backwater-kayaking.jpeg',
-        '/images/packages/jungle-safari-express.jpeg',
-        '/images/packages/sunrise-hiking-trail.jpeg',
-        '/images/packages/starry-night-camping.jpeg',
-        '/images/packages/tropical-island-escape.jpeg',
-        '/images/packages/waterfall-rappelling.jpeg',
-        '/images/packages/snowy-pine-cabin.jpeg',
-        '/images/packages/village-heritage-walk.jpeg',
-        '/images/packages/canyon-exploration.jpeg',
-        '/images/packages/lake-view-glamping.jpeg',
-        '/images/packages/wildlife-spotting-tour.jpeg',
-        '/images/packages/volcanic-crater-hike.jpeg',
-        '/images/packages/ocean-scuba-dive.jpeg',
-        '/images/packages/glacier-ice-climbing.jpeg',
-        '/images/packages/desert-dune-bashing.jpeg',
-        '/images/packages/coastal-surfing-camp.jpeg',
-        '/images/packages/high-altitude-pass-trek.jpeg',
-        '/images/packages/monastery-peace-retreat.jpeg',
-        '/images/packages/spice-plantation-walk.jpeg',
-        '/images/packages/cave-exploration.jpeg',
-        '/images/packages/tribal-culture-tour.jpeg',
-        '/images/packages/bicycle-countryside-ride.jpeg',
-        '/images/packages/river-island-camping.jpeg',
-        '/images/packages/rainforest-canopy-walk.jpeg'
-    ];
-    badges TEXT[] := ARRAY['NATURE ESCAPE', 'ADVENTURE QUEST', 'BUDGET GETAWAY', 'CULTURAL JOURNEY', 'TROPICAL VIBES'];
-BEGIN
-    FOR i IN 1..32 LOOP
-        INSERT INTO "Package" (
-            "id", "name", "slug", "tagline", "description", "tierBadge", 
-            "bundlePrice", "duration", "maxSeats", "filledSeats", 
-            "imageUrl", "videoUrl", "status", "itinerary", "inclusions", "includedTripIds", 
-            "createdAt", "updatedAt"
-        ) VALUES (
-            gen_random_uuid(),
-            names[i],
-            LOWER(REPLACE(names[i], ' ', '-')) || '-' || i,
-            'An unforgettable budget adventure under 10k.',
-            'Experience ' || names[i] || ' like never before. Designed specifically for budget travelers who do not want to compromise on colorful experiences and thrilling adventures. Join us for a highly curated trip!',
-            badges[1 + (i % 5)],
-            (FLOOR(RANDOM() * (115 - 45 + 1)) + 45)::INT, -- Random USD price 45-115 (approx 3700-9500 INR)
-            (FLOOR(RANDOM() * 3) + 2)::INT || ' Days', -- Random duration 2-4 days
-            (FLOOR(RANDOM() * 15) + 10)::INT, -- Max seats 10-25
-            (FLOOR(RANDOM() * 10))::INT, -- Filled seats 0-9
-            pkg_images[i], -- matched local image per package
-            'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4', -- same video for all
-            'Published',
-            '[{"day": 1, "title": "Arrival & Setup", "description": "Meet the team and get settled.", "location": "Basecamp"}, {"day": 2, "title": "The Main Event", "description": "Experience the vibrant adventure.", "location": "Exploration Zone"}]',
-            '["Accommodation", "Local Guide", "Meals included", "Activities"]',
-            '["trip-id-mock"]',
-            now(),
-            now()
-        )
-        ON CONFLICT ("slug") DO UPDATE SET 
-            "imageUrl" = EXCLUDED."imageUrl",
-            "videoUrl" = EXCLUDED."videoUrl",
-            "bundlePrice" = EXCLUDED."bundlePrice";
-    END LOOP;
-END $$;
+-- Step 1: Remove all existing packages
+DELETE FROM "Package";
+
+-- Step 2: Insert 32 fresh budget packages with matched images
+INSERT INTO "Package" (
+    "id", "name", "slug", "tagline", "description", "tierBadge",
+    "bundlePrice", "duration", "maxSeats", "filledSeats",
+    "imageUrl", "videoUrl", "status", "itinerary", "inclusions", "includedTripIds",
+    "createdAt", "updatedAt"
+) VALUES
+-- 1. Hidden Valley Trek
+(gen_random_uuid(), 'Hidden Valley Trek', 'hidden-valley-trek', 'An unforgettable budget adventure under 10k.', 'Experience Hidden Valley Trek like never before. Designed specifically for budget travelers who do not want to compromise on colorful experiences and thrilling adventures.', 'NATURE ESCAPE', 85, '3 Days', 20, 7, '/images/packages/hidden-valley-trek.jpeg', NULL, 'Published', '[{"day":1,"title":"Arrival & Setup","description":"Meet the team and get settled.","location":"Basecamp"},{"day":2,"title":"Valley Exploration","description":"Trek through the hidden valley with breathtaking views.","location":"Hidden Valley"},{"day":3,"title":"Return Journey","description":"Descend back with lasting memories.","location":"Basecamp"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 2. Coastal Sunset Retreat
+(gen_random_uuid(), 'Coastal Sunset Retreat', 'coastal-sunset-retreat', 'A serene coastal escape under 10k.', 'Watch golden sunsets over the ocean from cliff-top viewpoints. A perfect retreat for those who love the sea breeze and coastal beauty.', 'TROPICAL VIBES', 95, '2 Days', 15, 4, '/images/packages/coastal-sunset-retreat.jpeg', NULL, 'Published', '[{"day":1,"title":"Coastal Arrival","description":"Settle into your seaside camp.","location":"Coastline"},{"day":2,"title":"Sunset Trail","description":"Hike along the coast to the best sunset spot.","location":"Cliff Point"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 3. Forest Canopy Walk
+(gen_random_uuid(), 'Forest Canopy Walk', 'forest-canopy-walk', 'Walk among the treetops under 10k.', 'Experience a thrilling canopy walkway suspended high above the forest floor. Perfect for nature lovers and adventure seekers.', 'ADVENTURE QUEST', 72, '2 Days', 18, 5, '/images/packages/forest-canopy-walk.jpeg', NULL, 'Published', '[{"day":1,"title":"Forest Entry","description":"Enter the dense forest and set up camp.","location":"Forest Base"},{"day":2,"title":"Canopy Walk","description":"Walk the suspended bridges among the treetops.","location":"Canopy Trail"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 4. River Rafting Adventure
+(gen_random_uuid(), 'River Rafting Adventure', 'river-rafting-adventure', 'White water thrills under 10k.', 'Navigate through roaring rapids in a thrilling river rafting experience. Adrenaline-pumping adventure designed for all skill levels.', 'ADVENTURE QUEST', 88, '2 Days', 12, 3, '/images/packages/river-rafting-adventure.jpeg', NULL, 'Published', '[{"day":1,"title":"Safety Briefing","description":"Gear up and learn the basics of rafting.","location":"River Base"},{"day":2,"title":"Rapids Run","description":"Take on the white water rapids!","location":"River Canyon"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 5. Desert Oasis Camp
+(gen_random_uuid(), 'Desert Oasis Camp', 'desert-oasis-camp', 'A magical desert night under 10k.', 'Camp under the stars at a stunning desert oasis. Experience the silence and beauty of the desert landscape.', 'CULTURAL JOURNEY', 78, '2 Days', 16, 6, '/images/packages/desert-oasis-camp.jpeg', NULL, 'Published', '[{"day":1,"title":"Desert Arrival","description":"Travel to the oasis and set up camp.","location":"Desert Oasis"},{"day":2,"title":"Dune Sunrise","description":"Watch the sunrise over the sand dunes.","location":"Sand Dunes"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 6. Mountain Peak Climb
+(gen_random_uuid(), 'Mountain Peak Climb', 'mountain-peak-climb', 'Conquer the summit under 10k.', 'Scale a stunning mountain peak with experienced guides. Feel the exhilaration of reaching the top and taking in panoramic views.', 'ADVENTURE QUEST', 110, '4 Days', 10, 2, '/images/packages/mountain-peak-climb.jpeg', NULL, 'Published', '[{"day":1,"title":"Base Camp","description":"Arrive and acclimatize.","location":"Base Camp"},{"day":2,"title":"Ascent Begins","description":"Begin the climb through alpine terrain.","location":"Mid Camp"},{"day":3,"title":"Summit Push","description":"Reach the peak at sunrise.","location":"Summit"},{"day":4,"title":"Descent","description":"Return to base camp.","location":"Base Camp"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 7. Historical Fort Tour
+(gen_random_uuid(), 'Historical Fort Tour', 'historical-fort-tour', 'Walk through centuries of history under 10k.', 'Explore magnificent ancient forts with expert historians. Discover the stories behind massive walls and grand architecture.', 'CULTURAL JOURNEY', 65, '2 Days', 25, 8, '/images/packages/historical-fort-tour.jpeg', NULL, 'Published', '[{"day":1,"title":"Fort Discovery","description":"Guided tour of the main fort complex.","location":"Fort Entrance"},{"day":2,"title":"Hidden Chambers","description":"Explore secret passages and royal quarters.","location":"Inner Fort"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 8. Tea Garden Retreat
+(gen_random_uuid(), 'Tea Garden Retreat', 'tea-garden-retreat', 'Serenity among tea plantations under 10k.', 'Immerse yourself in rolling green tea gardens. Learn about tea making and enjoy the misty mountain scenery.', 'NATURE ESCAPE', 70, '2 Days', 20, 5, '/images/packages/tea-garden-retreat.jpeg', NULL, 'Published', '[{"day":1,"title":"Plantation Walk","description":"Stroll through the lush tea gardens.","location":"Tea Estate"},{"day":2,"title":"Tea Tasting","description":"Sample premium teas and learn the process.","location":"Tea Factory"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 9. Backwater Kayaking
+(gen_random_uuid(), 'Backwater Kayaking', 'backwater-kayaking', 'Paddle through paradise under 10k.', 'Glide through serene mangrove backwaters in a kayak. Spot exotic birds and experience tranquil waterways.', 'NATURE ESCAPE', 75, '2 Days', 14, 3, '/images/packages/backwater-kayaking.jpeg', NULL, 'Published', '[{"day":1,"title":"Kayak Training","description":"Learn paddling techniques and safety.","location":"Launch Point"},{"day":2,"title":"Backwater Trail","description":"Kayak through the mangrove channels.","location":"Backwaters"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 10. Jungle Safari Express
+(gen_random_uuid(), 'Jungle Safari Express', 'jungle-safari-express', 'Wildlife encounters under 10k.', 'Hop on a safari jeep and spot elephants, giraffes, and exotic wildlife in their natural habitat.', 'ADVENTURE QUEST', 98, '3 Days', 12, 4, '/images/packages/jungle-safari-express.jpeg', NULL, 'Published', '[{"day":1,"title":"Safari Briefing","description":"Meet your guide and learn about the wildlife.","location":"Safari Lodge"},{"day":2,"title":"Morning Safari","description":"Early morning game drive.","location":"Savanna"},{"day":3,"title":"Sunset Drive","description":"Final evening safari with golden light.","location":"Watering Hole"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 11. Sunrise Hiking Trail
+(gen_random_uuid(), 'Sunrise Hiking Trail', 'sunrise-hiking-trail', 'Chase the sunrise under 10k.', 'Hike to stunning viewpoints and witness spectacular sunrises over mountain ranges. A soul-stirring experience.', 'NATURE ESCAPE', 62, '2 Days', 18, 6, '/images/packages/sunrise-hiking-trail.jpeg', NULL, 'Published', '[{"day":1,"title":"Trail Start","description":"Begin the hike in the late afternoon.","location":"Trailhead"},{"day":2,"title":"Sunrise Summit","description":"Reach the peak for a magical sunrise.","location":"Summit Point"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 12. Starry Night Camping
+(gen_random_uuid(), 'Starry Night Camping', 'starry-night-camping', 'Sleep under the Milky Way under 10k.', 'Camp at high altitude with crystal-clear night skies. Stargaze with telescopes and enjoy campfire stories.', 'BUDGET GETAWAY', 68, '2 Days', 16, 7, '/images/packages/starry-night-camping.jpeg', NULL, 'Published', '[{"day":1,"title":"Camp Setup","description":"Set up at the stargazing spot.","location":"High Camp"},{"day":2,"title":"Night Sky Session","description":"Telescope viewing and astrophotography.","location":"Observatory Point"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 13. Tropical Island Escape
+(gen_random_uuid(), 'Tropical Island Escape', 'tropical-island-escape', 'Island paradise under 10k.', 'Escape to a tropical island with white sand beaches and turquoise waters. Luxury glamping right on the beach.', 'TROPICAL VIBES', 108, '3 Days', 10, 3, '/images/packages/tropical-island-escape.jpeg', NULL, 'Published', '[{"day":1,"title":"Island Arrival","description":"Ferry to the island and settle in.","location":"Beach Camp"},{"day":2,"title":"Snorkeling","description":"Explore the coral reefs.","location":"Reef Point"},{"day":3,"title":"Beach Day","description":"Relax and enjoy the island.","location":"Beach"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 14. Waterfall Rappelling
+(gen_random_uuid(), 'Waterfall Rappelling', 'waterfall-rappelling', 'Descend a waterfall under 10k.', 'Rappel down a stunning waterfall surrounded by lush jungle. An adrenaline rush you will never forget.', 'ADVENTURE QUEST', 82, '2 Days', 12, 2, '/images/packages/waterfall-rappelling.jpeg', NULL, 'Published', '[{"day":1,"title":"Gear Up","description":"Safety training and equipment check.","location":"Base Camp"},{"day":2,"title":"Rappel Day","description":"Descend the waterfall!","location":"Waterfall"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 15. Snowy Pine Cabin
+(gen_random_uuid(), 'Snowy Pine Cabin', 'snowy-pine-cabin', 'Cozy winter escape under 10k.', 'Stay in a charming log cabin surrounded by snowy pine forests. Enjoy the fireplace, hot cocoa, and winter magic.', 'NATURE ESCAPE', 105, '3 Days', 8, 3, '/images/packages/snowy-pine-cabin.jpeg', NULL, 'Published', '[{"day":1,"title":"Cabin Check-in","description":"Arrive at the cozy cabin.","location":"Pine Forest"},{"day":2,"title":"Snow Activities","description":"Snowshoeing and winter photography.","location":"Snow Trail"},{"day":3,"title":"Fireside Day","description":"Relax by the fire.","location":"Cabin"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 16. Village Heritage Walk
+(gen_random_uuid(), 'Village Heritage Walk', 'village-heritage-walk', 'Step into living history under 10k.', 'Walk through charming heritage villages with cobblestone streets and centuries-old architecture.', 'CULTURAL JOURNEY', 58, '2 Days', 22, 9, '/images/packages/village-heritage-walk.jpeg', NULL, 'Published', '[{"day":1,"title":"Village Tour","description":"Guided walk through the old village.","location":"Heritage Village"},{"day":2,"title":"Local Crafts","description":"Visit artisan workshops.","location":"Craft Quarter"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 17. Canyon Exploration
+(gen_random_uuid(), 'Canyon Exploration', 'canyon-exploration', 'Explore deep canyons under 10k.', 'Navigate through spectacular slot canyons with towering sandstone walls. A photographer dream adventure.', 'ADVENTURE QUEST', 92, '3 Days', 10, 2, '/images/packages/canyon-exploration.jpeg', NULL, 'Published', '[{"day":1,"title":"Canyon Entry","description":"Enter the canyon system.","location":"Canyon Mouth"},{"day":2,"title":"Deep Canyon","description":"Explore the narrowest sections.","location":"Slot Canyon"},{"day":3,"title":"Exit Trek","description":"Climb out with panoramic views.","location":"Canyon Rim"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 18. Lake View Glamping
+(gen_random_uuid(), 'Lake View Glamping', 'lake-view-glamping', 'Glamping by the lake under 10k.', 'Stay in luxury bell tents on the shore of a pristine mountain lake. Campfires, canoe rides, and pure bliss.', 'BUDGET GETAWAY', 90, '2 Days', 14, 5, '/images/packages/lake-view-glamping.jpeg', NULL, 'Published', '[{"day":1,"title":"Lakeside Setup","description":"Settle into your glamping tent.","location":"Lakeshore"},{"day":2,"title":"Lake Activities","description":"Canoe and swim in the crystal waters.","location":"Mountain Lake"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 19. Wildlife Spotting Tour
+(gen_random_uuid(), 'Wildlife Spotting Tour', 'wildlife-spotting-tour', 'Spot exotic wildlife under 10k.', 'Drive through dense tropical jungles in a safari jeep, spotting rare birds and animals in their natural habitat.', 'NATURE ESCAPE', 88, '3 Days', 12, 4, '/images/packages/wildlife-spotting-tour.jpeg', NULL, 'Published', '[{"day":1,"title":"Jungle Entry","description":"Enter the wildlife reserve.","location":"Reserve Gate"},{"day":2,"title":"Morning Spotting","description":"Dawn patrol for wildlife.","location":"Deep Jungle"},{"day":3,"title":"Bird Watching","description":"Spot exotic species.","location":"Canopy Tower"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 20. Volcanic Crater Hike
+(gen_random_uuid(), 'Volcanic Crater Hike', 'volcanic-crater-hike', 'Hike an active volcano under 10k.', 'Trek to the rim of a volcanic crater and witness the raw power of nature. Surreal landscapes and unforgettable views.', 'ADVENTURE QUEST', 100, '3 Days', 10, 1, '/images/packages/volcanic-crater-hike.jpeg', NULL, 'Published', '[{"day":1,"title":"Approach March","description":"Hike towards the volcano.","location":"Lava Fields"},{"day":2,"title":"Crater Rim","description":"Reach the rim at sunrise.","location":"Crater Edge"},{"day":3,"title":"Descent","description":"Return through volcanic terrain.","location":"Base"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 21. Ocean Scuba Dive
+(gen_random_uuid(), 'Ocean Scuba Dive', 'ocean-scuba-dive', 'Dive into the deep blue under 10k.', 'Explore vibrant coral reefs and swim with tropical fish. Professional instructors make it safe for beginners too.', 'TROPICAL VIBES', 112, '3 Days', 8, 2, '/images/packages/ocean-scuba-dive.jpeg', NULL, 'Published', '[{"day":1,"title":"Pool Training","description":"Learn scuba basics in a pool.","location":"Dive Center"},{"day":2,"title":"First Dive","description":"Your first open water dive!","location":"Coral Reef"},{"day":3,"title":"Deep Dive","description":"Explore deeper sections.","location":"Deep Reef"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 22. Glacier Ice Climbing
+(gen_random_uuid(), 'Glacier Ice Climbing', 'glacier-ice-climbing', 'Climb frozen giants under 10k.', 'Scale massive ice walls on a glacier with professional climbing gear. An extreme adventure for thrill seekers.', 'ADVENTURE QUEST', 115, '4 Days', 8, 1, '/images/packages/glacier-ice-climbing.jpeg', NULL, 'Published', '[{"day":1,"title":"Gear Check","description":"Equipment fitting and training.","location":"Base Camp"},{"day":2,"title":"Glacier Approach","description":"Trek to the glacier.","location":"Glacier"},{"day":3,"title":"Ice Climbing","description":"Scale the ice walls.","location":"Ice Wall"},{"day":4,"title":"Return","description":"Descend and celebrate.","location":"Base Camp"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 23. Desert Dune Bashing
+(gen_random_uuid(), 'Desert Dune Bashing', 'desert-dune-bashing', 'Off-road desert thrills under 10k.', 'Race across towering sand dunes in powerful off-road vehicles. Heart-pumping action in the open desert.', 'ADVENTURE QUEST', 95, '2 Days', 12, 5, '/images/packages/desert-dune-bashing.jpeg', NULL, 'Published', '[{"day":1,"title":"Vehicle Briefing","description":"Learn the vehicles and safety.","location":"Desert Camp"},{"day":2,"title":"Dune Run","description":"Full day of dune bashing action!","location":"Sand Dunes"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 24. Coastal Surfing Camp
+(gen_random_uuid(), 'Coastal Surfing Camp', 'coastal-surfing-camp', 'Catch waves under 10k.', 'Learn to surf at a stunning coastal camp. Professional instructors, great waves, and beachside vibes.', 'TROPICAL VIBES', 80, '3 Days', 16, 6, '/images/packages/coastal-surfing-camp.jpeg', NULL, 'Published', '[{"day":1,"title":"Board Basics","description":"Learn surfing fundamentals on the beach.","location":"Beach"},{"day":2,"title":"Wave Riding","description":"Hit the waves with your instructor.","location":"Surf Break"},{"day":3,"title":"Free Surf","description":"Surf on your own and enjoy.","location":"Beach Camp"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 25. High Altitude Pass Trek
+(gen_random_uuid(), 'High Altitude Pass Trek', 'high-altitude-pass-trek', 'Cross mountain passes under 10k.', 'Trek through high altitude mountain passes with dramatic views of snow-capped peaks and deep valleys.', 'NATURE ESCAPE', 105, '4 Days', 10, 2, '/images/packages/high-altitude-pass-trek.jpeg', NULL, 'Published', '[{"day":1,"title":"Trailhead","description":"Begin the ascent.","location":"Village"},{"day":2,"title":"High Camp","description":"Camp at altitude.","location":"Mountain Camp"},{"day":3,"title":"Pass Crossing","description":"Cross the high pass.","location":"Mountain Pass"},{"day":4,"title":"Descent","description":"Return to the valley.","location":"Valley"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 26. Monastery Peace Retreat
+(gen_random_uuid(), 'Monastery Peace Retreat', 'monastery-peace-retreat', 'Find inner peace under 10k.', 'Stay at a serene mountain monastery. Meditate with monks, explore ancient temples, and find tranquility.', 'CULTURAL JOURNEY', 60, '3 Days', 12, 4, '/images/packages/monastery-peace-retreat.jpeg', NULL, 'Published', '[{"day":1,"title":"Monastery Arrival","description":"Check in and evening prayers.","location":"Monastery"},{"day":2,"title":"Meditation Day","description":"Full day of meditation and teachings.","location":"Temple"},{"day":3,"title":"Farewell","description":"Morning blessing and departure.","location":"Monastery"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 27. Spice Plantation Walk
+(gen_random_uuid(), 'Spice Plantation Walk', 'spice-plantation-walk', 'Aromatic adventure under 10k.', 'Walk through lush spice plantations and learn about exotic spices. Taste fresh spices and discover local cooking.', 'CULTURAL JOURNEY', 55, '2 Days', 20, 8, '/images/packages/spice-plantation-walk.jpeg', NULL, 'Published', '[{"day":1,"title":"Plantation Tour","description":"Walk through spice gardens.","location":"Spice Estate"},{"day":2,"title":"Cooking Class","description":"Cook with fresh spices.","location":"Kitchen"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 28. Cave Exploration
+(gen_random_uuid(), 'Cave Exploration', 'cave-exploration', 'Go underground under 10k.', 'Explore mysterious caves with stalactites and underground rivers. A thrilling spelunking adventure with expert guides.', 'ADVENTURE QUEST', 85, '2 Days', 10, 3, '/images/packages/cave-exploration.jpeg', NULL, 'Published', '[{"day":1,"title":"Cave Entry","description":"Enter the cave system with headlamps.","location":"Cave Mouth"},{"day":2,"title":"Deep Caves","description":"Explore the deepest chambers.","location":"Inner Caves"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 29. Tribal Culture Tour
+(gen_random_uuid(), 'Tribal Culture Tour', 'tribal-culture-tour', 'Connect with indigenous cultures under 10k.', 'Visit indigenous tribal communities and experience their ancient traditions, crafts, and way of life.', 'CULTURAL JOURNEY', 72, '3 Days', 14, 5, '/images/packages/tribal-culture-tour.jpeg', NULL, 'Published', '[{"day":1,"title":"Village Arrival","description":"Meet the tribal elders.","location":"Tribal Village"},{"day":2,"title":"Cultural Immersion","description":"Learn traditional crafts and dances.","location":"Community Hall"},{"day":3,"title":"Farewell Feast","description":"Traditional feast and ceremony.","location":"Village"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 30. Bicycle Countryside Ride
+(gen_random_uuid(), 'Bicycle Countryside Ride', 'bicycle-countryside-ride', 'Pedal through paradise under 10k.', 'Cycle through picturesque countryside with rolling fields, charming villages, and beautiful landscapes.', 'NATURE ESCAPE', 58, '2 Days', 18, 7, '/images/packages/bicycle-countryside-ride.jpeg', NULL, 'Published', '[{"day":1,"title":"Bike Fitting","description":"Get your bike and ride through villages.","location":"Start Village"},{"day":2,"title":"Countryside Loop","description":"Full day cycling through beautiful terrain.","location":"Countryside"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 31. River Island Camping
+(gen_random_uuid(), 'River Island Camping', 'river-island-camping', 'Camp on a river island under 10k.', 'Set up camp on a secluded river island. Fish, swim, and enjoy nature in complete isolation.', 'BUDGET GETAWAY', 65, '2 Days', 14, 4, '/images/packages/river-island-camping.jpeg', NULL, 'Published', '[{"day":1,"title":"Island Setup","description":"Reach the island and set up camp.","location":"River Island"},{"day":2,"title":"Island Life","description":"Fishing, swimming, and bonfire.","location":"River Island"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now()),
+
+-- 32. Rainforest Canopy Walk
+(gen_random_uuid(), 'Rainforest Canopy Walk', 'rainforest-canopy-walk', 'Walk above the rainforest under 10k.', 'Traverse suspended walkways high above the rainforest canopy. Spot exotic wildlife and breathe in fresh air.', 'NATURE ESCAPE', 78, '2 Days', 16, 3, '/images/packages/rainforest-canopy-walk.jpeg', NULL, 'Published', '[{"day":1,"title":"Rainforest Entry","description":"Enter the dense rainforest.","location":"Forest Gate"},{"day":2,"title":"Canopy Walk","description":"Walk the suspended bridges above the trees.","location":"Canopy Trail"}]', '["Accommodation","Local Guide","Meals included","Activities"]', '["trip-id-mock"]', now(), now());

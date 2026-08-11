@@ -63,17 +63,25 @@ function PackageRowCard({
       <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1.3fr] min-h-[30rem] lg:min-h-[26rem]">
         {/* Left Side: Dynamic Video/Image Block */}
         <div className="relative overflow-hidden min-h-[16rem] lg:min-h-full">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            poster={pkg.imageUrl || getCategoryPoster(pkg.category)}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
-          >
-            <source src={pkg.videoUrl || getCategoryVideo(pkg.category)} type="video/mp4" />
-          </video>
+          {pkg.videoUrl ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster={pkg.imageUrl || getCategoryPoster(pkg.category)}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
+            >
+              <source src={pkg.videoUrl} type="video/mp4" />
+            </video>
+          ) : (
+            <img
+              src={pkg.imageUrl || getCategoryPoster(pkg.category)}
+              alt={pkg.name}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-transparent to-transparent lg:block hidden" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent lg:hidden block" />
           
