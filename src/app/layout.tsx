@@ -37,6 +37,8 @@ export const metadata: Metadata = {
   },
 };
 
+import SmoothAnimationEngine from "@/components/providers/SmoothAnimationEngine";
+
 export default function RootLayout({
   children,
 }: {
@@ -45,8 +47,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="font-sans antialiased">
-        <AuthGuard>{children}</AuthGuard>
-        <AIChatbot />
+        <SmoothAnimationEngine>
+          <AuthGuard>{children}</AuthGuard>
+          <AIChatbot />
+        </SmoothAnimationEngine>
       </body>
     </html>
   );

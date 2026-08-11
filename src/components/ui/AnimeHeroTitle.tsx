@@ -14,20 +14,21 @@ export default function AnimeHeroTitle({ children, className = '' }: AnimeHeroTi
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Use anime.js to create a staggering, scaling entrance animation for the hero title
+    // Use anime.js with GPU-accelerated transforms for silk-smooth hero entrance
     anime.timeline({ loop: false })
       .add({
         targets: containerRef.current.querySelectorAll('.anime-word'),
-        scale: [14, 1],
+        scale: [2.5, 1],
+        translateY: [20, 0],
         opacity: [0, 1],
-        easing: "easeOutCirc",
-        duration: 800,
-        delay: anime.stagger(200)
+        easing: "cubicBezier(0.16, 1, 0.3, 1)",
+        duration: 900,
+        delay: anime.stagger(120)
       })
       .add({
         targets: containerRef.current.querySelectorAll('.anime-underline'),
         width: ['0%', '100%'],
-        easing: "easeInOutQuad",
+        easing: "cubicBezier(0.16, 1, 0.3, 1)",
         duration: 600,
         offset: '-=400'
       });

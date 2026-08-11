@@ -248,14 +248,16 @@ export default async function HomePage() {
             animation: gradient-x 3s ease infinite;
           }
           
-          /* Infinite Marquee Animation */
+          /* Infinite Marquee Animation with GPU Acceleration */
           @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(calc(-50% - 1.5rem)); } /* Adjust for gap */
+            0% { transform: translate3d(0%, 0, 0); }
+            100% { transform: translate3d(calc(-50% - 1.5rem), 0, 0); }
           }
           .animate-marquee {
             animation: marquee 40s linear infinite;
             width: max-content;
+            will-change: transform;
+            backface-visibility: hidden;
           }
           .animate-marquee:hover {
             animation-play-state: paused;

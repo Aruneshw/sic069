@@ -181,12 +181,30 @@ html {
 
 body {
   background: linear-gradient(135deg, #ffffff 0%, #fff4e6 30%, #ffcc80 70%, #ff9800 100%);
-  background-size: 400% 400%;
-  animation: live-orange-gradient 15s ease infinite;
+  background-size: 200% 200%;
+  animation: live-orange-gradient 25s ease-in-out infinite;
   color: var(--text-primary);
   font-family: var(--font-sans);
   line-height: 1.6;
   min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ═══════════════════════════════════════
+   GPU HARDWARE ACCELERATION UTILITIES
+   ═══════════════════════════════════════ */
+
+.gpu-accelerate,
+.kodplay-glow-card,
+.glass-panel,
+.glass-surface,
+.animate-marquee {
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* ═══════════════════════════════════════
@@ -561,13 +579,13 @@ body {
   overflow: hidden;
 }
 
-/* Keyframes to handle floating */
+/* Keyframes to handle floating with 3D GPU acceleration */
 @keyframes floating-anim {
   0%, 100% {
-    transform: translateY(0px);
+    transform: translate3d(0, 0px, 0);
   }
   50% {
-    transform: translateY(-4px);
+    transform: translate3d(0, -4px, 0);
   }
 }
 

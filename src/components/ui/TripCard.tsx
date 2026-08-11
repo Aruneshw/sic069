@@ -29,20 +29,30 @@ export default function TripCard({ trip, index = 0 }: TripCardProps) {
   const mouseX = useSpring(x, { stiffness: 120, damping: 25 });
   const mouseY = useSpring(y, { stiffness: 120, damping: 25 });
 
+  const rafId = React.useRef<number | null>(null);
+
   function handleMouseMove({ currentTarget, clientX, clientY }: React.MouseEvent) {
-    const { left, top, width, height } = currentTarget.getBoundingClientRect();
-    const x = (clientX - left - width / 2) / 30;
-    const y = -(clientY - top - height / 2) / 30;
-    mouseX.set(x);
-    mouseY.set(y);
+    if (rafId.current) return;
+    rafId.current = requestAnimationFrame(() => {
+      const { left, top, width, height } = currentTarget.getBoundingClientRect();
+      const xVal = (clientX - left - width / 2) / 35;
+      const yVal = -(clientY - top - height / 2) / 35;
+      mouseX.set(xVal);
+      mouseY.set(yVal);
+      rafId.current = null;
+    });
   }
 
   function handleMouseLeave() {
+    if (rafId.current) {
+      cancelAnimationFrame(rafId.current);
+      rafId.current = null;
+    }
     mouseX.set(0);
     mouseY.set(0);
   }
 
-  const transform = useMotionTemplate`rotateX(${mouseY}deg) rotateY(${mouseX}deg)`;
+  const transform = useMotionTemplate`rotateX(${mouseY}deg) rotateY(${mouseX}deg) translateZ(0px)`;
 
   const categoryGlows: Record<string, string> = {
     Coastal: "glow-teal",
