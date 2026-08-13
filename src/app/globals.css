@@ -6,6 +6,7 @@
 
 :root {
   /* Navy palette */
+  --navy-950: #060E1A;
   --navy-900: #0A1628;
   --navy-800: #0F2035;
   --navy-700: #123A63;
@@ -16,6 +17,9 @@
   --navy-200: #7FBCD9;
   --navy-100: #B8DBEC;
   --navy-50: #E8F4FA;
+
+  /* Danger shades */
+  --danger-50: #FEF2F2;
 
   /* Teal accent */
   --teal-500: #15779D;
@@ -109,6 +113,7 @@
 
 @theme inline {
   /* Colors */
+  --color-navy-950: var(--navy-950);
   --color-navy-900: var(--navy-900);
   --color-navy-800: var(--navy-800);
   --color-navy-700: var(--navy-700);
@@ -119,6 +124,8 @@
   --color-navy-200: var(--navy-200);
   --color-navy-100: var(--navy-100);
   --color-navy-50: var(--navy-50);
+
+  --color-danger-50: var(--danger-50);
 
   --color-teal-500: var(--teal-500);
   --color-teal-400: var(--teal-400);
@@ -216,6 +223,39 @@ body {
   margin: 0 auto;
   padding-left: var(--container-padding);
   padding-right: var(--container-padding);
+}
+
+/* Hide scrollbar but keep scrolling */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scroll snap utility */
+.scroll-smooth-snap {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Animate-in utility (used by admin pages) */
+.animate-in {
+  animation: animate-in-keyframe 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.fade-in {
+  --animate-in-from-opacity: 0;
+}
+@keyframes animate-in-keyframe {
+  from {
+    opacity: var(--animate-in-from-opacity, 1);
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .gradient-hero {
