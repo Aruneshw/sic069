@@ -7,32 +7,32 @@ export default function ReferralsPage() {
       {/* ═══════════════════════════════════════
           HERO BANNER (page-11.png)
           ═══════════════════════════════════════ */}
-      <div className="relative overflow-hidden rounded-2xl bg-navy-900 text-white p-8 md:p-12 card-elevated">
+      <div className="relative overflow-hidden rounded-2xl bg-white card-elevated text-navy-900 p-8 md:p-12">
         {/* Background Decorative */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30 pointer-events-none" />
-        <div className="absolute bottom-0 right-32 w-48 h-48 bg-navy-400 rounded-full mix-blend-multiply filter blur-3xl opacity-20 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 pointer-events-none" />
+        <div className="absolute bottom-0 right-32 w-48 h-48 bg-teal-400 rounded-full mix-blend-multiply filter blur-3xl opacity-10 pointer-events-none" />
         
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div className="max-w-md">
             <h1 className="text-3xl md:text-4xl font-bold mb-3">Share Zero Gravity,<br/>Earn Rewards</h1>
-            <p className="text-teal-50 text-lg mb-6 opacity-90">
+            <p className="text-slate-600 text-lg mb-6">
               Give your friends 10% off their first expedition, and earn ₹8,300 in travel credit when they travel.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3">
-              <button className="flex items-center justify-center gap-2 bg-white text-navy-900 px-6 py-3 rounded-xl font-bold hover:bg-slate-100 transition-colors shadow-lg">
+              <button className="flex items-center justify-center gap-2 bg-navy-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-navy-800 transition-colors shadow-lg">
                 <LinkIcon size={18} /> Copy Invite Link
               </button>
-              <button className="flex items-center justify-center gap-2 bg-white/10 text-white border border-white/20 px-6 py-3 rounded-xl font-bold hover:bg-white/20 transition-colors">
+              <button className="flex items-center justify-center gap-2 bg-white text-navy-900 border border-slate-200 px-6 py-3 rounded-xl font-bold hover:bg-slate-50 transition-colors">
                 <Mail size={18} /> Invite via Email
               </button>
             </div>
           </div>
           
-          <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 shrink-0 text-center">
-            <div className="text-sm font-semibold text-teal-100 uppercase tracking-wider mb-2">Your Referral Code</div>
-            <div className="text-3xl font-mono font-bold tracking-widest bg-white/10 px-4 py-2 rounded-lg mb-3">EXPLORE-ALEX</div>
-            <button className="flex items-center justify-center gap-2 text-sm font-medium text-white hover:text-teal-200 transition-colors mx-auto">
+          <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200 shrink-0 text-center">
+            <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">Your Referral Code</div>
+            <div className="text-3xl font-mono font-bold tracking-widest text-navy-900 bg-white px-4 py-2 rounded-lg mb-3 shadow-sm border border-slate-100">EXPLORE-ALEX</div>
+            <button className="flex items-center justify-center gap-2 text-sm font-medium text-slate-600 hover:text-teal-600 transition-colors mx-auto">
               <Copy size={16} /> Copy Code
             </button>
           </div>
