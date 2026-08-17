@@ -14,7 +14,7 @@ export default function AccountLayout({
       <Navbar />
       <NotificationPanel />
       
-      <main className="flex-1 pt-[calc(var(--nav-height)+2rem)] pb-24 md:pb-12">
+      <main className="flex-1 pt-32 md:pt-40 pb-24 md:pb-12">
         <div className="container-main">
           <div className="flex flex-col md:flex-row gap-8">
             <AccountSidebar />

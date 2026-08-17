@@ -33,11 +33,11 @@ export default function FloatingEnquireCTA() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: 60, scale: 0.7 }}
+          initial={{ opacity: 0, y: -40, scale: 0.7 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 60, scale: 0.7 }}
+          exit={{ opacity: 0, y: -40, scale: 0.7 }}
           transition={{ type: "spring", stiffness: 300, damping: 24 }}
-          className="fixed bottom-8 right-8 z-50"
+          className="fixed top-[120px] right-8 z-[60]"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

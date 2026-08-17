@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Bell, Tag, AlertTriangle, Info, Map, CheckCircle2, Loader2 } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
 import toast from "react-hot-toast";
+import { supabase } from "@/utils/supabase";
 
 type NotificationType = "SEAT_ALERT" | "PRICE_DROP" | "NEW_TRIP" | "SYSTEM_UPDATE";
 
@@ -65,9 +66,35 @@ export default function NotificationPanel() {
     }
   }, [isNotificationPanelOpen]);
 
-  // Initial load when panel opens
+  // Initial load and Realtime Subscription
   useEffect(() => {
     fetchNotifications();
+
+    // Subscribe to new notifications in real-time
+    const channel = supabase
+      .channel("public:Notification")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "Notification" },
+        (payload) => {
+          console.log("Realtime payload:", payload);
+          // Prepend new notification to state
+          setNotifications((prev) => [payload.new as Notification, ...prev]);
+          toast.custom((t) => (
+            <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} max-w-md w-full bg-white shadow-lg rounded-2xl pointer-events-auto flex ring-1 ring-black ring-opacity-5 p-4`}>
+              <div className="flex-1 w-0">
+                <p className="text-sm font-bold text-navy-900">New Notification!</p>
+                <p className="mt-1 text-sm text-slate-500">{payload.new.title}</p>
+              </div>
+            </div>
+          ), { duration: 4000, position: 'bottom-right' });
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [fetchNotifications]);
 
   // Sync unread count to global store whenever notifications change
