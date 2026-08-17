@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { supabase } from '@/utils/supabase';
 
 export async function POST(req: Request) {
   try {
@@ -10,26 +10,32 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "destinationName is required" }, { status: 400 });
     }
 
-    const experience = await (prisma as any).travelerExperience.create({
-      data: {
-        destinationName,
-        tripId: tripId || null,
-        userId: userId || null,
-        contributorName: contributorName || "Anonymous Traveler",
-        contributorType: "COMMUNITY",
-        isVerified: false,
-        worthIt: worthIt ?? null,
-        bestTime: bestTime || null,
-        crowdLevel: crowdLevel || null,
-        costReality: costReality || null,
-        walkingIntensity: walkingIntensity || null,
-        unexpectedProblem: unexpectedProblem || null,
-        bestPart: bestPart || null,
-        whatToAvoid: whatToAvoid || null,
-        localTip: localTip || null,
-        recommendation: recommendation || null,
-      },
-    });
+    const { data: experience, error } = await supabase
+      .from('TravelerExperience')
+      .insert([
+        {
+          destinationName,
+          tripId: tripId || null,
+          userId: userId || null,
+          contributorName: contributorName || "Anonymous Traveler",
+          contributorType: "COMMUNITY",
+          isVerified: false,
+          worthIt: worthIt ?? null,
+          bestTime: bestTime || null,
+          crowdLevel: crowdLevel || null,
+          costReality: costReality || null,
+          walkingIntensity: walkingIntensity || null,
+          unexpectedProblem: unexpectedProblem || null,
+          bestPart: bestPart || null,
+          whatToAvoid: whatToAvoid || null,
+          localTip: localTip || null,
+          recommendation: recommendation || null,
+        }
+      ])
+      .select()
+      .single();
+
+    if (error) throw error;
 
     return NextResponse.json({ success: true, experience });
   } catch (error: any) {
@@ -47,14 +53,23 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url);
     const destination = searchParams.get("destination");
 
-    const experiences = await (prisma as any).travelerExperience.findMany({
-      where: destination ? { destinationName: { contains: destination, mode: "insensitive" } } : {},
-      orderBy: { createdAt: "desc" },
-      take: 20,
-    });
+    let query = supabase
+      .from('TravelerExperience')
+      .select('*')
+      .order('createdAt', { ascending: false })
+      .limit(20);
 
-    return NextResponse.json({ success: true, experiences });
+    if (destination) {
+      query = query.ilike('destinationName', `%${destination}%`);
+    }
+
+    const { data: experiences, error } = await query;
+    
+    if (error) throw error;
+
+    return NextResponse.json({ success: true, experiences: experiences || [] });
   } catch {
     return NextResponse.json({ success: true, experiences: [] });
   }
 }
+

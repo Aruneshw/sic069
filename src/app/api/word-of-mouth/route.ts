@@ -6,11 +6,11 @@ export async function POST(req: Request) {
     const { destination, travelDna, travelState, questionType } = await req.json();
     const destName = destination || "General";
 
-    const insights = getWomInsightsForDestination(destName);
-    const womScore = getWomScore(destName);
-    const realityCheck = getRealityCheck(destName);
-    const pulse = getLocalPulse(destName);
-    const worthIt = calculateWorthIt(destName, travelDna, travelState);
+    const insights = await getWomInsightsForDestination(destName);
+    const womScore = await getWomScore(destName);
+    const realityCheck = await getRealityCheck(destName);
+    const pulse = await getLocalPulse(destName);
+    const worthIt = await calculateWorthIt(destName, travelDna, travelState);
 
     // Group insights by type for "What Locals Know"
     const grouped: Record<string, typeof insights> = {};

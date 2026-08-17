@@ -261,17 +261,55 @@ export function getInsightTypeLabel(type: InsightType): string {
   return labels[type] || type;
 }
 
+import { supabase } from "@/utils/supabase";
+
 // ── Query Functions ──
-export function getWomInsightsForDestination(destinationName: string): WomInsight[] {
-  const name = destinationName.toLowerCase();
-  const matched = WOM_INSIGHTS_DB.filter(
-    (i) => name.includes(i.destinationName.toLowerCase()) || i.destinationName.toLowerCase() === "general"
+export async function getWomInsightsForDestination(destinationName: string): Promise<WomInsight[]> {
+  const { data, error } = await supabase
+    .from('LocalInsight')
+    .select('*');
+
+  if (error || !data) {
+    console.error("Error fetching insights from Supabase:", error);
+    return [];
+  }
+
+  const nameLower = destinationName.toLowerCase();
+  
+  // Map from LocalInsight to WomInsight
+  const allInsights: WomInsight[] = data.map(dbRow => {
+    // Generate mapped fields
+    let confidence: ConfidenceLevel = "UNKNOWN";
+    if (dbRow.confidenceScore > 90) confidence = "VERIFIED";
+    else if (dbRow.confidenceScore > 80) confidence = "SUPPORTED";
+    else if (dbRow.confidenceScore > 70) confidence = "COMMUNITY_REPORTED";
+
+    return {
+      id: dbRow.id,
+      destinationName: dbRow.locationName,
+      type: dbRow.type as InsightType,
+      title: dbRow.title,
+      content: dbRow.content,
+      confidence,
+      confidenceScore: dbRow.confidenceScore,
+      freshness: "FRESH", // default for now
+      lastVerified: "Recently", // default
+      source: dbRow.source as SourceType,
+      sourceName: dbRow.source,
+      confirmations: Math.floor(Math.random() * 20) + 5, // mock for now
+      contradictions: 0,
+    };
+  });
+
+  const matched = allInsights.filter(
+    (i) => nameLower.includes(i.destinationName.toLowerCase()) || i.destinationName.toLowerCase() === "general"
   );
-  return matched.length > 0 ? matched : WOM_INSIGHTS_DB.filter((i) => i.destinationName === "General");
+  
+  return matched.length > 0 ? matched : allInsights.filter((i) => i.destinationName.toLowerCase() === "general");
 }
 
-export function getWomScore(destinationName: string): WomScore {
-  const insights = getWomInsightsForDestination(destinationName);
+export async function getWomScore(destinationName: string): Promise<WomScore> {
+  const insights = await getWomInsightsForDestination(destinationName);
   const avgConfidence = insights.reduce((s, i) => s + i.confidenceScore, 0) / (insights.length || 1);
   const totalConfirmations = insights.reduce((s, i) => s + i.confirmations, 0);
   return {
@@ -284,8 +322,8 @@ export function getWomScore(destinationName: string): WomScore {
   };
 }
 
-export function getRealityCheck(destinationName: string): RealityCheck {
-  const insights = getWomInsightsForDestination(destinationName);
+export async function getRealityCheck(destinationName: string): Promise<RealityCheck> {
+  const insights = await getWomInsightsForDestination(destinationName);
   const hasCrowd = insights.find((i) => i.type === "CROWD");
   const hasCost = insights.find((i) => i.type === "COST_REALITY");
   return {
@@ -299,8 +337,8 @@ export function getRealityCheck(destinationName: string): RealityCheck {
   };
 }
 
-export function getLocalPulse(destinationName: string): LocalPulse {
-  const insights = getWomInsightsForDestination(destinationName);
+export async function getLocalPulse(destinationName: string): Promise<LocalPulse> {
+  const insights = await getWomInsightsForDestination(destinationName);
   const weatherInsight = insights.find((i) => i.type === "WEATHER_CONTEXT");
   const crowdInsight = insights.find((i) => i.type === "CROWD");
   const alerts = insights.filter((i) => i.type === "SAFETY_NOTE").map((i) => i.title);
@@ -315,13 +353,13 @@ export function getLocalPulse(destinationName: string): LocalPulse {
   };
 }
 
-export function calculateWorthIt(
+export async function calculateWorthIt(
   destinationName: string,
   travelDna: any,
   travelState: any
-): WorthItResult {
-  const insights = getWomInsightsForDestination(destinationName);
-  const score = getWomScore(destinationName);
+): Promise<WorthItResult> {
+  const insights = await getWomInsightsForDestination(destinationName);
+  const score = await getWomScore(destinationName);
   const reasons: string[] = [];
   const skipIf: string[] = [];
 

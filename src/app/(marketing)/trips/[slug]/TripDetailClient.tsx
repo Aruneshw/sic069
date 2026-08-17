@@ -30,11 +30,33 @@ export default function TripDetailClient({ trip }: { trip: any }) {
   const travelState = useAppStore((state) => state.travelState);
 
   const destinationName = trip?.name || "South India";
-  const womInsights = getWomInsightsForDestination(destinationName);
-  const womScore = getWomScore(destinationName);
-  const realityCheck = getRealityCheck(destinationName);
-  const localPulse = getLocalPulse(destinationName);
-  const worthItResult = calculateWorthIt(destinationName, travelDna, travelState);
+  
+  const [womData, setWomData] = useState<{
+    insights: any;
+    score: any;
+    realityCheck: any;
+    localPulse: any;
+    worthItResult: any;
+  } | null>(null);
+
+  useEffect(() => {
+    async function fetchWom() {
+      const insights = await getWomInsightsForDestination(destinationName);
+      const score = await getWomScore(destinationName);
+      const reality = await getRealityCheck(destinationName);
+      const pulse = await getLocalPulse(destinationName);
+      const worthIt = await calculateWorthIt(destinationName, travelDna, travelState);
+      
+      setWomData({
+        insights,
+        score,
+        realityCheck: reality,
+        localPulse: pulse,
+        worthItResult: worthIt
+      });
+    }
+    fetchWom();
+  }, [destinationName, travelDna, travelState]);
   useEffect(() => {
     if (trip) {
       anime({
@@ -324,11 +346,20 @@ export default function TripDetailClient({ trip }: { trip: any }) {
 
             {/* Word-of-Mouth Intelligence Layer */}
             <div className="space-y-8 anime-stagger opacity-0">
-              <WorthItCard result={worthItResult} destination={destinationName} />
+              {womData ? (
+                <>
+                  <WorthItCard result={womData.worthItResult} destination={destinationName} />
 
-              <div className="bento-card-base bento-lavender p-8 md:p-10">
-                <WhatLocalsKnow destination={destinationName} insights={womInsights} />
-              </div>
+                  <div className="bento-card-base bento-lavender p-8 md:p-10">
+                    <WhatLocalsKnow destination={destinationName} insights={womData.insights} />
+                  </div>
+                </>
+              ) : (
+                <div className="animate-pulse flex flex-col gap-8">
+                  <div className="h-64 bg-slate-200 rounded-3xl w-full"></div>
+                  <div className="h-80 bg-slate-200 rounded-3xl w-full"></div>
+                </div>
+              )}
 
               <AskALocal destination={destinationName} tripId={trip.id} />
 
@@ -500,7 +531,11 @@ export default function TripDetailClient({ trip }: { trip: any }) {
 
               {/* Sidebar Word-of-Mouth Intelligence Card */}
               <div className="mt-8 pt-6 border-t-2 border-[#780116]/6">
-                <WomScoreCard score={womScore} />
+                {womData ? (
+                  <WomScoreCard score={womData.score} />
+                ) : (
+                  <div className="animate-pulse h-40 bg-slate-200 rounded-2xl w-full"></div>
+                )}
               </div>
 
             </div>

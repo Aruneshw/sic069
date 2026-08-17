@@ -314,5 +314,17 @@ export function getCategoryPoster(category: string): string {
 }
 
 export function getAssetUrl(path: string): string {
-  return path;
+  // If it's already a full HTTP URL (like from a third-party or already processed), return it as is
+  if (path.startsWith('http://') || path.startsWith('https://')) {
+    return path;
+  }
+
+  // Use the edge CDN for the bucket (assuming bucket name is "assets")
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  if (!supabaseUrl) return path;
+
+  // Remove leading slash if present to avoid double slashes
+  const cleanPath = path.startsWith('/') ? path.substring(1) : path;
+  
+  return `${supabaseUrl}/storage/v1/object/public/assets/${cleanPath}`;
 }

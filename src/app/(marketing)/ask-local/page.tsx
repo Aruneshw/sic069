@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageCircle, MapPin, ShieldCheck, Sparkles, Users } from "lucide-react";
 import AskALocal from "@/components/wom/AskALocal";
 import WhatLocalsKnow from "@/components/wom/WhatLocalsKnow";
@@ -11,10 +11,24 @@ const DESTINATIONS = ["Kodaikanal", "Wayanad", "Ooty", "Varkala", "Munnar"];
 
 export default function AskLocalPage() {
   const [selectedDest, setSelectedDest] = useState("Kodaikanal");
-  const insights = getWomInsightsForDestination(selectedDest);
-  const score = getWomScore(selectedDest);
-  const reality = getRealityCheck(selectedDest);
-  const pulse = getLocalPulse(selectedDest);
+  const [womData, setWomData] = useState<{
+    insights: any;
+    score: any;
+    realityCheck: any;
+    localPulse: any;
+  } | null>(null);
+
+  useEffect(() => {
+    async function fetchWom() {
+      setWomData(null);
+      const insights = await getWomInsightsForDestination(selectedDest);
+      const score = await getWomScore(selectedDest);
+      const realityCheck = await getRealityCheck(selectedDest);
+      const localPulse = await getLocalPulse(selectedDest);
+      setWomData({ insights, score, realityCheck, localPulse });
+    }
+    fetchWom();
+  }, [selectedDest]);
 
   return (
     <div className="min-h-screen bg-[#FBF9F5] text-[#150408] pb-24">
@@ -62,18 +76,35 @@ export default function AskLocalPage() {
 
         {/* WoM Score + Reality Check Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          <WomScoreCard score={score} />
-          <RealityCheckCard check={reality} />
+          {womData ? (
+            <>
+              <WomScoreCard score={womData.score} />
+              <RealityCheckCard check={womData.realityCheck} />
+            </>
+          ) : (
+            <>
+              <div className="animate-pulse h-48 bg-slate-200 rounded-3xl w-full"></div>
+              <div className="animate-pulse h-48 bg-slate-200 rounded-3xl w-full"></div>
+            </>
+          )}
         </div>
 
         {/* Local Pulse */}
         <div className="mb-10">
-          <LocalPulseCard pulse={pulse} />
+          {womData ? (
+            <LocalPulseCard pulse={womData.localPulse} />
+          ) : (
+            <div className="animate-pulse h-40 bg-slate-200 rounded-3xl w-full"></div>
+          )}
         </div>
 
         {/* What Locals Know */}
         <div className="mb-16">
-          <WhatLocalsKnow destination={selectedDest} insights={insights} />
+          {womData ? (
+            <WhatLocalsKnow destination={selectedDest} insights={womData.insights} />
+          ) : (
+            <div className="animate-pulse h-96 bg-slate-200 rounded-3xl w-full"></div>
+          )}
         </div>
 
         {/* Trust Footer */}

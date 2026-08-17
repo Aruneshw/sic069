@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { supabase } from '@/utils/supabase';
 
 export async function POST(request: Request) {
   try {
@@ -10,15 +10,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
     }
 
-    // Insert into ContactMessage table
-    const contactMessage = await prisma.contactMessage.create({
-      data: {
-        name,
-        email,
-        subject,
-        message,
-      },
-    });
+    // Insert into ContactMessage table using Supabase client
+    const { data: contactMessage, error } = await supabase
+      .from('ContactMessage')
+      .insert([
+        {
+          name,
+          email,
+          subject,
+          message,
+        }
+      ])
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
+    }
 
     return NextResponse.json({ success: true, contactMessage });
   } catch (error: any) {

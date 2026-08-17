@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
 import { supabase } from '@/utils/supabase';
 
 export async function POST(request: Request) {
@@ -11,17 +10,25 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Name and email are required' }, { status: 400 });
     }
 
-    // Insert into Enquiry table
-    const enquiry = await prisma.enquiry.create({
-      data: {
-        tripId: tripId || null,
-        packageId: packageId || null,
-        userName,
-        userEmail,
-        message: message || '',
-        status: 'Pending',
-      },
-    });
+    // Insert into Enquiry table using Supabase client
+    const { data: enquiry, error } = await supabase
+      .from('Enquiry')
+      .insert([
+        {
+          tripId: tripId || null,
+          packageId: packageId || null,
+          userName,
+          userEmail,
+          message: message || '',
+          status: 'Pending',
+        }
+      ])
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
+    }
 
     return NextResponse.json({ success: true, enquiry });
   } catch (error: any) {

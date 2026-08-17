@@ -1,16 +1,22 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { supabase } from '@/utils/supabase';
 
 export async function POST(req: Request) {
   try {
     const { itemId, reason } = await req.json();
 
-    await prisma.recommendationFeedback.create({
-      data: {
-        tripId: itemId || "general",
-        reason: reason || "Not specified",
-      }
-    });
+    const { error } = await supabase
+      .from('RecommendationFeedback')
+      .insert([
+        {
+          tripId: itemId || "general",
+          reason: reason || "Not specified",
+        }
+      ]);
+
+    if (error) {
+      throw error;
+    }
 
     return NextResponse.json({
       success: true,
