@@ -43,10 +43,13 @@ export default function LiveTrackingButton({ variant = 'card' }: LiveTrackingBut
       ) : (
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-white bg-white/10 border border-white/20 hover:bg-teal-500 hover:border-teal-400 transition-all shadow-lg"
+          className="flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-[#780116] bg-white border-2 border-[#780116]/15 hover:bg-[#FDE8EC] hover:border-[#780116]/30 transition-all text-xs uppercase tracking-wider"
+          style={{
+            boxShadow: '4px 4px 12px rgba(120,1,22,0.08), -2px -2px 8px rgba(255,255,255,0.9), inset 1px 1px 3px rgba(255,255,255,0.7)'
+          }}
         >
-          <Map size={18} className="animate-pulse" />
-          Live Map
+          <Map size={16} className="text-[#D49018]" />
+          Live Track
         </button>
       )}
 

@@ -84,7 +84,7 @@ export default async function HomePage() {
               Transparent small-group expeditions across breathtaking mountains, serene coasts, and royal heritage landscapes.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-3">
               <GlowingButton href="/trips" variant="gold">
                 <span className="flex items-center gap-2">
                   Explore Expeditions
@@ -94,9 +94,7 @@ export default async function HomePage() {
               <GlowingButton href="/about" variant="crimson">
                 Our Philosophy
               </GlowingButton>
-              <div className="w-full sm:w-auto">
-                <LiveTrackingButton variant="compact" />
-              </div>
+              <LiveTrackingButton variant="compact" />
             </div>
           </div>
 
