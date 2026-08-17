@@ -215,17 +215,36 @@ export default function Navbar() {
                   }}
                 />
                 {/* Dropdown Menu on hover */}
-                <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-[60]">
-                  <div className="px-4 py-3 border-b border-slate-100">
-                    <p className="text-sm font-bold text-navy-900 truncate">{user.user_metadata?.full_name || 'Explorer'}</p>
+                <div className="absolute top-full right-0 mt-2 w-56 bg-white border border-slate-100 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden z-[60]">
+                  <div className="px-4 py-3 border-b border-slate-100 bg-slate-50/50">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-sm font-bold text-navy-900 truncate">{user.user_metadata?.full_name || 'Explorer'}</p>
+                      {user.email === "aruneshownsty1@gmail.com" && (
+                        <span className="px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider bg-teal-500/10 text-teal-600 border border-teal-500/30 rounded-full">
+                          Admin
+                        </span>
+                      )}
+                    </div>
                     <p className="text-xs text-slate-500 truncate">{user.email}</p>
                   </div>
+                  
+                  {/* Admin Access Quick Link */}
+                  {user.email === "aruneshownsty1@gmail.com" && (
+                    <Link
+                      href="/admin"
+                      className="flex items-center justify-between px-4 py-3 text-sm font-bold text-teal-600 bg-teal-50/60 hover:bg-teal-100/60 transition-colors no-underline border-b border-teal-100/50"
+                    >
+                      <span>⚡ Admin Command Center</span>
+                    </Link>
+                  )}
+
                   <Link href="/account/enquiries" className="block px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors no-underline">
                     My Account
                   </Link>
                   <button
                     onClick={async () => {
                       await supabase.auth.signOut();
+                      window.location.href = "/login";
                     }}
                     className="w-full text-left px-4 py-3 text-sm font-bold text-danger hover:bg-danger-50 transition-colors"
                   >
