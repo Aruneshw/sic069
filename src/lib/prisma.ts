@@ -84,6 +84,31 @@ export const prisma = {
       const { data, error } = await query;
       if (error) console.error("Package.findMany Error:", error);
       return parseDates(data || []);
+    },
+    findUnique: async (args: any) => {
+      let query = supabase.from('Package').select('*');
+      if (args.where?.id) query = query.eq('id', args.where.id);
+      if (args.where?.slug) query = query.eq('slug', args.where.slug);
+      const { data, error } = await query.single();
+      if (error) console.error("Package.findUnique Error:", error);
+      return parseDates(data);
+    },
+    create: async (args: any) => {
+      const dataToInsert = { ...args.data };
+      if (!dataToInsert.id) dataToInsert.id = crypto.randomUUID();
+      const { data, error } = await supabase.from('Package').insert(dataToInsert).select().single();
+      if (error) console.error("Package.create Error:", error);
+      return parseDates(data);
+    },
+    update: async (args: any) => {
+      const { data, error } = await supabase.from('Package').update(args.data).eq('id', args.where.id).select().single();
+      if (error) console.error("Package.update Error:", error);
+      return parseDates(data);
+    },
+    delete: async (args: any) => {
+      const { data, error } = await supabase.from('Package').delete().eq('id', args.where.id).select().single();
+      if (error) console.error("Package.delete Error:", error);
+      return parseDates(data);
     }
   },
   departure: {
