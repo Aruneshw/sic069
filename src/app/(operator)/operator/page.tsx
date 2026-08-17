@@ -21,7 +21,7 @@ export default async function OperatorDashboard() {
           ═══════════════════════════════════════ */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-navy-900 mb-1">Overview</h1>
+          <h1 className="text-2xl font-bold text-[#150408] mb-1">Overview</h1>
           <p className="text-slate-500 mb-6">Manage your regional adventures and bookings.</p>
           <div className="w-full lg:max-w-md">
             <LiveTrackingButton />
@@ -70,15 +70,15 @@ export default async function OperatorDashboard() {
           ═══════════════════════════════════════ */}
       <div className="card-elevated bg-white rounded-2xl border border-slate-200 overflow-hidden">
         <div className="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h2 className="text-lg font-bold text-navy-900">Recent Trip Inventory</h2>
+          <h2 className="text-lg font-bold text-[#150408]">Recent Trip Inventory</h2>
           
           <div className="flex items-center gap-3">
-            <select className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <select className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B538]/50">
               <option>All Statuses</option>
               <option>Published</option>
               <option>Draft</option>
             </select>
-            <select className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-teal-500">
+            <select className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B538]/50">
               <option>Most Recent</option>
               <option>Alphabetical</option>
             </select>
@@ -117,9 +117,9 @@ export default async function OperatorDashboard() {
                         </div>
                         <div>
                           <div className="flex items-center gap-2 mb-0.5">
-                            <p className="font-bold text-navy-900 leading-tight">{trip.name}</p>
+                            <p className="font-bold text-[#150408] leading-tight">{trip.name}</p>
                             {trip.badge && (
-                              <span className="text-[10px] font-bold text-white bg-teal-500 px-1.5 py-0.5 rounded-sm uppercase tracking-wider">
+                              <span className="text-[10px] font-bold text-white bg-[#F7B538] px-1.5 py-0.5 rounded-sm uppercase tracking-wider">
                                 {trip.badge}
                               </span>
                             )}
@@ -155,7 +155,7 @@ export default async function OperatorDashboard() {
                         <button className="p-1.5 text-slate-400 hover:text-danger transition-colors" title="Delete">
                           <Trash2 size={16} />
                         </button>
-                        <button className="p-1.5 text-slate-400 hover:text-navy-900 transition-colors" title="More">
+                        <button className="p-1.5 text-slate-400 hover:text-[#150408] transition-colors" title="More">
                           <MoreVertical size={16} />
                         </button>
                       </div>

@@ -3,22 +3,21 @@ import SkeletonGrid from '@/components/ui/SkeletonGrid';
 
 export default function Loading() {
   return (
-    <div className="flex flex-col min-h-screen">
-      <section className="relative pt-40 pb-32 md:pt-48 md:pb-48 bg-slate-900">
-        <div className="container-main relative z-10 flex flex-col md:flex-row items-center gap-12">
-          <div className="flex-1 text-center md:text-left mt-8 md:mt-0">
-            <div className="h-16 w-3/4 bg-white/10 rounded-xl mb-6 mx-auto md:mx-0 animate-pulse"></div>
-            <div className="h-16 w-1/2 bg-white/10 rounded-xl mb-6 mx-auto md:mx-0 animate-pulse"></div>
-            <div className="h-6 w-2/3 bg-white/10 rounded-md mb-10 mx-auto md:mx-0 animate-pulse"></div>
-            <div className="flex gap-4 justify-center md:justify-start">
-               <div className="h-14 w-40 bg-white/10 rounded-full animate-pulse"></div>
-               <div className="h-14 w-40 bg-white/10 rounded-full animate-pulse"></div>
-            </div>
+    <div className="flex flex-col min-h-screen bg-[#FBF9F5]">
+      <section className="relative pt-40 pb-28 md:pt-48 md:pb-40 px-4 md:px-8">
+        <div className="container-main relative z-10 flex flex-col items-center text-center">
+          <div className="h-6 w-24 bg-[#F7B538]/15 rounded-full mb-6 animate-pulse"></div>
+          <div className="h-12 w-3/4 max-w-lg bg-[#780116]/8 rounded-2xl mb-4 animate-pulse"></div>
+          <div className="h-12 w-1/2 max-w-md bg-[#780116]/6 rounded-2xl mb-6 animate-pulse"></div>
+          <div className="h-5 w-2/3 max-w-sm bg-slate-200/60 rounded-lg mb-10 animate-pulse"></div>
+          <div className="flex gap-4 justify-center">
+             <div className="h-12 w-36 bg-[#F7B538]/20 rounded-full animate-pulse"></div>
+             <div className="h-12 w-36 bg-[#780116]/12 rounded-full animate-pulse"></div>
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-white">
+      <section className="py-16 px-4 md:px-8">
         <div className="container-main">
           <SkeletonGrid />
         </div>

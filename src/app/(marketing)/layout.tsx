@@ -2,6 +2,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import MobileTabBar from "@/components/layout/MobileTabBar";
 import NotificationPanel from "@/components/ui/NotificationPanel";
+import FloatingEnquireCTA from "@/components/layout/FloatingEnquireCTA";
 
 export default function MarketingLayout({
   children,
@@ -17,6 +18,7 @@ export default function MarketingLayout({
       </main>
       <Footer />
       <MobileTabBar />
+      <FloatingEnquireCTA />
     </div>
   );
 }
