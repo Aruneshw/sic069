@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, Send, Sparkles, ShieldCheck } from "lucide-react";
+import { MessageCircle, Send, Sparkles, ShieldCheck, Loader2 } from "lucide-react";
 
 interface AskALocalProps {
   destination: string;
@@ -22,14 +22,16 @@ const SUGGESTED_QUESTIONS = [
 
 type Msg = { role: "user" | "assistant"; content: string };
 
-export default function AskALocal({ destination, tripId }: AskALocalProps) {
+export default function AskALocal({ destination }: AskALocalProps) {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { scrollRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   const ask = async (question: string) => {
     if (!question.trim() || loading) return;
@@ -46,73 +48,116 @@ export default function AskALocal({ destination, tripId }: AskALocalProps) {
         body: JSON.stringify({ tripName: destination, userQuestion: question.trim() }),
       });
       const data = await res.json();
-      const content = data.aiResponse || "I don't have enough reliable information about that right now.";
+      const content = data.aiResponse || "I don't have enough reliable verified information about that right now.";
       setMessages((p) => [...p, { role: "assistant", content }]);
     } catch {
-      setMessages((p) => [...p, { role: "assistant", content: "I'm having trouble connecting. Here's what I can verify: check the 'What Locals Know' section above for confirmed insights." }]);
+      setMessages((p) => [
+        ...p,
+        {
+          role: "assistant",
+          content: "I'm having trouble connecting. Here's what I can verify: check the 'What Locals Know' section below for confirmed insights.",
+        },
+      ]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="rounded-2xl border border-white/15 bg-navy-950/50 backdrop-blur-sm overflow-hidden">
+    <div className="rounded-[2rem] border border-[#780116]/15 bg-white shadow-xl overflow-hidden">
       {/* Header */}
-      <div className="p-5 border-b border-white/10 bg-gradient-to-r from-teal-500/15 to-indigo-500/10">
-        <div className="flex items-center gap-2 mb-1">
-          <div className="p-2 rounded-xl bg-teal-500/20"><MessageCircle size={16} className="text-teal-300" /></div>
-          <h3 className="text-sm font-extrabold text-white uppercase tracking-wider">Ask a Local</h3>
-          <div className="ml-auto flex items-center gap-1 text-[10px] text-slate-400"><ShieldCheck size={12} className="text-emerald-400" /> Trust-verified responses</div>
+      <div className="p-6 border-b border-[#780116]/10 bg-[#FDE8EC] flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 rounded-2xl bg-[#780116] text-[#F7B538] shadow-sm">
+            <MessageCircle size={18} />
+          </div>
+          <div>
+            <h3 className="text-sm font-extrabold text-[#150408] uppercase tracking-wider">
+              Ask a Verified Local
+            </h3>
+            <p className="text-xs text-slate-600 mt-0.5">
+              Direct answers for <span className="font-extrabold text-[#780116]">{destination}</span>
+            </p>
+          </div>
         </div>
-        <p className="text-xs text-slate-400 mt-1">What would you ask someone who actually lives in <span className="text-teal-300 font-bold">{destination}</span>?</p>
+        <div className="flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+          <ShieldCheck size={13} className="text-emerald-600" /> Verified Insights
+        </div>
       </div>
 
       {/* Suggested Questions */}
       {messages.length === 0 && (
-        <div className="p-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {SUGGESTED_QUESTIONS.map((q) => (
-            <button key={q} onClick={() => ask(q)} className="text-left p-3 rounded-xl bg-white/5 border border-white/10 text-xs text-slate-300 hover:bg-teal-500/10 hover:border-teal-500/30 hover:text-teal-300 transition-all">
-              "{q}"
-            </button>
-          ))}
+        <div className="p-6 bg-[#FBF9F5]">
+          <div className="text-[10px] font-black uppercase tracking-widest text-[#780116] mb-3">Popular Explorer Questions</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            {SUGGESTED_QUESTIONS.map((q) => (
+              <button
+                key={q}
+                onClick={() => ask(q)}
+                className="text-left p-3.5 rounded-xl bg-white border border-[#780116]/10 text-xs font-bold text-[#150408] hover:bg-[#FAF0DF] hover:border-[#F7B538] transition-all shadow-sm flex items-center justify-between group"
+              >
+                <span>&ldquo;{q}&rdquo;</span>
+                <span className="text-[#F7B538] font-black group-hover:translate-x-1 transition-transform">→</span>
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
-      {/* Messages */}
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} className="overflow-hidden">
-            <div className="max-h-80 overflow-y-auto p-4 space-y-3">
-              {messages.map((m, i) => (
-                <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[85%] rounded-2xl p-3.5 text-xs leading-relaxed ${m.role === "user" ? "bg-teal-500/20 text-teal-100 rounded-tr-sm" : "bg-white/5 text-slate-300 rounded-tl-sm border border-white/10"}`}>
-                    {m.content}
-                  </div>
-                </div>
-              ))}
-              {loading && (
-                <div className="flex gap-1.5 p-3"><div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" /><div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} /><div className="w-2 h-2 bg-teal-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} /></div>
-              )}
-              <div ref={scrollRef} />
+      {/* Chat Messages */}
+      {messages.length > 0 && (
+        <div className="p-6 max-h-96 overflow-y-auto space-y-4 bg-[#FBF9F5]">
+          {messages.map((m, i) => (
+            <div
+              key={i}
+              className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
+            >
+              <div
+                className={`max-w-[80%] p-4 rounded-2xl text-xs leading-relaxed ${
+                  m.role === "user"
+                    ? "bg-[#780116] text-white font-bold rounded-tr-none shadow-md"
+                    : "bg-white text-[#150408] border border-[#780116]/10 rounded-tl-none shadow-sm"
+                }`}
+              >
+                {m.content}
+              </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          ))}
+          {loading && (
+            <div className="flex justify-start">
+              <div className="bg-white p-4 rounded-2xl border border-[#780116]/10 flex items-center gap-2 text-xs font-bold text-[#780116]">
+                <Loader2 size={16} className="animate-spin" /> Verifying local records...
+              </div>
+            </div>
+          )}
+          <div ref={scrollRef} />
+        </div>
+      )}
 
-      {/* Input */}
-      <div className="p-3 border-t border-white/10 flex gap-2">
+      {/* Input Box */}
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          ask(input);
+        }}
+        className="p-4 bg-white border-t border-[#780116]/10 flex items-center gap-3"
+      >
         <input
+          type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && ask(input)}
-          placeholder={`Ask about ${destination}...`}
-          className="flex-1 bg-white/5 border border-white/15 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500/30 outline-none"
-          disabled={loading}
+          placeholder={`Ask anything about ${destination}...`}
+          className="flex-1 px-4 py-3 bg-[#FBF9F5] border border-[#780116]/15 rounded-full text-xs font-medium text-[#150408] placeholder-slate-400 focus:outline-none focus:border-[#F7B538] focus:ring-2 focus:ring-[#F7B538]/20 transition-all"
         />
-        <button onClick={() => ask(input)} disabled={!input.trim() || loading} className="px-4 py-2.5 bg-teal-500 text-navy-950 rounded-xl font-bold text-sm disabled:opacity-30 flex items-center gap-1.5">
-          <Send size={14} /> Ask
+        <button
+          type="submit"
+          disabled={loading || !input.trim()}
+          className="px-6 py-3 rounded-full bg-[#780116] text-[#F7B538] text-xs font-black uppercase tracking-wider hover:bg-[#9B0822] disabled:opacity-50 transition-all shadow-md flex items-center gap-1.5 shrink-0"
+        >
+          <span>Ask</span>
+          <Send size={14} />
         </button>
-      </div>
+      </form>
     </div>
   );
 }

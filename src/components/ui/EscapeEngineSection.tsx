@@ -9,12 +9,13 @@ import LocalGuideModal from "./LocalGuideModal";
 import { useAppStore } from "@/store/useAppStore";
 import Link from "next/link";
 import { formatInr } from "@/lib/trips";
+import { BentoCard } from "./BentoGrid";
 
 const FEELINGS = [
-  { id: "Escape", label: "I NEED TO ESCAPE", icon: Compass, color: "from-[#F7B538] to-[#D49018]" },
-  { id: "Peace", label: "I NEED PEACE", icon: ShieldCheck, color: "from-[#FAF3E7] to-[#F5E8D3]" },
-  { id: "Adventure", label: "I WANT ADVENTURE", icon: Zap, color: "from-[#780116] to-[#4A000E]" },
-  { id: "Spontaneous", label: "SURPRISE ME", icon: Sparkles, color: "from-[#F7B538] to-[#780116]" },
+  { id: "Escape", label: "I NEED TO ESCAPE", icon: Compass, color: "bg-[#FDE8EC] text-[#780116] border-pink-300" },
+  { id: "Peace", label: "I NEED PEACE", icon: ShieldCheck, color: "bg-[#FAF0DF] text-[#7E5105] border-amber-300" },
+  { id: "Adventure", label: "I WANT ADVENTURE", icon: Zap, color: "bg-[#EBF5EE] text-emerald-800 border-emerald-300" },
+  { id: "Spontaneous", label: "SURPRISE ME", icon: Sparkles, color: "bg-[#F0EEFA] text-indigo-900 border-indigo-300" },
 ];
 
 export default function EscapeEngineSection({ initialPackages = [] }: { initialPackages?: any[] }) {
@@ -40,30 +41,26 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
   const surprisePackage = initialPackages[0] || { name: "Hidden Valley Trek", bundlePrice: 6499, tierBadge: "HIGH-ALTITUDE", duration: "3 Days" };
 
   return (
-    <section className="py-24 relative overflow-hidden bg-[#0B0204] text-white">
-      {/* Glow ambient background matching design DNA */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#780116]/25 rounded-full filter blur-[140px] pointer-events-none" />
-      <div className="absolute top-10 right-10 w-[400px] h-[400px] bg-[#F7B538]/10 rounded-full filter blur-[120px] pointer-events-none" />
-
-      <div className="container-main relative z-10">
+    <section className="py-20 md:py-24 relative overflow-hidden bg-[#FBF9F5] border-t border-[#780116]/10 px-4 md:px-8 text-[#150408]">
+      <div className="container-main max-w-6xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-[#F7B538]/30 text-[#F7B538] text-xs font-black uppercase tracking-widest mb-4 backdrop-blur-md">
-            <Sparkles size={14} className="text-[#F7B538]" /> Intelligent Escape Engine
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF0DF] border border-[#F7B538]/40 text-xs font-black uppercase tracking-widest text-[#7E5105] mb-3">
+            <Sparkles size={14} className="text-[#D49018]" /> Intelligent Escape Engine
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-2">
             You don&apos;t have to know where to go.<br />
-            <span className="font-script text-4xl md:text-5xl text-[#F7B538]">
+            <span className="font-script text-4xl md:text-6xl text-[#780116]">
               Just tell us how you want to feel.
             </span>
           </h2>
-          <p className="text-slate-300 text-sm md:text-base font-light max-w-xl mx-auto">
+          <p className="text-slate-600 text-sm md:text-base font-medium max-w-xl mx-auto">
             Zero Gravity matches your travel intuition with curated micro-expeditions using your Travel DNA.
           </p>
         </div>
 
-        {/* Feeling Pills selector */}
-        <div className="flex flex-wrap justify-center gap-3 mb-14">
+        {/* Feeling Pills Selector */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
           {FEELINGS.map((f) => {
             const Icon = f.icon;
             const isSelected = selectedFeeling === f.id;
@@ -71,10 +68,10 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
               <button
                 key={f.id}
                 onClick={() => handleFeelingSelect(f.id)}
-                className={`flex items-center gap-2.5 px-6 py-3 rounded-full font-black text-xs uppercase tracking-wider transition-all border ${
+                className={`flex items-center gap-2 px-6 py-3 rounded-full font-black text-xs uppercase tracking-wider transition-all border ${
                   isSelected
-                    ? `bg-gradient-to-r ${f.color} ${f.id === 'Adventure' ? 'text-white' : 'text-[#150408]'} border-[#F7B538] shadow-lg shadow-[#F7B538]/20 scale-105`
-                    : "bg-[#150408] border-white/10 text-slate-300 hover:bg-[#1F070C] hover:border-[#F7B538]/30"
+                    ? "bg-[#780116] text-[#F7B538] border-[#780116] shadow-md scale-105"
+                    : "bg-white border-black/10 text-slate-700 hover:bg-[#FAF0DF]"
                 }`}
               >
                 <Icon size={16} />
@@ -84,47 +81,47 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
           })}
         </div>
 
-        {/* Surprise Mode ("Don't Tell Me Where") */}
+        {/* Surprise Mystery Mode */}
         {isSurpriseMode ? (
-          <div className="max-w-xl mx-auto p-8 rounded-[2.5rem] bg-[#150408] border border-[#F7B538]/40 text-center space-y-6 shadow-2xl relative overflow-hidden">
-            <div className="text-xs font-extrabold text-[#F7B538] uppercase tracking-widest flex items-center justify-center gap-2">
+          <div className="max-w-xl mx-auto p-8 rounded-[2.5rem] bg-[#FDE8EC] border border-pink-300 text-center space-y-5 shadow-lg relative overflow-hidden">
+            <div className="text-xs font-black text-[#780116] uppercase tracking-widest flex items-center justify-center gap-1.5">
               <HelpCircle size={16} /> Mystery Escape Mode Activated
             </div>
 
             {!isRevealed ? (
-              <div className="py-8 space-y-4">
-                <div className="text-3xl md:text-4xl font-black text-white tracking-wider">
+              <div className="py-6 space-y-4">
+                <div className="text-3xl md:text-4xl font-black text-[#780116] tracking-wider">
                   CLASSIFIED EXPEDITION
                 </div>
-                <div className="flex justify-center gap-6 text-xs text-slate-300">
-                  <span>Terrain: <strong className="text-[#F7B538]">{surprisePackage.tierBadge || "Mountain"}</strong></span>
-                  <span>Duration: <strong className="text-white">{surprisePackage.duration || "3 Days"}</strong></span>
-                  <span>Est: <strong className="text-[#F7B538]">{formatInr(surprisePackage.bundlePrice || 6499)}</strong></span>
+                <div className="flex justify-center gap-4 text-xs font-bold text-slate-700">
+                  <span>Terrain: <strong className="text-[#780116]">{surprisePackage.tierBadge || "Mountain"}</strong></span>
+                  <span>Duration: <strong className="text-[#780116]">{surprisePackage.duration || "3 Days"}</strong></span>
+                  <span>Est: <strong className="text-[#780116]">{formatInr(surprisePackage.bundlePrice || 6499)}</strong></span>
                 </div>
                 <button
                   onClick={() => setIsRevealed(true)}
-                  className="mt-6 px-8 py-3.5 bg-gradient-to-r from-[#F7B538] to-[#D49018] text-[#150408] font-black rounded-full text-xs uppercase tracking-widest shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto"
+                  className="mt-4 px-8 py-3.5 bg-[#780116] text-[#F7B538] font-black rounded-full text-xs uppercase tracking-widest shadow-md hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto"
                 >
-                  <Eye size={18} /> Reveal My Escape
+                  <Eye size={16} /> Reveal My Escape
                 </button>
               </div>
             ) : (
-              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="py-4 space-y-4">
-                <span className="px-3.5 py-1 bg-[#F7B538]/20 text-[#F7B538] rounded-full text-xs font-black uppercase tracking-wider border border-[#F7B538]/40">
+              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="py-4 space-y-3">
+                <span className="px-3.5 py-1 bg-white text-emerald-800 rounded-full text-xs font-black uppercase tracking-wider shadow-xs">
                   94% COMPATIBILITY MATCH
                 </span>
-                <h3 className="text-2xl md:text-3xl font-extrabold text-white">{surprisePackage.name}</h3>
-                <p className="text-slate-300 text-xs">{surprisePackage.tagline || surprisePackage.description}</p>
-                <div className="pt-4 flex justify-center gap-4">
+                <h3 className="text-2xl md:text-3xl font-extrabold text-[#150408]">{surprisePackage.name}</h3>
+                <p className="text-slate-600 text-xs">{surprisePackage.tagline || surprisePackage.description}</p>
+                <div className="pt-3 flex justify-center gap-3">
                   <Link
                     href="/packages"
-                    className="px-6 py-2.5 bg-gradient-to-r from-[#F7B538] to-[#D49018] text-[#150408] font-black rounded-full text-xs uppercase tracking-wider shadow-lg no-underline"
+                    className="px-6 py-2.5 bg-[#780116] text-[#F7B538] font-black rounded-full text-xs uppercase tracking-wider shadow-md no-underline"
                   >
                     View Expedition
                   </Link>
                   <button
                     onClick={() => setIsRevealed(false)}
-                    className="px-6 py-2.5 bg-white/10 text-slate-300 font-bold rounded-full text-xs uppercase hover:bg-white/20"
+                    className="px-6 py-2.5 bg-white text-slate-700 font-bold rounded-full text-xs uppercase hover:bg-slate-100"
                   >
                     Hide
                   </button>
@@ -133,64 +130,69 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
             )}
           </div>
         ) : (
-          /* Normal Escape Bento Grid */
+          /* Normal Givingli Escape Bento Grid */
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {topMatches.map((pkg: any) => (
-              <div
-                key={pkg.id}
-                className="bento-card bento-card-dark rounded-[2rem] overflow-hidden border border-[#F7B538]/20 hover:border-[#F7B538]/60 transition-all duration-300 shadow-xl flex flex-col justify-between"
-              >
-                {/* Image & Badge Overlay */}
-                <div className="relative h-48 overflow-hidden bg-[#150408]">
-                  <img
-                    src={pkg.imageUrl || "/images/packages/hidden-valley-trek.jpeg"}
-                    alt={pkg.name}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0204]/90 via-transparent to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <CompatibilityBadge item={pkg} onRejectClick={() => setRejectionItem(pkg)} />
-                  </div>
-                  <div className="absolute bottom-4 right-4 bg-[#0B0204]/90 backdrop-blur-md px-3.5 py-1 rounded-xl text-xs font-black text-[#F7B538] border border-[#F7B538]/30">
-                    {formatInr(pkg.bundlePrice)}
-                  </div>
-                </div>
+            {topMatches.map((pkg: any, idx: number) => {
+              const variants = ["blush", "sage", "champagne", "lavender", "sky", "white"] as const;
+              const v = variants[idx % variants.length];
 
-                {/* Content */}
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="text-[10px] font-black text-[#F7B538] uppercase tracking-widest mb-1">{pkg.tierBadge}</div>
-                    <h3 className="text-lg font-extrabold text-white mb-2 group-hover:text-[#F7B538] transition-colors">{pkg.name}</h3>
-                    <p className="text-xs text-slate-300 line-clamp-2 mb-4 leading-relaxed font-light">{pkg.description}</p>
+              return (
+                <div
+                  key={pkg.id}
+                  className={`bento-card-base bento-${v} rounded-[2rem] p-0 overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between`}
+                >
+                  {/* Image Header */}
+                  <div className="relative h-44 overflow-hidden bg-slate-100">
+                    <img
+                      src={pkg.imageUrl || "/images/packages/hidden-valley-trek.jpeg"}
+                      alt={pkg.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                    <div className="absolute top-3 left-3">
+                      <CompatibilityBadge item={pkg} onRejectClick={() => setRejectionItem(pkg)} />
+                    </div>
+                    <div className="absolute bottom-3 right-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl text-xs font-black text-[#150408] shadow-sm">
+                      {formatInr(pkg.bundlePrice)}
+                    </div>
                   </div>
 
-                  <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                    <button
-                      onClick={() => setGuideTripName(pkg.name)}
-                      className="text-xs font-bold text-[#F7B538] hover:text-[#F9C862] flex items-center gap-1.5"
-                    >
-                      <Compass size={14} /> Local Secrets
-                    </button>
-                    <Link
-                      href="/packages"
-                      className="text-xs font-black uppercase tracking-wider text-[#150408] bg-[#F7B538] hover:bg-[#F9C862] px-4 py-1.5 rounded-full transition-all flex items-center gap-1 no-underline"
-                    >
-                      Explore <ChevronRight size={14} />
-                    </Link>
+                  {/* Body Content */}
+                  <div className="p-6 flex-1 flex flex-col justify-between">
+                    <div>
+                      <div className="text-[10px] font-black text-[#780116] uppercase tracking-widest mb-1">{pkg.tierBadge}</div>
+                      <h3 className="text-lg font-extrabold text-[#150408] mb-1.5">{pkg.name}</h3>
+                      <p className="text-xs text-slate-600 line-clamp-2 mb-4 leading-relaxed font-medium">{pkg.description}</p>
+                    </div>
+
+                    <div className="pt-3 border-t border-black/5 flex items-center justify-between">
+                      <button
+                        onClick={() => setGuideTripName(pkg.name)}
+                        className="text-xs font-bold text-[#780116] hover:underline flex items-center gap-1"
+                      >
+                        <Compass size={13} /> Local Secrets
+                      </button>
+                      <Link
+                        href="/packages"
+                        className="text-xs font-black uppercase tracking-wider text-white bg-[#780116] hover:bg-[#9B0822] px-4 py-1.5 rounded-full transition-all flex items-center gap-1 no-underline shadow-xs"
+                      >
+                        Explore <ChevronRight size={14} />
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
 
-        {/* Footer CTAs */}
-        <div className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
+        {/* Footer DNA Recalibrate CTA */}
+        <div className="mt-12 text-center">
           <button
             onClick={openOnboarding}
-            className="px-6 py-3 bg-white/10 border border-[#F7B538]/30 text-white font-bold rounded-full text-xs uppercase tracking-wider hover:bg-white/20 transition-all flex items-center gap-2"
+            className="px-6 py-3 bg-white border border-[#780116]/15 text-[#780116] font-black rounded-full text-xs uppercase tracking-wider hover:bg-[#FAF0DF] transition-all shadow-sm flex items-center gap-2 mx-auto"
           >
-            <Sparkles size={16} className="text-[#F7B538]" /> Recalibrate Travel DNA
+            <Sparkles size={14} className="text-[#D49018]" /> Recalibrate Travel DNA
           </button>
         </div>
       </div>

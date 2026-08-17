@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Pause, X, Volume2, VolumeX, Compass } from "lucide-react";
+import { Play, Pause, X, Volume2, VolumeX, Compass, Sparkles } from "lucide-react";
 import { getAssetUrl, getCategoryVideo, getCategoryPreviewVideo } from "@/lib/trips";
 import { useDeviceCapabilities } from "@/hooks/useDeviceCapabilities";
 
@@ -60,18 +60,15 @@ const tours: VideoTour[] = [
   },
 ];
 
-// Global counter to restrict concurrent video decoding to 2
 let concurrentDecodes = 0;
 const MAX_DECODES = 2;
 
-const VideoTile = React.memo(({ tour, index, onPlayLightbox }: { tour: VideoTour, index: number, onPlayLightbox: (t: VideoTour) => void }) => {
+const VideoTile = React.memo(({ tour, index, onPlayLightbox }: { tour: VideoTour; index: number; onPlayLightbox: (t: VideoTour) => void }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const { isLowEnd } = useDeviceCapabilities();
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Explicit tap-to-play for low-end
   const [lowEndPlaying, setLowEndPlaying] = useState(false);
 
   useEffect(() => {
@@ -79,7 +76,7 @@ const VideoTile = React.memo(({ tour, index, onPlayLightbox }: { tour: VideoTour
       ([entry]) => {
         setIsIntersecting(entry.isIntersecting);
       },
-      { rootMargin: "200px" } // Mount video slightly before it enters viewport
+      { rootMargin: "200px" }
     );
     if (containerRef.current) observer.observe(containerRef.current);
     return () => observer.disconnect();
@@ -87,9 +84,8 @@ const VideoTile = React.memo(({ tour, index, onPlayLightbox }: { tour: VideoTour
 
   useEffect(() => {
     if (!videoRef.current) return;
-    
     let isVideoPlaying = false;
-    
+
     if (isLowEnd) {
       if (lowEndPlaying) {
         if (concurrentDecodes < MAX_DECODES) {
@@ -109,106 +105,80 @@ const VideoTile = React.memo(({ tour, index, onPlayLightbox }: { tour: VideoTour
         }
       } else {
         videoRef.current.pause();
-        if (videoRef.current.currentTime > 0) {
-          videoRef.current.currentTime = 0;
-        }
+        videoRef.current.currentTime = 0;
       }
     }
-    
+
     return () => {
       if (isVideoPlaying) {
-        concurrentDecodes--;
+        concurrentDecodes = Math.max(0, concurrentDecodes - 1);
       }
     };
   }, [isHovered, isIntersecting, isLowEnd, lowEndPlaying]);
 
-  const handlePointerEnter = () => setIsHovered(true);
-  const handlePointerLeave = () => setIsHovered(false);
-
   return (
     <motion.div
       ref={containerRef}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 25 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      onPointerEnter={handlePointerEnter}
-      onPointerLeave={handlePointerLeave}
-      onClick={() => {
-        if (isLowEnd && !lowEndPlaying) {
-           setLowEndPlaying(true);
-        } else {
-           onPlayLightbox(tour);
-        }
-      }}
-      className={`group relative h-[320px] rounded-3xl overflow-hidden border bg-slate-900 cursor-pointer shadow-2xl transition-[transform,border-color] duration-300 ease-out ${
-        isHovered ? "scale-[1.04] border-blue-500/30" : "scale-100 border-white/10"
-      }`}
-      style={{
-         // CSS Containment drastically reduces layout work for off-screen tiles
-         contain: "content",
-         contentVisibility: "auto",
-         containIntrinsicSize: "auto 320px",
-         // Only apply will-change when active to prevent layer explosion
-         willChange: isHovered ? "transform" : "auto"
-      }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, delay: index * 0.1 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onClick={() => onPlayLightbox(tour)}
+      className="bento-card-base bento-white rounded-[2rem] p-0 overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-400"
     >
-      <div className="absolute inset-0 w-full h-full z-0 bg-slate-950">
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent z-10 pointer-events-none" />
-        
-        {/* Only mount video tag if intersecting */}
-        {isIntersecting ? (
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+        <img
+          src={tour.posterUrl}
+          alt={tour.title}
+          className={`w-full h-full object-cover transition-transform duration-700 ${
+            isHovered ? "scale-108" : "scale-100"
+          }`}
+        />
+
+        {isIntersecting && (
           <video
             ref={videoRef}
             src={tour.previewUrl}
-            poster={tour.posterUrl}
             loop
             muted
             playsInline
             preload="none"
-            className={`w-full h-full object-cover transition-opacity duration-300 ${isHovered || (isLowEnd && lowEndPlaying) ? "opacity-100" : "opacity-70"}`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+              isHovered || lowEndPlaying ? "opacity-100" : "opacity-0"
+            }`}
           />
-        ) : (
-          <img src={tour.posterUrl} className="w-full h-full object-cover opacity-70" alt={tour.title} />
         )}
-      </div>
 
-      <div className="absolute top-6 left-6 right-6 z-20 flex items-center justify-between pointer-events-none">
-        <span className="px-3 py-1 rounded-full bg-slate-950/80 border border-white/10 text-xs font-bold tracking-wider text-teal-400 uppercase">
-          {tour.category}
-        </span>
-        {!isLowEnd && (
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-600/90 text-xs font-bold text-white shadow-lg">
-            <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-ping" />
-            LIVE PREVIEW
+        <div className="absolute inset-0 bg-gradient-to-t from-[#150408]/90 via-[#150408]/30 to-transparent" />
+
+        {/* Floating Top Badges */}
+        <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20">
+          <span className="px-3 py-1 rounded-full bg-[#780116]/90 backdrop-blur-md text-[#F7B538] text-[10px] font-black uppercase tracking-widest border border-[#F7B538]/40 shadow-sm">
+            {tour.category}
           </span>
-        )}
-      </div>
-
-      <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-        <div
-          className={`w-16 h-16 rounded-full border flex items-center justify-center transition-[transform,background-color,border-color] duration-300 shadow-xl ${
-            isHovered 
-              ? "scale-[1.15] bg-blue-600/90 border-blue-400/50" 
-              : "scale-100 bg-slate-900/60 border-white/20"
-          }`}
-        >
-          <Play size={24} className="text-white fill-white ml-1" />
-        </div>
-      </div>
-
-      <div className="absolute bottom-0 left-0 right-0 p-6 z-20 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent pt-12 pointer-events-none">
-        <div className="flex items-end justify-between gap-4 mb-2">
-          <h3 className={`text-xl font-bold transition-colors duration-300 ${isHovered ? "text-blue-400" : "text-white"}`}>
-            {tour.title}
-          </h3>
-          <span className="text-xs font-medium text-slate-400 bg-slate-900/60 px-2.5 py-1 rounded-md border border-white/5 shrink-0">
+          <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#150408] text-[10px] font-extrabold uppercase shadow-sm">
             {tour.duration}
           </span>
         </div>
-        <p className={`text-sm text-slate-300 transition-opacity duration-300 line-clamp-2 ${isHovered ? "opacity-100" : "opacity-80"}`}>
-          {tour.description}
-        </p>
+
+        {/* Center Play Icon */}
+        <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+          <div className="w-14 h-14 rounded-full bg-[#F7B538] text-[#150408] flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:bg-[#F9C862] transition-transform duration-300">
+            <Play size={22} className="ml-1 fill-[#150408]" />
+          </div>
+        </div>
+
+        {/* Bottom Title & Description */}
+        <div className="absolute bottom-0 left-0 right-0 p-6 z-20 text-white">
+          <h3 className="text-xl font-extrabold mb-1 drop-shadow-md group-hover:text-[#F7B538] transition-colors">
+            {tour.title}
+          </h3>
+          <p className="text-xs text-slate-200 line-clamp-2 leading-relaxed font-light">
+            {tour.description}
+          </p>
+        </div>
       </div>
     </motion.div>
   );
@@ -257,24 +227,24 @@ export default function ImmersiveVideoGallery() {
   }, []);
 
   return (
-    <section className="py-20 bg-slate-950 text-white overflow-hidden relative">
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/10 rounded-full mix-blend-screen filter blur-3xl opacity-40 pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full mix-blend-screen filter blur-3xl opacity-30 pointer-events-none" />
-
-      <div className="container-main relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-bold tracking-wider text-blue-400 uppercase mb-4">
-            <Compass size={14} className="animate-spin-slow" /> Immersive Tour Previews
+    <section className="py-20 bg-[#FBF9F5] border-t border-[#780116]/10 px-4 md:px-8">
+      <div className="container-main">
+        <div className="max-w-3xl mx-auto text-center mb-14">
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#FAF0DF] border border-[#F7B538]/40 text-xs font-black tracking-widest text-[#7E5105] uppercase mb-3">
+            <Compass size={14} className="text-[#D49018]" /> Immersive Tour Previews
           </span>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">
-            Virtual Expeditions
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-[#150408] mb-3">
+            Virtual Regional Expeditions
           </h2>
-          <p className="text-slate-400 text-lg leading-relaxed">
-            Experience the sights, sounds, and rhythms of our hand-picked journeys before you book. Hover to preview each region in high definition.
+          <p className="font-script text-3xl text-[#780116] mb-3">
+            Experience the vistas before you step onto the trail
+          </p>
+          <p className="text-slate-600 text-sm md:text-base max-w-xl mx-auto font-medium">
+            Hover to preview each region in high definition.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {tours.map((tour, index) => (
             <VideoTile 
               key={tour.id} 
@@ -288,31 +258,25 @@ export default function ImmersiveVideoGallery() {
 
       <AnimatePresence>
         {activeVideo && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/95 p-4 md:p-8"
-          >
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 md:p-8">
             <div className="absolute inset-0" onClick={() => setActiveVideo(null)} />
 
             <motion.div
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
-              transition={{ type: "spring", duration: 0.5 }}
-              className="relative w-full max-w-5xl rounded-3xl overflow-hidden border border-white/10 bg-slate-900 shadow-2xl z-10 flex flex-col"
+              className="relative w-full max-w-4xl rounded-[2.5rem] overflow-hidden border border-[#F7B538]/40 bg-[#150408] text-white shadow-2xl z-10 flex flex-col"
             >
-              <div className="flex items-center justify-between px-6 py-4 border-b border-white/5 bg-slate-900/80">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#0B0204]">
                 <div>
-                  <span className="text-xs font-bold uppercase tracking-wider text-teal-400">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#F7B538]">
                     {activeVideo.category} • {activeVideo.duration} Tour
                   </span>
                   <h3 className="text-lg font-bold text-white">{activeVideo.title}</h3>
                 </div>
                 <button
                   onClick={() => setActiveVideo(null)}
-                  className="p-2 rounded-full bg-white/5 hover:bg-white/15 text-slate-400 hover:text-white transition-colors"
+                  className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-colors"
                 >
                   <X size={20} />
                 </button>
@@ -333,30 +297,30 @@ export default function ImmersiveVideoGallery() {
                   <div className="flex items-center gap-3">
                     <button
                       onClick={togglePlay}
-                      className="p-3 rounded-xl bg-slate-950/80 border border-white/10 hover:bg-slate-900 text-white transition-colors shadow-lg"
+                      className="p-3 rounded-xl bg-black/70 border border-white/20 hover:bg-black text-white transition-colors shadow-lg"
                     >
                       {isPlaying ? <Pause size={18} /> : <Play size={18} />}
                     </button>
 
                     <button
                       onClick={toggleMute}
-                      className="p-3 rounded-xl bg-slate-950/80 border border-white/10 hover:bg-slate-900 text-white transition-colors shadow-lg"
+                      className="p-3 rounded-xl bg-black/70 border border-white/20 hover:bg-black text-white transition-colors shadow-lg"
                     >
                       {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
                     </button>
                   </div>
 
-                  <span className="px-3.5 py-2 rounded-xl bg-blue-600 font-bold text-xs text-white shadow-lg tracking-wider">
+                  <span className="px-3.5 py-1.5 rounded-xl bg-[#F7B538] font-black text-[11px] text-[#150408] shadow-lg tracking-wider">
                     4K ULTRA HD
                   </span>
                 </div>
               </div>
 
-              <div className="p-6 bg-slate-950/40 text-slate-300 text-sm border-t border-white/5 leading-relaxed">
-                {activeVideo.description} Zero Gravity Tours offers premium, tailored itineraries to this destination. Discover our detailed guides, custom houses/villas, and expert local naturalists by selecting this package.
+              <div className="p-6 bg-[#0B0204] text-slate-300 text-xs border-t border-white/10 leading-relaxed">
+                {activeVideo.description} Zero Gravity Tours offers premium, tailored itineraries to this destination.
               </div>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </section>

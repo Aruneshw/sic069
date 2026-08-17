@@ -20,32 +20,50 @@ export function BentoGrid({ children, className = "", cols = 3 }: BentoGridProps
   );
 }
 
+export type BentoVariant =
+  | "lavender"
+  | "blush"
+  | "sage"
+  | "champagne"
+  | "gold"
+  | "crimson"
+  | "white"
+  | "sky";
+
 interface BentoCardProps {
   children: React.ReactNode;
   className?: string;
-  variant?: "light" | "dark" | "crimson" | "gold";
+  variant?: BentoVariant;
   colSpan?: 1 | 2 | 3;
   rowSpan?: 1 | 2;
-  headerBadge?: string;
+  title?: string;
+  description?: string;
   scriptSubtitle?: string;
+  headerBadge?: string;
   onClick?: () => void;
 }
 
 export function BentoCard({
   children,
   className = "",
-  variant = "light",
+  variant = "white",
   colSpan = 1,
   rowSpan = 1,
-  headerBadge,
+  title,
+  description,
   scriptSubtitle,
+  headerBadge,
   onClick,
 }: BentoCardProps) {
   const variantClass = {
-    light: "bento-card bg-white text-slate-800",
-    dark: "bento-card bento-card-dark text-white",
-    crimson: "bento-card bento-card-crimson text-white",
-    gold: "bento-card bg-gradient-to-br from-[#FFFDF9] via-[#FAF3E7] to-[#F5E8D3] border-[#F7B538]/40 text-[#150408]",
+    lavender: "bento-lavender",
+    blush: "bento-blush",
+    sage: "bento-sage",
+    champagne: "bento-champagne",
+    gold: "bento-gold",
+    crimson: "bento-crimson",
+    white: "bento-white",
+    sky: "bento-sky",
   }[variant];
 
   const colSpanClass = {
@@ -59,33 +77,66 @@ export function BentoCard({
     2: "lg:row-span-2",
   }[rowSpan];
 
+  const isDark = variant === "crimson";
+
   return (
     <div
       onClick={onClick}
-      className={`relative p-6 md:p-8 rounded-[1.75rem] flex flex-col justify-between group overflow-hidden ${variantClass} ${colSpanClass} ${rowSpanClass} ${className} ${
+      className={`bento-card-base ${variantClass} ${colSpanClass} ${rowSpanClass} ${className} ${
         onClick ? "cursor-pointer" : ""
       }`}
     >
-      {/* Decorative ambient radial reflection */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-[#F7B538]/10 rounded-full blur-[70px] pointer-events-none -mr-20 -mt-20 group-hover:scale-125 transition-transform duration-700" />
-
       {/* Optional Top Badges */}
       {(headerBadge || scriptSubtitle) && (
         <div className="flex flex-wrap items-center justify-between gap-2 mb-4 relative z-10">
           {headerBadge && (
-            <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest bg-[#780116]/10 text-[#780116] border border-[#780116]/20">
+            <span
+              className={`inline-flex items-center px-3.5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
+                isDark
+                  ? "bg-white/15 text-[#F7B538] border border-[#F7B538]/30"
+                  : "bg-white text-[#780116] border border-[#780116]/15 shadow-sm"
+              }`}
+            >
               {headerBadge}
             </span>
           )}
           {scriptSubtitle && (
-            <span className="font-script text-lg text-[#F7B538] drop-shadow-sm ml-auto">
+            <span
+              className={`font-script text-xl ${
+                isDark ? "text-[#F7B538]" : "text-[#780116]"
+              } ml-auto`}
+            >
               {scriptSubtitle}
             </span>
           )}
         </div>
       )}
 
-      {/* Content */}
+      {/* Title & Description if provided */}
+      {(title || description) && (
+        <div className="mb-4 relative z-10">
+          {title && (
+            <h3
+              className={`text-2xl font-extrabold tracking-tight mb-2 ${
+                isDark ? "text-white" : "text-[#150408]"
+              }`}
+            >
+              {title}
+            </h3>
+          )}
+          {description && (
+            <p
+              className={`text-xs md:text-sm leading-relaxed ${
+                isDark ? "text-slate-200" : "text-slate-600"
+              }`}
+            >
+              {description}
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* Main Content & Floating Mockups */}
       <div className="relative z-10 flex-1 flex flex-col justify-between">
         {children}
       </div>

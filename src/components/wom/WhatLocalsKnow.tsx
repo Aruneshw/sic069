@@ -1,25 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { ShieldCheck, AlertTriangle, Lightbulb, Clock, Star, MapPin, Utensils, CloudRain, DollarSign, Users, Footprints, ThumbsUp, ThumbsDown, ChevronDown, ChevronUp } from "lucide-react";
-import { WomInsight, getInsightTypeLabel, getFreshnessEmoji, getConfidenceLabel } from "@/lib/wordOfMouth";
+import { WomInsight, getInsightTypeLabel, getFreshnessEmoji } from "@/lib/wordOfMouth";
 
 const TYPE_CONFIG: Record<string, { icon: any; color: string; bg: string; border: string }> = {
-  BEST_TIME: { icon: Clock, color: "text-emerald-300", bg: "bg-emerald-500/15", border: "border-emerald-500/30" },
-  AVOID_TIME: { icon: AlertTriangle, color: "text-rose-300", bg: "bg-rose-500/15", border: "border-rose-500/30" },
-  COST_REALITY: { icon: DollarSign, color: "text-amber-300", bg: "bg-amber-500/15", border: "border-amber-500/30" },
-  CROWD: { icon: Users, color: "text-sky-300", bg: "bg-sky-500/15", border: "border-sky-500/30" },
-  LOCAL_FOOD: { icon: Utensils, color: "text-orange-300", bg: "bg-orange-500/15", border: "border-orange-500/30" },
-  TOURIST_MISTAKE: { icon: AlertTriangle, color: "text-rose-300", bg: "bg-rose-500/15", border: "border-rose-500/30" },
-  HIDDEN_GEM: { icon: Star, color: "text-amber-300", bg: "bg-amber-500/15", border: "border-amber-500/30" },
-  BETTER_ALTERNATIVE: { icon: MapPin, color: "text-teal-300", bg: "bg-teal-500/15", border: "border-teal-500/30" },
-  SAFETY_NOTE: { icon: ShieldCheck, color: "text-red-300", bg: "bg-red-500/15", border: "border-red-500/30" },
-  WEATHER_CONTEXT: { icon: CloudRain, color: "text-blue-300", bg: "bg-blue-500/15", border: "border-blue-500/30" },
-  VALUE_FOR_MONEY: { icon: DollarSign, color: "text-emerald-300", bg: "bg-emerald-500/15", border: "border-emerald-500/30" },
-  LOCAL_EXPERIENCE: { icon: Lightbulb, color: "text-purple-300", bg: "bg-purple-500/15", border: "border-purple-500/30" },
-  LOCAL_CUSTOM: { icon: Lightbulb, color: "text-indigo-300", bg: "bg-indigo-500/15", border: "border-indigo-500/30" },
-  TRANSPORT_TIP: { icon: Footprints, color: "text-cyan-300", bg: "bg-cyan-500/15", border: "border-cyan-500/30" },
+  BEST_TIME: { icon: Clock, color: "text-emerald-700", bg: "bg-emerald-50", border: "border-emerald-200" },
+  AVOID_TIME: { icon: AlertTriangle, color: "text-rose-700", bg: "bg-rose-50", border: "border-rose-200" },
+  COST_REALITY: { icon: DollarSign, color: "text-[#780116]", bg: "bg-[#FDE8EC]", border: "border-pink-200" },
+  CROWD: { icon: Users, color: "text-blue-700", bg: "bg-blue-50", border: "border-blue-200" },
+  LOCAL_FOOD: { icon: Utensils, color: "text-amber-800", bg: "bg-[#FAF0DF]", border: "border-amber-200" },
+  TOURIST_MISTAKE: { icon: AlertTriangle, color: "text-rose-700", bg: "bg-rose-50", border: "border-rose-200" },
+  HIDDEN_GEM: { icon: Star, color: "text-[#780116]", bg: "bg-[#FAF0DF]", border: "border-amber-200" },
+  BETTER_ALTERNATIVE: { icon: MapPin, color: "text-indigo-700", bg: "bg-[#F0EEFA]", border: "border-indigo-200" },
+  SAFETY_NOTE: { icon: ShieldCheck, color: "text-red-700", bg: "bg-red-50", border: "border-red-200" },
+  WEATHER_CONTEXT: { icon: CloudRain, color: "text-blue-700", bg: "bg-blue-50", border: "border-blue-200" },
+  VALUE_FOR_MONEY: { icon: DollarSign, color: "text-emerald-700", bg: "bg-emerald-50", border: "border-emerald-200" },
+  LOCAL_EXPERIENCE: { icon: Lightbulb, color: "text-purple-700", bg: "bg-[#F0EEFA]", border: "border-purple-200" },
+  LOCAL_CUSTOM: { icon: Lightbulb, color: "text-indigo-700", bg: "bg-[#F0EEFA]", border: "border-indigo-200" },
+  TRANSPORT_TIP: { icon: Footprints, color: "text-teal-700", bg: "bg-teal-50", border: "border-teal-200" },
 };
 
 function InsightCard({ insight, onConfirm }: { insight: WomInsight; onConfirm?: (id: string, confirmed: boolean) => void }) {
@@ -28,96 +27,106 @@ function InsightCard({ insight, onConfirm }: { insight: WomInsight; onConfirm?: 
   const Icon = cfg.icon;
 
   return (
-    <div className={`p-5 rounded-2xl border ${cfg.border} ${cfg.bg} backdrop-blur-sm space-y-3`}>
+    <div className={`p-5 rounded-[1.75rem] border ${cfg.border} ${cfg.bg} space-y-3 shadow-sm hover:shadow-md transition-all`}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-2">
-          <div className={`p-2 rounded-xl bg-navy-950/50 ${cfg.color}`}><Icon size={16} /></div>
-          <span className={`text-[10px] font-extrabold uppercase tracking-widest ${cfg.color}`}>
+          <div className={`p-2 rounded-xl bg-white shadow-xs ${cfg.color}`}><Icon size={16} /></div>
+          <span className={`text-[10px] font-black uppercase tracking-widest ${cfg.color}`}>
             {getInsightTypeLabel(insight.type)}
           </span>
         </div>
-        <div className="flex items-center gap-1.5 text-[10px] text-slate-400">
+        <div className="flex items-center gap-1.5 text-[10px] text-slate-500 font-bold">
           <span>{getFreshnessEmoji(insight.freshness)}</span>
           <span>{insight.lastVerified}</span>
         </div>
       </div>
 
-      <h4 className="text-sm font-bold text-white leading-snug">{insight.title}</h4>
-      <p className="text-xs text-slate-300 leading-relaxed">{insight.content}</p>
+      <h4 className="text-sm font-extrabold text-[#150408] leading-snug">{insight.title}</h4>
+      <p className="text-xs text-slate-700 leading-relaxed font-normal">{insight.content}</p>
 
-      <div className="flex items-center justify-between pt-2 border-t border-white/10">
-        <button onClick={() => setShowEvidence(!showEvidence)} className="text-[10px] text-teal-400 font-bold flex items-center gap-1 hover:text-teal-300 transition-colors">
-          Why we say this {showEvidence ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
+      <div className="flex items-center justify-between pt-2 border-t border-black/5">
+        <button
+          onClick={() => setShowEvidence(!showEvidence)}
+          className="text-[10px] text-[#780116] font-bold flex items-center gap-1 hover:underline transition-colors"
+        >
+          Why we verify this {showEvidence ? <ChevronUp size={12} /> : <ChevronDown size={12} />}
         </button>
         {onConfirm && (
           <div className="flex items-center gap-2">
-            <button onClick={() => onConfirm(insight.id, true)} className="p-1.5 rounded-lg bg-white/5 hover:bg-emerald-500/20 text-slate-400 hover:text-emerald-400 transition-all" title="Confirm this insight">
+            <button onClick={() => onConfirm(insight.id, true)} className="p-1.5 rounded-lg bg-white hover:bg-emerald-100 text-slate-600 hover:text-emerald-700 transition-all" title="Confirm this insight">
               <ThumbsUp size={12} />
             </button>
-            <button onClick={() => onConfirm(insight.id, false)} className="p-1.5 rounded-lg bg-white/5 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 transition-all" title="This doesn't match my experience">
+            <button onClick={() => onConfirm(insight.id, false)} className="p-1.5 rounded-lg bg-white hover:bg-rose-100 text-slate-600 hover:text-rose-700 transition-all" title="This doesn't match my experience">
               <ThumbsDown size={12} />
             </button>
-            <span className="text-[10px] text-slate-500">{insight.confirmations} confirmed</span>
+            <span className="text-[10px] text-slate-500 font-semibold">{insight.confirmations} confirmed</span>
           </div>
         )}
       </div>
 
-      <AnimatePresence>
-        {showEvidence && (
-          <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
-            <div className="p-3 bg-navy-950/50 rounded-xl text-[11px] text-slate-400 space-y-1.5 mt-1">
-              <div className="font-bold text-teal-400 uppercase tracking-widest text-[10px]">Why We Say This</div>
-              <div>✓ {getConfidenceLabel(insight.confidence)}</div>
-              <div>✓ Source: {insight.sourceName}</div>
-              <div>✓ Confidence: {insight.confidenceScore}%</div>
-              {insight.confirmations > 0 && <div>✓ {insight.confirmations} traveler{insight.confirmations > 1 ? "s" : ""} confirmed</div>}
-              {insight.contradictions > 0 && <div className="text-amber-400">⚠ {insight.contradictions} report{insight.contradictions > 1 ? "s" : ""} disagree</div>}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {showEvidence && (
+        <div className="p-3 rounded-xl bg-white border border-black/5 text-[11px] text-slate-600 space-y-1.5 animate-in fade-in duration-200">
+          <div className="font-bold text-[#150408] flex items-center gap-1">
+            <ShieldCheck size={13} className="text-emerald-600" /> Evidence Basis:
+          </div>
+          <p>{insight.content}</p>
+          <div className="flex items-center gap-2 text-[10px] text-slate-400 pt-1">
+            <span>Confidence: <strong className="text-slate-700">{insight.confidenceScore}%</strong></span>
+            <span>•</span>
+            <span>Source: <strong className="text-slate-700">{insight.sourceName || insight.source}</strong></span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 export default function WhatLocalsKnow({ destination, insights }: { destination: string; insights: WomInsight[] }) {
-  const [expanded, setExpanded] = useState(false);
-  const visibleInsights = expanded ? insights : insights.slice(0, 4);
+  const [filter, setFilter] = useState<string>("ALL");
 
-  const handleConfirm = async (insightId: string, confirmed: boolean) => {
-    try {
-      await fetch("/api/word-of-mouth/confirm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ insightId, confirmed }),
-      });
-    } catch {}
-  };
+  const filterTypes = [
+    { id: "ALL", label: "All Insights" },
+    { id: "TIMING", label: "Timing & Crowds", types: ["BEST_TIME", "AVOID_TIME", "CROWD", "WEATHER_CONTEXT"] },
+    { id: "SECRETS", label: "Gems & Food", types: ["HIDDEN_GEM", "LOCAL_FOOD", "LOCAL_EXPERIENCE", "LOCAL_CUSTOM"] },
+    { id: "WARNINGS", label: "Avoid & Save", types: ["TOURIST_MISTAKE", "COST_REALITY", "SAFETY_NOTE", "BETTER_ALTERNATIVE", "TRANSPORT_TIP"] },
+  ];
 
-  if (!insights.length) return null;
+  const filtered = insights.filter((i) => {
+    if (filter === "ALL") return true;
+    const current = filterTypes.find((f) => f.id === filter);
+    return current?.types?.includes(i.type);
+  });
 
   return (
-    <section className="space-y-6">
-      <div className="flex items-center justify-between">
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h3 className="text-xl font-extrabold text-white flex items-center gap-2">
-            <Lightbulb size={20} className="text-amber-400" /> What Locals Know
-          </h3>
-          <p className="text-xs text-slate-400 mt-1">{insights.length} verified insights for {destination}</p>
+          <span className="text-xs font-black uppercase tracking-widest text-[#780116]">Community Truth</span>
+          <h3 className="text-xl md:text-2xl font-extrabold text-[#150408]">What Locals Know About {destination}</h3>
+        </div>
+
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 hide-scrollbar">
+          {filterTypes.map((f) => (
+            <button
+              key={f.id}
+              onClick={() => setFilter(f.id)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider whitespace-nowrap transition-all ${
+                filter === f.id
+                  ? "bg-[#780116] text-[#F7B538] shadow-sm"
+                  : "bg-white border border-[#780116]/10 text-slate-700 hover:bg-[#FAF0DF]"
+              }`}
+            >
+              {f.label}
+            </button>
+          ))}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {visibleInsights.map((insight) => (
-          <InsightCard key={insight.id} insight={insight} onConfirm={handleConfirm} />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filtered.map((insight) => (
+          <InsightCard key={insight.id} insight={insight} />
         ))}
       </div>
-
-      {insights.length > 4 && (
-        <button onClick={() => setExpanded(!expanded)} className="w-full py-3 rounded-xl bg-white/5 border border-white/10 text-sm font-bold text-teal-400 hover:bg-white/10 transition-colors">
-          {expanded ? "Show Less" : `Show All ${insights.length} Insights`}
-        </button>
-      )}
-    </section>
+    </div>
   );
 }

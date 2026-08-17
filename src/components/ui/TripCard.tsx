@@ -60,16 +60,15 @@ export default function TripCard({ trip, index = 0 }: TripCardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="bento-card relative w-full h-full group bg-white border border-[#780116]/10 rounded-[1.75rem] overflow-hidden flex flex-col justify-between"
+      className="bento-card-base bento-white p-0 relative w-full h-full group bg-white border border-[#780116]/10 rounded-[2rem] overflow-hidden flex flex-col justify-between shadow-md hover:shadow-xl transition-all duration-400"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <Link href={`/trips/${trip.slug}`} className="absolute inset-0 z-30 rounded-[1.75rem]" aria-label={`View ${trip.name} details`} />
+      <Link href={`/trips/${trip.slug}`} className="absolute inset-0 z-30 rounded-[2rem]" aria-label={`View ${trip.name} details`} />
 
       <motion.div style={{ transform }} className="flex flex-col h-full pointer-events-none">
-        {/* Image Container */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden">
-          <div className="absolute inset-0 bg-[#150408]/10" />
+        {/* Floating Top Image Frame */}
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
           <Image
             src={getAssetUrl(trip.imageUrl || "/images/trips-hero.png")}
             alt={trip.name}
@@ -77,28 +76,28 @@ export default function TripCard({ trip, index = 0 }: TripCardProps) {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#150408]/80 via-transparent to-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
           
-          {/* Top Category and Rating Badges */}
+          {/* Top Badges */}
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-            <span className="px-3.5 py-1 bg-[#780116]/90 backdrop-blur-md text-[#F7B538] border border-[#F7B538]/30 text-[11px] font-extrabold uppercase tracking-wider rounded-full shadow-md">
+            <span className="px-3.5 py-1 bg-white/95 backdrop-blur-md text-[#780116] border border-[#780116]/20 text-[10px] font-black uppercase tracking-wider rounded-full shadow-sm">
               {trip.category}
             </span>
             {trip.badge && (
-              <span className="px-3 py-1 bg-[#F7B538] text-[#150408] text-[10px] font-black uppercase tracking-wider rounded-full shadow-md">
+              <span className="px-3 py-1 bg-[#F7B538] text-[#150408] text-[9px] font-black uppercase tracking-wider rounded-full shadow-sm">
                 {trip.badge}
               </span>
             )}
           </div>
 
-          {/* Price Overlay Badge */}
+          {/* Floating Price Pill */}
           <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between z-10">
-            <div className="bg-[#150408]/90 backdrop-blur-md border border-[#F7B538]/40 text-white px-3.5 py-1.5 rounded-xl shadow-lg flex items-baseline gap-1.5">
-              <span className="text-[10px] font-bold text-[#F7B538] uppercase tracking-wider">From</span>
-              <span className="text-base font-extrabold text-white">{formatInr(trip.price)}</span>
+            <div className="bg-white/95 backdrop-blur-md border border-black/5 text-[#150408] px-3.5 py-1.5 rounded-xl shadow-md flex items-baseline gap-1.5">
+              <span className="text-[9px] font-black text-slate-500 uppercase">From</span>
+              <span className="text-base font-black text-[#150408]">{formatInr(trip.price)}</span>
             </div>
 
-            <div className="w-8 h-8 rounded-full bg-[#F7B538] text-[#150408] flex items-center justify-center shadow-lg group-hover:rotate-45 transition-transform duration-300">
+            <div className="w-8 h-8 rounded-full bg-[#780116] text-[#F7B538] flex items-center justify-center shadow-md group-hover:rotate-45 transition-transform duration-300">
               <ArrowUpRight size={16} strokeWidth={2.5} />
             </div>
           </div>
@@ -109,29 +108,29 @@ export default function TripCard({ trip, index = 0 }: TripCardProps) {
           <div>
             <div className="flex items-center gap-1.5 mb-2">
               <Star size={13} className="fill-[#F7B538] text-[#F7B538]" />
-              <span className="text-xs font-bold text-slate-700">{trip.rating}</span>
-              <span className="text-[11px] text-slate-400 font-medium">/ 5.0</span>
+              <span className="text-xs font-black text-[#150408]">{trip.rating}</span>
+              <span className="text-[10px] text-slate-400 font-semibold">/ 5.0</span>
             </div>
             
-            <h3 className="text-lg font-extrabold text-[#150408] mb-2 line-clamp-1 group-hover:text-[#780116] transition-colors">
+            <h3 className="text-lg font-extrabold text-[#150408] mb-1.5 line-clamp-1 group-hover:text-[#780116] transition-colors">
               {trip.name}
             </h3>
             
-            <p className="text-xs text-slate-500 mb-4 line-clamp-2 leading-relaxed">
+            <p className="text-xs text-slate-600 mb-4 line-clamp-2 leading-relaxed font-normal">
               {trip.tagline}
             </p>
           </div>
 
-          {/* Footer Metadata */}
-          <div className="flex items-center justify-between pt-4 border-t border-[#780116]/10 mt-auto">
-            <div className="flex items-center gap-4 text-xs font-semibold text-slate-600">
+          {/* Metadata Footer */}
+          <div className="flex items-center justify-between pt-4 border-t border-black/5 mt-auto">
+            <div className="flex items-center gap-4 text-xs font-bold text-slate-600">
               <div className="flex items-center gap-1.5">
-                <Clock size={14} className="text-[#780116]" />
+                <Clock size={13} className="text-[#780116]" />
                 <span>{trip.duration}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Users size={14} className="text-[#F7B538]" />
-                <span>Curated Group</span>
+                <Users size={13} className="text-[#D49018]" />
+                <span>6–12 Pax</span>
               </div>
             </div>
           </div>

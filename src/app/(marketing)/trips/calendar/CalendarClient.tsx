@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { LayoutGrid, CalendarDays, ChevronLeft, ChevronRight, Info } from "lucide-react";
+import { LayoutGrid, CalendarDays, ChevronLeft, ChevronRight, Info, Sparkles, Clock, Users } from "lucide-react";
 import { formatInr, getAssetUrl } from "@/lib/trips";
 
 export default function CalendarClient({ allDepartures }: { allDepartures: any[] }) {
@@ -58,35 +58,39 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
   const selectedDateObj = selectedDateStr ? new Date(selectedDateStr) : new Date();
 
   return (
-    <div className="bg-slate-50 min-h-screen pb-24">
+    <div className="bg-[#FBF9F5] min-h-screen pb-24 text-[#150408]">
       {/* Header */}
-      <div className="bg-navy-900 pt-36 md:pt-48 pb-24 px-6 relative overflow-hidden">
-        <div 
-          className="absolute inset-0 opacity-20 bg-cover bg-center mix-blend-overlay" 
-          style={{ backgroundImage: `url(${getAssetUrl('/images/trips-hero.png')})` }}
-        />
-        <div className="container-main relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Availability Calendar</h1>
-          <p className="text-teal-100 text-lg max-w-2xl mx-auto">
-            Plan your adventure by checking upcoming departure dates and real-time availability.
+      <section className="pt-36 pb-14 md:pt-44 md:pb-16 text-center px-4">
+        <div className="container-main max-w-4xl mx-auto">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF0DF] border border-[#F7B538]/40 text-xs font-black uppercase tracking-widest text-[#7E5105] mb-4">
+            <Sparkles size={14} className="text-[#D49018]" /> Live Departure Schedules
+          </span>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-[#150408] mb-3 leading-tight">
+            Expedition Availability Calendar
+          </h1>
+          <p className="font-script text-3xl text-[#780116] mb-4">
+            Plan ahead with real-time seat tracking
+          </p>
+          <p className="text-slate-600 text-sm md:text-base max-w-xl mx-auto font-medium">
+            Lock in your next adventure by checking exact confirmed departure dates and remaining seats.
           </p>
         </div>
-      </div>
+      </section>
 
       {/* Controls Bar */}
-      <div className="container-main relative -mt-8 z-20 mb-8">
-        <div className="bg-white rounded-2xl shadow-lg p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-slate-100">
+      <div className="container-main max-w-6xl mx-auto px-4 mb-8">
+        <div className="bg-white rounded-[2rem] shadow-lg p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-[#780116]/10">
           
           {/* Categories */}
-          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 hide-scrollbar">
+          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 hide-scrollbar">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
-                className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-colors ${
+                className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider whitespace-nowrap transition-all ${
                   category === cat
-                    ? "bg-navy-900 text-white shadow-md"
-                    : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    ? "bg-[#780116] text-[#F7B538] shadow-sm"
+                    : "bg-[#FBF9F5] border border-slate-200 text-slate-700 hover:bg-[#FAF0DF]"
                 }`}
               >
                 {cat}
@@ -94,15 +98,22 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
             ))}
           </div>
 
-          {/* View Toggles */}
-          <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
-            <div className="flex bg-slate-100 p-1 rounded-xl">
-              <Link href="/trips" className="px-3 py-1.5 rounded-lg flex items-center gap-2 text-slate-500 hover:text-navy-900 font-medium text-sm transition-colors">
-                <LayoutGrid size={16} />
+          {/* Month Pagination & Switcher */}
+          <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+            <div className="flex items-center gap-2 bg-[#FBF9F5] px-3 py-1.5 rounded-full border border-black/5">
+              <span className="font-extrabold text-xs text-[#150408]">{monthName}</span>
+            </div>
+
+            <div className="flex bg-[#FBF9F5] p-1 rounded-2xl border border-black/5 shrink-0">
+              <Link
+                href="/trips"
+                className="px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 text-slate-600 hover:text-[#780116] font-bold text-xs uppercase tracking-wider transition-colors no-underline"
+              >
+                <LayoutGrid size={14} />
                 <span className="hidden sm:inline">Grid</span>
               </Link>
-              <div className="px-3 py-1.5 bg-white shadow-sm rounded-lg flex items-center gap-2 text-navy-900 font-medium text-sm">
-                <CalendarDays size={16} />
+              <div className="px-3.5 py-1.5 bg-[#780116] text-[#F7B538] shadow-xs rounded-xl flex items-center gap-1.5 font-black text-xs uppercase tracking-wider">
+                <CalendarDays size={14} />
                 <span className="hidden sm:inline">Calendar</span>
               </div>
             </div>
@@ -110,160 +121,91 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="container-main">
-        <div className="flex flex-col lg:flex-row gap-8">
-          
-          {/* Calendar Grid Area */}
-          <div className="flex-1 card-elevated p-6 bg-white border border-slate-200 shadow-sm rounded-2xl overflow-hidden flex flex-col">
-            
-            {/* Calendar Header */}
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-4">
-                <h2 className="text-2xl font-bold text-navy-900">{monthName}</h2>
-                <span className="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-bold uppercase tracking-wider rounded-full cursor-pointer hover:bg-slate-200">
-                  Jump to Today
-                </span>
+      {/* Main Calendar & Details Bento Layout */}
+      <div className="container-main max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Calendar Grid */}
+        <div className="lg:col-span-2 bg-white rounded-[2rem] p-6 md:p-8 border border-[#780116]/10 shadow-lg">
+          <div className="grid grid-cols-7 gap-2 mb-3 text-center">
+            {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
+              <div key={day} className="text-[11px] font-black uppercase text-slate-400 py-1">
+                {day}
               </div>
-              
-              <div className="flex items-center gap-2">
-                <button className="p-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600">
-                  <ChevronLeft size={20} />
-                </button>
-                <button className="p-2 border border-slate-200 rounded-lg hover:bg-slate-50 text-slate-600">
-                  <ChevronRight size={20} />
-                </button>
-              </div>
-            </div>
+            ))}
+          </div>
 
-            {/* Legend */}
-            <div className="flex items-center gap-6 mb-6 px-2 text-sm font-medium text-slate-600">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-success"></div> Open
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-warning"></div> Filling Fast
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-danger"></div> &lt; 3 Seats Left
-              </div>
-            </div>
+          <div className="grid grid-cols-7 gap-2">
+            {blanks.map((b) => (
+              <div key={`blank-${b}`} className="aspect-square rounded-2xl bg-[#FBF9F5]/40" />
+            ))}
+            {days.map((day) => {
+              const dayStr = `${targetMonth.getFullYear()}-${String(targetMonth.getMonth() + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+              const dayDepartures = departuresByDate[dayStr] || [];
+              const isSelected = selectedDateStr === dayStr;
+              const hasDeps = dayDepartures.length > 0;
 
-            {/* Calendar Grid */}
-            <div className="flex-1 min-h-[500px]">
-              <div className="grid grid-cols-7 mb-2">
-                {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
-                  <div key={day} className="text-center text-xs font-bold text-slate-400 uppercase tracking-wider py-2">
-                    {day}
+              return (
+                <button
+                  key={day}
+                  onClick={() => hasDeps && setSelectedDateStr(dayStr)}
+                  disabled={!hasDeps}
+                  className={`aspect-square rounded-2xl p-2 flex flex-col justify-between items-center transition-all ${
+                    isSelected
+                      ? "bg-[#780116] text-[#F7B538] shadow-md scale-105"
+                      : hasDeps
+                      ? "bg-[#FDE8EC] hover:bg-[#FAF0DF] border border-pink-200 text-[#150408] cursor-pointer"
+                      : "bg-[#FBF9F5] text-slate-300 opacity-60 cursor-not-allowed"
+                  }`}
+                >
+                  <span className="text-xs font-black">{day}</span>
+                  {hasDeps && (
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#F7B538]" />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Selected Day Departures Detail Card */}
+        <div className="bg-white rounded-[2rem] p-6 md:p-8 border border-[#780116]/10 shadow-lg flex flex-col justify-between">
+          <div>
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#780116]">Selected Date</span>
+            <h3 className="text-xl font-extrabold text-[#150408] mb-4">
+              {selectedDateObj.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+            </h3>
+
+            {selectedDepartures.length === 0 ? (
+              <div className="p-6 rounded-2xl bg-[#FBF9F5] text-center text-xs text-slate-500 border border-black/5">
+                No departures scheduled for this specific date. Select a highlighted date on the calendar.
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {selectedDepartures.map((dep: any) => (
+                  <div key={dep.id} className="p-4 rounded-2xl bg-[#FAF0DF] border border-amber-200 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black uppercase text-[#780116]">{dep.trip.category}</span>
+                      <span className="text-xs font-black text-emerald-700 bg-white px-2.5 py-0.5 rounded-full shadow-xs">
+                        {dep.seatsLeft} Seats Open
+                      </span>
+                    </div>
+                    <h4 className="text-sm font-extrabold text-[#150408]">{dep.trip.name}</h4>
+                    <div className="flex items-center justify-between text-xs pt-2 border-t border-amber-200/60 font-bold">
+                      <span className="text-[#150408]">{formatInr(dep.trip.price)}</span>
+                      <Link href={`/trips/${dep.trip.slug}`} className="text-[#780116] hover:underline">
+                        View Trip →
+                      </Link>
+                    </div>
                   </div>
                 ))}
               </div>
-              
-              <div className="grid grid-cols-7 gap-px bg-slate-200 border border-slate-200 rounded-xl overflow-hidden">
-                {blanks.map(b => (
-                  <div key={`blank-${b}`} className="bg-slate-50 min-h-[100px]" />
-                ))}
-                
-                {days.map(d => {
-                  const dateStr = `${targetMonth.getFullYear()}-${String(targetMonth.getMonth() + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-                  const hasDepartures = !!departuresByDate[dateStr];
-                  const isSelected = dateStr === selectedDateStr;
-                  
-                  return (
-                    <div 
-                      key={d} 
-                      onClick={() => setSelectedDateStr(dateStr)}
-                      className={`bg-white min-h-[100px] p-2 transition-colors cursor-pointer border-2 ${
-                        isSelected ? "border-teal-500 bg-teal-50/30" : "border-transparent hover:bg-slate-50"
-                      }`}
-                    >
-                      <div className={`text-sm font-semibold w-7 h-7 flex items-center justify-center rounded-full mb-2 ${
-                        isSelected ? "bg-teal-500 text-white" : "text-slate-700"
-                      }`}>
-                        {d}
-                      </div>
-                      
-                      {hasDepartures && (
-                        <div className="flex flex-col gap-2">
-                          {departuresByDate[dateStr].slice(0, 3).map((dep: any, i: number) => {
-                            let dotColor = "bg-success";
-                            if (dep.status === "Filling Fast") dotColor = "bg-warning";
-                            if (dep.status === "Almost Full") dotColor = "bg-danger";
-                            
-                            return (
-                              <div key={i} className="flex items-center gap-2 px-2 py-1 rounded bg-slate-50 border border-slate-100 overflow-hidden">
-                                <div className={`w-2 h-2 rounded-full shrink-0 ${dotColor}`} />
-                                <span className="text-[10px] font-medium text-slate-700 truncate">{dep.trip.name}</span>
-                              </div>
-                            );
-                          })}
-                          {departuresByDate[dateStr].length > 3 && (
-                            <div className="text-[10px] font-bold text-slate-400 text-center mt-1">
-                              +{departuresByDate[dateStr].length - 3} more
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-            
-            <div className="mt-6 flex items-start gap-2 p-4 bg-blue-50/50 rounded-xl text-sm text-slate-600">
-              <Info size={16} className="text-info shrink-0 mt-0.5" />
-              <p>All times are shown in local regional time. Contact our support team if you require assistance with connecting travel arrangements.</p>
-            </div>
+            )}
           </div>
 
-          {/* Sidebar Area */}
-          <div className="w-full lg:w-[400px] shrink-0">
-            <div className="sticky top-[calc(var(--nav-height)+2rem)]">
-              <h3 className="text-xl font-bold text-navy-900 mb-6">
-                Departures on {selectedDateObj?.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-              </h3>
-              
-              <div className="space-y-4">
-                {selectedDepartures.length > 0 ? (
-                  selectedDepartures.map((dep: any) => (
-                    <div key={dep.id} className="card-elevated bg-white rounded-2xl overflow-hidden border border-slate-200">
-                      <div className="flex items-stretch h-28">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img 
-                          src={getAssetUrl(dep.trip.imageUrl || "/images/places/ooty.png")} 
-                          alt={dep.trip.name}
-                          className="w-1/3 object-cover"
-                        />
-                        <div className="w-2/3 p-4 flex flex-col justify-center">
-                          <div className="text-xs font-bold text-teal-600 uppercase tracking-wider mb-1">{dep.time}</div>
-                          <h4 className="font-bold text-navy-900 truncate mb-1" title={dep.trip.name}>{dep.trip.name}</h4>
-                          <div className="flex items-center justify-between mt-auto">
-                            <span className="font-bold text-navy-900">{formatInr(dep.trip.price)}</span>
-                            <span className={`text-xs font-semibold ${
-                              dep.status === "Almost Full" ? "text-danger" : 
-                              dep.status === "Filling Fast" ? "text-warning" : "text-slate-500"
-                            }`}>
-                              {dep.seatsLeft} seats left
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="p-3 border-t border-slate-100 bg-slate-50">
-                        <Link href={`/trips/${dep.trip.slug}`} className="btn-primary w-full py-2 text-sm">
-                          View Trip Details
-                        </Link>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 border-dashed">
-                    <p className="text-slate-500">No scheduled departures for this date matching your filters.</p>
-                  </div>
-                )}
-              </div>
-            </div>
+          <div className="pt-6 border-t border-black/5 mt-6">
+            <Link href="/trips" className="btn-primary w-full text-center block no-underline">
+              Browse All Trips
+            </Link>
           </div>
-          
         </div>
       </div>
     </div>

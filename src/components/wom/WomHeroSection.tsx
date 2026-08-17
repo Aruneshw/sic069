@@ -3,44 +3,74 @@
 import { motion } from "framer-motion";
 import { MessageCircle, Sparkles, Users, ShieldCheck, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { BentoCard } from "@/components/ui/BentoGrid";
 
 export default function WomHeroSection() {
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-navy-950 via-navy-900 to-navy-950" />
-      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-teal-500/8 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-indigo-500/6 rounded-full blur-[80px] pointer-events-none" />
-
-      <div className="container-main relative z-10 max-w-4xl mx-auto text-center">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/15 border border-teal-500/25 text-xs font-bold text-teal-300 uppercase tracking-widest mb-6">
+    <section className="py-20 md:py-24 relative overflow-hidden bg-[#FBF9F5] border-t border-[#780116]/10 px-4 md:px-8">
+      <div className="container-main max-w-5xl mx-auto text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FDE8EC] border border-[#780116]/20 text-xs font-black text-[#780116] uppercase tracking-widest mb-4">
             <Users size={14} /> Word-of-Mouth Intelligence
           </div>
 
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-[#150408] leading-tight mb-2">
             Ask Someone Who&apos;s{" "}
-            <span className="bg-gradient-to-r from-teal-300 to-teal-500 bg-clip-text text-transparent">Been There.</span>
+            <span className="font-script text-4xl md:text-6xl text-[#780116]">
+              Actually Been There.
+            </span>
           </h2>
 
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Travel advice is everywhere. <span className="text-white font-semibold">Good travel advice isn&apos;t.</span>{" "}
+          <p className="text-base md:text-lg text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed font-normal">
+            Travel advice is everywhere. <strong className="text-[#150408] font-bold">Good travel advice isn&apos;t.</strong>{" "}
             Get verified local knowledge, honest reality checks, and what experienced travelers actually recommend.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-            <Link href="/ask-local" className="px-8 py-4 bg-gradient-to-r from-teal-400 to-teal-500 text-navy-950 rounded-xl font-bold text-sm flex items-center gap-2 shadow-lg shadow-teal-500/25 hover:shadow-teal-500/40 transition-shadow">
-              <MessageCircle size={18} /> Ask a Local <ArrowRight size={16} />
-            </Link>
-            <Link href="/escape" className="px-8 py-4 bg-white/5 border border-white/15 text-white rounded-xl font-bold text-sm flex items-center gap-2 hover:bg-white/10 transition-colors">
-              <Sparkles size={18} /> Find My Escape
-            </Link>
+          {/* Givingli Bento Quick Action Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10 text-left max-w-3xl mx-auto">
+            <BentoCard
+              variant="blush"
+              title="Ask a Verified Local"
+              description="Get unfiltered answers to 'Where do locals eat?', 'What should I avoid?', and best secret vantage points."
+            >
+              <div className="mt-4 pt-4 border-t border-pink-200/60 flex items-center justify-between">
+                <span className="text-xs font-black uppercase tracking-wider text-[#780116]">Instant Answers</span>
+                <Link
+                  href="/ask-local"
+                  className="px-5 py-2.5 rounded-full bg-[#780116] text-white text-xs font-extrabold flex items-center gap-1.5 shadow-md no-underline"
+                >
+                  <MessageCircle size={14} /> Ask Now <ArrowRight size={14} />
+                </Link>
+              </div>
+            </BentoCard>
+
+            <BentoCard
+              variant="champagne"
+              title="Intelligent Escape"
+              description="Tell us how you want to feel (Peace, Adventure, Freedom) and let our algorithm match your exact Travel DNA."
+            >
+              <div className="mt-4 pt-4 border-t border-amber-200/60 flex items-center justify-between">
+                <span className="text-xs font-black uppercase tracking-wider text-[#7E5105]">Intuition Engine</span>
+                <Link
+                  href="/escape"
+                  className="px-5 py-2.5 rounded-full bg-[#F7B538] text-[#150408] text-xs font-black flex items-center gap-1.5 shadow-md no-underline"
+                >
+                  <Sparkles size={14} /> Find Escape <ArrowRight size={14} />
+                </Link>
+              </div>
+            </BentoCard>
           </div>
 
           {/* Trust Indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500">
-            <div className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-emerald-400" /> Verified local knowledge</div>
-            <div className="flex items-center gap-1.5"><Users size={14} className="text-teal-400" /> Real traveler experiences</div>
-            <div className="flex items-center gap-1.5"><Sparkles size={14} className="text-amber-400" /> No hallucinated facts</div>
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 font-medium">
+            <div className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-[#10B981]" /> Verified local knowledge</div>
+            <div className="flex items-center gap-1.5"><Users size={14} className="text-[#780116]" /> Real traveler experiences</div>
+            <div className="flex items-center gap-1.5"><Sparkles size={14} className="text-[#D49018]" /> Zero hallucinated facts</div>
           </div>
         </motion.div>
       </div>
