@@ -55,20 +55,20 @@ export default function AccountSidebar() {
 
   return (
     <aside className="w-full md:w-64 lg:w-72 shrink-0">
-      <div className="card-elevated bg-white p-6 rounded-2xl border border-slate-200 sticky top-[calc(var(--nav-height)+2rem)] shadow-sm">
+      <div className="bg-white p-6 rounded-[2rem] border border-[#780116]/12 sticky top-[calc(var(--nav-height)+2rem)] shadow-xl">
         {/* Profile Header */}
-        <div className="flex items-center gap-4 pb-6 mb-6 border-b border-slate-100">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-navy-800 to-teal-500 flex items-center justify-center text-white text-lg font-bold shadow-md shrink-0 border-2 border-white">
+        <div className="flex items-center gap-4 pb-6 mb-6 border-b border-[#780116]/10">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#780116] to-[#4A000E] border border-[#F7B538]/40 flex items-center justify-center text-[#F7B538] text-base font-extrabold shadow-md shrink-0">
             {initials}
           </div>
           <div className="min-w-0 flex-1">
-            <h2 className="font-bold text-navy-900 truncate">{fullName}</h2>
+            <h2 className="font-extrabold text-[#150408] truncate text-sm">{fullName}</h2>
             <div className="flex items-center gap-2 mt-0.5">
               <span
-                className={`text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+                className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
                   isAdmin
-                    ? "bg-teal-500/10 text-teal-700 border border-teal-500/30"
-                    : "bg-slate-100 text-slate-600"
+                    ? "bg-[#F7B538]/20 text-[#780116] border border-[#F7B538]/50"
+                    : "bg-[#FAF3E7] text-slate-600"
                 }`}
               >
                 {isAdmin ? "Admin Operator" : "Explorer"}
@@ -82,24 +82,24 @@ export default function AccountSidebar() {
           <div className="mb-4">
             <Link
               href="/admin"
-              className="flex items-center justify-between p-3.5 rounded-xl bg-gradient-to-r from-navy-900 to-navy-950 text-white shadow-md hover:shadow-teal-500/20 hover:border-teal-500/40 border border-white/10 transition-all no-underline group"
+              className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-[#780116] via-[#600112] to-[#4A000E] text-white shadow-md hover:shadow-[#780116]/30 border border-[#F7B538]/40 transition-all no-underline group"
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-teal-500/20 border border-teal-500/40 flex items-center justify-center text-teal-300 group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-xl bg-[#F7B538]/20 border border-[#F7B538]/40 flex items-center justify-center text-[#F7B538] group-hover:scale-105 transition-transform">
                   <ShieldCheck size={18} />
                 </div>
                 <div>
-                  <p className="text-xs font-extrabold text-white leading-tight">Admin Portal</p>
-                  <p className="text-[10px] text-teal-300/80 leading-tight">Command Center</p>
+                  <p className="text-xs font-black text-[#F7B538] leading-tight">Admin Command</p>
+                  <p className="text-[10px] text-slate-200 leading-tight">Package & Trip CMS</p>
                 </div>
               </div>
-              <ChevronRight size={16} className="text-teal-400 group-hover:translate-x-1 transition-transform" />
+              <ChevronRight size={16} className="text-[#F7B538] group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         )}
 
-        {/* Navigation Links */}
-        <nav className="flex flex-col gap-1">
+        {/* Nav Links */}
+        <nav className="space-y-1">
           {accountLinks.map((link) => {
             const Icon = link.icon;
             const isActive = pathname === link.href;
@@ -107,43 +107,33 @@ export default function AccountSidebar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`flex items-center justify-between p-3 rounded-xl transition-colors no-underline group ${
+                className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all no-underline ${
                   isActive
-                    ? "bg-teal-50 text-teal-900 font-bold border border-teal-100"
-                    : "text-slate-600 hover:bg-slate-50 hover:text-navy-900 font-medium"
+                    ? "bg-[#780116] text-[#F7B538] shadow-sm"
+                    : "text-slate-600 hover:bg-[#FAF3E7] hover:text-[#780116]"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <Icon
-                    size={18}
-                    className={isActive ? "text-teal-600" : "text-slate-400 group-hover:text-teal-600 transition-colors"}
-                  />
-                  <span className="text-sm">{link.label}</span>
+                  <Icon size={16} className={isActive ? "text-[#F7B538]" : "text-slate-400"} />
+                  <span>{link.label}</span>
                 </div>
-                <ChevronRight
-                  size={16}
-                  className={`transition-all ${
-                    isActive
-                      ? "text-teal-600 opacity-100"
-                      : "text-slate-300 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0"
-                  }`}
-                />
+                {isActive && <div className="w-1.5 h-1.5 rounded-full bg-[#F7B538]" />}
               </Link>
             );
           })}
         </nav>
 
-        {/* Logout */}
-        <div className="mt-6 pt-4 border-t border-slate-100">
+        {/* Sign Out */}
+        <div className="pt-6 mt-6 border-t border-[#780116]/10">
           <button
             onClick={async () => {
               await supabase.auth.signOut();
               window.location.href = "/login";
             }}
-            className="w-full flex items-center gap-2.5 p-3 rounded-xl text-sm font-bold text-danger hover:bg-danger-50 transition-colors"
+            className="w-full flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold text-[#780116] hover:bg-[#780116]/10 transition-colors"
           >
             <LogOut size={16} />
-            Sign Out
+            <span>Sign Out</span>
           </button>
         </div>
       </div>

@@ -1,30 +1,38 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins, Allura } from "next/font/google";
 import AuthGuard from "@/components/auth/AuthGuard";
 import AIChatbot from "@/components/ui/AIChatbot";
 import "./globals.css";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-poppins",
+});
+
+const allura = Allura({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  variable: "--font-allura",
 });
 
 export const metadata: Metadata = {
-  title: "Zero Gravity Tours — Regional Expeditions",
-  description: "Transparent group sizes, clear inclusions, and live schedules for budget travellers.",
+  title: "Zero Gravity Tours — The Art of Curated Expeditions",
+  description: "Bespoke regional journeys, transparent group sizes, and live schedules for discerning explorers.",
   keywords: [
-    "regional tours",
-    "budget travel",
-    "guided expeditions",
-    "travel transparently",
+    "luxury regional tours",
+    "budget expeditions",
+    "curated travel",
+    "transparent travel",
     "zero gravity tours",
   ],
   openGraph: {
-    title: "Zero Gravity Tours",
-    description: "Your next journey is calling.",
+    title: "Zero Gravity Tours — Curated Expeditions",
+    description: "Life is not meant to be in one place. Discover bespoke regional journeys.",
     url: "https://zerogravitytours.com",
-    siteName: "Zero Gravity",
+    siteName: "Zero Gravity Tours",
     images: [
       {
         url: "/images/og-image.jpg",
@@ -45,8 +53,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="font-sans antialiased">
+    <html lang="en" className={`${poppins.variable} ${allura.variable}`}>
+      <body className="font-sans antialiased selection:bg-[#F7B538]/30 selection:text-[#780116]">
         <SmoothAnimationEngine>
           <AuthGuard>{children}</AuthGuard>
           <AIChatbot />

@@ -11,10 +11,10 @@ import Link from "next/link";
 import { formatInr } from "@/lib/trips";
 
 const FEELINGS = [
-  { id: "Escape", label: "I NEED TO ESCAPE", icon: Compass, color: "from-teal-400 to-emerald-500" },
-  { id: "Peace", label: "I NEED PEACE", icon: ShieldCheck, color: "from-sky-400 to-indigo-500" },
-  { id: "Adventure", label: "I WANT ADVENTURE", icon: Zap, color: "from-amber-400 to-orange-500" },
-  { id: "Spontaneous", label: "SURPRISE ME", icon: Sparkles, color: "from-fuchsia-400 to-pink-500" },
+  { id: "Escape", label: "I NEED TO ESCAPE", icon: Compass, color: "from-[#F7B538] to-[#D49018]" },
+  { id: "Peace", label: "I NEED PEACE", icon: ShieldCheck, color: "from-[#FAF3E7] to-[#F5E8D3]" },
+  { id: "Adventure", label: "I WANT ADVENTURE", icon: Zap, color: "from-[#780116] to-[#4A000E]" },
+  { id: "Spontaneous", label: "SURPRISE ME", icon: Sparkles, color: "from-[#F7B538] to-[#780116]" },
 ];
 
 export default function EscapeEngineSection({ initialPackages = [] }: { initialPackages?: any[] }) {
@@ -24,8 +24,6 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
   const [isRevealed, setIsRevealed] = useState(false);
   const [rejectionItem, setRejectionItem] = useState<any>(null);
   const [guideTripName, setGuideTripName] = useState<string | null>(null);
-
-  const activeFeelingObj = FEELINGS.find((f) => f.id === selectedFeeling) || FEELINGS[0];
 
   const handleFeelingSelect = (id: string) => {
     setSelectedFeeling(id);
@@ -42,29 +40,30 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
   const surprisePackage = initialPackages[0] || { name: "Hidden Valley Trek", bundlePrice: 6499, tierBadge: "HIGH-ALTITUDE", duration: "3 Days" };
 
   return (
-    <section className="py-20 relative overflow-hidden bg-navy-950 text-white">
+    <section className="py-24 relative overflow-hidden bg-[#0B0204] text-white">
       {/* Glow ambient background matching design DNA */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-500/10 rounded-full filter blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#780116]/25 rounded-full filter blur-[140px] pointer-events-none" />
+      <div className="absolute top-10 right-10 w-[400px] h-[400px] bg-[#F7B538]/10 rounded-full filter blur-[120px] pointer-events-none" />
 
       <div className="container-main relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-500/10 border border-teal-500/30 text-teal-300 text-xs font-bold uppercase tracking-widest mb-4">
-            <Sparkles size={14} className="text-teal-400" /> Intelligent Escape Engine
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-[#F7B538]/30 text-[#F7B538] text-xs font-black uppercase tracking-widest mb-4 backdrop-blur-md">
+            <Sparkles size={14} className="text-[#F7B538]" /> Intelligent Escape Engine
           </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-            You don't have to know where to go.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-emerald-400 to-teal-200">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-3">
+            You don&apos;t have to know where to go.<br />
+            <span className="font-script text-4xl md:text-5xl text-[#F7B538]">
               Just tell us how you want to feel.
             </span>
           </h2>
-          <p className="text-slate-400 text-lg font-light">
+          <p className="text-slate-300 text-sm md:text-base font-light max-w-xl mx-auto">
             Zero Gravity matches your travel intuition with curated micro-expeditions using your Travel DNA.
           </p>
         </div>
 
         {/* Feeling Pills selector */}
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex flex-wrap justify-center gap-3 mb-14">
           {FEELINGS.map((f) => {
             const Icon = f.icon;
             const isSelected = selectedFeeling === f.id;
@@ -72,13 +71,13 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
               <button
                 key={f.id}
                 onClick={() => handleFeelingSelect(f.id)}
-                className={`flex items-center gap-2.5 px-6 py-3.5 rounded-2xl font-bold text-sm transition-all border ${
+                className={`flex items-center gap-2.5 px-6 py-3 rounded-full font-black text-xs uppercase tracking-wider transition-all border ${
                   isSelected
-                    ? `bg-gradient-to-r ${f.color} text-navy-950 border-white/40 shadow-glow-cta scale-105`
-                    : "bg-navy-900/90 border-white/10 text-slate-300 hover:bg-navy-800"
+                    ? `bg-gradient-to-r ${f.color} ${f.id === 'Adventure' ? 'text-white' : 'text-[#150408]'} border-[#F7B538] shadow-lg shadow-[#F7B538]/20 scale-105`
+                    : "bg-[#150408] border-white/10 text-slate-300 hover:bg-[#1F070C] hover:border-[#F7B538]/30"
                 }`}
               >
-                <Icon size={18} />
+                <Icon size={16} />
                 <span>{f.label}</span>
               </button>
             );
@@ -87,45 +86,45 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
 
         {/* Surprise Mode ("Don't Tell Me Where") */}
         {isSurpriseMode ? (
-          <div className="max-w-xl mx-auto glass-panel p-8 rounded-3xl border border-fuchsia-500/30 text-center space-y-6 shadow-2xl relative overflow-hidden">
-            <div className="text-xs font-bold text-fuchsia-400 uppercase tracking-widest flex items-center justify-center gap-2">
+          <div className="max-w-xl mx-auto p-8 rounded-[2.5rem] bg-[#150408] border border-[#F7B538]/40 text-center space-y-6 shadow-2xl relative overflow-hidden">
+            <div className="text-xs font-extrabold text-[#F7B538] uppercase tracking-widest flex items-center justify-center gap-2">
               <HelpCircle size={16} /> Mystery Escape Mode Activated
             </div>
 
             {!isRevealed ? (
               <div className="py-8 space-y-4">
-                <div className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-300 tracking-wider">
-                  CLASSIFIED DESTINATION
+                <div className="text-3xl md:text-4xl font-black text-white tracking-wider">
+                  CLASSIFIED EXPEDITION
                 </div>
-                <div className="flex justify-center gap-6 text-sm text-slate-300">
-                  <span>Terrain: <strong className="text-white">{surprisePackage.tierBadge || "Mountain"}</strong></span>
+                <div className="flex justify-center gap-6 text-xs text-slate-300">
+                  <span>Terrain: <strong className="text-[#F7B538]">{surprisePackage.tierBadge || "Mountain"}</strong></span>
                   <span>Duration: <strong className="text-white">{surprisePackage.duration || "3 Days"}</strong></span>
-                  <span>Est: <strong className="text-emerald-400">{formatInr(surprisePackage.bundlePrice || 6499)}</strong></span>
+                  <span>Est: <strong className="text-[#F7B538]">{formatInr(surprisePackage.bundlePrice || 6499)}</strong></span>
                 </div>
                 <button
                   onClick={() => setIsRevealed(true)}
-                  className="mt-6 px-8 py-4 bg-gradient-to-r from-fuchsia-400 to-pink-500 text-navy-950 font-black rounded-2xl text-base uppercase tracking-widest shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto"
+                  className="mt-6 px-8 py-3.5 bg-gradient-to-r from-[#F7B538] to-[#D49018] text-[#150408] font-black rounded-full text-xs uppercase tracking-widest shadow-lg hover:scale-105 transition-all flex items-center justify-center gap-2 mx-auto"
                 >
-                  <Eye size={20} /> Reveal My Escape
+                  <Eye size={18} /> Reveal My Escape
                 </button>
               </div>
             ) : (
               <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="py-4 space-y-4">
-                <span className="px-3 py-1 bg-emerald-500/20 text-emerald-300 rounded-full text-xs font-bold border border-emerald-500/40">
-                  94% YOU MATCH FOUND
+                <span className="px-3.5 py-1 bg-[#F7B538]/20 text-[#F7B538] rounded-full text-xs font-black uppercase tracking-wider border border-[#F7B538]/40">
+                  94% COMPATIBILITY MATCH
                 </span>
-                <h3 className="text-3xl font-extrabold text-white">{surprisePackage.name}</h3>
-                <p className="text-slate-300 text-sm">{surprisePackage.tagline || surprisePackage.description}</p>
+                <h3 className="text-2xl md:text-3xl font-extrabold text-white">{surprisePackage.name}</h3>
+                <p className="text-slate-300 text-xs">{surprisePackage.tagline || surprisePackage.description}</p>
                 <div className="pt-4 flex justify-center gap-4">
                   <Link
-                    href={`/packages`}
-                    className="px-6 py-3 bg-gradient-to-r from-teal-400 to-teal-500 text-navy-950 font-bold rounded-xl text-sm shadow-glow-cta"
+                    href="/packages"
+                    className="px-6 py-2.5 bg-gradient-to-r from-[#F7B538] to-[#D49018] text-[#150408] font-black rounded-full text-xs uppercase tracking-wider shadow-lg no-underline"
                   >
-                    View Escape Details
+                    View Expedition
                   </Link>
                   <button
                     onClick={() => setIsRevealed(false)}
-                    className="px-6 py-3 bg-white/10 text-slate-300 font-bold rounded-xl text-sm hover:bg-white/20"
+                    className="px-6 py-2.5 bg-white/10 text-slate-300 font-bold rounded-full text-xs uppercase hover:bg-white/20"
                   >
                     Hide
                   </button>
@@ -134,25 +133,25 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
             )}
           </div>
         ) : (
-          /* Normal Escape Grid with "YOU %" Compatibility Badges */
+          /* Normal Escape Bento Grid */
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {topMatches.map((pkg: any) => (
               <div
                 key={pkg.id}
-                className="group glass-panel rounded-3xl overflow-hidden border border-white/10 hover:border-teal-400/40 transition-all duration-300 hover:-translate-y-1 shadow-xl flex flex-col"
+                className="bento-card bento-card-dark rounded-[2rem] overflow-hidden border border-[#F7B538]/20 hover:border-[#F7B538]/60 transition-all duration-300 shadow-xl flex flex-col justify-between"
               >
                 {/* Image & Badge Overlay */}
-                <div className="relative h-48 overflow-hidden bg-navy-900">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                <div className="relative h-48 overflow-hidden bg-[#150408]">
                   <img
                     src={pkg.imageUrl || "/images/packages/hidden-valley-trek.jpeg"}
                     alt={pkg.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0B0204]/90 via-transparent to-transparent" />
                   <div className="absolute top-4 left-4">
                     <CompatibilityBadge item={pkg} onRejectClick={() => setRejectionItem(pkg)} />
                   </div>
-                  <div className="absolute bottom-4 right-4 bg-navy-950/80 backdrop-blur-md px-3 py-1 rounded-full text-xs font-mono font-extrabold text-emerald-400 border border-emerald-500/30">
+                  <div className="absolute bottom-4 right-4 bg-[#0B0204]/90 backdrop-blur-md px-3.5 py-1 rounded-xl text-xs font-black text-[#F7B538] border border-[#F7B538]/30">
                     {formatInr(pkg.bundlePrice)}
                   </div>
                 </div>
@@ -160,21 +159,21 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
                 {/* Content */}
                 <div className="p-6 flex-1 flex flex-col justify-between">
                   <div>
-                    <div className="text-xs font-bold text-teal-400 uppercase tracking-widest mb-1">{pkg.tierBadge}</div>
-                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors">{pkg.name}</h3>
-                    <p className="text-xs text-slate-400 line-clamp-2 mb-4 leading-relaxed">{pkg.description}</p>
+                    <div className="text-[10px] font-black text-[#F7B538] uppercase tracking-widest mb-1">{pkg.tierBadge}</div>
+                    <h3 className="text-lg font-extrabold text-white mb-2 group-hover:text-[#F7B538] transition-colors">{pkg.name}</h3>
+                    <p className="text-xs text-slate-300 line-clamp-2 mb-4 leading-relaxed font-light">{pkg.description}</p>
                   </div>
 
                   <div className="pt-4 border-t border-white/10 flex items-center justify-between">
                     <button
                       onClick={() => setGuideTripName(pkg.name)}
-                      className="text-xs font-bold text-teal-300 hover:text-teal-200 flex items-center gap-1"
+                      className="text-xs font-bold text-[#F7B538] hover:text-[#F9C862] flex items-center gap-1.5"
                     >
                       <Compass size={14} /> Local Secrets
                     </button>
                     <Link
                       href="/packages"
-                      className="text-xs font-bold text-white bg-white/10 hover:bg-teal-500 hover:text-navy-950 px-3.5 py-1.5 rounded-xl transition-all flex items-center gap-1"
+                      className="text-xs font-black uppercase tracking-wider text-[#150408] bg-[#F7B538] hover:bg-[#F9C862] px-4 py-1.5 rounded-full transition-all flex items-center gap-1 no-underline"
                     >
                       Explore <ChevronRight size={14} />
                     </Link>
@@ -189,9 +188,9 @@ export default function EscapeEngineSection({ initialPackages = [] }: { initialP
         <div className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-4">
           <button
             onClick={openOnboarding}
-            className="px-6 py-3.5 bg-white/10 border border-white/20 text-white font-bold rounded-2xl text-sm hover:bg-white/20 transition-all flex items-center gap-2"
+            className="px-6 py-3 bg-white/10 border border-[#F7B538]/30 text-white font-bold rounded-full text-xs uppercase tracking-wider hover:bg-white/20 transition-all flex items-center gap-2"
           >
-            <Sparkles size={16} className="text-teal-400" /> Recalibrate Travel DNA
+            <Sparkles size={16} className="text-[#F7B538]" /> Recalibrate Travel DNA
           </button>
         </div>
       </div>

@@ -1,18 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import { getAssetUrl } from "@/lib/trips";
-import { Award, Globe, Users, Target, Shield, HeartHandshake, Phone, Mail, MapPin } from "lucide-react";
+import { Award, Globe, Users, Target, Shield, HeartHandshake, Phone, Mail, MapPin, Sparkles, CheckCircle2 } from "lucide-react";
 import WaveDivider from "@/components/ui/WaveDivider";
 import RunningLetters from "@/components/ui/RunningLetters";
 import ContactForm from "@/components/forms/ContactForm";
+import { BentoGrid, BentoCard } from "@/components/ui/BentoGrid";
 
 export default function AboutPage() {
   return (
-    <div className="bg-white min-h-screen pb-24">
+    <div className="bg-[#FFFDF9] min-h-screen pb-24">
       {/* ═══════════════════════════════════════
-          MISSION & STATS (page-05.png)
+          MISSION HERO & BENTO METRICS
           ═══════════════════════════════════════ */}
-      <section className="pt-36 pb-20 md:pt-48 md:pb-24 px-6 relative overflow-hidden bg-navy-900 text-white group">
+      <section className="pt-40 pb-24 md:pt-48 md:pb-28 px-6 relative overflow-hidden bg-gradient-to-br from-[#150408] via-[#330009] to-[#780116] text-white">
         <video 
           autoPlay 
           loop 
@@ -20,200 +21,219 @@ export default function AboutPage() {
           playsInline 
           preload="metadata"
           poster={getAssetUrl("/videos/hovering_zoom_vid-poster.webp")}
-          className="absolute inset-0 w-full h-full object-cover z-0 opacity-40 transition-transform duration-1000 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover z-0 opacity-30"
         >
           <source src={getAssetUrl("/videos/hovering_zoom_vid.mp4")} type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-navy-900/40 z-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#150408] via-transparent to-black/30 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#F7B538]/15 rounded-full blur-[130px] pointer-events-none" />
         
         <div className="container-main relative z-10">
           <div className="max-w-3xl mb-16">
-            <span className="inline-block px-4 py-2 bg-teal-500/20 text-teal-200 font-bold uppercase tracking-wider rounded-full mb-6 text-sm border border-teal-500/30 backdrop-blur-md">
-              Our Mission
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 text-[#F7B538] font-black uppercase tracking-widest rounded-full mb-6 text-xs border border-[#F7B538]/40 backdrop-blur-md">
+              <Sparkles size={14} /> Our Creed & Heritage
             </span>
             <RunningLetters
               as="h1"
-              text="Radical Transparency for Budget Travellers."
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-md"
+              text="Radical Transparency for Every Wanderer"
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight drop-shadow-xl"
             />
-            <p className="text-xl text-slate-200 leading-relaxed drop-shadow-sm opacity-90">
-              We believe that budget travellers deserve better than broken links, hidden fees, and waiting on email replies to find out if a trip is running. Since our founding, we've been committed to providing clear inclusions, live group sizes, and instant schedules so you can plan with confidence.
+            <p className="font-script text-3xl text-[#F7B538] mb-6">
+              Travel designed with uncompromising honesty
+            </p>
+            <p className="text-base md:text-lg text-slate-200 leading-relaxed drop-shadow-sm font-normal">
+              We founded Zero Gravity Tours out of frustration with broken booking systems, hidden charges, and opaque schedules. We provide live departures, deterministic seat caps, and comprehensive inclusions so you can explore the globe with absolute clarity.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 border-t border-b border-white/10 py-12">
-            <div className="text-center p-4">
-              <div className="text-4xl font-bold text-teal-300 mb-2">12+</div>
-              <div className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Years Active</div>
+          {/* Stats Bento Strip */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 border-t border-white/15 pt-10">
+            <div className="p-6 rounded-[2rem] bg-white/[0.05] border border-white/10 text-center">
+              <div className="text-3xl md:text-4xl font-black text-[#F7B538] mb-1">12+</div>
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-slate-300">Years of Expeditions</div>
             </div>
-            <div className="text-center p-4 border-l border-white/10">
-              <div className="text-4xl font-bold text-teal-300 mb-2">45k</div>
-              <div className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Happy Travelers</div>
+            <div className="p-6 rounded-[2rem] bg-white/[0.05] border border-white/10 text-center">
+              <div className="text-3xl md:text-4xl font-black text-[#F7B538] mb-1">45k+</div>
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-slate-300">Explorers Guided</div>
             </div>
-            <div className="text-center p-4 md:border-l border-white/10">
-              <div className="text-4xl font-bold text-teal-300 mb-2">18</div>
-              <div className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Industry Awards</div>
+            <div className="p-6 rounded-[2rem] bg-white/[0.05] border border-white/10 text-center">
+              <div className="text-3xl md:text-4xl font-black text-[#F7B538] mb-1">18</div>
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-slate-300">Heritage Awards</div>
             </div>
-            <div className="text-center p-4 border-l border-white/10">
-              <div className="text-4xl font-bold text-teal-300 mb-2">120+</div>
-              <div className="text-sm font-semibold text-slate-300 uppercase tracking-wider">Regional Tours</div>
+            <div className="p-6 rounded-[2rem] bg-white/[0.05] border border-white/10 text-center">
+              <div className="text-3xl md:text-4xl font-black text-[#F7B538] mb-1">120+</div>
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-slate-300">Active Routes</div>
             </div>
           </div>
         </div>
-        <WaveDivider className="text-slate-50" />
+        <WaveDivider className="text-[#FFFDF9]" />
       </section>
 
       {/* ═══════════════════════════════════════
-          FOUNDER SECTION (page-09.png)
+          FOUNDER ESSAY & EDITORIAL STORY
           ═══════════════════════════════════════ */}
-      <section className="relative pt-20 pb-20 bg-slate-50 overflow-hidden">
+      <section className="relative pt-20 pb-24 bg-[#FFFDF9] overflow-hidden">
         <div className="container-main">
-          <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-24">
+          <div className="flex flex-col md:flex-row items-center gap-12 lg:gap-20">
+            
+            {/* Founder Portrait */}
             <div className="w-full md:w-5/12 relative">
-              <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl relative z-10">
-                <div className="absolute inset-0 bg-slate-200 animate-pulse" />
+              <div className="aspect-[3/4] rounded-[2.5rem] overflow-hidden shadow-2xl relative z-10 border border-[#780116]/20">
                 <Image 
                   src={getAssetUrl("/images/about/founder_new.png")} 
                   alt="Marcus Vance, Founder" 
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
                   priority
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="object-cover"
                 />
               </div>
-              {/* Decorative elements */}
-              <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-teal-100 rounded-full mix-blend-multiply opacity-50 blur-xl z-0" />
-              <div className="absolute -top-6 -right-6 w-48 h-48 bg-navy-100 rounded-full mix-blend-multiply opacity-50 blur-xl z-0" />
+              <div className="absolute -bottom-6 -left-6 w-52 h-52 bg-[#F7B538]/20 rounded-full blur-2xl z-0" />
+              <div className="absolute -top-6 -right-6 w-52 h-52 bg-[#780116]/15 rounded-full blur-2xl z-0" />
             </div>
             
+            {/* Editorial Content */}
             <div className="w-full md:w-7/12">
-              <h2 className="text-3xl md:text-4xl font-bold text-navy-900 mb-6">A word from our founder</h2>
-              <p className="text-lg text-slate-600 mb-6 leading-relaxed">
-                "When I started Zero Gravity Tours, I was tired of the opaque booking systems that budget travellers have to endure every day. Relying on outdated word-of-mouth recommendations and waiting days for a travel agent to reply with a schedule just wasn't good enough."
-              </p>
-              <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                "We built this platform to fix that. We show you exactly when our trips run, how many seats are open, and what every cent goes towards. It's time to replace the guesswork with a system you can actually rely on."
+              <span className="text-xs font-black uppercase tracking-widest text-[#780116] bg-[#780116]/10 px-4 py-1.5 rounded-full border border-[#780116]/20 inline-block mb-3">
+                Letter from the Founder
+              </span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[#150408] mb-4">
+                Why We Built Zero Gravity
+              </h2>
+              <p className="font-script text-2xl text-[#D49018] mb-6">
+                &ldquo;Every explorer deserves truth before the trek.&rdquo;
               </p>
               
-              <div className="flex items-center gap-4">
+              <div className="space-y-4 text-slate-700 text-sm md:text-base leading-relaxed">
+                <p>
+                  &ldquo;When I started Zero Gravity Tours over a decade ago, travel booking was fraught with uncertainty. Budget explorers were subjected to opaque pricing, endless waiting for agent replies, and surprise costs waiting at the basecamp.&rdquo;
+                </p>
+                <p>
+                  &ldquo;We architected this platform to change travel culture. We show you exact live departure windows, exact seat occupancies, and every single inclusion upfront. When you step onto the trail with us, your focus remains purely on the majesty of the horizon.&rdquo;
+                </p>
+              </div>
+              
+              <div className="mt-8 pt-6 border-t border-[#780116]/15 flex items-center justify-between">
                 <div>
-                  <h4 className="font-bold text-navy-900 text-lg">Marcus Vance</h4>
-                  <p className="text-slate-500 font-medium">Founder & Chief Explorer</p>
+                  <h4 className="font-extrabold text-[#150408] text-lg">Marcus Vance</h4>
+                  <p className="text-xs font-bold text-[#780116] uppercase tracking-wider">Founder & Chief Route Designer</p>
                 </div>
-                {/* Signature graphic could go here */}
+                <div className="font-script text-3xl text-[#F7B538] font-bold">
+                  Marcus Vance
+                </div>
               </div>
             </div>
+
           </div>
         </div>
-        <WaveDivider className="text-white" />
       </section>
 
       {/* ═══════════════════════════════════════
-          GALLERY (page-05.png / page-09.png)
+          VALUES BENTO GRID
           ═══════════════════════════════════════ */}
-      <section className="relative pt-16 pb-32">
-        <div className="container-main mb-12 text-center">
-          <h2 className="text-3xl font-bold text-navy-900 mb-4">Capturing the Unforgettable</h2>
-          <p className="text-slate-600 max-w-2xl mx-auto">Moments of awe, challenge, and triumph from our recent expeditions.</p>
-        </div>
-        
-        {/* Simple masonry grid representation */}
-        <div className="container-main grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="col-span-2 row-span-2 rounded-2xl overflow-hidden aspect-square relative group">
-            <img src={getAssetUrl("/images/places/guna_cave.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-          <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src={getAssetUrl("/images/places/alapuzha.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-          <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src={getAssetUrl("/images/places/ooty.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-          <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src={getAssetUrl("/images/places/monkey_falls.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-          <div className="rounded-2xl overflow-hidden aspect-square relative group">
-            <img src={getAssetUrl("/images/places/hogennakal.png")} alt="Gallery" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-          </div>
-        </div>
-        <WaveDivider className="text-navy-900" />
-      </section>
-
-      {/* ═══════════════════════════════════════
-          CONTACT FORM & FAQ (page-09.png)
-          ═══════════════════════════════════════ */}
-      <section id="contact" className="py-24 bg-navy-900 text-white relative">
+      <section className="relative pt-12 pb-24 bg-[#FAF3E7] border-y border-[#780116]/10">
         <div className="container-main">
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <span className="text-xs font-black uppercase tracking-widest text-[#780116] bg-white px-4 py-1.5 rounded-full border border-[#780116]/20 inline-block mb-2">
+              Our Core Pillars
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#150408]">The Zero Gravity Standard</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <BentoCard variant="light" colSpan={1} headerBadge="Principle I">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-[#780116] text-[#F7B538] flex items-center justify-center font-bold">
+                  <Shield size={24} />
+                </div>
+                <h3 className="text-lg font-extrabold text-[#150408]">100% Inclusions Verified</h3>
+                <p className="text-xs text-slate-600 leading-relaxed">
+                  Every permit, homestay, porterage fee, and gourmet meal is locked before departure. No hidden trail add-ons.
+                </p>
+              </div>
+            </BentoCard>
+
+            <BentoCard variant="gold" colSpan={1} headerBadge="Principle II">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-white text-[#780116] flex items-center justify-center font-bold shadow-md">
+                  <Users size={24} />
+                </div>
+                <h3 className="text-lg font-extrabold text-[#150408]">Intimate Group Sizes</h3>
+                <p className="text-xs text-slate-700 leading-relaxed">
+                  Capped strictly at 6–12 travelers to preserve local ecology, tranquility, and genuine social connection.
+                </p>
+              </div>
+            </BentoCard>
+
+            <BentoCard variant="crimson" colSpan={1} headerBadge="Principle III">
+              <div className="space-y-3">
+                <div className="w-12 h-12 rounded-2xl bg-[#F7B538] text-[#150408] flex items-center justify-center font-bold">
+                  <HeartHandshake size={24} />
+                </div>
+                <h3 className="text-lg font-extrabold text-white">Local-First Stewardship</h3>
+                <p className="text-xs text-slate-200 leading-relaxed">
+                  We employ certified native mountain and coastal guides, investing 85%+ of tour logistics directly into regional communities.
+                </p>
+              </div>
+            </BentoCard>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════
+          CONTACT & DISPATCH CONCIERGE
+          ═══════════════════════════════════════ */}
+      <section id="contact" className="py-24 bg-[#150408] text-white relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#780116]/30 rounded-full blur-[140px] pointer-events-none" />
+
+        <div className="container-main relative z-10">
           <div className="flex flex-col lg:flex-row gap-16">
             
             {/* Contact Form */}
             <div className="w-full lg:w-1/2">
-              <h2 className="text-3xl font-bold mb-8">Get in Touch</h2>
-              <div className="kodplay-glow-card glow-indigo glow-dark w-full group">
-                <span></span>
-                <div className="kodplay-content p-8">
-                  <ContactForm />
-                </div>
+              <span className="font-script text-3xl text-[#F7B538] block mb-2">Speak with a Route Specialist</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold mb-8">Direct Concierge Enquiry</h2>
+              <div className="p-8 rounded-[2rem] bg-[#0B0204] border border-[#F7B538]/25 shadow-2xl">
+                <ContactForm />
               </div>
             </div>
 
-            {/* Contact Info & FAQ */}
+            {/* HQ Info & FAQ */}
             <div className="w-full lg:w-1/2 flex flex-col justify-between">
               <div>
-                <h3 className="text-xl font-bold mb-6">Global Headquarters</h3>
+                <h3 className="text-lg font-black uppercase tracking-widest text-[#F7B538] mb-6">Global Operations Command</h3>
                 <div className="space-y-4 mb-12">
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 bg-white/10 rounded-lg shrink-0">
-                      <MapPin size={20} className="text-teal-400" />
+                  <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.04] border border-white/10">
+                    <div className="p-2.5 bg-[#780116] rounded-xl text-[#F7B538] shrink-0 border border-[#F7B538]/30">
+                      <MapPin size={20} />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">Sydney, AU</h4>
-                      <p className="text-slate-400 text-sm">Level 12, Explorer Building<br/>100 Adventure Way, Sydney NSW 2000</p>
+                      <h4 className="font-bold text-white text-sm">Sydney, AU — Central Dispatch</h4>
+                      <p className="text-slate-300 text-xs mt-0.5">Level 12, Explorer Tower, 100 Adventure Way</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 bg-white/10 rounded-lg shrink-0">
-                      <Phone size={20} className="text-teal-400" />
+                  <div className="flex items-start gap-4 p-4 rounded-2xl bg-white/[0.04] border border-white/10">
+                    <div className="p-2.5 bg-[#780116] rounded-xl text-[#F7B538] shrink-0 border border-[#F7B538]/30">
+                      <Mail size={20} />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-white">Phone</h4>
-                      <p className="text-slate-400 text-sm">+61 2 8000 1234<br/>Mon-Fri, 9am - 6pm AEST</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 bg-white/10 rounded-lg shrink-0">
-                      <Mail size={20} className="text-teal-400" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-white">Email</h4>
-                      <p className="text-slate-400 text-sm">hello@zerogravitytours.com<br/>Expect a reply within 24h</p>
+                      <h4 className="font-bold text-white text-sm">Direct Expeditions Desk</h4>
+                      <p className="text-slate-300 text-xs mt-0.5">concierge@zerogravitytours.com (Under 2h response)</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div id="faq" className="mt-auto">
-                <h3 className="text-xl font-bold mb-6">Frequently Asked Questions</h3>
-                <div className="space-y-6">
-                  <div className="kodplay-glow-card glow-teal glow-dark w-full group">
-                    <span></span>
-                    <div className="kodplay-content p-4">
-                      <h4 className="font-bold text-white mb-2">Are flights included?</h4>
-                      <p className="text-sm text-slate-300">Unless specifically stated in the itinerary, international and domestic flights are not included in the tour price.</p>
-                    </div>
+                <h3 className="text-lg font-black uppercase tracking-widest text-[#F7B538] mb-4">Frequently Asked Questions</h3>
+                <div className="space-y-3">
+                  <div className="p-4 rounded-2xl bg-[#0B0204] border border-white/10">
+                    <h4 className="font-bold text-white text-xs mb-1">How are group sizes strictly maintained?</h4>
+                    <p className="text-[11px] text-slate-300">Our database locks departures the exact moment the maximum limit (6–12 seats) is reached.</p>
                   </div>
-                  <div className="kodplay-glow-card glow-blue glow-dark w-full group">
-                    <span></span>
-                    <div className="kodplay-content p-4">
-                      <h4 className="font-bold text-white mb-2">What is the cancellation policy?</h4>
-                      <p className="text-sm text-slate-300">Full refund up to 60 days before departure. 50% refund between 30-60 days. No refund within 30 days.</p>
-                    </div>
-                  </div>
-                  <div className="kodplay-glow-card glow-purple glow-dark w-full group">
-                    <span></span>
-                    <div className="kodplay-content p-4">
-                      <h4 className="font-bold text-white mb-2">How fit do I need to be?</h4>
-                      <p className="text-sm text-slate-300">Each tour has a physical rating from 1 (Relaxed) to 5 (Challenging). Please check the specific requirements on the trip page.</p>
-                    </div>
+                  <div className="p-4 rounded-2xl bg-[#0B0204] border border-white/10">
+                    <h4 className="font-bold text-white text-xs mb-1">What is your cancellation commitment?</h4>
+                    <p className="text-[11px] text-slate-300">100% full refund up to 45 days before departure, zero questions asked.</p>
                   </div>
                 </div>
               </div>
