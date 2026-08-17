@@ -1,7 +1,13 @@
 /* ═══════════════════════════════════════════════════════════
-   ZERO GRAVITY TOURS — LUXURY SLIDING AUTH CARD
+   ZERO GRAVITY TOURS — DIAGONAL SLIDING AUTH CARD
    Palette: Golden Amber (#F7B538) & Regal Crimson Velvet (#780116)
+   Reference: Iron.coding animated login form
    ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --color-primary: #780116;
+  --color-accent: #F7B538;
+}
 
 .auth-container {
   min-height: 100vh;
@@ -9,42 +15,39 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+  background-color: #0B0204;
   font-family: inherit;
   position: relative;
   overflow: hidden;
-  background-color: #0B0204;
 }
 
-.auth-card {
+.card {
   position: relative;
   overflow: hidden;
   width: 860px;
   max-width: 100%;
-  min-height: 560px;
+  height: 560px;
   border-radius: 32px;
   background: rgba(21, 4, 8, 0.85);
   backdrop-filter: blur(30px) saturate(1.4);
   -webkit-backdrop-filter: blur(30px) saturate(1.4);
   border: 1px solid rgba(247, 181, 56, 0.25);
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9),
-              0 0 50px rgba(120, 1, 22, 0.35);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 50px rgba(120, 1, 22, 0.35);
+  z-index: 10;
 }
 
-/* ── Sliding Hero Graphic Background ── */
+/* Diagonal sliding backgrounds */
 .card-bg {
   position: absolute;
   z-index: 2;
-  top: 8px;
-  left: 8px;
-  bottom: 8px;
-  width: calc(50% - 8px);
-  border-radius: 26px;
-  overflow: hidden;
+  top: -100px;
+  bottom: -100px;
+  left: 0;
+  width: 860px;
+  rotate: -45deg;
+  transition: 0.6s cubic-bezier(0.77, 0, 0.175, 1);
   background: linear-gradient(135deg, #780116 0%, #4A000E 60%, #150408 100%);
-  border: 1px solid rgba(247, 181, 56, 0.35);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 25px rgba(247, 181, 56, 0.2);
-  translate: 0 0;
-  transition: 0.65s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 .card-bg::before {
@@ -57,178 +60,138 @@
   pointer-events: none;
 }
 
-.card-bg.login {
-  translate: 100% 0;
+/* Initial state (Sign In view) */
+.card-bg-1 {
+  translate: -250px 0;
 }
 
-/* ── Hero & Form Base Transitions ── */
-.hero, .auth-form-panel {
+.card-bg-2 {
+  translate: 600px 0;
+}
+
+/* Active state (Sign Up view) */
+.card-bg-1.signup {
+  translate: -550px 0;
+}
+
+.card-bg-2.signup {
+  translate: 280px 0;
+}
+
+/* Logos */
+.logo {
   position: absolute;
-  width: 50%;
-  height: 100%;
+  top: 40px;
+  z-index: 4;
+  height: 60px;
+  width: 60px;
+  transition: 0.6s cubic-bezier(0.77, 0, 0.175, 1);
   opacity: 0;
-  visibility: hidden;
-  transition: 0.65s cubic-bezier(0.77, 0, 0.175, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
 }
 
-.hero.active, .auth-form-panel.active {
+.logo-1 {
+  translate: -120px 0;
+  left: 40px;
+  opacity: 1; /* Default visible on signin side */
+}
+
+.logo-2 {
+  translate: 120px 0;
+  right: 40px;
+  opacity: 0; /* Hidden initially */
+}
+
+.logo-1.signup {
+  translate: -200px 0;
+  opacity: 0;
+}
+
+.logo-2.signup {
+  translate: 0 0;
   opacity: 1;
-  visibility: visible;
 }
 
-/* ── Form Positions ── */
-.auth-form-panel.register {
-  left: 50%;
-  translate: -100% 0;
-}
-
-.auth-form-panel.register.active {
-  translate: 0 0;
-}
-
-.auth-form-panel.login {
-  left: 0;
-  translate: 100% 0;
-}
-
-.auth-form-panel.login.active {
-  translate: 0 0;
-}
-
-/* ── Hero Positions ── */
-.hero.login {
-  left: 50%;
-  translate: 100% 0;
-}
-
-.hero.login.active {
-  translate: 0 0;
-}
-
-.hero.register {
-  left: 0;
-  translate: -100% 0;
-}
-
-.hero.register.active {
-  translate: 0 0;
-}
-
-/* ── Hero Panel Content Styling ── */
-.hero {
+/* Form Wrappers */
+.form {
+  position: absolute;
   z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  color: #FFFFFF;
-  text-align: center;
-  padding: 0 40px;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  display: grid;
+  place-items: center;
 }
 
-.hero h2 {
-  font-size: 1.85rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #ffffff;
-  margin: 0;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+.form.signin {
+  left: 0;
+  pointer-events: all;
 }
 
-.hero p {
-  margin: 0 0 8px;
-  font-size: 0.92rem;
-  color: rgba(255, 253, 249, 0.9);
-  line-height: 1.55;
-  font-weight: 400;
+.form.signup {
+  right: 0;
+  pointer-events: none;
 }
 
-.hero button {
-  padding: 13px 44px;
-  border-radius: 9999px;
-  letter-spacing: 0.12em;
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  color: #150408;
-  border: 1.5px solid rgba(247, 181, 56, 0.8);
-  background: #F7B538;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(247, 181, 56, 0.3);
+.form.signin.signup {
+  pointer-events: none;
 }
 
-.hero button:hover {
-  background: #F9C862;
-  box-shadow: 0 0 30px rgba(247, 181, 56, 0.6);
-  transform: translateY(-2px);
+.form.signup.signup {
+  pointer-events: all;
 }
 
-/* ── Form Panel Content Styling ── */
-.auth-form-panel {
-  background: transparent;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
+.form-content {
+  width: 100%;
   padding: 40px;
-}
-
-.auth-form-panel h2 {
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin: 0;
-  letter-spacing: -0.02em;
-}
-
-.auth-form-panel p.subtext {
-  font-size: 0.8rem;
-  color: #94a3b8;
-  margin: 2px 0 6px;
-}
-
-/* ── Social SSO Buttons ── */
-.sso {
   display: flex;
+  flex-direction: column;
   align-items: center;
   gap: 12px;
-  margin: 2px 0;
 }
 
-.sso-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(247, 181, 56, 0.2);
-  color: #cbd5e1;
-  transition: all 0.25s ease;
-  cursor: pointer;
+.form-content h2 {
+  text-align: center;
+  font-weight: 800;
+  font-size: 1.85rem;
+  color: #ffffff;
+  margin-bottom: 2px;
+  font-family: var(--font-poppins);
 }
 
-.sso-btn:hover {
-  background: rgba(247, 181, 56, 0.15);
-  border-color: #F7B538;
-  color: #F7B538;
-  transform: translateY(-2px);
-  box-shadow: 0 0 15px rgba(247, 181, 56, 0.25);
-}
-
-/* ── Form Input Fields ── */
-.auth-form-content {
-  width: 100%;
+.form form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  width: 100%;
+  opacity: 1;
+  transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
+/* Form Animations */
+.form.signin.signup form {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.form.signup form {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+.form.signup.signup form {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Inputs */
 .auth-input-group {
   position: relative;
   width: 100%;
@@ -244,11 +207,11 @@
   color: #ffffff;
   outline: none;
   transition: all 0.25s ease;
+  font-family: var(--font-poppins);
 }
 
 .auth-input::placeholder {
   color: #64748b;
-  font-size: 0.82rem;
 }
 
 .auth-input:focus {
@@ -276,6 +239,7 @@
   justify-content: center;
   gap: 8px;
   margin-top: 4px;
+  font-family: var(--font-poppins);
 }
 
 .auth-submit-btn:hover {
@@ -290,6 +254,35 @@
   transform: none;
 }
 
+/* Links & Text */
+.form a.toggle-link {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 10px;
+  text-decoration: none;
+  transition: 0.2s;
+  font-family: var(--font-poppins);
+}
+
+.form a.toggle-link:hover {
+  color: #fff;
+}
+
+.form a.toggle-link em {
+  display: block;
+  font-style: normal;
+  font-size: 16px;
+  color: #F7B538;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
 .forgot-link {
   font-size: 0.78rem;
   color: #94a3b8;
@@ -298,46 +291,84 @@
   transition: color 0.2s;
   cursor: pointer;
   align-self: flex-end;
+  font-family: var(--font-poppins);
 }
 
 .forgot-link:hover {
   color: #F7B538;
 }
 
-/* ── Mobile Responsive Overrides ── */
+.subtext {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 4px 0 8px;
+  font-family: var(--font-poppins);
+  text-align: center;
+}
+
+/* SSO Buttons */
+.sso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 2px 0 10px;
+  justify-content: center;
+}
+
+.sso-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(247, 181, 56, 0.2);
+  color: #cbd5e1;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.sso-btn:hover {
+  background: rgba(247, 181, 56, 0.15);
+  border-color: #F7B538;
+  color: #F7B538;
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px rgba(247, 181, 56, 0.25);
+}
+
+/* Mobile Adjustments */
 @media (max-width: 768px) {
-  .auth-card {
-    min-height: auto;
+  .card {
+    height: auto;
     width: 100%;
     border-radius: 28px;
+    display: flex;
+    flex-direction: column;
   }
   
-  .card-bg, .hero {
+  .card-bg, .logo {
     display: none;
   }
   
-  .auth-form-panel {
+  .form {
     position: relative;
     width: 100%;
     height: auto;
     opacity: 1 !important;
-    visibility: visible !important;
-    translate: 0 0 !important;
-    padding: 32px 24px;
+    pointer-events: all !important;
   }
 
-  .auth-form-panel.register {
-    left: 0;
+  .form.signin, .form.signup {
+    display: none;
   }
   
-  .mobile-toggle-btn {
-    display: block;
-    margin-top: 12px;
-    font-size: 0.8rem;
-    color: #F7B538;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
+  .form.signin:not(.signup), .form.signup.signup {
+    display: grid;
+  }
+  
+  .form form {
+    transform: none !important;
+    opacity: 1 !important;
   }
 }

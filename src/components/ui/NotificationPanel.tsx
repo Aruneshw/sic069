@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Bell, Tag, AlertTriangle, Info, Map, CheckCircle2 } from "lucide-react";
+import { X, Bell, Tag, AlertTriangle, Info, Map, CheckCircle2, Loader2 } from "lucide-react";
 import { useAppStore } from "@/store/useAppStore";
+import toast from "react-hot-toast";
 
 type NotificationType = "SEAT_ALERT" | "PRICE_DROP" | "NEW_TRIP" | "SYSTEM_UPDATE";
 
@@ -13,46 +14,10 @@ interface Notification {
   title: string;
   message: string;
   isRead: boolean;
-  createdAt: string; // ISO string for client
+  createdAt: string; // ISO string
 }
 
-// Stable mock timestamps (avoid Date.now() at module load — causes SSR/client drift)
-const mockNotifications: Notification[] = [
-  {
-    id: "1",
-    type: "SEAT_ALERT",
-    title: "Seat Alert",
-    message: "Only 2 seats left on Coastal Highway Escape. Secure your spot before it's gone!",
-    isRead: false,
-    createdAt: "2026-07-20T18:20:00.000Z",
-  },
-  {
-    id: "2",
-    type: "PRICE_DROP",
-    title: "Price Drop",
-    message: "Flash sale! The Alpine Summit tour price just dropped by 15% for June bookings.",
-    isRead: false,
-    createdAt: "2026-07-20T17:22:00.000Z",
-  },
-  {
-    id: "3",
-    type: "NEW_TRIP",
-    title: "New Trip",
-    message: "Just added: Midnight Sun Expedition. Explore the Arctic Circle in luxury.",
-    isRead: false,
-    createdAt: "2026-07-20T15:22:00.000Z",
-  },
-  {
-    id: "4",
-    type: "SYSTEM_UPDATE",
-    title: "System Update",
-    message: "Your profile was successfully updated. Check out your new personalized recommendations.",
-    isRead: true,
-    createdAt: "2026-07-19T18:22:00.000Z",
-  },
-];
-
-const getIconForType = (type: NotificationType) => {
+const getIconForType = (type: string) => {
   switch (type) {
     case "SEAT_ALERT":
       return <AlertTriangle size={18} className="text-warning" />;
@@ -79,20 +44,71 @@ const getRelativeTime = (dateString: string) => {
 
 export default function NotificationPanel() {
   const { isNotificationPanelOpen, closeNotificationPanel, setUnreadCount } = useAppStore();
-  const [notifications, setNotifications] = useState<Notification[]>(mockNotifications);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [loading, setLoading] = useState(false);
 
+  // Fetch notifications from our API route
+  const fetchNotifications = useCallback(async () => {
+    if (!isNotificationPanelOpen) return;
+    
+    try {
+      setLoading(true);
+      const res = await fetch("/api/notifications");
+      if (!res.ok) throw new Error("Failed to fetch notifications");
+      const data = await res.json();
+      setNotifications(data || []);
+    } catch (err: any) {
+      console.error(err);
+      toast.error("Failed to load notifications");
+    } finally {
+      setLoading(false);
+    }
+  }, [isNotificationPanelOpen]);
+
+  // Initial load when panel opens
   useEffect(() => {
-    // Update unread count in global store based on local state
+    fetchNotifications();
+  }, [fetchNotifications]);
+
+  // Sync unread count to global store whenever notifications change
+  useEffect(() => {
     const unread = notifications.filter((n) => !n.isRead).length;
     setUnreadCount(unread);
   }, [notifications, setUnreadCount]);
 
-  const markAllAsRead = () => {
+  const markAllAsRead = async () => {
+    // Optimistic UI update
     setNotifications(notifications.map(n => ({ ...n, isRead: true })));
+    
+    try {
+      await fetch("/api/notifications", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ markAll: true }),
+      });
+    } catch (err) {
+      console.error("Failed to mark all as read");
+      fetchNotifications(); // revert on failure
+    }
   };
 
-  const markAsRead = (id: string) => {
+  const markAsRead = async (id: string) => {
+    const target = notifications.find(n => n.id === id);
+    if (!target || target.isRead) return;
+
+    // Optimistic UI update
     setNotifications(notifications.map(n => n.id === id ? { ...n, isRead: true } : n));
+    
+    try {
+      await fetch("/api/notifications", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+    } catch (err) {
+      console.error("Failed to mark as read");
+      fetchNotifications(); // revert on failure
+    }
   };
 
   return (
@@ -141,7 +157,8 @@ export default function NotificationPanel() {
               </span>
               <button 
                 onClick={markAllAsRead}
-                className="flex items-center gap-2 text-sm font-medium text-teal-600 hover:text-teal-700 transition-colors"
+                className="flex items-center gap-2 text-sm font-medium text-teal-600 hover:text-teal-700 transition-colors disabled:opacity-50"
+                disabled={notifications.filter(n => !n.isRead).length === 0}
               >
                 <CheckCircle2 size={16} />
                 Mark all as read
@@ -149,39 +166,51 @@ export default function NotificationPanel() {
             </div>
 
             {/* List */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
-              {notifications.map((notification) => (
-                <div
-                  key={notification.id}
-                  onClick={() => markAsRead(notification.id)}
-                  className={`p-4 rounded-xl border transition-all cursor-pointer ${
-                    notification.isRead 
-                      ? "bg-white border-slate-100" 
-                      : "bg-teal-50/30 border-teal-100 shadow-sm"
-                  }`}
-                >
-                  <div className="flex gap-4">
-                    <div className={`mt-1 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
-                      notification.isRead ? "bg-slate-100" : "bg-white shadow-sm"
-                    }`}>
-                      {getIconForType(notification.type)}
-                    </div>
-                    <div>
-                      <div className="flex items-start justify-between gap-2 mb-1">
-                        <h4 className={`text-sm font-bold ${notification.isRead ? "text-slate-700" : "text-navy-900"}`}>
-                          {notification.title}
-                        </h4>
-                        <span className="text-[11px] font-medium text-slate-400 whitespace-nowrap">
-                          {getRelativeTime(notification.createdAt)}
-                        </span>
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 relative">
+              {loading && notifications.length === 0 ? (
+                <div className="absolute inset-0 flex items-center justify-center bg-white/80 z-10">
+                  <Loader2 className="w-8 h-8 text-teal-500 animate-spin" />
+                </div>
+              ) : notifications.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-full text-center px-4 opacity-70">
+                  <Bell size={48} className="text-slate-300 mb-4" />
+                  <h3 className="text-slate-600 font-semibold mb-1">No notifications yet</h3>
+                  <p className="text-slate-400 text-sm">We'll let you know when there's an update.</p>
+                </div>
+              ) : (
+                notifications.map((notification) => (
+                  <div
+                    key={notification.id}
+                    onClick={() => markAsRead(notification.id)}
+                    className={`p-4 rounded-xl border transition-all cursor-pointer ${
+                      notification.isRead 
+                        ? "bg-white border-slate-100" 
+                        : "bg-teal-50/30 border-teal-100 shadow-sm"
+                    }`}
+                  >
+                    <div className="flex gap-4">
+                      <div className={`mt-1 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
+                        notification.isRead ? "bg-slate-100" : "bg-white shadow-sm"
+                      }`}>
+                        {getIconForType(notification.type)}
                       </div>
-                      <p className={`text-sm leading-relaxed ${notification.isRead ? "text-slate-500" : "text-slate-600"}`}>
-                        {notification.message}
-                      </p>
+                      <div>
+                        <div className="flex items-start justify-between gap-2 mb-1">
+                          <h4 className={`text-sm font-bold ${notification.isRead ? "text-slate-700" : "text-navy-900"}`}>
+                            {notification.title}
+                          </h4>
+                          <span className="text-[11px] font-medium text-slate-400 whitespace-nowrap">
+                            {getRelativeTime(notification.createdAt)}
+                          </span>
+                        </div>
+                        <p className={`text-sm leading-relaxed ${notification.isRead ? "text-slate-500" : "text-slate-600"}`}>
+                          {notification.message}
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
 
             {/* Footer / Preferences link */}
