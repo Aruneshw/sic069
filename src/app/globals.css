@@ -66,9 +66,9 @@
   --danger: var(--crimson-700);
 
   /* Global Canvas */
-  --bg-primary: #FBF9F5;
-  --text-primary: #150408;
-  --text-secondary: #475569;
+  --bg-primary: transparent;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E2E8F0;
 
   /* Border */
   --border-subtle: rgba(120, 1, 22, 0.08);
@@ -131,8 +131,12 @@ html {
 }
 
 body {
-  background-color: #FBF9F5 !important;
-  color: #150408 !important;
+  background-image: url('/images/bg-mountain.jpg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-attachment: fixed !important;
+  background-color: #0f172a !important;
+  color: #F8FAFC !important;
   font-family: var(--font-sans);
   line-height: 1.6;
   min-height: 100vh;
@@ -177,6 +181,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
 }
 
 .bento-card-base:hover {
@@ -185,154 +192,99 @@ body {
 
 /* ── Givingli Color Variations ── */
 .bento-lavender {
-  background-color: #F0EEFA;
-  border: 2px solid rgba(147, 130, 220, 0.22);
-  color: #150408;
-  box-shadow:
-    8px 8px 20px rgba(147, 130, 220, 0.18),
-    -4px -4px 12px rgba(255, 255, 255, 0.7),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.55),
-    inset -1px -1px 4px rgba(147, 130, 220, 0.08);
+  background-color: rgba(147, 130, 220, 0.15);
+  border: 1px solid rgba(147, 130, 220, 0.3);
+  color: #FFFFFF;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
 }
 .bento-lavender:hover {
-  box-shadow:
-    12px 12px 28px rgba(147, 130, 220, 0.28),
-    -6px -6px 16px rgba(255, 255, 255, 0.8),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-    inset -1px -1px 4px rgba(147, 130, 220, 0.1);
-  border-color: rgba(147, 130, 220, 0.4);
+  background-color: rgba(147, 130, 220, 0.25);
+  border-color: rgba(147, 130, 220, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
 }
 
 .bento-blush {
-  background-color: #FDE8EC;
-  border: 2px solid rgba(246, 148, 168, 0.3);
-  color: #150408;
-  box-shadow:
-    8px 8px 20px rgba(246, 148, 168, 0.2),
-    -4px -4px 12px rgba(255, 255, 255, 0.7),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.5),
-    inset -1px -1px 4px rgba(246, 148, 168, 0.1);
+  background-color: rgba(246, 148, 168, 0.15);
+  border: 1px solid rgba(246, 148, 168, 0.3);
+  color: #FFFFFF;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
 }
 .bento-blush:hover {
-  box-shadow:
-    12px 12px 28px rgba(246, 148, 168, 0.3),
-    -6px -6px 16px rgba(255, 255, 255, 0.8),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-    inset -1px -1px 4px rgba(246, 148, 168, 0.12);
-  border-color: #F694A8;
+  background-color: rgba(246, 148, 168, 0.25);
+  border-color: rgba(246, 148, 168, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
 }
 
 .bento-sage {
-  background-color: #EBF5EE;
-  border: 2px solid rgba(134, 194, 156, 0.3);
-  color: #150408;
-  box-shadow:
-    8px 8px 20px rgba(134, 194, 156, 0.18),
-    -4px -4px 12px rgba(255, 255, 255, 0.7),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.5),
-    inset -1px -1px 4px rgba(134, 194, 156, 0.08);
+  background-color: rgba(134, 194, 156, 0.15);
+  border: 1px solid rgba(134, 194, 156, 0.3);
+  color: #FFFFFF;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
 }
 .bento-sage:hover {
-  box-shadow:
-    12px 12px 28px rgba(134, 194, 156, 0.28),
-    -6px -6px 16px rgba(255, 255, 255, 0.8),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-    inset -1px -1px 4px rgba(134, 194, 156, 0.1);
-  border-color: #86C29C;
+  background-color: rgba(134, 194, 156, 0.25);
+  border-color: rgba(134, 194, 156, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
 }
 
 .bento-champagne {
-  background-color: #FAF0DF;
-  border: 2px solid rgba(247, 181, 56, 0.28);
-  color: #150408;
-  box-shadow:
-    8px 8px 20px rgba(247, 181, 56, 0.15),
-    -4px -4px 12px rgba(255, 255, 255, 0.7),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.5),
-    inset -1px -1px 4px rgba(247, 181, 56, 0.08);
+  background-color: rgba(247, 181, 56, 0.1);
+  border: 1px solid rgba(247, 181, 56, 0.25);
+  color: #FFFFFF;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
 }
 .bento-champagne:hover {
-  box-shadow:
-    12px 12px 28px rgba(247, 181, 56, 0.28),
-    -6px -6px 16px rgba(255, 255, 255, 0.8),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-    inset -1px -1px 4px rgba(247, 181, 56, 0.1);
-  border-color: #F7B538;
+  background-color: rgba(247, 181, 56, 0.15);
+  border-color: rgba(247, 181, 56, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
 }
 
 .bento-gold {
-  background: linear-gradient(145deg, #F9C862 0%, #D49018 100%);
-  border: 2px solid rgba(255, 255, 255, 0.45);
-  color: #150408;
-  box-shadow:
-    8px 8px 22px rgba(168, 110, 12, 0.28),
-    -4px -4px 12px rgba(255, 255, 255, 0.5),
-    inset 2px 2px 8px rgba(255, 255, 255, 0.4),
-    inset -2px -2px 6px rgba(168, 110, 12, 0.12);
+  background: linear-gradient(145deg, rgba(249, 200, 98, 0.15) 0%, rgba(212, 144, 24, 0.15) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
 }
 .bento-gold:hover {
-  box-shadow:
-    12px 12px 30px rgba(168, 110, 12, 0.38),
-    -6px -6px 16px rgba(255, 255, 255, 0.6),
-    inset 2px 2px 8px rgba(255, 255, 255, 0.45),
-    inset -2px -2px 6px rgba(168, 110, 12, 0.14);
+  background: linear-gradient(145deg, rgba(249, 200, 98, 0.25) 0%, rgba(212, 144, 24, 0.25) 100%);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
 }
 
 .bento-crimson {
-  background: linear-gradient(145deg, #8B021A 0%, #4A000E 100%);
-  border: 2px solid rgba(247, 181, 56, 0.35);
+  background: linear-gradient(145deg, rgba(139, 2, 26, 0.25) 0%, rgba(74, 0, 14, 0.25) 100%);
+  border: 1px solid rgba(247, 181, 56, 0.25);
   color: #FFFFFF;
-  box-shadow:
-    8px 8px 22px rgba(74, 0, 14, 0.4),
-    -4px -4px 12px rgba(155, 8, 34, 0.15),
-    inset 2px 2px 8px rgba(247, 181, 56, 0.08),
-    inset -2px -2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
 }
 .bento-crimson:hover {
-  box-shadow:
-    12px 12px 30px rgba(74, 0, 14, 0.5),
-    -6px -6px 16px rgba(155, 8, 34, 0.2),
-    inset 2px 2px 8px rgba(247, 181, 56, 0.12),
-    inset -2px -2px 6px rgba(0, 0, 0, 0.22);
-  border-color: #F7B538;
+  background: linear-gradient(145deg, rgba(139, 2, 26, 0.35) 0%, rgba(74, 0, 14, 0.35) 100%);
+  border-color: rgba(247, 181, 56, 0.4);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
 }
 
 .bento-white {
-  background-color: #FFFFFF;
-  border: 2px solid rgba(120, 1, 22, 0.06);
-  color: #150408;
-  box-shadow:
-    6px 6px 18px rgba(0, 0, 0, 0.06),
-    -4px -4px 12px rgba(255, 255, 255, 0.9),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.8),
-    inset -1px -1px 4px rgba(0, 0, 0, 0.02);
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
 }
 .bento-white:hover {
-  box-shadow:
-    10px 10px 26px rgba(0, 0, 0, 0.1),
-    -6px -6px 16px rgba(255, 255, 255, 1),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.85),
-    inset -1px -1px 4px rgba(0, 0, 0, 0.03);
-  border-color: rgba(247, 181, 56, 0.35);
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
 }
 
 .bento-sky {
-  background-color: #E6F2F8;
-  border: 2px solid rgba(147, 197, 253, 0.35);
-  color: #150408;
-  box-shadow:
-    8px 8px 20px rgba(147, 197, 253, 0.2),
-    -4px -4px 12px rgba(255, 255, 255, 0.7),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.5),
-    inset -1px -1px 4px rgba(147, 197, 253, 0.08);
+  background-color: rgba(147, 197, 253, 0.15);
+  border: 1px solid rgba(147, 197, 253, 0.3);
+  color: #FFFFFF;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
 }
 .bento-sky:hover {
-  box-shadow:
-    12px 12px 28px rgba(147, 197, 253, 0.3),
-    -6px -6px 16px rgba(255, 255, 255, 0.8),
-    inset 2px 2px 6px rgba(255, 255, 255, 0.6),
-    inset -1px -1px 4px rgba(147, 197, 253, 0.1);
-  border-color: #60A5FA;
+  background-color: rgba(147, 197, 253, 0.25);
+  border-color: rgba(147, 197, 253, 0.5);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
 }
 
 /* ── Claymorphism Floating Elements ── */
