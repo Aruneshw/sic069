@@ -47,7 +47,7 @@ export default function PackageBuilder({ currentStep, onNext, onPrev }: { curren
                 <div>
                   <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Destination</label>
                   <div className="relative">
-                    <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
+                    <MapPin size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" />
                     <input type="text" placeholder="e.g. Kerala, India" className="w-full bg-navy-950 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-slate-600 focus:outline-none focus:border-teal-500/50 focus:ring-1 focus:ring-teal-500/50" />
                   </div>
                 </div>
@@ -78,7 +78,7 @@ export default function PackageBuilder({ currentStep, onNext, onPrev }: { curren
       case 2:
         return (
           <div className="flex flex-col items-center justify-center h-full text-center p-8 text-slate-400">
-            <FileText size={48} className="mb-4 text-slate-600" />
+            <FileText size={48} className="mb-4 text-slate-200" />
             <h3 className="text-xl font-bold text-white mb-2">Trip Details</h3>
             <p className="max-w-md">Configure duration, difficulty, capacity, and logistical information.</p>
           </div>
@@ -115,7 +115,7 @@ export default function PackageBuilder({ currentStep, onNext, onPrev }: { curren
         return (
           <div className="flex flex-col items-center justify-center h-full text-center p-8 text-slate-400">
             <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mb-4">
-              <span className="text-2xl font-bold text-slate-500">{currentStep}</span>
+              <span className="text-2xl font-bold text-slate-300">{currentStep}</span>
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Step {currentStep} Content</h3>
             <p className="max-w-md">This builder step is under construction for the admin portal.</p>

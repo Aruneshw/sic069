@@ -56,80 +56,108 @@ export default function TripCard({ trip, index = 0 }: TripCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      className="bento-card-base bento-white p-0 relative w-full h-full group bg-white border border-[#780116]/10 rounded-[2rem] overflow-hidden flex flex-col justify-between shadow-md hover:shadow-xl transition-all duration-400"
+      transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
+      className="card-base p-0 relative w-full h-full group overflow-hidden flex flex-col"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <Link href={`/trips/${trip.slug}`} className="absolute inset-0 z-30 rounded-[2rem]" aria-label={`View ${trip.name} details`} />
+      <Link href={`/trips/${trip.slug}`} className="absolute inset-0 z-30" aria-label={`View ${trip.name} details`} />
 
       <motion.div style={{ transform }} className="flex flex-col h-full pointer-events-none">
-        {/* Floating Top Image Frame */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-100">
+        {/* Image Frame */}
+        <div className="relative aspect-[4/3] w-full overflow-hidden" style={{ background: "var(--bg-tertiary)" }}>
           <Image
             src={getAssetUrl(trip.imageUrl || "/images/trips-hero.png")}
             alt={trip.name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
           
           {/* Top Badges */}
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-            <span className="px-3.5 py-1 bg-white/95 backdrop-blur-md text-[#780116] border border-[#780116]/20 text-[10px] font-black uppercase tracking-wider rounded-full shadow-sm">
+            <span
+              className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full"
+              style={{
+                background: "var(--surface-glass)",
+                backdropFilter: "blur(12px)",
+                border: "1px solid var(--border-subtle)",
+                color: "var(--text-primary)",
+              }}
+            >
               {trip.category}
             </span>
             {trip.badge && (
-              <span className="px-3 py-1 bg-[#F7B538] text-[#150408] text-[9px] font-black uppercase tracking-wider rounded-full shadow-sm">
+              <span
+                className="px-3 py-1 text-[9px] font-bold uppercase tracking-wider rounded-full"
+                style={{
+                  background: "var(--gold-500)",
+                  color: "var(--bg-primary)",
+                }}
+              >
                 {trip.badge}
               </span>
             )}
           </div>
 
-          {/* Floating Price Pill */}
+          {/* Bottom Price + Arrow */}
           <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between z-10">
-            <div className="bg-white/95 backdrop-blur-md border border-black/5 text-[#150408] px-3.5 py-1.5 rounded-xl shadow-md flex items-baseline gap-1.5">
-              <span className="text-[9px] font-black text-slate-500 uppercase">From</span>
-              <span className="text-base font-black text-[#150408]">{formatInr(trip.price)}</span>
+            <div
+              className="px-3.5 py-1.5 rounded-lg flex items-baseline gap-1.5"
+              style={{
+                background: "var(--surface-glass)",
+                backdropFilter: "blur(12px)",
+                border: "1px solid var(--border-subtle)",
+              }}
+            >
+              <span className="text-[9px] font-bold uppercase" style={{ color: "var(--text-muted)" }}>From</span>
+              <span className="text-base font-bold" style={{ color: "var(--text-primary)" }}>{formatInr(trip.price)}</span>
             </div>
 
-            <div className="w-8 h-8 rounded-full bg-[#780116] text-[#F7B538] flex items-center justify-center shadow-md group-hover:rotate-45 transition-transform duration-300">
+            <div
+              className="w-8 h-8 rounded-full flex items-center justify-center group-hover:rotate-45 transition-transform duration-300"
+              style={{
+                background: "var(--gold-500)",
+                color: "var(--bg-primary)",
+                boxShadow: "0 4px 12px rgba(200,165,92,0.30)",
+              }}
+            >
               <ArrowUpRight size={16} strokeWidth={2.5} />
             </div>
           </div>
         </div>
 
         {/* Card Body */}
-        <div className="p-6 flex flex-col flex-grow justify-between bg-white">
+        <div className="p-6 flex flex-col flex-grow justify-between" style={{ background: "var(--surface-card)" }}>
           <div>
             <div className="flex items-center gap-1.5 mb-2">
-              <Star size={13} className="fill-[#F7B538] text-[#F7B538]" />
-              <span className="text-xs font-black text-[#150408]">{trip.rating}</span>
-              <span className="text-[10px] text-slate-400 font-semibold">/ 5.0</span>
+              <Star size={13} className="fill-current" style={{ color: "var(--gold-500)" }} />
+              <span className="text-xs font-bold" style={{ color: "var(--text-primary)" }}>{trip.rating}</span>
+              <span className="text-[10px] font-medium" style={{ color: "var(--text-muted)" }}>/ 5.0</span>
             </div>
             
-            <h3 className="text-lg font-extrabold text-[#150408] mb-1.5 line-clamp-1 group-hover:text-[#780116] transition-colors">
+            <h3 className="heading-card mb-1.5 line-clamp-1 group-hover:text-gold-400 transition-colors">
               {trip.name}
             </h3>
             
-            <p className="text-xs text-slate-600 mb-4 line-clamp-2 leading-relaxed font-normal">
+            <p className="text-xs mb-4 line-clamp-2 leading-relaxed" style={{ color: "var(--text-secondary)" }}>
               {trip.tagline}
             </p>
           </div>
 
           {/* Metadata Footer */}
-          <div className="flex items-center justify-between pt-4 border-t border-black/5 mt-auto">
-            <div className="flex items-center gap-4 text-xs font-bold text-slate-600">
+          <div className="flex items-center justify-between pt-4 mt-auto" style={{ borderTop: "1px solid var(--border-subtle)" }}>
+            <div className="flex items-center gap-4 text-xs font-medium" style={{ color: "var(--text-secondary)" }}>
               <div className="flex items-center gap-1.5">
-                <Clock size={13} className="text-[#780116]" />
+                <Clock size={13} style={{ color: "var(--cyan-400)" }} />
                 <span>{trip.duration}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Users size={13} className="text-[#D49018]" />
+                <Users size={13} style={{ color: "var(--gold-500)" }} />
                 <span>6–12 Pax</span>
               </div>
             </div>

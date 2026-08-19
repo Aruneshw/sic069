@@ -55,20 +55,20 @@ export default function AccountSidebar() {
 
   return (
     <aside className="w-full md:w-64 lg:w-72 shrink-0">
-      <div className="bg-white p-6 rounded-[2rem] border border-[#780116]/12 sticky top-[calc(var(--nav-height)+2rem)] shadow-xl">
+      <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-[2rem] border border-[#780116]/12 sticky top-[calc(var(--nav-height)+2rem)] shadow-xl">
         {/* Profile Header */}
-        <div className="flex items-center gap-4 pb-6 mb-6 border-b border-[#780116]/10">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#780116] to-[#4A000E] border border-[#F7B538]/40 flex items-center justify-center text-[#F7B538] text-base font-extrabold shadow-md shrink-0">
+        <div className="flex items-center gap-4 pb-6 mb-6 border-b border-[rgba(255,255,255,0.06)]">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#780116] to-[#4A000E] border border-[rgba(200,165,92,0.20)] flex items-center justify-center text-[#05070B] text-base font-extrabold shadow-md shrink-0">
             {initials}
           </div>
           <div className="min-w-0 flex-1">
-            <h2 className="font-extrabold text-[#150408] truncate text-sm">{fullName}</h2>
+            <h2 className="font-extrabold text-white truncate text-sm">{fullName}</h2>
             <div className="flex items-center gap-2 mt-0.5">
               <span
                 className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 rounded-full ${
                   isAdmin
-                    ? "bg-[#F7B538]/20 text-[#780116] border border-[#F7B538]/50"
-                    : "bg-[#FAF3E7] text-slate-600"
+                    ? "bg-[rgba(200,165,92,0.10)] text-[#C8A55C] border border-[rgba(200,165,92,0.25)]"
+                    : "bg-[#FAF3E7] text-slate-200"
                 }`}
               >
                 {isAdmin ? "Admin Operator" : "Explorer"}
@@ -82,18 +82,18 @@ export default function AccountSidebar() {
           <div className="mb-4">
             <Link
               href="/admin"
-              className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-[#780116] via-[#600112] to-[#4A000E] text-white shadow-md hover:shadow-[#780116]/30 border border-[#F7B538]/40 transition-all no-underline group"
+              className="flex items-center justify-between p-3.5 rounded-2xl bg-gradient-to-r from-[#780116] via-[#600112] to-[#4A000E] text-white shadow-md hover:shadow-[#C8A55C]/20 border border-[rgba(200,165,92,0.20)] transition-all no-underline group"
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-[#F7B538]/20 border border-[#F7B538]/40 flex items-center justify-center text-[#F7B538] group-hover:scale-105 transition-transform">
+                <div className="w-8 h-8 rounded-xl bg-[rgba(200,165,92,0.10)] border border-[rgba(200,165,92,0.20)] flex items-center justify-center text-[#05070B] group-hover:scale-105 transition-transform">
                   <ShieldCheck size={18} />
                 </div>
                 <div>
-                  <p className="text-xs font-black text-[#F7B538] leading-tight">Admin Command</p>
+                  <p className="text-xs font-black text-[#05070B] leading-tight">Admin Command</p>
                   <p className="text-[10px] text-slate-200 leading-tight">Package & Trip CMS</p>
                 </div>
               </div>
-              <ChevronRight size={16} className="text-[#F7B538] group-hover:translate-x-1 transition-transform" />
+              <ChevronRight size={16} className="text-[#05070B] group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
         )}
@@ -109,12 +109,12 @@ export default function AccountSidebar() {
                 href={link.href}
                 className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all no-underline ${
                   isActive
-                    ? "bg-[#780116] text-[#F7B538] shadow-sm"
-                    : "text-slate-600 hover:bg-[#FAF3E7] hover:text-[#780116]"
+                    ? "bg-[#C8A55C] text-[#05070B] shadow-sm"
+                    : "text-slate-200 hover:bg-[#FAF3E7] hover:text-[#C8A55C]"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <Icon size={16} className={isActive ? "text-[#F7B538]" : "text-slate-400"} />
+                  <Icon size={16} className={isActive ? "text-[#05070B]" : "text-slate-400"} />
                   <span>{link.label}</span>
                 </div>
                 {isActive && <div className="w-1.5 h-1.5 rounded-full bg-[#F7B538]" />}
@@ -124,13 +124,13 @@ export default function AccountSidebar() {
         </nav>
 
         {/* Sign Out */}
-        <div className="pt-6 mt-6 border-t border-[#780116]/10">
+        <div className="pt-6 mt-6 border-t border-[rgba(255,255,255,0.06)]">
           <button
             onClick={async () => {
               await supabase.auth.signOut();
               window.location.href = "/login";
             }}
-            className="w-full flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold text-[#780116] hover:bg-[#780116]/10 transition-colors"
+            className="w-full flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs font-bold text-[#C8A55C] hover:bg-[#C8A55C]/10 transition-colors"
           >
             <LogOut size={16} />
             <span>Sign Out</span>

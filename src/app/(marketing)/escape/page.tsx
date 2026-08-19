@@ -16,7 +16,7 @@ export default async function EscapePage() {
   });
 
   return (
-    <div className="bg-[#FBF9F5] min-h-screen pt-28 pb-20">
+    <div className="bg-transparent min-h-screen pt-28 pb-20">
       <EscapeEngineSection initialPackages={packages} />
       <TravelDnaOnboardingModal />
     </div>

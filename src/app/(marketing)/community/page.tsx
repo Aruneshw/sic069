@@ -69,25 +69,25 @@ const stories = [
 
 export default function CommunityPage() {
   return (
-    <div className="bg-[#FBF9F5] min-h-screen pb-24 text-[#150408]">
+    <div className="bg-transparent min-h-screen pb-24 text-white">
       {/* Hero */}
       <section className="pt-36 pb-16 md:pt-44 md:pb-20 text-center px-4">
         <div className="container-main max-w-4xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF0DF] border border-[#F7B538]/40 text-xs font-black uppercase tracking-widest text-[#7E5105] mb-4">
-            <Sparkles size={14} className="text-[#D49018]" /> Traveler Chronicles
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(12,22,38,0.85)] border border-[rgba(200,165,92,0.20)] text-xs font-black uppercase tracking-widest text-[#C8A55C] mb-4">
+            <Sparkles size={14} className="text-[#C8A55C]" /> Traveler Chronicles
           </span>
 
           <RunningLetters
             as="h1"
             text="Voices from the Trail"
-            className="text-4xl md:text-6xl font-extrabold text-[#150408] mb-3 leading-tight"
+            className="text-4xl md:text-6xl font-extrabold text-white mb-3 leading-tight"
           />
 
-          <p className="font-script text-3xl text-[#780116] mb-4">
+          <p className="font-script text-3xl text-[#C8A55C] mb-4">
             Unfiltered journals from real expeditions
           </p>
 
-          <p className="text-slate-600 text-sm md:text-base max-w-xl mx-auto font-medium">
+          <p className="text-slate-200 text-sm md:text-base max-w-xl mx-auto font-medium">
             Read firsthand accounts, gear recommendations, and honest advice written by fellow wanderers.
           </p>
         </div>
@@ -106,13 +106,13 @@ export default function CommunityPage() {
             >
               <div className="mt-4 pt-4 border-t border-black/5 flex items-center justify-between">
                 <div>
-                  <div className="text-xs font-black text-[#150408]">{story.author}</div>
-                  <div className="text-[10px] text-slate-500">{story.date}</div>
+                  <div className="text-xs font-black text-white">{story.author}</div>
+                  <div className="text-[10px] text-slate-300">{story.date}</div>
                 </div>
 
                 <div className="flex items-center gap-1">
-                  <Star size={13} className="fill-[#F7B538] text-[#F7B538]" />
-                  <span className="text-xs font-black text-[#150408]">{story.rating}.0</span>
+                  <Star size={13} className="fill-[#F7B538] text-[#05070B]" />
+                  <span className="text-xs font-black text-white">{story.rating}.0</span>
                 </div>
               </div>
             </BentoCard>

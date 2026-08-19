@@ -18,12 +18,12 @@ export default function OperatorWomDashboard() {
   ]);
 
   return (
-    <div className="space-y-8 p-6 md:p-8 bg-[#FBF9F5] text-[#150408] min-h-screen">
+    <div className="space-y-8 p-6 md:p-8 bg-transparent text-white min-h-screen">
       <div>
         <h1 className="text-3xl font-extrabold flex items-center gap-3">
-          <MessageCircle className="text-[#D49018]" size={32} /> Word-of-Mouth Intelligence Dashboard
+          <MessageCircle className="text-[#C8A55C]" size={32} /> Word-of-Mouth Intelligence Dashboard
         </h1>
-        <p className="text-slate-500 text-sm mt-1">Real-time operational intelligence aggregated from traveler feedback and local contributor reports.</p>
+        <p className="text-slate-300 text-sm mt-1">Real-time operational intelligence aggregated from traveler feedback and local contributor reports.</p>
       </div>
 
       {/* KPI Stats */}
@@ -36,22 +36,22 @@ export default function OperatorWomDashboard() {
 
       {/* Frequently Reported Issues */}
       <div className="bento-card-base bento-white p-6 space-y-4">
-        <h3 className="text-xl font-bold text-[#150408] flex items-center gap-2">
+        <h3 className="text-xl font-bold text-white flex items-center gap-2">
           <AlertTriangle size={20} className="text-amber-400" /> Frequently Reported Friction & Tourist Mistakes
         </h3>
         <div className="space-y-3">
           {insights.map((item) => (
-            <div key={item.id} className="p-4 rounded-2xl bg-[#FAF0DF]/50 border-2 border-[#780116]/8 flex items-center justify-between gap-4">
+            <div key={item.id} className="p-4 rounded-2xl bg-[rgba(12,22,38,0.85)]/50 border-2 border-[#780116]/8 flex items-center justify-between gap-4">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-0.5 rounded bg-[#F7B538]/20 text-[#F7B538] text-[10px] font-bold uppercase">{item.dest}</span>
+                  <span className="px-2 py-0.5 rounded bg-[rgba(200,165,92,0.10)] text-[#05070B] text-[10px] font-bold uppercase">{item.dest}</span>
                   <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold uppercase">{item.type}</span>
                 </div>
-                <div className="text-sm font-bold text-[#150408]">{item.issue}</div>
+                <div className="text-sm font-bold text-white">{item.issue}</div>
               </div>
               <div className="text-right shrink-0">
-                <div className="text-sm font-bold text-[#D49018]">{item.reports} reports</div>
-                <div className="text-[10px] text-slate-500">{item.status}</div>
+                <div className="text-sm font-bold text-[#C8A55C]">{item.reports} reports</div>
+                <div className="text-[10px] text-slate-300">{item.status}</div>
               </div>
             </div>
           ))}
@@ -60,14 +60,14 @@ export default function OperatorWomDashboard() {
 
       {/* Contradiction Detection */}
       <div className="bento-card-base bento-white p-6 space-y-4">
-        <h3 className="text-xl font-bold text-[#150408] flex items-center gap-2">
+        <h3 className="text-xl font-bold text-white flex items-center gap-2">
           <TrendingUp size={20} className="text-indigo-400" /> Contradiction Detection Engine
         </h3>
-        <p className="text-xs text-slate-500">When traveler reports conflict, our AI identifies the contextual root factor (e.g. time of day, season, zone).</p>
+        <p className="text-xs text-slate-300">When traveler reports conflict, our AI identifies the contextual root factor (e.g. time of day, season, zone).</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {contradictions.map((c) => (
-            <div key={c.id} className="p-5 rounded-2xl bg-[#FAF0DF]/50 border-2 border-[#780116]/8 space-y-3">
-              <div className="text-xs font-bold text-[#F7B538] uppercase">{c.dest} — {c.statement}</div>
+            <div key={c.id} className="p-5 rounded-2xl bg-[rgba(12,22,38,0.85)]/50 border-2 border-[#780116]/8 space-y-3">
+              <div className="text-xs font-bold text-[#05070B] uppercase">{c.dest} — {c.statement}</div>
               <div className="space-y-1 text-xs">
                 <div className="text-rose-300">Report A: "{c.reportA}"</div>
                 <div className="text-emerald-300">Report B: "{c.reportB}"</div>

@@ -16,7 +16,7 @@ export default function OperatorLayout({
   ];
 
   return (
-    <div className="flex h-screen bg-[#FBF9F5] overflow-hidden">
+    <div className="flex h-screen bg-transparent overflow-hidden">
       
       {/* ═══════════════════════════════════════
           SIDEBAR
@@ -64,7 +64,7 @@ export default function OperatorLayout({
         <div className="p-4 border-t border-white/10">
           <div className="flex items-center gap-3 mb-4 px-2">
             <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-[#150408] text-xs font-bold"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold"
               style={{ background: "linear-gradient(145deg, #F9C862, #D49018)" }}
             >
               OP
@@ -100,7 +100,7 @@ export default function OperatorLayout({
             <input 
               type="text" 
               placeholder="Search bookings or trips..."
-              className="w-full pl-9 pr-4 py-2 bg-[#FBF9F5] border-2 border-[#780116]/8 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#F7B538]/40 focus:bg-white transition-colors"
+              className="w-full pl-9 pr-4 py-2 bg-transparent border-2 border-[#780116]/8 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#F7B538]/40 focus:bg-white transition-colors"
               style={{ fontFamily: "var(--font-poppins)" }}
             />
           </div>

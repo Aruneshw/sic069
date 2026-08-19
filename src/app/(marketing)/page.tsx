@@ -54,7 +54,7 @@ export default async function HomePage() {
   });
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#FBF9F5]">
+    <div className="flex flex-col min-h-screen bg-transparent">
       {/* ═══════════════════════════════════════
           GIVINGLI-STYLE HERO BENTO SHOWCASE
           ═══════════════════════════════════════ */}
@@ -63,24 +63,24 @@ export default async function HomePage() {
           
           {/* Header Title Banner */}
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF0DF] border border-[#F7B538]/40 mb-4 shadow-sm">
-              <Sparkles size={14} className="text-[#D49018]" />
-              <span className="font-script text-2xl text-[#780116] leading-none pt-0.5">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(12,22,38,0.85)] border border-[rgba(200,165,92,0.20)] mb-4 shadow-sm">
+              <Sparkles size={14} className="text-[#C8A55C]" />
+              <span className="font-script text-2xl text-[#C8A55C] leading-none pt-0.5">
                 The Art of Curated Wanderlust
               </span>
             </div>
 
             <AnimeHeroTitle>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-[#150408] mb-6 leading-[1.08]">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-white mb-6 leading-[1.08]">
                 <span className="anime-word inline-block">Life</span> <span className="anime-word inline-block">is</span> <span className="anime-word inline-block">not</span> <span className="anime-word inline-block">meant</span> <span className="anime-word inline-block">to</span> <span className="anime-word inline-block">be</span> <br className="hidden md:block" />
-                <span className="anime-word inline-block text-[#780116] relative">
+                <span className="anime-word inline-block text-[#C8A55C] relative">
                   in one place.
                   <span className="anime-underline absolute -bottom-2 left-0 h-2 bg-gradient-to-r from-[#F7B538] to-[#780116] rounded-full"></span>
                 </span>
               </h1>
             </AnimeHeroTitle>
 
-            <p className="text-base md:text-lg text-slate-600 mb-8 max-w-xl mx-auto font-medium leading-relaxed">
+            <p className="text-base md:text-lg text-slate-200 mb-8 max-w-xl mx-auto font-medium leading-relaxed">
               Transparent small-group expeditions across breathtaking mountains, serene coasts, and royal heritage landscapes.
             </p>
 
@@ -110,26 +110,26 @@ export default async function HomePage() {
             >
               <div className="mt-6 flex flex-col items-center">
                 {/* Floating Itinerary Card Mockup */}
-                <div className="floating-element bg-white p-4 rounded-2xl w-full max-w-[260px] shadow-lg border border-indigo-100 mb-3 rotate-[-2deg]">
+                <div className="floating-element bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-4 rounded-2xl w-full max-w-[260px] shadow-lg border border-indigo-100 mb-3 rotate-[-2deg]">
                   <div className="relative aspect-[4/3] rounded-xl overflow-hidden mb-3 bg-indigo-50">
                     <img
                       src={getAssetUrl("/images/places/ooty.png")}
                       alt="Nilgiri Mountain Explorer"
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute top-2 left-2 px-2 py-0.5 bg-white/90 rounded-full text-[9px] font-black uppercase text-[#780116]">
+                    <div className="absolute top-2 left-2 px-2 py-0.5 bg-white/90 rounded-full text-[9px] font-black uppercase text-[#C8A55C]">
                       Nilgiri 4-Day
                     </div>
                   </div>
-                  <div className="text-xs font-extrabold text-[#150408]">Nilgiri Valley Trek</div>
-                  <div className="text-[10px] text-slate-500">4 Days • 8 Spots Total</div>
+                  <div className="text-xs font-extrabold text-white">Nilgiri Valley Trek</div>
+                  <div className="text-[10px] text-slate-300">4 Days • 8 Spots Total</div>
                 </div>
 
                 {/* Floating Tool Pill Toolbar */}
-                <div className="floating-element bg-white py-2 px-4 rounded-full shadow-md border border-slate-100 flex items-center gap-3 text-[10px] font-bold text-slate-700">
-                  <span className="text-[#780116] flex items-center gap-1">✦ Permits</span>
+                <div className="floating-element bg-white py-2 px-4 rounded-full shadow-md border border-slate-100 flex items-center gap-3 text-[10px] font-bold text-[#94A3B8]">
+                  <span className="text-[#C8A55C] flex items-center gap-1">✦ Permits</span>
                   <span>•</span>
-                  <span className="text-[#D49018] flex items-center gap-1">★ Homestays</span>
+                  <span className="text-[#C8A55C] flex items-center gap-1">★ Homestays</span>
                   <span>•</span>
                   <span>✓ Porterage</span>
                 </div>
@@ -145,20 +145,20 @@ export default async function HomePage() {
             >
               <div className="mt-6 flex flex-col items-center">
                 {/* Floating Date-Picker Mockup Card */}
-                <div className="floating-element bg-white p-5 rounded-2xl w-full max-w-[270px] shadow-lg border border-pink-100 space-y-3">
-                  <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-wider text-[#780116]">
+                <div className="floating-element bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-5 rounded-2xl w-full max-w-[270px] shadow-lg border border-pink-100 space-y-3">
+                  <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-wider text-[#C8A55C]">
                     <span>Confirmed Departures</span>
                     <Calendar size={14} />
                   </div>
-                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-pink-50 text-xs font-bold text-[#150408]">
+                  <div className="flex items-center justify-between p-2.5 rounded-xl bg-pink-50 text-xs font-bold text-white">
                     <span>Sept 25, 2026</span>
-                    <span className="px-2 py-0.5 rounded-full bg-[#780116] text-white text-[10px]">6:00 AM</span>
+                    <span className="px-2 py-0.5 rounded-full bg-[#C8A55C] text-white text-[10px]">6:00 AM</span>
                   </div>
-                  <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 text-xs text-slate-600 font-medium">
+                  <div className="flex items-center justify-between p-2 rounded-xl bg-slate-50 text-xs text-slate-200 font-medium">
                     <span>Oct 04, 2026</span>
                     <span className="text-[10px] text-emerald-600 font-bold">4 Seats Left</span>
                   </div>
-                  <button className="w-full py-2 rounded-xl bg-[#780116] text-white font-extrabold text-xs shadow-md">
+                  <button className="w-full py-2 rounded-xl bg-[#C8A55C] text-white font-extrabold text-xs shadow-md">
                     Lock Date & Seat
                   </button>
                 </div>
@@ -175,7 +175,7 @@ export default async function HomePage() {
               <div className="mt-6 flex flex-col items-center">
                 {/* Floating Wallet Card */}
                 <div className="floating-element bg-[#150408] text-white p-5 rounded-2xl w-full max-w-[260px] shadow-xl border border-[#F7B538]/30 space-y-3">
-                  <div className="flex items-center justify-between text-[10px] uppercase font-bold text-[#F7B538]">
+                  <div className="flex items-center justify-between text-[10px] uppercase font-bold text-[#05070B]">
                     <span>Zero Gravity Pass</span>
                     <CreditCard size={14} />
                   </div>
@@ -199,20 +199,20 @@ export default async function HomePage() {
             >
               <div className="mt-6 space-y-2.5">
                 {/* Floating User Cards */}
-                <div className="floating-element bg-white p-3 rounded-xl shadow-sm border border-amber-100 flex items-center gap-3">
+                <div className="floating-element bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-3 rounded-xl shadow-sm border border-amber-100 flex items-center gap-3">
                   <img src="https://i.pravatar.cc/100?u=sarah" alt="User" className="w-9 h-9 rounded-full object-cover border border-[#F7B538]" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs font-bold text-[#150408] truncate">Sarah Jenkins</div>
-                    <div className="text-[10px] text-[#780116] font-semibold">Solo Explorer • Verified</div>
+                    <div className="text-xs font-bold text-white truncate">Sarah Jenkins</div>
+                    <div className="text-[10px] text-[#C8A55C] font-semibold">Solo Explorer • Verified</div>
                   </div>
                   <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Joined</span>
                 </div>
 
-                <div className="floating-element bg-white p-3 rounded-xl shadow-sm border border-amber-100 flex items-center gap-3">
+                <div className="floating-element bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-3 rounded-xl shadow-sm border border-amber-100 flex items-center gap-3">
                   <img src="https://i.pravatar.cc/100?u=david" alt="User" className="w-9 h-9 rounded-full object-cover border border-[#F7B538]" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs font-bold text-[#150408] truncate">David Chen</div>
-                    <div className="text-[10px] text-[#780116] font-semibold">Photographer • Verified</div>
+                    <div className="text-xs font-bold text-white truncate">David Chen</div>
+                    <div className="text-[10px] text-[#C8A55C] font-semibold">Photographer • Verified</div>
                   </div>
                   <span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Joined</span>
                 </div>
@@ -228,16 +228,16 @@ export default async function HomePage() {
             >
               <div className="mt-6 flex flex-wrap gap-2">
                 <div className="floating-element bg-white/10 text-white backdrop-blur-md px-3 py-1.5 rounded-xl text-xs font-bold border border-white/20 flex items-center gap-1.5">
-                  <CheckCircle2 size={13} className="text-[#F7B538]" /> Homestay Stays
+                  <CheckCircle2 size={13} className="text-[#05070B]" /> Homestay Stays
                 </div>
                 <div className="floating-element bg-white/10 text-white backdrop-blur-md px-3 py-1.5 rounded-xl text-xs font-bold border border-white/20 flex items-center gap-1.5">
-                  <CheckCircle2 size={13} className="text-[#F7B538]" /> All Forest Permits
+                  <CheckCircle2 size={13} className="text-[#05070B]" /> All Forest Permits
                 </div>
                 <div className="floating-element bg-white/10 text-white backdrop-blur-md px-3 py-1.5 rounded-xl text-xs font-bold border border-white/20 flex items-center gap-1.5">
-                  <CheckCircle2 size={13} className="text-[#F7B538]" /> Certified Guides
+                  <CheckCircle2 size={13} className="text-[#05070B]" /> Certified Guides
                 </div>
                 <div className="floating-element bg-white/10 text-white backdrop-blur-md px-3 py-1.5 rounded-xl text-xs font-bold border border-white/20 flex items-center gap-1.5">
-                  <CheckCircle2 size={13} className="text-[#F7B538]" /> Gourmet Local Meals
+                  <CheckCircle2 size={13} className="text-[#05070B]" /> Gourmet Local Meals
                 </div>
               </div>
             </BentoCard>
@@ -251,17 +251,17 @@ export default async function HomePage() {
             >
               <div className="mt-6">
                 {/* Floating iPhone Alert Mockup */}
-                <div className="floating-element bg-white p-4 rounded-2xl shadow-lg border border-blue-100 space-y-2">
+                <div className="floating-element bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-4 rounded-2xl shadow-lg border border-blue-100 space-y-2">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded-md bg-[#780116] flex items-center justify-center text-white text-[10px] font-black">
+                      <div className="w-5 h-5 rounded-md bg-[#C8A55C] flex items-center justify-center text-white text-[10px] font-black">
                         ZG
                       </div>
-                      <span className="text-[10px] font-bold uppercase text-slate-500">Zero Gravity Route Dispatch</span>
+                      <span className="text-[10px] font-bold uppercase text-slate-300">Zero Gravity Route Dispatch</span>
                     </div>
                     <span className="text-[9px] text-slate-400">now</span>
                   </div>
-                  <p className="text-xs font-bold text-[#150408]">
+                  <p className="text-xs font-bold text-white">
                     Your Western Ghats expedition is locked! Guide Arun is ready at basecamp.
                   </p>
                 </div>
@@ -275,17 +275,17 @@ export default async function HomePage() {
       {/* ═══════════════════════════════════════
           FEATURED EXPEDITIONS (Givingli Bento Grid)
           ═══════════════════════════════════════ */}
-      <section className="py-20 px-4 md:px-8 border-t border-[#780116]/10">
+      <section className="py-20 px-4 md:px-8 border-t border-[rgba(255,255,255,0.06)]">
         <ScrollReveal className="container-main">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
-              <span className="text-xs font-black uppercase tracking-widest text-[#780116] bg-[#FDE8EC] px-3.5 py-1.5 rounded-full inline-block mb-2">
+              <span className="text-xs font-black uppercase tracking-widest text-[#C8A55C] bg-[rgba(12,22,38,0.85)] px-3.5 py-1.5 rounded-full inline-block mb-2">
                 Handcrafted Collections
               </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-[#150408] mb-1">
+              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-1">
                 Featured Regional Bestsellers
               </h2>
-              <p className="font-script text-2xl text-[#D49018]">
+              <p className="font-script text-2xl text-[#C8A55C]">
                 Breathtaking journeys curated for mindful travelers
               </p>
             </div>
@@ -322,10 +322,10 @@ export default async function HomePage() {
       {/* ═══════════════════════════════════════
           TESTIMONIALS (Givingli Bento Grid)
           ═══════════════════════════════════════ */}
-      <section className="py-24 px-4 md:px-8 bg-[#FAF7F2] border-t border-[#780116]/10">
+      <section className="py-24 px-4 md:px-8 bg-transparent border-t border-[rgba(255,255,255,0.06)]">
         <ScrollReveal className="container-main mb-12 text-center">
-          <span className="font-script text-3xl text-[#780116] block mb-2">Real Stories, Real Trust</span>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-[#150408]">Voices from the Trail</h2>
+          <span className="font-script text-3xl text-[#C8A55C] block mb-2">Real Stories, Real Trust</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white">Voices from the Trail</h2>
         </ScrollReveal>
         
         <div className="container-main grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -338,10 +338,10 @@ export default async function HomePage() {
               <div className="space-y-4">
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, sIdx) => (
-                    <Star key={sIdx} size={14} className="fill-[#F7B538] text-[#F7B538]" />
+                    <Star key={sIdx} size={14} className="fill-[#F7B538] text-[#05070B]" />
                   ))}
                 </div>
-                <p className="text-xs md:text-sm text-slate-700 leading-relaxed italic font-normal">
+                <p className="text-xs md:text-sm text-[#94A3B8] leading-relaxed italic font-normal">
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <div className="flex items-center gap-3 pt-3 border-t border-black/5">
@@ -351,8 +351,8 @@ export default async function HomePage() {
                     className="w-10 h-10 rounded-full object-cover border border-[#F7B538]"
                   />
                   <div>
-                    <div className="text-xs font-extrabold text-[#150408]">{t.author}</div>
-                    <div className="text-[10px] font-bold text-[#780116]">{t.role}</div>
+                    <div className="text-xs font-extrabold text-white">{t.author}</div>
+                    <div className="text-[10px] font-bold text-[#C8A55C]">{t.role}</div>
                   </div>
                 </div>
               </div>

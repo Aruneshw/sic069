@@ -71,7 +71,7 @@ export default function AIChatbot() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-16 right-0 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col"
+            className="absolute bottom-16 right-0 w-80 sm:w-96 bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col"
             style={{ height: "450px" }}
           >
             {/* Header */}
@@ -93,7 +93,7 @@ export default function AIChatbot() {
                     className={`max-w-[80%] rounded-2xl p-3 text-sm ${
                       msg.role === "user" 
                         ? "bg-blue-600 text-white rounded-tr-sm" 
-                        : "bg-white border border-slate-200 text-slate-700 rounded-tl-sm shadow-sm"
+                        : "bg-white border border-slate-200 text-[#94A3B8] rounded-tl-sm shadow-sm"
                     }`}
                   >
                     {msg.content}

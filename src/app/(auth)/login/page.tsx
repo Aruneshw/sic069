@@ -176,10 +176,10 @@ export default function LoginPage() {
 
         {/* Logos (Icons in this case) */}
         <div className={`logo logo-1 ${activeClass}`}>
-          <Compass size={32} className="text-[#F7B538]" />
+          <Compass size={32} className="text-[#05070B]" />
         </div>
         <div className={`logo logo-2 ${activeClass}`}>
-          <Compass size={32} className="text-[#F7B538]" />
+          <Compass size={32} className="text-[#05070B]" />
         </div>
 
         {/* --- SIGN IN FORM (Left Side) --- */}

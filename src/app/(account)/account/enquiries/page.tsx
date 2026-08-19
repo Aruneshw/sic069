@@ -15,19 +15,19 @@ export default async function MyEnquiriesPage() {
     <div className="flex flex-col h-full">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-navy-900 mb-2">My Enquiries</h1>
-        <p className="text-slate-500">Track the status of your trip requests and communications with our team.</p>
+        <p className="text-slate-300">Track the status of your trip requests and communications with our team.</p>
       </div>
 
-      <div className="card-elevated bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="card-elevated bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-2xl border border-slate-200 overflow-hidden">
         {/* Desktop Table View */}
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Trip Name</th>
-                <th className="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Requested On</th>
-                <th className="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
-                <th className="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Action</th>
+                <th className="py-4 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Trip Name</th>
+                <th className="py-4 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Requested On</th>
+                <th className="py-4 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Status</th>
+                <th className="py-4 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -53,7 +53,7 @@ export default async function MyEnquiriesPage() {
                             {item ? item.name : "General Enquiry"}
                           </p>
                           {item && (
-                            <div className="flex items-center gap-2 text-xs text-slate-500">
+                            <div className="flex items-center gap-2 text-xs text-slate-300">
                               <Clock size={12} /> {item.duration}
                             </div>
                           )}
@@ -61,7 +61,7 @@ export default async function MyEnquiriesPage() {
                       </div>
                     </td>
                     <td className="py-4 px-6 whitespace-nowrap">
-                      <div className="text-sm font-medium text-slate-700">
+                      <div className="text-sm font-medium text-[#94A3B8]">
                         {enquiry.requestedOn.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </div>
                     </td>
@@ -77,7 +77,7 @@ export default async function MyEnquiriesPage() {
                 )})
               ) : (
                 <tr>
-                  <td colSpan={4} className="py-12 text-center text-slate-500">
+                  <td colSpan={4} className="py-12 text-center text-slate-300">
                     You have no active enquiries. <Link href="/trips" className="text-teal-600 font-medium hover:underline">Explore trips</Link>
                   </td>
                 </tr>
@@ -95,7 +95,7 @@ export default async function MyEnquiriesPage() {
               <div key={enquiry.id} className="p-4 hover:bg-slate-50 transition-colors">
                 <div className="flex justify-between items-start mb-3">
                   <StatusBadge status={enquiry.status} />
-                  <span className="text-xs font-medium text-slate-500">
+                  <span className="text-xs font-medium text-slate-300">
                     {enquiry.requestedOn.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                   </span>
                 </div>
@@ -114,18 +114,18 @@ export default async function MyEnquiriesPage() {
                   <div>
                     <h3 className="font-bold text-navy-900 text-sm mb-1">{item ? item.name : "General Enquiry"}</h3>
                     {item && (
-                      <p className="text-xs text-slate-500 flex items-center gap-1"><Clock size={12}/> {item.duration}</p>
+                      <p className="text-xs text-slate-300 flex items-center gap-1"><Clock size={12}/> {item.duration}</p>
                     )}
                   </div>
                 </div>
                 
-                <button className="w-full py-2 flex justify-center items-center gap-2 text-sm font-medium text-slate-700 bg-slate-50 border border-slate-200 rounded-lg active:bg-slate-100">
+                <button className="w-full py-2 flex justify-center items-center gap-2 text-sm font-medium text-[#94A3B8] bg-slate-50 border border-slate-200 rounded-lg active:bg-slate-100">
                   View Details <ChevronRight size={16} />
                 </button>
               </div>
             )})
           ) : (
-            <div className="p-8 text-center text-slate-500">
+            <div className="p-8 text-center text-slate-300">
               You have no active enquiries.
             </div>
           )}
@@ -137,7 +137,7 @@ export default async function MyEnquiriesPage() {
         <MessageCircle size={20} className="text-teal-600 shrink-0 mt-0.5" />
         <div>
           <h4 className="text-sm font-bold text-navy-900 mb-1">Need help with an enquiry?</h4>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm text-slate-200 leading-relaxed">
             Our travel experts typically respond within 24 hours. If your request is urgent, please call our support team directly at +61 2 8000 1234.
           </p>
         </div>

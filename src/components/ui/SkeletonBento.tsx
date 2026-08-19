@@ -15,7 +15,7 @@ export function SkeletonCard({
       className={`p-6 md:p-8 rounded-[1.75rem] border ${
         isDark
           ? "bg-[#150408] border-[#F7B538]/10"
-          : "bg-white border-[#780116]/10"
+          : "bg-white border-[rgba(255,255,255,0.06)]"
       } space-y-4 ${className}`}
     >
       {/* Top Tag Skeleton */}

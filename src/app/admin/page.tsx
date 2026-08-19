@@ -128,7 +128,7 @@ export default function AdminDashboard() {
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm whitespace-nowrap">
-              <thead className="bg-navy-950/50 text-xs uppercase tracking-wider font-bold text-slate-500">
+              <thead className="bg-navy-950/50 text-xs uppercase tracking-wider font-bold text-slate-300">
                 <tr>
                   <th className="px-5 py-4">Package</th>
                   <th className="px-5 py-4">Bookings</th>
@@ -147,7 +147,7 @@ export default function AdminDashboard() {
                         </div>
                         <div>
                           <p className="font-bold text-white group-hover:text-teal-300 transition-colors">{pkg.name}</p>
-                          <p className="text-xs text-slate-500">{pkg.location}</p>
+                          <p className="text-xs text-slate-300">{pkg.location}</p>
                         </div>
                       </div>
                     </td>
@@ -189,7 +189,7 @@ export default function AdminDashboard() {
                   {/* Content */}
                   <div className="w-[calc(100%-3rem)] md:w-[calc(50%-2rem)] p-3 rounded-xl border border-white/5 bg-navy-950/50 group-hover:border-white/10 transition-colors">
                     <p className="text-sm font-medium text-slate-300">{activity.text}</p>
-                    <time className="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-1 block">{activity.time}</time>
+                    <time className="text-[10px] font-bold text-slate-300 uppercase tracking-wider mt-1 block">{activity.time}</time>
                   </div>
                 </div>
               ))}

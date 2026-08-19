@@ -86,14 +86,14 @@ export default function AdminSidebar() {
       {/* Brand Header */}
       <div className="p-6 sticky top-0 bg-[#0B0204]/95 backdrop-blur-md z-10 border-b border-[#F7B538]/15">
         <Link href="/admin" className="flex items-center gap-3 no-underline group">
-          <div className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-[#780116] to-[#4A000E] border border-[#F7B538]/40 shadow-[0_0_15px_rgba(247,181,56,0.25)] group-hover:scale-105 transition-all shrink-0 w-10 h-10">
-            <Compass size={22} className="text-[#F7B538]" strokeWidth={2.4} />
+          <div className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-[#780116] to-[#4A000E] border border-[rgba(200,165,92,0.20)] shadow-[0_0_15px_rgba(247,181,56,0.25)] group-hover:scale-105 transition-all shrink-0 w-10 h-10">
+            <Compass size={22} className="text-[#05070B]" strokeWidth={2.4} />
           </div>
           <div className="flex flex-col">
             <span className="text-[13px] font-extrabold tracking-wide text-white uppercase leading-tight">
               Admin Portal
             </span>
-            <span className="text-[10px] font-black tracking-[0.2em] text-[#F7B538] uppercase leading-tight">
+            <span className="text-[10px] font-black tracking-[0.2em] text-[#05070B] uppercase leading-tight">
               Command Center
             </span>
           </div>
@@ -104,7 +104,7 @@ export default function AdminSidebar() {
       <div className="flex-1 py-6 px-4 space-y-7">
         {navigationGroups.map((group) => (
           <div key={group.title}>
-            <h3 className="px-3 text-[10px] font-extrabold text-[#F7B538]/60 uppercase tracking-widest mb-2.5">
+            <h3 className="px-3 text-[10px] font-extrabold text-[#05070B]/60 uppercase tracking-widest mb-2.5">
               {group.title}
             </h3>
             <ul className="space-y-1">
@@ -116,13 +116,13 @@ export default function AdminSidebar() {
                       href={item.href}
                       className={`relative flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 group no-underline ${
                         isActive
-                          ? "text-[#F7B538] bg-[#780116]/40 border border-[#F7B538]/30 shadow-md"
+                          ? "text-[#05070B] bg-[#C8A55C]/40 border border-[#F7B538]/30 shadow-md"
                           : "text-slate-400 hover:text-white hover:bg-white/5"
                       }`}
                     >
                       <item.icon
                         size={17}
-                        className={isActive ? "text-[#F7B538]" : "text-slate-500 group-hover:text-slate-300 transition-colors"}
+                        className={isActive ? "text-[#05070B]" : "text-slate-300 group-hover:text-slate-300 transition-colors"}
                       />
                       <span>{item.label}</span>
                       {isActive && (
@@ -133,7 +133,7 @@ export default function AdminSidebar() {
                       )}
                       
                       {item.label === "Approvals" && (
-                        <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-[#F7B538]/20 text-[10px] font-black text-[#F7B538] border border-[#F7B538]/40">
+                        <span className="ml-auto flex h-5 w-5 items-center justify-center rounded-full bg-[rgba(200,165,92,0.10)] text-[10px] font-black text-[#05070B] border border-[rgba(200,165,92,0.20)]">
                           7
                         </span>
                       )}
@@ -153,9 +153,9 @@ export default function AdminSidebar() {
             await supabase.auth.signOut();
             window.location.href = "/login";
           }}
-          className="flex w-full items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-[#F7B538] hover:bg-[#780116]/30 transition-colors group"
+          className="flex w-full items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-[#05070B] hover:bg-[#C8A55C]/30 transition-colors group"
         >
-          <LogOut size={17} className="text-slate-500 group-hover:text-[#F7B538] transition-colors" />
+          <LogOut size={17} className="text-slate-300 group-hover:text-[#05070B] transition-colors" />
           <span>Sign Out</span>
         </button>
       </div>

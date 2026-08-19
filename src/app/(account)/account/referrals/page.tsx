@@ -15,7 +15,7 @@ export default function ReferralsPage() {
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
           <div className="max-w-md">
             <h1 className="text-3xl md:text-4xl font-bold mb-3">Share Zero Gravity,<br/>Earn Rewards</h1>
-            <p className="text-slate-600 text-lg mb-6">
+            <p className="text-slate-200 text-lg mb-6">
               Give your friends 10% off their first expedition, and earn ₹8,300 in travel credit when they travel.
             </p>
             
@@ -30,9 +30,9 @@ export default function ReferralsPage() {
           </div>
           
           <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200 shrink-0 text-center">
-            <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider mb-2">Your Referral Code</div>
+            <div className="text-sm font-semibold text-slate-300 uppercase tracking-wider mb-2">Your Referral Code</div>
             <div className="text-3xl font-mono font-bold tracking-widest text-navy-900 bg-white px-4 py-2 rounded-lg mb-3 shadow-sm border border-slate-100">EXPLORE-ALEX</div>
-            <button className="flex items-center justify-center gap-2 text-sm font-medium text-slate-600 hover:text-teal-600 transition-colors mx-auto">
+            <button className="flex items-center justify-center gap-2 text-sm font-medium text-slate-200 hover:text-teal-600 transition-colors mx-auto">
               <Copy size={16} /> Copy Code
             </button>
           </div>
@@ -43,43 +43,43 @@ export default function ReferralsPage() {
           STATS & TIERS (page-11.png)
           ═══════════════════════════════════════ */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
           <div className="w-14 h-14 rounded-full bg-navy-50 flex items-center justify-center text-navy-600 shrink-0">
             <Users size={24} />
           </div>
           <div>
             <div className="text-2xl font-bold text-navy-900">12</div>
-            <div className="text-sm font-semibold text-slate-500">Friends Referred</div>
+            <div className="text-sm font-semibold text-slate-300">Friends Referred</div>
           </div>
         </div>
         
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
           <div className="w-14 h-14 rounded-full bg-teal-50 flex items-center justify-center text-teal-600 shrink-0">
             <Gift size={24} />
           </div>
           <div>
             <div className="text-2xl font-bold text-navy-900">4</div>
-            <div className="text-sm font-semibold text-slate-500">Trips Unlocked</div>
+            <div className="text-sm font-semibold text-slate-300">Trips Unlocked</div>
           </div>
         </div>
         
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4">
           <div className="w-14 h-14 rounded-full bg-success-light flex items-center justify-center text-success shrink-0">
             <Trophy size={24} />
           </div>
           <div>
             <div className="text-2xl font-bold text-navy-900">₹37,350</div>
-            <div className="text-sm font-semibold text-slate-500">Credits Earned</div>
+            <div className="text-sm font-semibold text-slate-300">Credits Earned</div>
           </div>
         </div>
       </div>
 
       {/* Journey Status */}
-      <div className="bg-white p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
+      <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-xl font-bold text-navy-900">Explorer Journey</h2>
-            <p className="text-slate-500 text-sm">You are 1 referral away from the Elite tier!</p>
+            <p className="text-slate-300 text-sm">You are 1 referral away from the Elite tier!</p>
           </div>
           <span className="px-3 py-1 bg-teal-50 text-teal-700 text-xs font-bold uppercase tracking-wider rounded-full border border-teal-100 hidden sm:block">
             Current: Voyager
@@ -115,12 +115,12 @@ export default function ReferralsPage() {
 
         <div className="mt-8 p-4 bg-navy-50 rounded-xl border border-navy-100 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-white rounded-lg shadow-sm">
+            <div className="p-2 bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-lg shadow-sm">
               <Gift size={20} className="text-navy-700" />
             </div>
             <div>
               <div className="text-sm font-bold text-navy-900">Unlock 'The Great Ridge' Pass</div>
-              <div className="text-xs text-slate-600">Reach Elite tier to unlock an exclusive helicopter pass.</div>
+              <div className="text-xs text-slate-200">Reach Elite tier to unlock an exclusive helicopter pass.</div>
             </div>
           </div>
           <button className="btn-primary py-2 px-6 text-sm whitespace-nowrap">View Rewards</button>
@@ -130,7 +130,7 @@ export default function ReferralsPage() {
       {/* ═══════════════════════════════════════
           RECENT ACTIVITY
           ═══════════════════════════════════════ */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+      <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm">
         <h2 className="text-lg font-bold text-navy-900 mb-6">Recent Rewards Activity</h2>
         
         <div className="space-y-6">
@@ -141,7 +141,7 @@ export default function ReferralsPage() {
             </div>
             <div className="pt-2">
               <h4 className="text-sm font-bold text-navy-900">Credit Earned: ₹8,300</h4>
-              <p className="text-sm text-slate-500 mb-1">Sarah J. booked the Coastal Highway Escape.</p>
+              <p className="text-sm text-slate-300 mb-1">Sarah J. booked the Coastal Highway Escape.</p>
               <span className="text-xs font-medium text-slate-400">Oct 12, 2024</span>
             </div>
           </div>
@@ -153,7 +153,7 @@ export default function ReferralsPage() {
             </div>
             <div className="pt-2">
               <h4 className="text-sm font-bold text-navy-900">Tier Unlocked: Voyager</h4>
-              <p className="text-sm text-slate-500 mb-1">You reached 10 successful referrals!</p>
+              <p className="text-sm text-slate-300 mb-1">You reached 10 successful referrals!</p>
               <span className="text-xs font-medium text-slate-400">Sep 28, 2024</span>
             </div>
           </div>
@@ -164,7 +164,7 @@ export default function ReferralsPage() {
             </div>
             <div className="pt-2">
               <h4 className="text-sm font-bold text-navy-900">Pending Credit: ₹8,300</h4>
-              <p className="text-sm text-slate-500 mb-1">Michael T. used your link. Credit will be applied after their trip.</p>
+              <p className="text-sm text-slate-300 mb-1">Michael T. used your link. Credit will be applied after their trip.</p>
               <span className="text-xs font-medium text-slate-400">Sep 15, 2024</span>
             </div>
           </div>

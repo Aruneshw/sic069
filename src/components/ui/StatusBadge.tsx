@@ -27,7 +27,7 @@ export default function StatusBadge({ status }: StatusBadgeProps) {
     case "draft":
     case "archived":
     default:
-      colorClass = "bg-slate-100 text-slate-600";
+      colorClass = "bg-slate-100 text-slate-200";
       break;
   }
 

@@ -21,8 +21,8 @@ export default async function OperatorDashboard() {
           ═══════════════════════════════════════ */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div className="flex-1">
-          <h1 className="text-2xl font-bold text-[#150408] mb-1">Overview</h1>
-          <p className="text-slate-500 mb-6">Manage your regional adventures and bookings.</p>
+          <h1 className="text-2xl font-bold text-white mb-1">Overview</h1>
+          <p className="text-slate-300 mb-6">Manage your regional adventures and bookings.</p>
           <div className="w-full lg:max-w-md">
             <LiveTrackingButton />
           </div>
@@ -68,17 +68,17 @@ export default async function OperatorDashboard() {
       {/* ═══════════════════════════════════════
           TRIP INVENTORY TABLE (page-07.png)
           ═══════════════════════════════════════ */}
-      <div className="card-elevated bg-white rounded-2xl border border-slate-200 overflow-hidden">
+      <div className="card-elevated bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-2xl border border-slate-200 overflow-hidden">
         <div className="p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h2 className="text-lg font-bold text-[#150408]">Recent Trip Inventory</h2>
+          <h2 className="text-lg font-bold text-white">Recent Trip Inventory</h2>
           
           <div className="flex items-center gap-3">
-            <select className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B538]/50">
+            <select className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#F7B538]/50">
               <option>All Statuses</option>
               <option>Published</option>
               <option>Draft</option>
             </select>
-            <select className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#F7B538]/50">
+            <select className="px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-sm text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[#F7B538]/50">
               <option>Most Recent</option>
               <option>Alphabetical</option>
             </select>
@@ -89,11 +89,11 @@ export default async function OperatorDashboard() {
           <table className="w-full text-left border-collapse min-w-[800px]">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Trip Details</th>
-                <th className="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Next Departure</th>
-                <th className="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Seats Fill</th>
-                <th className="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
-                <th className="py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">Actions</th>
+                <th className="py-4 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Trip Details</th>
+                <th className="py-4 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Next Departure</th>
+                <th className="py-4 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Seats Fill</th>
+                <th className="py-4 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Status</th>
+                <th className="py-4 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -117,25 +117,25 @@ export default async function OperatorDashboard() {
                         </div>
                         <div>
                           <div className="flex items-center gap-2 mb-0.5">
-                            <p className="font-bold text-[#150408] leading-tight">{trip.name}</p>
+                            <p className="font-bold text-white leading-tight">{trip.name}</p>
                             {trip.badge && (
                               <span className="text-[10px] font-bold text-white bg-[#F7B538] px-1.5 py-0.5 rounded-sm uppercase tracking-wider">
                                 {trip.badge}
                               </span>
                             )}
                           </div>
-                          <p className="text-xs text-slate-500">{trip.duration} • {trip.category}</p>
+                          <p className="text-xs text-slate-300">{trip.duration} • {trip.category}</p>
                         </div>
                       </div>
                     </td>
                     <td className="py-4 px-6">
-                      <div className="text-sm font-medium text-slate-700">
+                      <div className="text-sm font-medium text-[#94A3B8]">
                         {trip.departureDate.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </div>
                     </td>
                     <td className="py-4 px-6 w-48">
                       <div className="flex flex-col gap-2">
-                        <div className="flex items-center justify-between text-xs font-medium text-slate-600">
+                        <div className="flex items-center justify-between text-xs font-medium text-slate-200">
                           <span>{fillPercentage}%</span>
                           <span>{trip.filledSeats}/{trip.maxSeats}</span>
                         </div>
@@ -155,7 +155,7 @@ export default async function OperatorDashboard() {
                         <button className="p-1.5 text-slate-400 hover:text-danger transition-colors" title="Delete">
                           <Trash2 size={16} />
                         </button>
-                        <button className="p-1.5 text-slate-400 hover:text-[#150408] transition-colors" title="More">
+                        <button className="p-1.5 text-slate-400 hover:text-white transition-colors" title="More">
                           <MoreVertical size={16} />
                         </button>
                       </div>
@@ -168,10 +168,10 @@ export default async function OperatorDashboard() {
         </div>
         
         <div className="p-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
-          <p className="text-xs font-medium text-slate-500">Showing 1 to {trips.length} of {trips.length} results</p>
+          <p className="text-xs font-medium text-slate-300">Showing 1 to {trips.length} of {trips.length} results</p>
           <div className="flex items-center gap-2">
-            <button className="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-medium text-slate-600 bg-white hover:bg-slate-50 disabled:opacity-50" disabled>Previous</button>
-            <button className="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-medium text-slate-600 bg-white hover:bg-slate-50 disabled:opacity-50" disabled>Next</button>
+            <button className="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-medium text-slate-200 bg-white hover:bg-slate-50 disabled:opacity-50" disabled>Previous</button>
+            <button className="px-3 py-1.5 border border-slate-200 rounded-lg text-xs font-medium text-slate-200 bg-white hover:bg-slate-50 disabled:opacity-50" disabled>Next</button>
           </div>
         </div>
       </div>

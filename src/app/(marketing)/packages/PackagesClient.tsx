@@ -106,14 +106,14 @@ function PackageBentoCard({
 
           {/* Floating Badges */}
           <div className="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-            <span className="px-3 py-1 bg-white/95 text-[#780116] text-[10px] font-black uppercase tracking-widest rounded-full shadow-sm">
+            <span className="px-3 py-1 bg-white/95 text-[#C8A55C] text-[10px] font-black uppercase tracking-widest rounded-full shadow-sm">
               {pkg.tierBadge}
             </span>
             <CompatibilityBadge item={pkg} size="sm" />
           </div>
 
           <div className="absolute bottom-3 left-4 right-4 z-10 text-white">
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#F7B538] block leading-none mb-1">
+            <span className="text-[10px] font-extrabold uppercase tracking-wider text-[#05070B] block leading-none mb-1">
               {pkg.duration}
             </span>
             <h3 className="text-lg font-black leading-snug drop-shadow-md">{pkg.name}</h3>
@@ -123,36 +123,36 @@ function PackageBentoCard({
         {/* Status Badges Toolbar */}
         <div className="flex flex-wrap items-center gap-2 mb-4">
           <span
-            className="rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-wider bg-white shadow-xs border border-black/5"
+            className="rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-wider bg-[rgba(12,22,38,0.85)] backdrop-blur-md shadow-xs border border-black/5"
             style={{ color: availability.tone }}
           >
             {availability.label}
           </span>
-          <span className="rounded-full bg-white px-3 py-1 text-[10px] font-black uppercase tracking-wider text-[#780116] shadow-xs border border-black/5">
+          <span className="rounded-full bg-white px-3 py-1 text-[10px] font-black uppercase tracking-wider text-[#C8A55C] shadow-xs border border-black/5">
             Max {pkg.maxSeats} Pax
           </span>
         </div>
 
-        <p className="text-xs text-slate-700 leading-relaxed font-medium mb-4 line-clamp-2">
+        <p className="text-xs text-[#94A3B8] leading-relaxed font-medium mb-4 line-clamp-2">
           {pkg.tagline}
         </p>
 
         {/* Floating Mini Route Strip */}
         {itinerary.length > 0 && (
           <div className="space-y-1.5 mb-4">
-            <div className="text-[10px] font-black uppercase tracking-widest text-[#780116]">Expedition Route</div>
+            <div className="text-[10px] font-black uppercase tracking-widest text-[#C8A55C]">Expedition Route</div>
             <div className="flex flex-wrap items-center gap-1.5">
               {itinerary.slice(0, 3).map((step, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center gap-1 bg-white border border-black/5 px-2.5 py-1 rounded-full text-[10px] text-[#150408] font-bold shadow-xs"
+                  className="flex items-center gap-1 bg-white border border-black/5 px-2.5 py-1 rounded-full text-[10px] text-white font-bold shadow-xs"
                 >
-                  <span className="text-[#780116]">{step.day}:</span>
+                  <span className="text-[#C8A55C]">{step.day}:</span>
                   <span className="truncate max-w-[90px]">{step.title}</span>
                 </div>
               ))}
               {itinerary.length > 3 && (
-                <span className="text-[10px] font-bold text-[#780116] bg-white px-2 py-0.5 rounded-full shadow-xs">
+                <span className="text-[10px] font-bold text-[#C8A55C] bg-white px-2 py-0.5 rounded-full shadow-xs">
                   +{itinerary.length - 3} more
                 </span>
               )}
@@ -163,7 +163,7 @@ function PackageBentoCard({
         {/* Inclusions Chips */}
         {inclusions.length > 0 && (
           <div className="space-y-1.5">
-            <div className="text-[10px] font-black uppercase tracking-widest text-[#780116]">Included Upfront</div>
+            <div className="text-[10px] font-black uppercase tracking-widest text-[#C8A55C]">Included Upfront</div>
             <div className="flex flex-wrap gap-1.5">
               {inclusions.slice(0, 3).map((inc, iIdx) => (
                 <span
@@ -182,13 +182,13 @@ function PackageBentoCard({
       {/* Footer Price & View Itinerary CTA */}
       <div className="flex items-center justify-between pt-6 border-t border-black/5 mt-6">
         <div>
-          <div className="text-[9px] font-black uppercase tracking-widest text-slate-500">All-Inclusive</div>
-          <div className="text-2xl font-black text-[#150408]">{formatInr(pkg.bundlePrice)}</div>
+          <div className="text-[9px] font-black uppercase tracking-widest text-slate-300">All-Inclusive</div>
+          <div className="text-2xl font-black text-white">{formatInr(pkg.bundlePrice)}</div>
         </div>
 
         <button
           onClick={onViewItinerary}
-          className="inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-xs font-black uppercase tracking-wider text-white bg-[#780116] shadow-md hover:bg-[#9B0822] transition-all hover:-translate-y-0.5"
+          className="inline-flex items-center gap-1.5 rounded-full px-5 py-2.5 text-xs font-black uppercase tracking-wider text-white bg-[#C8A55C] shadow-md hover:bg-[#A8883A] transition-all hover:-translate-y-0.5"
         >
           View Plan <ArrowRight size={14} />
         </button>
@@ -280,41 +280,41 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#FBF9F5] text-[#150408] pb-28">
+    <div className="min-h-screen bg-transparent text-white pb-28">
       <Toaster position="bottom-center" reverseOrder={false} />
 
       {/* Hero */}
       <section className="pt-36 pb-16 md:pt-44 md:pb-20 text-center px-4">
         <div className="container-main max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF0DF] border border-[#F7B538]/40 text-xs font-black uppercase tracking-widest text-[#7E5105] mb-4">
-            <Sparkles size={14} className="text-[#D49018]" /> Curated Regional Packages
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(12,22,38,0.85)] border border-[rgba(200,165,92,0.20)] text-xs font-black uppercase tracking-widest text-[#C8A55C] mb-4">
+            <Sparkles size={14} className="text-[#C8A55C]" /> Curated Regional Packages
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[#150408] mb-3 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-3 leading-tight">
             Multi-Stop Regional Expeditions
           </h1>
 
-          <p className="font-script text-3xl text-[#780116] mb-4">
+          <p className="font-script text-3xl text-[#C8A55C] mb-4">
             Handcrafted routes with zero guesswork
           </p>
 
-          <p className="text-slate-600 text-sm md:text-base max-w-xl mx-auto font-medium">
+          <p className="text-slate-200 text-sm md:text-base max-w-xl mx-auto font-medium">
             Complete, end-to-end regional expeditions combining basecamp luxury, trail permits, guided trekking, and immersive local culture.
           </p>
 
           {/* Givingli 3-Card Summary Strip */}
           <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto mt-8">
-            <div className="p-4 rounded-2xl bg-[#FDE8EC] border border-pink-200 text-center">
-              <div className="text-[10px] font-black uppercase tracking-widest text-[#780116]">Bundles</div>
-              <div className="text-2xl font-black text-[#150408] mt-0.5">{packages.length}</div>
+            <div className="p-4 rounded-2xl bg-[rgba(12,22,38,0.85)] border border-[rgba(255,255,255,0.06)] text-center">
+              <div className="text-[10px] font-black uppercase tracking-widest text-[#C8A55C]">Bundles</div>
+              <div className="text-2xl font-black text-white mt-0.5">{packages.length}</div>
             </div>
-            <div className="p-4 rounded-2xl bg-[#FAF0DF] border border-amber-200 text-center">
-              <div className="text-[10px] font-black uppercase tracking-widest text-[#7E5105]">Rating</div>
-              <div className="text-2xl font-black text-[#150408] mt-0.5">4.95 ★</div>
+            <div className="p-4 rounded-2xl bg-[rgba(12,22,38,0.85)] border border-[rgba(255,255,255,0.06)] text-center">
+              <div className="text-[10px] font-black uppercase tracking-widest text-[#C8A55C]">Rating</div>
+              <div className="text-2xl font-black text-white mt-0.5">4.95 ★</div>
             </div>
-            <div className="p-4 rounded-2xl bg-[#EBF5EE] border border-emerald-200 text-center">
-              <div className="text-[10px] font-black uppercase tracking-widest text-emerald-800">Open Seats</div>
-              <div className="text-2xl font-black text-[#150408] mt-0.5">{totalSeatsLeft}</div>
+            <div className="p-4 rounded-2xl bg-[rgba(12,22,38,0.85)] border border-[rgba(255,255,255,0.06)] text-center">
+              <div className="text-[10px] font-black uppercase tracking-widest text-[#34D399]">Open Seats</div>
+              <div className="text-2xl font-black text-white mt-0.5">{totalSeatsLeft}</div>
             </div>
           </div>
         </div>
@@ -322,14 +322,14 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
 
       {/* Filter and Search Bar */}
       <section className="container-main max-w-6xl mx-auto px-4 mb-12">
-        <div className="bg-white rounded-[2rem] p-4 md:p-6 border border-[#780116]/10 shadow-lg flex flex-col lg:flex-row items-center justify-between gap-4">
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-[2rem] p-4 md:p-6 border border-[rgba(255,255,255,0.06)] shadow-lg flex flex-col lg:flex-row items-center justify-between gap-4">
           <div className="relative flex-1 w-full">
             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search packages by destination, tier, or inclusions..."
-              className="w-full rounded-full border border-slate-200 bg-[#FBF9F5] py-3 pl-11 pr-4 text-xs font-semibold text-[#150408] outline-none focus:border-[#F7B538] focus:ring-2 focus:ring-[#F7B538]/20 transition-all"
+              className="w-full rounded-full border border-slate-200 bg-transparent py-3 pl-11 pr-4 text-xs font-semibold text-white outline-none focus:border-[#F7B538] focus:ring-2 focus:ring-[#F7B538]/20 transition-all"
             />
           </div>
 
@@ -342,8 +342,8 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
                 onClick={() => setActiveCategory(category)}
                 className={`rounded-full px-4 py-2 text-xs font-black uppercase tracking-wider whitespace-nowrap transition-all ${
                   activeCategory === category
-                    ? "bg-[#780116] text-[#F7B538] shadow-sm"
-                    : "bg-[#FBF9F5] border border-slate-200 text-slate-700 hover:bg-[#FAF0DF]"
+                    ? "bg-[#C8A55C] text-[#05070B] shadow-sm"
+                    : "bg-transparent border border-slate-200 text-[#94A3B8] hover:bg-[rgba(12,22,38,0.85)]"
                 }`}
               >
                 {category}
@@ -356,10 +356,10 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
       {/* Packages Bento Grid */}
       <section className="container-main max-w-6xl mx-auto px-4">
         {filteredPackages.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-[2rem] border border-[#780116]/10 p-8 shadow-sm">
+          <div className="text-center py-20 bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-[2rem] border border-[rgba(255,255,255,0.06)] p-8 shadow-sm">
             <Compass size={48} className="mx-auto text-slate-300 mb-4" />
-            <h3 className="text-xl font-bold text-[#150408] mb-2">No packages match your search</h3>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">Try clearing search terms or selecting a different tier.</p>
+            <h3 className="text-xl font-bold text-white mb-2">No packages match your search</h3>
+            <p className="text-xs text-slate-300 max-w-sm mx-auto">Try clearing search terms or selecting a different tier.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -390,36 +390,36 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl bg-[#FBF9F5] border border-[#780116]/20 rounded-[2.5rem] p-6 md:p-10 shadow-2xl z-10 max-h-[88vh] overflow-y-auto"
+              className="relative w-full max-w-2xl bg-transparent border border-[rgba(255,255,255,0.08)] rounded-[2.5rem] p-6 md:p-10 shadow-2xl z-10 max-h-[88vh] overflow-y-auto"
             >
               <button
                 onClick={() => setActiveItineraryPackage(null)}
-                className="absolute top-6 right-6 p-2 rounded-full bg-white hover:bg-slate-100 text-slate-600 transition-colors shadow-sm"
+                className="absolute top-6 right-6 p-2 rounded-full bg-white hover:bg-slate-100 text-slate-200 transition-colors shadow-sm"
               >
                 <X size={20} />
               </button>
 
               <div className="mb-6">
-                <span className="text-[10px] font-black uppercase tracking-widest text-[#780116] bg-[#FDE8EC] px-3 py-1 rounded-full">
+                <span className="text-[10px] font-black uppercase tracking-widest text-[#C8A55C] bg-[rgba(12,22,38,0.85)] px-3 py-1 rounded-full">
                   {activeItineraryPackage.tierBadge}
                 </span>
-                <h2 className="text-2xl font-extrabold text-[#150408] mt-2">
+                <h2 className="text-2xl font-extrabold text-white mt-2">
                   {activeItineraryPackage.name}
                 </h2>
-                <p className="text-xs text-slate-600 mt-1">{activeItineraryPackage.tagline}</p>
+                <p className="text-xs text-slate-200 mt-1">{activeItineraryPackage.tagline}</p>
               </div>
 
               {/* Itinerary Steps */}
               <div className="space-y-3 my-6">
-                <h3 className="text-xs font-black uppercase tracking-widest text-[#780116]">Day-by-Day Expedition Plan</h3>
+                <h3 className="text-xs font-black uppercase tracking-widest text-[#C8A55C]">Day-by-Day Expedition Plan</h3>
                 {(JSON.parse(activeItineraryPackage.itinerary || "[]") as any[]).map((step, sIdx) => (
                   <div key={sIdx} className="p-4 rounded-2xl bg-white border border-black/5 space-y-1 shadow-xs">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-extrabold text-[#780116]">{step.day}</span>
-                      {step.location && <span className="text-[10px] font-bold text-[#D49018]">{step.location}</span>}
+                      <span className="text-xs font-extrabold text-[#C8A55C]">{step.day}</span>
+                      {step.location && <span className="text-[10px] font-bold text-[#C8A55C]">{step.location}</span>}
                     </div>
-                    <h4 className="text-sm font-bold text-[#150408]">{step.title}</h4>
-                    <p className="text-xs text-slate-600 leading-relaxed">{step.description}</p>
+                    <h4 className="text-sm font-bold text-white">{step.title}</h4>
+                    <p className="text-xs text-slate-200 leading-relaxed">{step.description}</p>
                   </div>
                 ))}
               </div>
@@ -427,13 +427,13 @@ export default function PackagesClient({ packages }: { packages: Package[] }) {
               {/* Action Footer */}
               <div className="flex items-center justify-between pt-6 border-t border-black/5">
                 <div>
-                  <div className="text-[9px] font-black uppercase tracking-widest text-slate-500">Total Price</div>
-                  <div className="text-2xl font-black text-[#150408]">{formatInr(activeItineraryPackage.bundlePrice)}</div>
+                  <div className="text-[9px] font-black uppercase tracking-widest text-slate-300">Total Price</div>
+                  <div className="text-2xl font-black text-white">{formatInr(activeItineraryPackage.bundlePrice)}</div>
                 </div>
 
                 <button
                   onClick={() => handleBookPackage(activeItineraryPackage)}
-                  className="px-8 py-3.5 rounded-full bg-[#780116] text-[#F7B538] font-black text-xs uppercase tracking-wider shadow-lg hover:bg-[#9B0822] transition-all"
+                  className="px-8 py-3.5 rounded-full bg-[#C8A55C] text-[#05070B] font-black text-xs uppercase tracking-wider shadow-lg hover:bg-[#A8883A] transition-all"
                 >
                   Confirm & Reserve
                 </button>

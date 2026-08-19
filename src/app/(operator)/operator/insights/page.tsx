@@ -19,16 +19,16 @@ export default async function InsightsPage() {
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-slate-200 pb-6">
         <div>
           <div className="text-xs font-bold text-teal-600 uppercase tracking-wider mb-1">Staff Portal / Operator Access</div>
-          <h1 className="text-2xl font-bold text-[#150408] mb-1">Business Insights</h1>
-          <p className="text-slate-500 text-sm">Performance metrics and analytics for Q3 2024.</p>
+          <h1 className="text-2xl font-bold text-white mb-1">Business Insights</h1>
+          <p className="text-slate-300 text-sm">Performance metrics and analytics for Q3 2024.</p>
         </div>
         
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-4 py-2 shadow-sm text-sm font-medium text-slate-700">
+          <div className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-4 py-2 shadow-sm text-sm font-medium text-[#94A3B8]">
             <Calendar size={16} className="text-slate-400" />
             <span>Jul 1, 2024 - Sep 30, 2024</span>
           </div>
-          <button className="flex items-center gap-2 bg-[#780116] text-white rounded-lg px-4 py-2 text-sm font-semibold hover:bg-[#780116]/80 transition-colors shadow-sm">
+          <button className="flex items-center gap-2 bg-[#C8A55C] text-white rounded-lg px-4 py-2 text-sm font-semibold hover:bg-[#C8A55C]/80 transition-colors shadow-sm">
             <Download size={16} /> Export Report
           </button>
         </div>
@@ -38,40 +38,40 @@ export default async function InsightsPage() {
           KPI CARDS
           ═══════════════════════════════════════ */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <div className="text-sm font-medium text-slate-500 mb-1">Total Revenue</div>
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="text-sm font-medium text-slate-300 mb-1">Total Revenue</div>
           <div className="flex items-end justify-between">
-            <div className="text-2xl font-bold text-[#150408]">{formatInr(124500)}</div>
+            <div className="text-2xl font-bold text-white">{formatInr(124500)}</div>
             <div className="flex items-center text-xs font-bold text-success bg-success-light px-2 py-1 rounded-md">
               <TrendingUp size={12} className="mr-1" /> +12%
             </div>
           </div>
         </div>
         
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <div className="text-sm font-medium text-slate-500 mb-1">Avg Occupancy</div>
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="text-sm font-medium text-slate-300 mb-1">Avg Occupancy</div>
           <div className="flex items-end justify-between">
-            <div className="text-2xl font-bold text-[#150408]">87.4%</div>
+            <div className="text-2xl font-bold text-white">87.4%</div>
             <div className="flex items-center text-xs font-bold text-success bg-success-light px-2 py-1 rounded-md">
               <TrendingUp size={12} className="mr-1" /> +5%
             </div>
           </div>
         </div>
         
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <div className="text-sm font-medium text-slate-500 mb-1">Repeat Rate</div>
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="text-sm font-medium text-slate-300 mb-1">Repeat Rate</div>
           <div className="flex items-end justify-between">
-            <div className="text-2xl font-bold text-[#150408]">22.1%</div>
-            <div className="flex items-center text-xs font-bold text-slate-500 bg-slate-100 px-2 py-1 rounded-md">
+            <div className="text-2xl font-bold text-white">22.1%</div>
+            <div className="flex items-center text-xs font-bold text-slate-300 bg-slate-100 px-2 py-1 rounded-md">
               — 0%
             </div>
           </div>
         </div>
         
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <div className="text-sm font-medium text-slate-500 mb-1">Referral Rate</div>
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <div className="text-sm font-medium text-slate-300 mb-1">Referral Rate</div>
           <div className="flex items-end justify-between">
-            <div className="text-2xl font-bold text-[#150408]">14.8%</div>
+            <div className="text-2xl font-bold text-white">14.8%</div>
             <div className="flex items-center text-xs font-bold text-danger bg-danger-light px-2 py-1 rounded-md">
               <TrendingDown size={12} className="mr-1" /> -2%
             </div>
@@ -85,9 +85,9 @@ export default async function InsightsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         {/* Main Chart */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+        <div className="lg:col-span-2 bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between mb-2">
-            <h2 className="text-lg font-bold text-[#150408]">Revenue Performance</h2>
+            <h2 className="text-lg font-bold text-white">Revenue Performance</h2>
             <div className="flex gap-3 text-xs font-medium">
               <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-teal-600"/> Current</div>
               <div className="flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-slate-300"/> Previous</div>
@@ -97,33 +97,33 @@ export default async function InsightsPage() {
         </div>
 
         {/* Donut Chart */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
-          <h2 className="text-lg font-bold text-[#150408] mb-2">Revenue Source</h2>
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
+          <h2 className="text-lg font-bold text-white mb-2">Revenue Source</h2>
           <div className="flex-1 flex items-center justify-center relative">
             <SourcePieChart />
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="text-center">
-                <div className="text-2xl font-bold text-[#150408]">75%</div>
+                <div className="text-2xl font-bold text-white">75%</div>
                 <div className="text-[10px] uppercase font-bold text-slate-400">Direct</div>
               </div>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-slate-100">
-            <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
+            <div className="flex items-center gap-2 text-xs font-medium text-slate-200">
               <div className="w-2 h-2 rounded-full bg-[#15779D]" /> Direct (75%)
             </div>
-            <div className="flex items-center gap-2 text-xs font-medium text-slate-600">
+            <div className="flex items-center gap-2 text-xs font-medium text-slate-200">
               <div className="w-2 h-2 rounded-full bg-[#4FC3F7]" /> Agents (15%)
             </div>
-            <div className="flex items-center gap-2 text-xs font-medium text-slate-600 col-span-2">
+            <div className="flex items-center gap-2 text-xs font-medium text-slate-200 col-span-2">
               <div className="w-2 h-2 rounded-full bg-[#1A9BC7]" /> Referrals (10%)
             </div>
           </div>
         </div>
 
         {/* Heatmap (Mocked with CSS grid) */}
-        <div className="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <h2 className="text-lg font-bold text-[#150408] mb-4">Seasonal Demand Heatmap</h2>
+        <div className="lg:col-span-2 bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <h2 className="text-lg font-bold text-white mb-4">Seasonal Demand Heatmap</h2>
           <div className="overflow-x-auto">
             <div className="min-w-[600px]">
               <div className="grid grid-cols-12 gap-1 mb-2">
@@ -134,7 +134,7 @@ export default async function InsightsPage() {
               <div className="space-y-1">
                 {['Coastal', 'Mountain', 'Urban', 'Valley'].map((cat, i) => (
                   <div key={cat} className="flex items-center gap-2">
-                    <div className="w-16 text-xs font-medium text-slate-600 shrink-0">{cat}</div>
+                    <div className="w-16 text-xs font-medium text-slate-200 shrink-0">{cat}</div>
                     <div className="grid grid-cols-12 gap-1 flex-1">
                       {[...Array(12)].map((_, j) => {
                         // Deterministic mock intensity (avoid Math.random — breaks SSR hydration)
@@ -158,7 +158,7 @@ export default async function InsightsPage() {
                   </div>
                 ))}
               </div>
-              <div className="flex items-center justify-end gap-3 mt-4 text-xs font-medium text-slate-500">
+              <div className="flex items-center justify-end gap-3 mt-4 text-xs font-medium text-slate-300">
                 <span>Low</span>
                 <div className="flex gap-1">
                   <div className="w-4 h-4 rounded-sm bg-teal-50" />
@@ -173,8 +173,8 @@ export default async function InsightsPage() {
         </div>
 
         {/* Bar Chart */}
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <h2 className="text-lg font-bold text-[#150408] mb-2">Destination Popularity</h2>
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md p-6 rounded-2xl border border-slate-200 shadow-sm">
+          <h2 className="text-lg font-bold text-white mb-2">Destination Popularity</h2>
           <DestinationBarChart />
         </div>
 
@@ -183,9 +183,9 @@ export default async function InsightsPage() {
       {/* ═══════════════════════════════════════
           TOP TRIPS TABLE
           ═══════════════════════════════════════ */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mt-6">
+      <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-2xl border border-slate-200 shadow-sm overflow-hidden mt-6">
         <div className="p-6 border-b border-slate-200 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-[#150408]">Top Performing Trips</h2>
+          <h2 className="text-lg font-bold text-white">Top Performing Trips</h2>
           <button className="text-sm font-semibold text-teal-600 hover:text-teal-700 flex items-center gap-1">
             View All <ArrowUpRight size={16} />
           </button>
@@ -194,11 +194,11 @@ export default async function InsightsPage() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200">
-                <th className="py-3 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Trip Name</th>
-                <th className="py-3 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Bookings</th>
-                <th className="py-3 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Revenue</th>
-                <th className="py-3 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Rating</th>
-                <th className="py-3 px-6 text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                <th className="py-3 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Trip Name</th>
+                <th className="py-3 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Bookings</th>
+                <th className="py-3 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Revenue</th>
+                <th className="py-3 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Rating</th>
+                <th className="py-3 px-6 text-xs font-bold text-slate-300 uppercase tracking-wider">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
@@ -207,11 +207,11 @@ export default async function InsightsPage() {
                 const revenueUsd = (10 + ((index * 23 + trip.price) % 50)) * 1000;
                 return (
                 <tr key={trip.id} className="hover:bg-slate-50">
-                  <td className="py-3 px-6 font-semibold text-[#150408]">{trip.name}</td>
-                  <td className="py-3 px-6 text-slate-600">{bookings}</td>
-                  <td className="py-3 px-6 text-slate-600 font-medium">{formatInr(revenueUsd)}</td>
+                  <td className="py-3 px-6 font-semibold text-white">{trip.name}</td>
+                  <td className="py-3 px-6 text-slate-200">{bookings}</td>
+                  <td className="py-3 px-6 text-slate-200 font-medium">{formatInr(revenueUsd)}</td>
                   <td className="py-3 px-6">
-                    <div className="flex items-center gap-1 text-sm font-bold text-[#150408]">
+                    <div className="flex items-center gap-1 text-sm font-bold text-white">
                       <Star size={14} className="fill-warning text-warning" /> {trip.rating}
                     </div>
                   </td>

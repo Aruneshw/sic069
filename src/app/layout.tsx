@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Allura } from "next/font/google";
+import { Poppins, Allura, Playfair_Display } from "next/font/google";
 import AuthGuard from "@/components/auth/AuthGuard";
 import AIChatbot from "@/components/ui/AIChatbot";
 import "./globals.css";
@@ -16,6 +16,13 @@ const allura = Allura({
   weight: ["400"],
   display: "swap",
   variable: "--font-allura",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  variable: "--font-playfair",
 });
 
 export const metadata: Metadata = {
@@ -53,8 +60,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} ${allura.variable}`}>
-      <body className="font-sans antialiased selection:bg-[#F7B538]/30 selection:text-[#780116]">
+    <html lang="en" className={`${poppins.variable} ${allura.variable} ${playfair.variable}`}>
+      <body className="font-sans antialiased">
         <SmoothAnimationEngine>
           <AuthGuard>{children}</AuthGuard>
           <AIChatbot />

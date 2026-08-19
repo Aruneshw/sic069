@@ -58,20 +58,20 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
   const selectedDateObj = selectedDateStr ? new Date(selectedDateStr) : new Date();
 
   return (
-    <div className="bg-[#FBF9F5] min-h-screen pb-24 text-[#150408]">
+    <div className="bg-transparent min-h-screen pb-24 text-white">
       {/* Header */}
       <section className="pt-36 pb-14 md:pt-44 md:pb-16 text-center px-4">
         <div className="container-main max-w-4xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FAF0DF] border border-[#F7B538]/40 text-xs font-black uppercase tracking-widest text-[#7E5105] mb-4">
-            <Sparkles size={14} className="text-[#D49018]" /> Live Departure Schedules
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(12,22,38,0.85)] border border-[rgba(200,165,92,0.20)] text-xs font-black uppercase tracking-widest text-[#C8A55C] mb-4">
+            <Sparkles size={14} className="text-[#C8A55C]" /> Live Departure Schedules
           </span>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-[#150408] mb-3 leading-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-3 leading-tight">
             Expedition Availability Calendar
           </h1>
-          <p className="font-script text-3xl text-[#780116] mb-4">
+          <p className="font-script text-3xl text-[#C8A55C] mb-4">
             Plan ahead with real-time seat tracking
           </p>
-          <p className="text-slate-600 text-sm md:text-base max-w-xl mx-auto font-medium">
+          <p className="text-slate-200 text-sm md:text-base max-w-xl mx-auto font-medium">
             Lock in your next adventure by checking exact confirmed departure dates and remaining seats.
           </p>
         </div>
@@ -79,7 +79,7 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
 
       {/* Controls Bar */}
       <div className="container-main max-w-6xl mx-auto px-4 mb-8">
-        <div className="bg-white rounded-[2rem] shadow-lg p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-[#780116]/10">
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-[2rem] shadow-lg p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-[rgba(255,255,255,0.06)]">
           
           {/* Categories */}
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 hide-scrollbar">
@@ -89,8 +89,8 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
                 onClick={() => setCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider whitespace-nowrap transition-all ${
                   category === cat
-                    ? "bg-[#780116] text-[#F7B538] shadow-sm"
-                    : "bg-[#FBF9F5] border border-slate-200 text-slate-700 hover:bg-[#FAF0DF]"
+                    ? "bg-[#C8A55C] text-[#05070B] shadow-sm"
+                    : "bg-transparent border border-slate-200 text-[#94A3B8] hover:bg-[rgba(12,22,38,0.85)]"
                 }`}
               >
                 {cat}
@@ -100,19 +100,19 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
 
           {/* Month Pagination & Switcher */}
           <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
-            <div className="flex items-center gap-2 bg-[#FBF9F5] px-3 py-1.5 rounded-full border border-black/5">
-              <span className="font-extrabold text-xs text-[#150408]">{monthName}</span>
+            <div className="flex items-center gap-2 bg-transparent px-3 py-1.5 rounded-full border border-black/5">
+              <span className="font-extrabold text-xs text-white">{monthName}</span>
             </div>
 
-            <div className="flex bg-[#FBF9F5] p-1 rounded-2xl border border-black/5 shrink-0">
+            <div className="flex bg-transparent p-1 rounded-2xl border border-black/5 shrink-0">
               <Link
                 href="/trips"
-                className="px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 text-slate-600 hover:text-[#780116] font-bold text-xs uppercase tracking-wider transition-colors no-underline"
+                className="px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 text-slate-200 hover:text-[#C8A55C] font-bold text-xs uppercase tracking-wider transition-colors no-underline"
               >
                 <LayoutGrid size={14} />
                 <span className="hidden sm:inline">Grid</span>
               </Link>
-              <div className="px-3.5 py-1.5 bg-[#780116] text-[#F7B538] shadow-xs rounded-xl flex items-center gap-1.5 font-black text-xs uppercase tracking-wider">
+              <div className="px-3.5 py-1.5 bg-[#C8A55C] text-[#05070B] shadow-xs rounded-xl flex items-center gap-1.5 font-black text-xs uppercase tracking-wider">
                 <CalendarDays size={14} />
                 <span className="hidden sm:inline">Calendar</span>
               </div>
@@ -124,7 +124,7 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
       {/* Main Calendar & Details Bento Layout */}
       <div className="container-main max-w-6xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Calendar Grid */}
-        <div className="lg:col-span-2 bg-white rounded-[2rem] p-6 md:p-8 border border-[#780116]/10 shadow-lg">
+        <div className="lg:col-span-2 bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-[2rem] p-6 md:p-8 border border-[rgba(255,255,255,0.06)] shadow-lg">
           <div className="grid grid-cols-7 gap-2 mb-3 text-center">
             {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
               <div key={day} className="text-[11px] font-black uppercase text-slate-400 py-1">
@@ -135,7 +135,7 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
 
           <div className="grid grid-cols-7 gap-2">
             {blanks.map((b) => (
-              <div key={`blank-${b}`} className="aspect-square rounded-2xl bg-[#FBF9F5]/40" />
+              <div key={`blank-${b}`} className="aspect-square rounded-2xl bg-transparent/40" />
             ))}
             {days.map((day) => {
               const dayStr = `${targetMonth.getFullYear()}-${String(targetMonth.getMonth() + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -150,10 +150,10 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
                   disabled={!hasDeps}
                   className={`aspect-square rounded-2xl p-2 flex flex-col justify-between items-center transition-all ${
                     isSelected
-                      ? "bg-[#780116] text-[#F7B538] shadow-md scale-105"
+                      ? "bg-[#C8A55C] text-[#05070B] shadow-md scale-105"
                       : hasDeps
-                      ? "bg-[#FDE8EC] hover:bg-[#FAF0DF] border border-pink-200 text-[#150408] cursor-pointer"
-                      : "bg-[#FBF9F5] text-slate-300 opacity-60 cursor-not-allowed"
+                      ? "bg-[rgba(12,22,38,0.85)] hover:bg-[rgba(12,22,38,0.85)] border border-[rgba(255,255,255,0.06)] text-white cursor-pointer"
+                      : "bg-transparent text-slate-300 opacity-60 cursor-not-allowed"
                   }`}
                 >
                   <span className="text-xs font-black">{day}</span>
@@ -167,31 +167,31 @@ export default function CalendarClient({ allDepartures }: { allDepartures: any[]
         </div>
 
         {/* Selected Day Departures Detail Card */}
-        <div className="bg-white rounded-[2rem] p-6 md:p-8 border border-[#780116]/10 shadow-lg flex flex-col justify-between">
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-[2rem] p-6 md:p-8 border border-[rgba(255,255,255,0.06)] shadow-lg flex flex-col justify-between">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#780116]">Selected Date</span>
-            <h3 className="text-xl font-extrabold text-[#150408] mb-4">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#C8A55C]">Selected Date</span>
+            <h3 className="text-xl font-extrabold text-white mb-4">
               {selectedDateObj.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
             </h3>
 
             {selectedDepartures.length === 0 ? (
-              <div className="p-6 rounded-2xl bg-[#FBF9F5] text-center text-xs text-slate-500 border border-black/5">
+              <div className="p-6 rounded-2xl bg-transparent text-center text-xs text-slate-300 border border-black/5">
                 No departures scheduled for this specific date. Select a highlighted date on the calendar.
               </div>
             ) : (
               <div className="space-y-3">
                 {selectedDepartures.map((dep: any) => (
-                  <div key={dep.id} className="p-4 rounded-2xl bg-[#FAF0DF] border border-amber-200 space-y-2">
+                  <div key={dep.id} className="p-4 rounded-2xl bg-[rgba(12,22,38,0.85)] border border-[rgba(255,255,255,0.06)] space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-black uppercase text-[#780116]">{dep.trip.category}</span>
-                      <span className="text-xs font-black text-emerald-700 bg-white px-2.5 py-0.5 rounded-full shadow-xs">
+                      <span className="text-[10px] font-black uppercase text-[#C8A55C]">{dep.trip.category}</span>
+                      <span className="text-xs font-black text-[#34D399] bg-white px-2.5 py-0.5 rounded-full shadow-xs">
                         {dep.seatsLeft} Seats Open
                       </span>
                     </div>
-                    <h4 className="text-sm font-extrabold text-[#150408]">{dep.trip.name}</h4>
-                    <div className="flex items-center justify-between text-xs pt-2 border-t border-amber-200/60 font-bold">
-                      <span className="text-[#150408]">{formatInr(dep.trip.price)}</span>
-                      <Link href={`/trips/${dep.trip.slug}`} className="text-[#780116] hover:underline">
+                    <h4 className="text-sm font-extrabold text-white">{dep.trip.name}</h4>
+                    <div className="flex items-center justify-between text-xs pt-2 border-t border-[rgba(255,255,255,0.06)]/60 font-bold">
+                      <span className="text-white">{formatInr(dep.trip.price)}</span>
+                      <Link href={`/trips/${dep.trip.slug}`} className="text-[#C8A55C] hover:underline">
                         View Trip →
                       </Link>
                     </div>

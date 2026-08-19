@@ -138,9 +138,9 @@ export default function AdminPackagesPage() {
       case "Published":
         return "bg-emerald-500/10 text-emerald-400 border-emerald-500/30";
       case "Draft":
-        return "bg-[#F7B538]/10 text-[#F7B538] border-[#F7B538]/30";
+        return "bg-[rgba(200,165,92,0.08)] text-[#05070B] border-[#F7B538]/30";
       case "Archived":
-        return "bg-[#780116]/30 text-rose-300 border-[#780116]/50";
+        return "bg-[#C8A55C]/30 text-rose-300 border-[#780116]/50";
       default:
         return "bg-white/5 text-slate-300 border-white/10";
     }
@@ -161,13 +161,13 @@ export default function AdminPackagesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Sparkles size={16} className="text-[#F7B538]" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#F7B538]">Inventory Command</span>
+            <Sparkles size={16} className="text-[#05070B]" />
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#05070B]">Inventory Command</span>
           </div>
           <h1 className="text-2xl md:text-3xl font-black text-white">Curated Packages</h1>
           <p className="text-xs text-slate-400 mt-1">
             Live database management for multi-stop expeditions.{" "}
-            <span className="text-[#F7B538] font-bold">
+            <span className="text-[#05070B] font-bold">
               ({packages.length} active records)
             </span>
           </p>
@@ -176,14 +176,14 @@ export default function AdminPackagesPage() {
           <button
             onClick={fetchPackages}
             disabled={loading}
-            className="p-2.5 bg-[#150408] text-slate-300 hover:text-[#F7B538] rounded-xl border border-[#F7B538]/20 transition-colors disabled:opacity-50"
+            className="p-2.5 bg-[#150408] text-slate-300 hover:text-[#05070B] rounded-xl border border-[#F7B538]/20 transition-colors disabled:opacity-50"
             title="Refresh"
           >
             <RefreshCw size={16} className={loading ? "animate-spin" : ""} />
           </button>
           <Link
             href="/admin/packages/new"
-            className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#F7B538] to-[#D49018] text-[#150408] rounded-xl text-xs font-black uppercase tracking-wider hover:from-[#F9C862] hover:to-[#F7B538] transition-all shadow-lg shadow-[#F7B538]/20 no-underline"
+            className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#F7B538] to-[#D49018] text-white rounded-xl text-xs font-black uppercase tracking-wider hover:from-[#F9C862] hover:to-[#F7B538] transition-all shadow-lg shadow-[#F7B538]/20 no-underline"
           >
             <Plus size={16} strokeWidth={2.8} />
             Create Package
@@ -202,7 +202,7 @@ export default function AdminPackagesPage() {
           <div className="text-2xl font-black text-white mt-1">{statusCounts.Published}</div>
         </div>
         <div className="p-4 rounded-2xl bg-[#150408] border border-[#F7B538]/20">
-          <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#F7B538]">Draft Staging</div>
+          <div className="text-[10px] font-extrabold uppercase tracking-widest text-[#05070B]">Draft Staging</div>
           <div className="text-2xl font-black text-white mt-1">{statusCounts.Draft}</div>
         </div>
         <div className="p-4 rounded-2xl bg-[#150408] border border-[#780116]/30">
@@ -221,12 +221,12 @@ export default function AdminPackagesPage() {
                 onClick={() => setStatusFilter(filter)}
                 className={`px-3.5 py-1.5 rounded-xl text-xs font-black uppercase tracking-wider whitespace-nowrap transition-colors ${
                   statusFilter === filter
-                    ? "bg-[#780116] text-[#F7B538] border border-[#F7B538]/40 shadow-sm"
+                    ? "bg-[#C8A55C] text-[#05070B] border border-[rgba(200,165,92,0.20)] shadow-sm"
                     : "text-slate-400 hover:bg-white/5 hover:text-slate-200"
                 }`}
               >
                 {filter}{" "}
-                <span className="text-[#F7B538]/80 ml-1">
+                <span className="text-[#05070B]/80 ml-1">
                   ({statusCounts[filter]})
                 </span>
               </button>
@@ -256,7 +256,7 @@ export default function AdminPackagesPage() {
               <div className="flex flex-col items-center gap-3">
                 <Loader2
                   size={32}
-                  className="animate-spin text-[#F7B538]"
+                  className="animate-spin text-[#05070B]"
                 />
                 <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
                   Loading Live Packages...
@@ -268,7 +268,7 @@ export default function AdminPackagesPage() {
               <div className="text-center">
                 <Compass
                   size={48}
-                  className="mx-auto text-slate-600 mb-4"
+                  className="mx-auto text-slate-200 mb-4"
                 />
                 <h3 className="text-lg font-bold text-white mb-2">
                   No packages found
@@ -281,7 +281,7 @@ export default function AdminPackagesPage() {
                 {!searchTerm && statusFilter === "All" && (
                   <Link
                     href="/admin/packages/new"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#F7B538] text-[#150408] rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#F9C862] transition-colors no-underline"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#F7B538] text-white rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-[#F9C862] transition-colors no-underline"
                   >
                     <Plus size={16} /> Create Package
                   </Link>
@@ -290,7 +290,7 @@ export default function AdminPackagesPage() {
             </div>
           ) : (
             <table className="w-full text-left text-sm whitespace-nowrap">
-              <thead className="bg-[#0B0204] text-[11px] uppercase tracking-wider font-extrabold text-[#F7B538]/70 border-b border-[#F7B538]/15">
+              <thead className="bg-[#0B0204] text-[11px] uppercase tracking-wider font-extrabold text-[#05070B]/70 border-b border-[#F7B538]/15">
                 <tr>
                   <th className="px-5 py-4">Package Info</th>
                   <th className="px-5 py-4">Tier Badge</th>
@@ -309,7 +309,7 @@ export default function AdminPackagesPage() {
                   >
                     <td className="px-5 py-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl overflow-hidden bg-[#0B0204] flex items-center justify-center text-slate-500 shrink-0 border border-[#F7B538]/20">
+                        <div className="w-10 h-10 rounded-xl overflow-hidden bg-[#0B0204] flex items-center justify-center text-slate-300 shrink-0 border border-[#F7B538]/20">
                           {pkg.imageUrl ? (
                             <img
                               src={pkg.imageUrl}
@@ -317,7 +317,7 @@ export default function AdminPackagesPage() {
                               className="w-full h-full object-cover"
                             />
                           ) : (
-                            <Compass size={18} className="text-[#F7B538]" />
+                            <Compass size={18} className="text-[#05070B]" />
                           )}
                         </div>
                         <div>
@@ -329,7 +329,7 @@ export default function AdminPackagesPage() {
                       </div>
                     </td>
                     <td className="px-5 py-4">
-                      <span className="text-xs font-bold text-[#F7B538]">
+                      <span className="text-xs font-bold text-[#05070B]">
                         {pkg.tierBadge}
                       </span>
                     </td>
@@ -362,7 +362,7 @@ export default function AdminPackagesPage() {
                             activeMenu === pkg.id ? null : pkg.id
                           )
                         }
-                        className="p-1.5 rounded-lg text-slate-400 hover:text-[#F7B538] hover:bg-white/10 transition-colors"
+                        className="p-1.5 rounded-lg text-slate-400 hover:text-[#05070B] hover:bg-white/10 transition-colors"
                       >
                         <MoreVertical size={18} />
                       </button>
@@ -383,7 +383,7 @@ export default function AdminPackagesPage() {
                             >
                               <Link
                                 href={`/admin/packages/${pkg.id}/edit`}
-                                className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-200 hover:text-[#F7B538] hover:bg-white/5 no-underline"
+                                className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-200 hover:text-[#05070B] hover:bg-white/5 no-underline"
                                 onClick={() => setActiveMenu(null)}
                               >
                                 <Edit size={15} /> Edit Package
@@ -391,7 +391,7 @@ export default function AdminPackagesPage() {
                               <Link
                                 href={`/packages`}
                                 target="_blank"
-                                className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-200 hover:text-[#F7B538] hover:bg-white/5 no-underline"
+                                className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-200 hover:text-[#05070B] hover:bg-white/5 no-underline"
                                 onClick={() => setActiveMenu(null)}
                               >
                                 <Eye size={15} /> View Public Page
@@ -415,7 +415,7 @@ export default function AdminPackagesPage() {
                                   onClick={() =>
                                     handleStatusChange(pkg, "Draft")
                                   }
-                                  className="w-full flex items-center gap-2 px-4 py-2.5 text-xs text-[#F7B538] hover:bg-[#F7B538]/10 text-left font-bold"
+                                  className="w-full flex items-center gap-2 px-4 py-2.5 text-xs text-[#05070B] hover:bg-[rgba(200,165,92,0.08)] text-left font-bold"
                                 >
                                   <FileText size={15} /> Move to Draft
                                 </button>
@@ -472,8 +472,8 @@ export default function AdminPackagesPage() {
               exit={{ opacity: 0, scale: 0.95 }}
               className="relative w-full max-w-md bg-[#0B0204] border border-[#780116] rounded-[2rem] p-6 shadow-2xl z-10"
             >
-              <div className="flex items-center gap-3 mb-4 text-[#780116]">
-                <div className="w-12 h-12 rounded-2xl bg-[#780116]/20 border border-[#780116]/40 flex items-center justify-center text-rose-400">
+              <div className="flex items-center gap-3 mb-4 text-[#C8A55C]">
+                <div className="w-12 h-12 rounded-2xl bg-[#C8A55C]/20 border border-[#780116]/40 flex items-center justify-center text-rose-400">
                   <Trash2 size={24} />
                 </div>
                 <div>
@@ -482,7 +482,7 @@ export default function AdminPackagesPage() {
                 </div>
               </div>
               <p className="text-xs text-slate-300 mb-6 bg-[#150408] p-3.5 rounded-xl border border-white/5">
-                Are you sure you want to delete <span className="font-bold text-[#F7B538]">&ldquo;{deleteTarget.name}&rdquo;</span>?
+                Are you sure you want to delete <span className="font-bold text-[#05070B]">&ldquo;{deleteTarget.name}&rdquo;</span>?
               </p>
               <div className="flex items-center justify-end gap-3">
                 <button

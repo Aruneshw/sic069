@@ -34,25 +34,25 @@ export default function TripsClient({ trips }: { trips: any[] }) {
   const categories = ["All", "Coastal", "Mountain", "Urban", "Valley"];
 
   return (
-    <div className="bg-[#FBF9F5] min-h-screen pb-28 text-[#150408]">
+    <div className="bg-transparent min-h-screen pb-28 text-white">
       {/* Hero */}
       <section className="pt-36 pb-16 md:pt-44 md:pb-20 text-center px-4">
         <div className="container-main max-w-4xl mx-auto">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FDE8EC] border border-[#780116]/20 text-xs font-black text-[#780116] uppercase tracking-widest mb-4">
+          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(12,22,38,0.85)] border border-[rgba(255,255,255,0.08)] text-xs font-black text-[#C8A55C] uppercase tracking-widest mb-4">
             <Sparkles size={14} /> Curated Regional Expeditions
           </span>
 
           <RunningLetters
             as="h1"
             text="Find Your Next Horizon"
-            className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-[#150408] mb-3 leading-tight"
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white mb-3 leading-tight"
           />
 
-          <p className="font-script text-3xl text-[#780116] mb-4">
+          <p className="font-script text-3xl text-[#C8A55C] mb-4">
             Bespoke itineraries tailored for mindful explorers
           </p>
 
-          <p className="text-base md:text-lg text-slate-600 max-w-xl mx-auto font-medium">
+          <p className="text-base md:text-lg text-slate-200 max-w-xl mx-auto font-medium">
             Browse our complete collection of verified regional journeys, from peaceful coastal retreats to rigorous alpine ascents.
           </p>
         </div>
@@ -60,7 +60,7 @@ export default function TripsClient({ trips }: { trips: any[] }) {
 
       {/* Controls Bar */}
       <section className="container-main max-w-6xl mx-auto px-4 mb-12">
-        <div className="bg-white rounded-[2rem] shadow-lg p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-[#780116]/10">
+        <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-[2rem] shadow-lg p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-4 border border-[rgba(255,255,255,0.06)]">
           {/* Categories */}
           <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 hide-scrollbar">
             {categories.map((cat) => (
@@ -69,8 +69,8 @@ export default function TripsClient({ trips }: { trips: any[] }) {
                 onClick={() => setCategory(cat)}
                 className={`px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider whitespace-nowrap transition-all duration-300 ${
                   category === cat
-                    ? "bg-[#780116] text-[#F7B538] shadow-sm"
-                    : "bg-[#FBF9F5] border border-slate-200 text-slate-700 hover:bg-[#FAF0DF]"
+                    ? "bg-[#C8A55C] text-[#05070B] shadow-sm"
+                    : "bg-transparent border border-slate-200 text-[#94A3B8] hover:bg-[rgba(12,22,38,0.85)]"
                 }`}
               >
                 {cat}
@@ -87,18 +87,18 @@ export default function TripsClient({ trips }: { trips: any[] }) {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search expeditions..."
-                className="pl-10 pr-4 py-2.5 bg-[#FBF9F5] border border-slate-200 rounded-full text-xs font-semibold text-[#150408] focus:outline-none focus:border-[#F7B538] focus:ring-2 focus:ring-[#F7B538]/20 w-full transition-all"
+                className="pl-10 pr-4 py-2.5 bg-transparent border border-slate-200 rounded-full text-xs font-semibold text-white focus:outline-none focus:border-[#F7B538] focus:ring-2 focus:ring-[#F7B538]/20 w-full transition-all"
               />
             </div>
 
-            <div className="flex bg-[#FBF9F5] p-1 rounded-2xl border border-black/5 shrink-0">
-              <div className="px-3.5 py-1.5 bg-[#780116] text-[#F7B538] shadow-xs rounded-xl flex items-center gap-1.5 font-black text-xs uppercase tracking-wider">
+            <div className="flex bg-transparent p-1 rounded-2xl border border-black/5 shrink-0">
+              <div className="px-3.5 py-1.5 bg-[#C8A55C] text-[#05070B] shadow-xs rounded-xl flex items-center gap-1.5 font-black text-xs uppercase tracking-wider">
                 <LayoutGrid size={14} />
                 <span className="hidden sm:inline">Grid</span>
               </div>
               <Link
                 href="/trips/calendar"
-                className="px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 text-slate-600 hover:text-[#780116] font-bold text-xs uppercase tracking-wider transition-colors no-underline"
+                className="px-3.5 py-1.5 rounded-xl flex items-center gap-1.5 text-slate-200 hover:text-[#C8A55C] font-bold text-xs uppercase tracking-wider transition-colors no-underline"
               >
                 <CalendarDays size={14} />
                 <span className="hidden sm:inline">Calendar</span>
@@ -119,10 +119,10 @@ export default function TripsClient({ trips }: { trips: any[] }) {
             ))}
           </div>
         ) : (
-          <div className="text-center py-20 bg-white rounded-[2rem] border border-[#780116]/10 p-8 shadow-sm">
+          <div className="text-center py-20 bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-[2rem] border border-[rgba(255,255,255,0.06)] p-8 shadow-sm">
             <Compass size={48} className="mx-auto text-slate-300 mb-4" />
-            <h3 className="text-xl font-extrabold text-[#150408] mb-2">No expeditions found</h3>
-            <p className="text-xs text-slate-500 mb-6 max-w-sm mx-auto">
+            <h3 className="text-xl font-extrabold text-white mb-2">No expeditions found</h3>
+            <p className="text-xs text-slate-300 mb-6 max-w-sm mx-auto">
               We couldn&apos;t find any journeys matching your active filters.
             </p>
             <button

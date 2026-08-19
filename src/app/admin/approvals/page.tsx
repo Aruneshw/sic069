@@ -45,7 +45,7 @@ export default function AdminApprovalsPage() {
       <div className="bg-navy-900 border border-white/5 rounded-2xl overflow-hidden">
         <div className="overflow-x-auto min-h-[400px]">
           <table className="w-full text-left text-sm whitespace-nowrap">
-            <thead className="bg-navy-950/50 text-xs uppercase tracking-wider font-bold text-slate-500 border-b border-white/5">
+            <thead className="bg-navy-950/50 text-xs uppercase tracking-wider font-bold text-slate-300 border-b border-white/5">
               <tr>
                 <th className="px-5 py-4">Package</th>
                 <th className="px-5 py-4">Submitted By</th>
@@ -59,7 +59,7 @@ export default function AdminApprovalsPage() {
                 <tr key={item.id} className="hover:bg-white/5 transition-colors group">
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-navy-800 flex items-center justify-center text-slate-500 shrink-0 border border-white/5">
+                      <div className="w-10 h-10 rounded-lg bg-navy-800 flex items-center justify-center text-slate-300 shrink-0 border border-white/5">
                         <Compass size={18} />
                       </div>
                       <div>

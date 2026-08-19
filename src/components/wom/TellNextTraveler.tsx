@@ -98,7 +98,7 @@ export default function TellNextTraveler({ isOpen, onClose, destinationName, tri
               <div className="flex items-center gap-2 text-xs font-bold text-teal-400 uppercase tracking-widest mb-2">
                 <MessageCircle size={14} /> Tell the Next Traveler
               </div>
-              <p className="text-[11px] text-slate-500 mb-1">About <span className="text-teal-300 font-bold">{destinationName}</span></p>
+              <p className="text-[11px] text-slate-300 mb-1">About <span className="text-teal-300 font-bold">{destinationName}</span></p>
 
               {/* Progress */}
               <div className="flex gap-1 my-4">{questions.map((_, i) => <div key={i} className={`h-1 flex-1 rounded-full transition-all ${i <= step ? "bg-teal-400" : "bg-white/10"}`} />)}</div>
@@ -112,7 +112,7 @@ export default function TellNextTraveler({ isOpen, onClose, destinationName, tri
                     onChange={(e) => setForm({ ...form, [currentQ.key]: e.target.value })}
                     placeholder={"placeholder" in currentQ ? currentQ.placeholder : ""}
                     rows={3}
-                    className="w-full p-4 bg-white/5 border border-white/15 rounded-2xl text-sm text-white placeholder:text-slate-500 focus:ring-2 focus:ring-teal-500 focus:outline-none resize-none"
+                    className="w-full p-4 bg-white/5 border border-white/15 rounded-2xl text-sm text-white placeholder:text-slate-300 focus:ring-2 focus:ring-teal-500 focus:outline-none resize-none"
                   />
                   <div className="flex justify-between">
                     {step > 0 && <button onClick={() => setStep(step - 1)} className="text-sm text-slate-400 hover:text-white">Back</button>}

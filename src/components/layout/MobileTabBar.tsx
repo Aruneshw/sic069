@@ -19,10 +19,13 @@ export default function MobileTabBar() {
 
   return (
     <div
-      className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/90 backdrop-blur-md border-t pb-safe"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-40 pb-safe"
       style={{
-        borderColor: "var(--slate-200)",
-        boxShadow: "0 -4px 20px rgba(0,0,0,0.04)",
+        background: "rgba(5, 10, 16, 0.85)",
+        backdropFilter: "blur(18px)",
+        WebkitBackdropFilter: "blur(18px)",
+        borderTop: "1px solid var(--border-subtle)",
+        boxShadow: "0 -4px 20px rgba(0,0,0,0.3)",
       }}
     >
       <div className="flex items-center justify-around h-16">
@@ -34,18 +37,20 @@ export default function MobileTabBar() {
             <Link
               key={tab.href}
               href={tab.href}
-              className={`flex flex-col items-center justify-center w-full h-full gap-1 no-underline transition-colors ${
-                isActive ? "text-navy-700" : "text-slate-400 hover:text-slate-600"
-              }`}
+              className="flex flex-col items-center justify-center w-full h-full gap-1 no-underline transition-colors"
+              style={{
+                color: isActive ? "var(--gold-400)" : "var(--text-muted)",
+              }}
             >
               <div
-                className={`relative flex items-center justify-center p-1 rounded-full transition-all ${
-                  isActive ? "bg-navy-50" : "bg-transparent"
-                }`}
+                className="relative flex items-center justify-center p-1 rounded-full transition-all"
+                style={{
+                  background: isActive ? "rgba(200, 165, 92, 0.10)" : "transparent",
+                }}
               >
                 <Icon size={20} strokeWidth={isActive ? 2.5 : 2} />
               </div>
-              <span className={`text-[10px] font-medium ${isActive ? "text-navy-700 font-semibold" : ""}`}>
+              <span className={`text-[10px] ${isActive ? "font-semibold" : "font-medium"}`}>
                 {tab.label}
               </span>
             </Link>

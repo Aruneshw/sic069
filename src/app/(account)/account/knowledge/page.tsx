@@ -93,7 +93,7 @@ export default function MyTravelKnowledgePage() {
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <span className="px-2 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[10px] font-bold uppercase">{c.destination}</span>
-                  <span className="text-[10px] text-slate-500">{c.date}</span>
+                  <span className="text-[10px] text-slate-300">{c.date}</span>
                 </div>
                 <div className="text-sm font-bold text-white">{c.title}</div>
               </div>

@@ -27,7 +27,7 @@ export default function StatCard({ title, value, icon, trend, delay = 0 }: StatC
       <div className="absolute -right-6 -top-6 w-24 h-24 bg-navy-50 rounded-full opacity-50 blur-2xl pointer-events-none" />
       
       <div className="flex items-center justify-between mb-4 relative z-10">
-        <h3 className="text-sm font-medium text-slate-500 uppercase tracking-wider">{title}</h3>
+        <h3 className="text-sm font-medium text-slate-300 uppercase tracking-wider">{title}</h3>
         <div className="p-2 bg-teal-50 text-teal-600 rounded-lg">
           {icon}
         </div>

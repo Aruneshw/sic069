@@ -448,7 +448,7 @@ export default function AdminPackageForm({
                 <div className="relative">
                   <IndianRupee
                     size={14}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
                   />
                   <input
                     type="number"
@@ -469,7 +469,7 @@ export default function AdminPackageForm({
                 <div className="relative">
                   <Clock
                     size={14}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
                   />
                   <input
                     type="text"
@@ -488,7 +488,7 @@ export default function AdminPackageForm({
                 <div className="relative">
                   <Users
                     size={14}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
                   />
                   <input
                     type="number"
@@ -534,7 +534,7 @@ export default function AdminPackageForm({
                 <div className="relative">
                   <ImageIcon
                     size={14}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
                   />
                   <input
                     type="text"
@@ -553,7 +553,7 @@ export default function AdminPackageForm({
                 <div className="relative">
                   <Video
                     size={14}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300"
                   />
                   <input
                     type="text"
@@ -613,7 +613,7 @@ export default function AdminPackageForm({
                   {form.itinerary.length > 1 && (
                     <button
                       onClick={() => removeItineraryStep(index)}
-                      className="absolute top-3 right-3 p-1.5 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
+                      className="absolute top-3 right-3 p-1.5 text-slate-300 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100"
                     >
                       <Trash2 size={14} />
                     </button>
@@ -719,7 +719,7 @@ export default function AdminPackageForm({
                   {form.inclusions.length > 1 && (
                     <button
                       onClick={() => removeInclusion(index)}
-                      className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors shrink-0"
+                      className="p-2 text-slate-300 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors shrink-0"
                     >
                       <Trash2 size={14} />
                     </button>
@@ -759,7 +759,7 @@ export default function AdminPackageForm({
                   {form.includedTripIds.length > 1 && (
                     <button
                       onClick={() => removeTripId(index)}
-                      className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors shrink-0"
+                      className="p-2 text-slate-300 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-colors shrink-0"
                     >
                       <Trash2 size={14} />
                     </button>
@@ -806,7 +806,7 @@ export default function AdminPackageForm({
                   />
                   {status}
                   {status === "Published" && (
-                    <span className="ml-auto text-[10px] text-slate-500 font-normal">
+                    <span className="ml-auto text-[10px] text-slate-300 font-normal">
                       Visible to public
                     </span>
                   )}

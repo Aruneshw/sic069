@@ -81,10 +81,10 @@ export default function NotificationPanel() {
           // Prepend new notification to state
           setNotifications((prev) => [payload.new as Notification, ...prev]);
           toast.custom((t) => (
-            <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} max-w-md w-full bg-white shadow-lg rounded-2xl pointer-events-auto flex ring-1 ring-black ring-opacity-5 p-4`}>
+            <div className={`${t.visible ? 'animate-enter' : 'animate-leave'} max-w-md w-full bg-[rgba(12,22,38,0.85)] backdrop-blur-md shadow-lg rounded-2xl pointer-events-auto flex ring-1 ring-black ring-opacity-5 p-4`}>
               <div className="flex-1 w-0">
                 <p className="text-sm font-bold text-navy-900">New Notification!</p>
-                <p className="mt-1 text-sm text-slate-500">{payload.new.title}</p>
+                <p className="mt-1 text-sm text-slate-300">{payload.new.title}</p>
               </div>
             </div>
           ), { duration: 4000, position: 'bottom-right' });
@@ -170,7 +170,7 @@ export default function NotificationPanel() {
               </div>
               <button
                 onClick={closeNotificationPanel}
-                className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-50 rounded-full transition-colors"
+                className="p-2 text-slate-400 hover:text-[#94A3B8] hover:bg-slate-50 rounded-full transition-colors"
                 aria-label="Close panel"
               >
                 <X size={20} />
@@ -179,7 +179,7 @@ export default function NotificationPanel() {
 
             {/* Actions */}
             <div className="flex items-center justify-between px-6 py-4 bg-slate-50/50 border-b border-slate-100">
-              <span className="text-sm font-medium text-slate-600">
+              <span className="text-sm font-medium text-slate-200">
                 {notifications.filter(n => !n.isRead).length} Unread
               </span>
               <button 
@@ -201,7 +201,7 @@ export default function NotificationPanel() {
               ) : notifications.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-center px-4 opacity-70">
                   <Bell size={48} className="text-slate-300 mb-4" />
-                  <h3 className="text-slate-600 font-semibold mb-1">No notifications yet</h3>
+                  <h3 className="text-slate-200 font-semibold mb-1">No notifications yet</h3>
                   <p className="text-slate-400 text-sm">We'll let you know when there's an update.</p>
                 </div>
               ) : (
@@ -217,20 +217,20 @@ export default function NotificationPanel() {
                   >
                     <div className="flex gap-4">
                       <div className={`mt-1 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
-                        notification.isRead ? "bg-slate-100" : "bg-white shadow-sm"
+                        notification.isRead ? "bg-slate-100" : "bg-[rgba(12,22,38,0.85)] backdrop-blur-md shadow-sm"
                       }`}>
                         {getIconForType(notification.type)}
                       </div>
                       <div>
                         <div className="flex items-start justify-between gap-2 mb-1">
-                          <h4 className={`text-sm font-bold ${notification.isRead ? "text-slate-700" : "text-navy-900"}`}>
+                          <h4 className={`text-sm font-bold ${notification.isRead ? "text-[#94A3B8]" : "text-navy-900"}`}>
                             {notification.title}
                           </h4>
                           <span className="text-[11px] font-medium text-slate-400 whitespace-nowrap">
                             {getRelativeTime(notification.createdAt)}
                           </span>
                         </div>
-                        <p className={`text-sm leading-relaxed ${notification.isRead ? "text-slate-500" : "text-slate-600"}`}>
+                        <p className={`text-sm leading-relaxed ${notification.isRead ? "text-slate-300" : "text-slate-200"}`}>
                           {notification.message}
                         </p>
                       </div>

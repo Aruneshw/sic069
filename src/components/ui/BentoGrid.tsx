@@ -77,8 +77,6 @@ export function BentoCard({
     2: "lg:row-span-2",
   }[rowSpan];
 
-  const isDark = variant === "crimson";
-
   return (
     <div
       onClick={onClick}
@@ -91,20 +89,21 @@ export function BentoCard({
         <div className="flex flex-wrap items-center justify-between gap-2 mb-4 relative z-10">
           {headerBadge && (
             <span
-              className={`inline-flex items-center px-3.5 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
-                isDark
-                  ? "bg-white/15 text-[#F7B538] border border-[#F7B538]/30"
-                  : "bg-white text-[#780116] border border-[#780116]/15 shadow-sm"
-              }`}
+              className="inline-flex items-center px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest"
+              style={{
+                background: "var(--surface-glass)",
+                backdropFilter: "blur(12px)",
+                color: "var(--gold-500)",
+                border: "1px solid var(--border-subtle)",
+              }}
             >
               {headerBadge}
             </span>
           )}
           {scriptSubtitle && (
             <span
-              className={`font-script text-xl ${
-                isDark ? "text-[#F7B538]" : "text-[#780116]"
-              } ml-auto`}
+              className="font-script text-xl ml-auto"
+              style={{ color: "var(--gold-400)" }}
             >
               {scriptSubtitle}
             </span>
@@ -116,19 +115,14 @@ export function BentoCard({
       {(title || description) && (
         <div className="mb-4 relative z-10">
           {title && (
-            <h3
-              className={`text-2xl font-extrabold tracking-tight mb-2 ${
-                isDark ? "text-white" : "text-[#150408]"
-              }`}
-            >
+            <h3 className="heading-card tracking-tight mb-2">
               {title}
             </h3>
           )}
           {description && (
             <p
-              className={`text-xs md:text-sm leading-relaxed ${
-                isDark ? "text-slate-200" : "text-slate-600"
-              }`}
+              className="text-xs md:text-sm leading-relaxed"
+              style={{ color: "var(--text-secondary)" }}
             >
               {description}
             </p>

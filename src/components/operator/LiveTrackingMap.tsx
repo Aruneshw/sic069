@@ -99,12 +99,12 @@ export default function LiveTrackingMap({ onClose }: LiveTrackingMapProps) {
               </span>
               Popular Destinations
             </h2>
-            <p className="text-slate-500 text-sm mt-1">Discover incredible places in South India</p>
+            <p className="text-slate-300 text-sm mt-1">Discover incredible places in South India</p>
           </div>
           
           <button
             onClick={onClose}
-            className="pointer-events-auto w-12 h-12 bg-white hover:bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-slate-600 transition-all shadow-lg"
+            className="pointer-events-auto w-12 h-12 bg-white hover:bg-slate-50 border border-slate-200 rounded-full flex items-center justify-center text-slate-200 transition-all shadow-lg"
             aria-label="Close Map"
           >
             <X size={24} />
@@ -156,7 +156,7 @@ export default function LiveTrackingMap({ onClose }: LiveTrackingMapProps) {
                   {/* Name Tag */}
                   <div className="mt-3 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-xl shadow-lg flex flex-col items-center opacity-90 group-hover:opacity-100 transition-opacity min-w-max">
                     <span className="text-[14px] font-bold text-slate-800 whitespace-nowrap">{place.name}</span>
-                    <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider">{place.description}</span>
+                    <span className="text-[10px] text-slate-300 font-semibold uppercase tracking-wider">{place.description}</span>
                   </div>
                 </div>
               </Marker>

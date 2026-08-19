@@ -31,20 +31,20 @@ export default function AskLocalPage() {
   }, [selectedDest]);
 
   return (
-    <div className="min-h-screen bg-[#FBF9F5] text-[#150408] pb-24">
+    <div className="min-h-screen bg-transparent text-white pb-24">
       {/* Hero */}
       <div className="pt-36 pb-16 md:pt-44 md:pb-20 text-center relative overflow-hidden px-4">
         <div className="container-main relative z-10 max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FDE8EC] border border-[#780116]/20 text-xs font-black text-[#780116] uppercase tracking-widest mb-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(12,22,38,0.85)] border border-[rgba(255,255,255,0.08)] text-xs font-black text-[#C8A55C] uppercase tracking-widest mb-4">
             <MessageCircle size={14} /> Verified Local Intelligence
           </div>
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-[#150408] leading-tight mb-3">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-3">
             What would you ask someone who{" "}
-            <span className="font-script text-4xl md:text-6xl text-[#780116] block sm:inline">
+            <span className="font-script text-4xl md:text-6xl text-[#C8A55C] block sm:inline">
               actually lives here?
             </span>
           </h1>
-          <p className="text-slate-600 text-base md:text-lg max-w-xl mx-auto font-medium">
+          <p className="text-slate-200 text-base md:text-lg max-w-xl mx-auto font-medium">
             Get verified local insights. No generic advice. No hallucinated facts.
           </p>
         </div>
@@ -59,11 +59,11 @@ export default function AskLocalPage() {
               onClick={() => setSelectedDest(d)}
               className={`px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-wider border transition-all duration-300 ${
                 d === selectedDest
-                  ? "bg-[#780116] text-[#F7B538] border-[#780116] shadow-md scale-105"
-                  : "bg-white border-[#780116]/15 text-slate-700 hover:bg-[#FAF0DF]"
+                  ? "bg-[#C8A55C] text-[#05070B] border-[#780116] shadow-md scale-105"
+                  : "bg-white border-[#780116]/15 text-[#94A3B8] hover:bg-[rgba(12,22,38,0.85)]"
               }`}
             >
-              <MapPin size={13} className="inline mr-1 text-[#F7B538]" />
+              <MapPin size={13} className="inline mr-1 text-[#05070B]" />
               {d}
             </button>
           ))}
@@ -109,12 +109,12 @@ export default function AskLocalPage() {
 
         {/* Trust Footer */}
         <div className="text-center pb-16 space-y-3">
-          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 font-semibold">
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-300 font-semibold">
             <div className="flex items-center gap-1.5"><ShieldCheck size={14} className="text-emerald-600" /> Verified knowledge only</div>
-            <div className="flex items-center gap-1.5"><Users size={14} className="text-[#780116]" /> Community-confirmed insights</div>
-            <div className="flex items-center gap-1.5"><Sparkles size={14} className="text-[#D49018]" /> Zero AI hallucinated facts</div>
+            <div className="flex items-center gap-1.5"><Users size={14} className="text-[#C8A55C]" /> Community-confirmed insights</div>
+            <div className="flex items-center gap-1.5"><Sparkles size={14} className="text-[#C8A55C]" /> Zero AI hallucinated facts</div>
           </div>
-          <p className="text-[11px] text-slate-500 max-w-xl mx-auto">
+          <p className="text-[11px] text-slate-300 max-w-xl mx-auto">
             All insights are sourced from certified regional guides, verified local operators, and traveler reports. Freshness indicators show when information was last verified.
           </p>
         </div>

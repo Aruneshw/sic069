@@ -155,24 +155,24 @@ const VideoTile = React.memo(({ tour, index, onPlayLightbox }: { tour: VideoTour
 
         {/* Floating Top Badges */}
         <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20">
-          <span className="px-3 py-1 rounded-full bg-[#780116]/90 backdrop-blur-md text-[#F7B538] text-[10px] font-black uppercase tracking-widest border border-[#F7B538]/40 shadow-sm">
+          <span className="px-3 py-1 rounded-full bg-[#C8A55C]/90 backdrop-blur-md text-[#05070B] text-[10px] font-black uppercase tracking-widest border border-[rgba(200,165,92,0.20)] shadow-sm">
             {tour.category}
           </span>
-          <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-[#150408] text-[10px] font-extrabold uppercase shadow-sm">
+          <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-white text-[10px] font-extrabold uppercase shadow-sm">
             {tour.duration}
           </span>
         </div>
 
         {/* Center Play Icon */}
         <div className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
-          <div className="w-14 h-14 rounded-full bg-[#F7B538] text-[#150408] flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:bg-[#F9C862] transition-transform duration-300">
+          <div className="w-14 h-14 rounded-full bg-[#F7B538] text-white flex items-center justify-center shadow-xl group-hover:scale-110 group-hover:bg-[#F9C862] transition-transform duration-300">
             <Play size={22} className="ml-1 fill-[#150408]" />
           </div>
         </div>
 
         {/* Bottom Title & Description */}
         <div className="absolute bottom-0 left-0 right-0 p-6 z-20 text-white">
-          <h3 className="text-xl font-extrabold mb-1 drop-shadow-md group-hover:text-[#F7B538] transition-colors">
+          <h3 className="text-xl font-extrabold mb-1 drop-shadow-md group-hover:text-[#05070B] transition-colors">
             {tour.title}
           </h3>
           <p className="text-xs text-slate-200 line-clamp-2 leading-relaxed font-light">
@@ -227,19 +227,19 @@ export default function ImmersiveVideoGallery() {
   }, []);
 
   return (
-    <section className="py-20 bg-[#FBF9F5] border-t border-[#780116]/10 px-4 md:px-8">
+    <section className="py-20 bg-transparent border-t border-[rgba(255,255,255,0.06)] px-4 md:px-8">
       <div className="container-main">
         <div className="max-w-3xl mx-auto text-center mb-14">
-          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#FAF0DF] border border-[#F7B538]/40 text-xs font-black tracking-widest text-[#7E5105] uppercase mb-3">
-            <Compass size={14} className="text-[#D49018]" /> Immersive Tour Previews
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[rgba(12,22,38,0.85)] border border-[rgba(200,165,92,0.20)] text-xs font-black tracking-widest text-[#C8A55C] uppercase mb-3">
+            <Compass size={14} className="text-[#C8A55C]" /> Immersive Tour Previews
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-[#150408] mb-3">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-3">
             Virtual Regional Expeditions
           </h2>
-          <p className="font-script text-3xl text-[#780116] mb-3">
+          <p className="font-script text-3xl text-[#C8A55C] mb-3">
             Experience the vistas before you step onto the trail
           </p>
-          <p className="text-slate-600 text-sm md:text-base max-w-xl mx-auto font-medium">
+          <p className="text-slate-200 text-sm md:text-base max-w-xl mx-auto font-medium">
             Hover to preview each region in high definition.
           </p>
         </div>
@@ -265,11 +265,11 @@ export default function ImmersiveVideoGallery() {
               initial={{ scale: 0.95, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 20 }}
-              className="relative w-full max-w-4xl rounded-[2.5rem] overflow-hidden border border-[#F7B538]/40 bg-[#150408] text-white shadow-2xl z-10 flex flex-col"
+              className="relative w-full max-w-4xl rounded-[2.5rem] overflow-hidden border border-[rgba(200,165,92,0.20)] bg-[#150408] text-white shadow-2xl z-10 flex flex-col"
             >
               <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#0B0204]">
                 <div>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-[#F7B538]">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-[#05070B]">
                     {activeVideo.category} • {activeVideo.duration} Tour
                   </span>
                   <h3 className="text-lg font-bold text-white">{activeVideo.title}</h3>
@@ -310,7 +310,7 @@ export default function ImmersiveVideoGallery() {
                     </button>
                   </div>
 
-                  <span className="px-3.5 py-1.5 rounded-xl bg-[#F7B538] font-black text-[11px] text-[#150408] shadow-lg tracking-wider">
+                  <span className="px-3.5 py-1.5 rounded-xl bg-[#F7B538] font-black text-[11px] text-white shadow-lg tracking-wider">
                     4K ULTRA HD
                   </span>
                 </div>

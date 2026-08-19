@@ -166,17 +166,17 @@ export default function TripDetailClient({ trip }: { trip: any }) {
   const included = JSON.parse(trip.included) as string[];
 
   return (
-    <div className="min-h-screen pt-32 md:pt-44 pb-24 bg-[#FBF9F5]">
+    <div className="min-h-screen pt-32 md:pt-44 pb-24 bg-transparent">
       <Toaster position="bottom-center" reverseOrder={false} />
       
       <div className="container-main px-4 md:px-8">
         {/* Breadcrumb */}
-        <div className="flex items-center gap-2 text-sm font-semibold text-[#780116]/60 mb-6 anime-stagger opacity-0" style={{ fontFamily: "var(--font-poppins)" }}>
-          <Link href="/" className="hover:text-[#780116] transition-colors no-underline text-slate-500">Home</Link>
+        <div className="flex items-center gap-2 text-sm font-semibold text-[#C8A55C]/60 mb-6 anime-stagger opacity-0" style={{ fontFamily: "var(--font-poppins)" }}>
+          <Link href="/" className="hover:text-[#C8A55C] transition-colors no-underline text-slate-300">Home</Link>
           <ChevronRight size={14} className="text-slate-400" />
-          <Link href="/trips" className="hover:text-[#780116] transition-colors no-underline text-slate-500">Trips</Link>
+          <Link href="/trips" className="hover:text-[#C8A55C] transition-colors no-underline text-slate-300">Trips</Link>
           <ChevronRight size={14} className="text-slate-400" />
-          <span className="text-[#780116] font-bold">{trip.category}</span>
+          <span className="text-[#C8A55C] font-bold">{trip.category}</span>
         </div>
 
         {/* Header */}
@@ -207,17 +207,17 @@ export default function TripDetailClient({ trip }: { trip: any }) {
                 boxShadow: "4px 4px 12px rgba(120,1,22,0.06), -2px -2px 8px rgba(255,255,255,0.9), inset 1px 1px 3px rgba(255,255,255,0.7)",
               }}
             >
-              <Compass size={14} className="text-[#D49018]" /> Ask Local Guide
+              <Compass size={14} className="text-[#C8A55C]" /> Ask Local Guide
             </button>
           </div>
 
           <h1
-            className="anime-stagger opacity-0 text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#150408] mb-4 leading-[1.1] tracking-tight"
+            className="anime-stagger opacity-0 text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-[1.1] tracking-tight"
             style={{ fontFamily: "var(--font-poppins)" }}
           >
             {trip.name}
           </h1>
-          <p className="anime-stagger opacity-0 text-lg md:text-xl text-slate-600 font-medium" style={{ fontFamily: "var(--font-poppins)" }}>
+          <p className="anime-stagger opacity-0 text-lg md:text-xl text-slate-200 font-medium" style={{ fontFamily: "var(--font-poppins)" }}>
             {trip.tagline}
           </p>
         </div>
@@ -225,7 +225,7 @@ export default function TripDetailClient({ trip }: { trip: any }) {
         {/* Image Mosaic (Bento Grid) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5 h-[350px] md:h-[480px] lg:h-[560px] mb-14 anime-scale-up opacity-0">
           <div className="md:col-span-2 relative group overflow-hidden" style={{ borderRadius: 28, boxShadow: "8px 8px 24px rgba(120,1,22,0.1), -4px -4px 14px rgba(255,255,255,0.8)" }}>
-            <div className="absolute inset-0 bg-[#FAF0DF] animate-pulse -z-10" style={{ borderRadius: 28 }} />
+            <div className="absolute inset-0 bg-[rgba(12,22,38,0.85)] animate-pulse -z-10" style={{ borderRadius: 28 }} />
             <img 
               src={getAssetUrl(trip.imageUrl || "/images/trips-hero.png")} 
               alt={trip.name} 
@@ -235,7 +235,7 @@ export default function TripDetailClient({ trip }: { trip: any }) {
           </div>
           <div className="hidden md:flex flex-col gap-5 h-full">
             <div className="flex-1 relative group overflow-hidden" style={{ borderRadius: 24, boxShadow: "6px 6px 18px rgba(120,1,22,0.08), -3px -3px 10px rgba(255,255,255,0.8)" }}>
-              <div className="absolute inset-0 bg-[#FDE8EC] animate-pulse -z-10" />
+              <div className="absolute inset-0 bg-[rgba(12,22,38,0.85)] animate-pulse -z-10" />
               <img src={getAssetUrl("/images/trips/detail_1.png")} alt="Luxury View" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" style={{ borderRadius: 24 }} />
             </div>
             <div className="flex-1 relative group overflow-hidden" style={{ borderRadius: 24, boxShadow: "6px 6px 18px rgba(120,1,22,0.08), -3px -3px 10px rgba(255,255,255,0.8)" }}>
@@ -276,39 +276,39 @@ export default function TripDetailClient({ trip }: { trip: any }) {
             {/* Quick Overview Stats */}
             <div className="bento-card-base bento-white p-6 flex flex-wrap justify-between items-center gap-6 anime-stagger opacity-0">
               <div className="flex flex-col gap-1">
-                <span className="text-[#D49018] text-[11px] font-bold uppercase tracking-widest" style={{ fontFamily: "var(--font-poppins)" }}>Rating</span>
+                <span className="text-[#C8A55C] text-[11px] font-bold uppercase tracking-widest" style={{ fontFamily: "var(--font-poppins)" }}>Rating</span>
                 <div className="flex items-center gap-2">
-                  <Star className="fill-[#F7B538] text-[#F7B538]" size={22} />
-                  <span className="text-2xl font-extrabold text-[#150408]">{trip.rating}</span>
+                  <Star className="fill-[#F7B538] text-[#05070B]" size={22} />
+                  <span className="text-2xl font-extrabold text-white">{trip.rating}</span>
                 </div>
               </div>
-              <div className="w-px h-12 bg-[#780116]/10 hidden md:block" />
+              <div className="w-px h-12 bg-[#C8A55C]/10 hidden md:block" />
               <div className="flex flex-col gap-1">
-                <span className="text-[#D49018] text-[11px] font-bold uppercase tracking-widest" style={{ fontFamily: "var(--font-poppins)" }}>Duration</span>
+                <span className="text-[#C8A55C] text-[11px] font-bold uppercase tracking-widest" style={{ fontFamily: "var(--font-poppins)" }}>Duration</span>
                 <div className="flex items-center gap-2">
-                  <Clock className="text-[#780116]" size={22} />
-                  <span className="text-2xl font-extrabold text-[#150408]">{trip.duration}</span>
+                  <Clock className="text-[#C8A55C]" size={22} />
+                  <span className="text-2xl font-extrabold text-white">{trip.duration}</span>
                 </div>
               </div>
-              <div className="w-px h-12 bg-[#780116]/10 hidden md:block" />
+              <div className="w-px h-12 bg-[#C8A55C]/10 hidden md:block" />
               <div className="flex flex-col gap-1">
-                <span className="text-[#D49018] text-[11px] font-bold uppercase tracking-widest" style={{ fontFamily: "var(--font-poppins)" }}>Type</span>
+                <span className="text-[#C8A55C] text-[11px] font-bold uppercase tracking-widest" style={{ fontFamily: "var(--font-poppins)" }}>Type</span>
                 <div className="flex items-center gap-2">
-                  <Compass className="text-[#780116]" size={22} />
-                  <span className="text-2xl font-extrabold text-[#150408]">{trip.category}</span>
+                  <Compass className="text-[#C8A55C]" size={22} />
+                  <span className="text-2xl font-extrabold text-white">{trip.category}</span>
                 </div>
               </div>
             </div>
 
             {/* About */}
             <div className="bento-card-base bento-champagne p-8 md:p-12 anime-stagger opacity-0">
-              <h2 className="text-3xl font-extrabold text-[#150408] mb-5 tracking-tight" style={{ fontFamily: "var(--font-poppins)" }}>The Experience</h2>
-              <p className="text-slate-700 text-lg leading-relaxed">{trip.description}</p>
+              <h2 className="text-3xl font-extrabold text-white mb-5 tracking-tight" style={{ fontFamily: "var(--font-poppins)" }}>The Experience</h2>
+              <p className="text-[#94A3B8] text-lg leading-relaxed">{trip.description}</p>
             </div>
 
             {/* Highlights Grid */}
             <div className="bento-card-base bento-white p-8 md:p-12 anime-stagger opacity-0">
-              <h2 className="text-3xl font-extrabold text-[#150408] mb-8 tracking-tight" style={{ fontFamily: "var(--font-poppins)" }}>Expedition Highlights</h2>
+              <h2 className="text-3xl font-extrabold text-white mb-8 tracking-tight" style={{ fontFamily: "var(--font-poppins)" }}>Expedition Highlights</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {highlights.map((highlight, idx) => (
                   <div
@@ -329,7 +329,7 @@ export default function TripDetailClient({ trip }: { trip: any }) {
                     >
                       <Zap size={18} className="text-white fill-white" />
                     </div>
-                    <span className="text-[#150408] font-semibold leading-tight pt-1" style={{ fontFamily: "var(--font-poppins)" }}>{highlight}</span>
+                    <span className="text-white font-semibold leading-tight pt-1" style={{ fontFamily: "var(--font-poppins)" }}>{highlight}</span>
                   </div>
                 ))}
               </div>
@@ -337,8 +337,8 @@ export default function TripDetailClient({ trip }: { trip: any }) {
 
             {/* Explore Area (Map) */}
             <div className="bento-card-base bento-white p-8 md:p-12 anime-stagger opacity-0">
-              <h2 className="text-3xl font-extrabold text-[#150408] mb-2 tracking-tight" style={{ fontFamily: "var(--font-poppins)" }}>Explore the Area</h2>
-              <p className="text-slate-500 mb-8 font-medium">Get a sense of your surroundings and key landmarks.</p>
+              <h2 className="text-3xl font-extrabold text-white mb-2 tracking-tight" style={{ fontFamily: "var(--font-poppins)" }}>Explore the Area</h2>
+              <p className="text-slate-300 mb-8 font-medium">Get a sense of your surroundings and key landmarks.</p>
               <div className="rounded-2xl overflow-hidden border-2 border-[#780116]/8" style={{ boxShadow: "6px 6px 18px rgba(0,0,0,0.06)" }}>
                 <TripMap location={trip.name} />
               </div>
@@ -373,9 +373,9 @@ export default function TripDetailClient({ trip }: { trip: any }) {
                 }}
               >
                 <div>
-                  <div className="text-[11px] font-extrabold uppercase tracking-widest text-[#D49018]" style={{ fontFamily: "var(--font-poppins)" }}>You&apos;ve been here before?</div>
-                  <h4 className="text-lg font-bold text-[#150408]" style={{ fontFamily: "var(--font-poppins)" }}>Help the Next Traveler</h4>
-                  <p className="text-xs text-slate-500 font-medium">Share your experience — what to avoid, actual costs, and local tips.</p>
+                  <div className="text-[11px] font-extrabold uppercase tracking-widest text-[#C8A55C]" style={{ fontFamily: "var(--font-poppins)" }}>You&apos;ve been here before?</div>
+                  <h4 className="text-lg font-bold text-white" style={{ fontFamily: "var(--font-poppins)" }}>Help the Next Traveler</h4>
+                  <p className="text-xs text-slate-300 font-medium">Share your experience — what to avoid, actual costs, and local tips.</p>
                 </div>
                 <button
                   onClick={() => setIsTellNextOpen(true)}
@@ -387,14 +387,14 @@ export default function TripDetailClient({ trip }: { trip: any }) {
                     fontFamily: "var(--font-poppins)",
                   }}
                 >
-                  <MessageCircle size={16} className="text-[#F7B538]" /> Share Experience
+                  <MessageCircle size={16} className="text-[#05070B]" /> Share Experience
                 </button>
               </div>
             </div>
 
             {/* Itinerary */}
             <div className="bento-card-base bento-white p-8 md:p-12 anime-stagger opacity-0">
-              <h2 className="text-3xl font-extrabold text-[#150408] mb-8 tracking-tight" style={{ fontFamily: "var(--font-poppins)" }}>Daily Itinerary</h2>
+              <h2 className="text-3xl font-extrabold text-white mb-8 tracking-tight" style={{ fontFamily: "var(--font-poppins)" }}>Daily Itinerary</h2>
               <div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-[#F7B538] before:via-[#780116]/20 before:to-transparent">
                 {itinerary.map((day, idx) => (
                   <div key={day.day} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
@@ -418,8 +418,8 @@ export default function TripDetailClient({ trip }: { trip: any }) {
                         boxShadow: "5px 5px 16px rgba(0,0,0,0.05), -3px -3px 10px rgba(255,255,255,0.9), inset 1px 1px 4px rgba(255,255,255,0.7)",
                       }}
                     >
-                      <h3 className="text-lg font-bold text-[#150408] mb-2" style={{ fontFamily: "var(--font-poppins)" }}>{day.title}</h3>
-                      <p className="text-slate-600 text-sm leading-relaxed">{day.description}</p>
+                      <h3 className="text-lg font-bold text-white mb-2" style={{ fontFamily: "var(--font-poppins)" }}>{day.title}</h3>
+                      <p className="text-slate-200 text-sm leading-relaxed">{day.description}</p>
                     </div>
                   </div>
                 ))}
@@ -442,10 +442,10 @@ export default function TripDetailClient({ trip }: { trip: any }) {
               
               <div className="flex items-end justify-between border-b-2 border-[#780116]/8 pb-6 mb-8">
                 <div>
-                  <span className="text-[11px] font-bold text-[#D49018] uppercase tracking-widest block mb-2" style={{ fontFamily: "var(--font-poppins)" }}>Price per person</span>
+                  <span className="text-[11px] font-bold text-[#C8A55C] uppercase tracking-widest block mb-2" style={{ fontFamily: "var(--font-poppins)" }}>Price per person</span>
                   <div className="flex items-end gap-2">
-                     <span className="text-5xl font-extrabold text-[#150408] tracking-tighter" style={{ fontFamily: "var(--font-poppins)" }}>${trip.price}</span>
-                     <span className="text-[#780116] font-bold mb-1 text-sm" style={{ fontFamily: "var(--font-poppins)" }}>USD</span>
+                     <span className="text-5xl font-extrabold text-white tracking-tighter" style={{ fontFamily: "var(--font-poppins)" }}>${trip.price}</span>
+                     <span className="text-[#C8A55C] font-bold mb-1 text-sm" style={{ fontFamily: "var(--font-poppins)" }}>USD</span>
                   </div>
                 </div>
               </div>
@@ -461,14 +461,14 @@ export default function TripDetailClient({ trip }: { trip: any }) {
                 >
                   <div className="flex items-center gap-4">
                     <div className="p-2 rounded-xl" style={{ background: "linear-gradient(145deg, #F9C862, #D49018)", boxShadow: "2px 2px 6px rgba(168,110,12,0.2)" }}>
-                      <CalendarIcon size={20} className="text-[#150408]" />
+                      <CalendarIcon size={20} className="text-white" />
                     </div>
                     <div>
-                      <div className="text-[#150408] font-bold text-base" style={{ fontFamily: "var(--font-poppins)" }}>Select Date</div>
-                      <div className="text-xs text-slate-500 font-medium">View available departures</div>
+                      <div className="text-white font-bold text-base" style={{ fontFamily: "var(--font-poppins)" }}>Select Date</div>
+                      <div className="text-xs text-slate-300 font-medium">View available departures</div>
                     </div>
                   </div>
-                  <ChevronRight size={18} className="text-[#D49018]" />
+                  <ChevronRight size={18} className="text-[#C8A55C]" />
                 </div>
                 
                 <div
@@ -484,8 +484,8 @@ export default function TripDetailClient({ trip }: { trip: any }) {
                       <Users size={20} className="text-white" />
                     </div>
                     <div>
-                      <div className="text-[#150408] font-bold text-base" style={{ fontFamily: "var(--font-poppins)" }}>Travelers</div>
-                      <div className="text-xs text-slate-500 font-medium">2 Adults</div>
+                      <div className="text-white font-bold text-base" style={{ fontFamily: "var(--font-poppins)" }}>Travelers</div>
+                      <div className="text-xs text-slate-300 font-medium">2 Adults</div>
                     </div>
                   </div>
                   <ChevronRight size={18} className="text-[#86C29C]" />
@@ -511,18 +511,18 @@ export default function TripDetailClient({ trip }: { trip: any }) {
 
               {/* What's Included Mini-List */}
               <div className="mt-8 pt-6 border-t-2 border-[#780116]/6">
-                <h4 className="text-xs font-bold text-[#150408] mb-5 uppercase tracking-widest" style={{ fontFamily: "var(--font-poppins)" }}>Included Amenities</h4>
+                <h4 className="text-xs font-bold text-white mb-5 uppercase tracking-widest" style={{ fontFamily: "var(--font-poppins)" }}>Included Amenities</h4>
                 <ul className="space-y-3">
                   {included.slice(0, 4).map((item, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-sm text-slate-700 font-medium">
-                      <div className="p-1 bg-[#EBF5EE] rounded-full mt-0.5 shrink-0" style={{ boxShadow: "2px 2px 6px rgba(134,194,156,0.15)" }}>
+                    <li key={idx} className="flex items-start gap-3 text-sm text-[#94A3B8] font-medium">
+                      <div className="p-1 bg-[rgba(12,22,38,0.85)] rounded-full mt-0.5 shrink-0" style={{ boxShadow: "2px 2px 6px rgba(134,194,156,0.15)" }}>
                         <CheckCircle2 size={14} className="text-[#14532D]" />
                       </div>
                       <span>{item}</span>
                     </li>
                   ))}
                   {included.length > 4 && (
-                    <li className="text-xs text-[#D49018] font-bold uppercase tracking-widest cursor-pointer pt-2 hover:text-[#F7B538] transition-colors" style={{ fontFamily: "var(--font-poppins)" }}>
+                    <li className="text-xs text-[#C8A55C] font-bold uppercase tracking-widest cursor-pointer pt-2 hover:text-[#05070B] transition-colors" style={{ fontFamily: "var(--font-poppins)" }}>
                       + View {included.length - 4} more amenities
                     </li>
                   )}

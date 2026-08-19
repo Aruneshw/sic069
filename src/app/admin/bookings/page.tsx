@@ -23,13 +23,13 @@ export default function AdminBookingsPage() {
       <div className="bg-navy-900 border border-white/5 rounded-2xl overflow-hidden">
         <div className="p-4 border-b border-white/5 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="relative">
-            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+            <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-300" />
             <input type="text" placeholder="Search booking ID..." className="w-full md:w-64 bg-navy-950 border border-white/10 rounded-lg py-2 pl-9 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-teal-500/50" />
           </div>
         </div>
         <div className="overflow-x-auto min-h-[400px]">
           <table className="w-full text-left text-sm whitespace-nowrap">
-            <thead className="bg-navy-950/50 text-xs uppercase tracking-wider font-bold text-slate-500 border-b border-white/5">
+            <thead className="bg-navy-950/50 text-xs uppercase tracking-wider font-bold text-slate-300 border-b border-white/5">
               <tr>
                 <th className="px-5 py-4">Booking ID</th>
                 <th className="px-5 py-4">Customer</th>

@@ -26,12 +26,12 @@ export default function TravelDnaPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-navy-900">My Travel DNA</h1>
-          <p className="text-sm text-slate-500">Your personalized travel intelligence score matrix.</p>
+          <p className="text-sm text-slate-300">Your personalized travel intelligence score matrix.</p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={resetTravelDna}
-            className="px-4 py-2 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 flex items-center gap-1.5 transition-colors"
+            className="px-4 py-2 border border-slate-200 rounded-xl text-xs font-bold text-slate-200 hover:bg-slate-100 flex items-center gap-1.5 transition-colors"
           >
             <RefreshCw size={14} /> Reset DNA
           </button>
@@ -77,7 +77,7 @@ export default function TravelDnaPage() {
       </div>
 
       {/* Privacy Guarantee */}
-      <div className="p-4 bg-slate-100 rounded-xl border border-slate-200 flex items-center gap-3 text-xs text-slate-600">
+      <div className="p-4 bg-slate-100 rounded-xl border border-slate-200 flex items-center gap-3 text-xs text-slate-200">
         <ShieldCheck size={20} className="text-teal-600 shrink-0" />
         <span>Your Travel DNA is stored securely and used solely to match you with compatible, low-crowd escapes.</span>
       </div>

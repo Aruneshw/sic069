@@ -80,7 +80,7 @@ export default function AdminNotificationsPage() {
                         className={`flex flex-col items-center gap-2 p-3 rounded-xl border transition-all ${
                           isActive 
                             ? `${t.bg} border-opacity-50 ring-2 ring-white/10` 
-                            : 'bg-navy-950/50 border-navy-800 text-slate-500 hover:bg-navy-800'
+                            : 'bg-navy-950/50 border-navy-800 text-slate-300 hover:bg-navy-800'
                         }`}
                       >
                         <Icon className={isActive ? t.color : ""} size={20} />
@@ -135,7 +135,7 @@ export default function AdminNotificationsPage() {
         <div className="lg:col-span-1">
           <div className="sticky top-6">
             <h3 className="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Preview</h3>
-            <div className="bg-white rounded-xl border border-slate-100 p-4 shadow-xl">
+            <div className="bg-[rgba(12,22,38,0.85)] backdrop-blur-md rounded-xl border border-slate-100 p-4 shadow-xl">
               <div className="flex gap-4">
                 <div className="mt-1 flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center bg-teal-50/50">
                   {type === "SYSTEM_UPDATE" && <Info size={18} className="text-blue-500" />}
@@ -152,7 +152,7 @@ export default function AdminNotificationsPage() {
                       Just now
                     </span>
                   </div>
-                  <p className="text-sm leading-relaxed text-slate-600">
+                  <p className="text-sm leading-relaxed text-slate-200">
                     {message || "This is how your notification will appear in the user's dashboard slide-out panel."}
                   </p>
                 </div>

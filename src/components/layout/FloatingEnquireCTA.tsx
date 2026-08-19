@@ -107,7 +107,7 @@ export default function FloatingEnquireCTA() {
                 animate={{ rotate: isHovered ? 15 : 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 15 }}
               >
-                <Send size={16} className="text-[#F7B538]" />
+                <Send size={16} className="text-[#05070B]" />
               </motion.div>
               <span className="relative z-10">Enquire Now</span>
               
